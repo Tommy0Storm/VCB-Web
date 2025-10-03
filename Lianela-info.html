@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LIANELA V3 — The Future of Workplace Justice | VCB</title>
 
-  <!-- Quicksand: 300 (body) & 500 (headers) -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+  <!-- Quicksand: 400, 500, 600, 700 (enhanced readability) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -21,17 +21,19 @@
     }
 
     html,body{
-      margin:0; background:var(--white); color:var(--g-800);
+      margin:0; background:var(--white); color:var(--g-900);
       font-family:"Quicksand",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      font-weight:300; line-height:1.65; -webkit-font-smoothing:antialiased;
+      font-weight:400; line-height:1.65; -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
     }
-    h1,h2,h3,h4{ font-weight:500; color:var(--black); margin:0 0 .5rem; letter-spacing:.2px; }
-    h1{ font-size:clamp(32px,4vw,46px); }
-    h2{ font-size:clamp(24px,3vw,30px); }
-    h3{ font-size:clamp(18px,2.2vw,22px); color:var(--g-700); }
-    p{ margin:.35rem 0 1rem; }
+    h1,h2,h3,h4{ font-weight:600; color:var(--black); margin:0 0 .5rem; letter-spacing:.2px; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
+    h1{ font-size:clamp(32px,4vw,46px); font-weight:700; }
+    h2{ font-size:clamp(24px,3vw,30px); font-weight:600; }
+    h3{ font-size:clamp(18px,2.2vw,22px); color:var(--g-800); font-weight:600; }
+    p{ margin:.35rem 0 1rem; color:var(--g-700); font-weight:400; }
     ul{ margin:.2rem 0 1rem 1.1rem; padding:0; }
-    li{ margin:.25rem 0; color:var(--g-700); }
+    li{ margin:.25rem 0; color:var(--g-800); font-weight:400; }
 
     .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
     .section{ padding:44px 0; }
@@ -48,13 +50,14 @@
     /* Hero */
     .hero{ padding:44px 0 24px; }
     .slogan{ font-size:clamp(26px,3.6vw,38px); color:var(--black); }
-    .lede{ color:var(--g-500); max-width:860px; }
+    .lede{ color:var(--g-600); max-width:860px; font-weight:400; }
 
     /* Badges */
     .badges{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
     .badge{
-      border:1px solid var(--g-200); color:var(--g-700);
+      border:1px solid var(--g-200); color:var(--g-800);
       border-radius:999px; padding:6px 10px; font-size:13px; background:#FAFAFA;
+      font-weight:500;
     }
 
     /* Cards & grids */
