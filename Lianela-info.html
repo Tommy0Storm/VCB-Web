@@ -14,7 +14,10 @@
       --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
       --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
       --white:#fff;
-      --radius:14px; --max:1120px;
+      --max:1200px; --radius:18px;
+      --shadow:0 4px 24px rgba(0,0,0,.06), 0 12px 48px rgba(0,0,0,.04);
+      --shadow-lg:0 8px 32px rgba(0,0,0,.08), 0 20px 64px rgba(0,0,0,.06);
+      --glow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.08);
     }
 
     html,body{
@@ -102,8 +105,13 @@
 </head>
 <body>
 
+<!-- Particle Background Layer -->
+<iframe id="particle-bg" src="whiteparticle.html"></iframe>
+
+
   <!-- Top nav -->
   <div class="top">
+  <canvas id="mesh-canvas"></canvas>
     <div class="wrap nav">
       <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
       <nav>
@@ -235,6 +243,116 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    // 3D Wire Mesh Animation
+    (() => {
+      const canvas = document.getElementById('mesh-canvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      const gridSize = 15;
+      let cols = 0, rows = 0, time = 0;
+
+      function resize(){
+        const dpr = 2, rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        cols = Math.ceil(rect.width / gridSize) + 2;
+        rows = Math.ceil(rect.height / gridSize) + 2;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function complexNoise(x, y, t){
+        let n = Math.sin(x * 0.1 + t * 0.3) * Math.cos(y * 0.15 - t * 0.4) * 12;
+        n += Math.sin(x * 0.23 + y * 0.17 + t * 0.6) * 8;
+        n += Math.cos(x * 0.31 - y * 0.22 + t * 0.9) * 6;
+        n += Math.sin((x + y) * 0.08 + t * 1.2) * 10;
+        n += Math.cos((x - y) * 0.13 + t * 0.5) * 7;
+        n += Math.sin(x * 0.5 + Math.cos(y * 0.4 + t)) * 4;
+        return n;
+      }
+
+      function get3DPoint(col, row, t){
+        const x = col * gridSize - gridSize;
+        const y = row * gridSize - gridSize;
+        const displacement = complexNoise(col, row, t);
+        const angle = Math.atan2(row - rows/2, col - cols/2);
+        const radius = Math.hypot(col - cols/2, row - rows/2);
+        const spiral = Math.sin(angle * 3 + radius * 0.2 - t * 2) * 5;
+        const pulse = Math.sin(t * 3 + col * 0.3) * Math.cos(t * 2.5 + row * 0.25) * 8;
+        const depth1 = Math.sin(col * 0.2 + t) * Math.cos(row * 0.25 + t * 0.7) * 35;
+        const depth2 = Math.sin(radius * 0.1 + t * 1.5) * 15;
+        const depth = depth1 + depth2;
+        return { x: x + displacement + spiral, y: y + displacement + pulse, z: depth, col, row, energy: Math.abs(Math.sin(col * 0.3 + row * 0.2 + t * 2)) };
+      }
+
+      function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        time += 0.010;
+        const points = [];
+        for(let row = 0; row < rows; row++){
+          points[row] = [];
+          for(let col = 0; col < cols; col++){
+            points[row][col] = get3DPoint(col, row, time);
+          }
+        }
+        for(let row = 0; row < rows; row++){
+          ctx.beginPath();
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+            if(col === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.stroke();
+        }
+        const canvasHeight = canvas.height / 2;
+        for(let col = 0; col < cols; col++){
+          ctx.beginPath();
+          for(let row = 0; row < rows; row++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+            const yPos = (row === rows - 1) ? canvasHeight - 1 : p.y;
+            if(row === 0) ctx.moveTo(p.x, yPos);
+            else ctx.lineTo(p.x, yPos);
+          }
+          ctx.stroke();
+        }
+        for(let row = 0; row < rows; row++){
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            const energyBoost = p.energy > 0.7 ? p.energy * 0.5 : 0;
+            const dotSize = 1 + depthFactor * 1.5 + energyBoost;
+            const gradient = ctx.createRadialGradient(p.x - dotSize * 0.3, p.y - dotSize * 0.3, 0, p.x, p.y, dotSize);
+            const energyGlow = p.energy > 0.7 ? 0.15 : 0;
+            gradient.addColorStop(0, `rgba(42, 42, 42, ${0.7 + depthFactor * 0.3 + energyGlow})`);
+            gradient.addColorStop(0.6, `rgba(66, 66, 66, ${0.6 + depthFactor * 0.3})`);
+            gradient.addColorStop(1, `rgba(86, 86, 86, ${0.3 + depthFactor * 0.4})`);
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.2});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   </script>
 </body>
 </html>
