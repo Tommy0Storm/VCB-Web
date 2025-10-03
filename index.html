@@ -82,6 +82,19 @@
   .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
   .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
 
+  /* Compliance Callout Banner */
+  .compliance-banner{
+    background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom:2px solid var(--g-200);
+    padding:24px 0;
+    text-align:center;
+  }
+  .compliance-banner p{
+    font-style:italic; color:var(--g-700); max-width:1000px; margin:0 auto;
+    font-size:clamp(15px, 2vw, 18px); line-height:1.6;
+    font-weight:400;
+  }
+
   /* HERO */
   .hero{
     position:relative; overflow:hidden; padding:90px 0 46px;
@@ -212,6 +225,13 @@
       <a href="LLM-Ent.html">PRIME</a>
       <a href="Compliance.html">Compliance</a>
     </nav>
+  </div>
+</div>
+
+<!-- Compliance Banner -->
+<div class="compliance-banner">
+  <div class="wrap">
+    <p>We deliver secure, privacy-by-design AI platforms paired with resilient, high-performance storage, so customers meet GDPR/POPIA-class obligations, protect data by default, and prove compliance with full auditability.</p>
   </div>
 </div>
 
