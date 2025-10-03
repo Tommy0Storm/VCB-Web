@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exclusive AI Leadership Summit — VCB</title>
+
+  <!-- Quicksand: 300 (body) & 500 (headers) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --black:#0B0B0B;
+      --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+      --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+      --white:#fff;
+      --gold:#D4AF37;
+      --gold-dark:#B8942D;
+      --max:1200px; --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{
+      background:var(--black);
+    }
+    body{
+      margin:0; background:linear-gradient(135deg, #0B0B0B 0%, #1A1A1A 100%);
+      color:var(--g-100);
+      font-family:"Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-weight:300; line-height:1.65; -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+    }
+    h1,h2,h3,h4{ font-weight:500; color:var(--white); margin:0 0 .6rem; letter-spacing:-.015em; }
+    h1{ font-size:clamp(42px,5.6vw,72px); line-height:1.05; letter-spacing:-.02em; font-weight:600; }
+    h2{ font-size:clamp(28px,3.6vw,42px); letter-spacing:-.01em; margin-bottom:1rem; }
+    h3{ font-size:clamp(20px,2.4vw,26px); color:var(--g-200); letter-spacing:-.005em; }
+    p{ margin:.45rem 0 1rem; color:var(--g-300); }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:96px 0; position:relative; }
+
+    /* Top nav */
+    .top{
+      position:sticky; top:0; z-index:20;
+      background:rgba(11,11,11,0.95);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+    .brand{ display:flex; align-items:center; }
+    .brand img{ height:240px; width:auto; filter:brightness(0) invert(1); }
+    .nav nav a{
+      color:var(--g-300); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
+      font-size:2em; font-weight:700;
+      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav nav a:hover{ color:var(--white); transform:scale(0.95); }
+
+    /* Hero */
+    .hero{
+      position:relative; overflow:hidden; padding:120px 0 80px;
+      background:radial-gradient(ellipse at top, rgba(212,175,55,.15) 0%, transparent 70%);
+    }
+    .hero h1{
+      background:linear-gradient(135deg, var(--gold) 0%, var(--white) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .exclusive-badge{
+      display:inline-block; padding:8px 20px; border-radius:999px;
+      background:linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color:var(--black); font-weight:600; font-size:13px; letter-spacing:1.5px;
+      text-transform:uppercase; margin-bottom:24px;
+      box-shadow:0 4px 20px rgba(212,175,55,.3);
+    }
+    .lede{ color:var(--g-300); max-width:940px; font-size:clamp(16px, 2vw, 19px); line-height:1.7; }
+
+    /* Cards */
+    .card{
+      position:relative;
+      background:linear-gradient(135deg, rgba(26,26,26,.8) 0%, rgba(42,42,42,.6) 100%);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:var(--radius); padding:32px;
+      backdrop-filter:blur(12px);
+      box-shadow:0 8px 32px rgba(0,0,0,.4);
+      transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover{
+      transform:translateY(-12px) scale(1.01);
+      box-shadow:0 16px 48px rgba(0,0,0,.6);
+      border-color:rgba(212,175,55,.3);
+    }
+
+    .grid-2{ display:grid; gap:28px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-2{ grid-template-columns:1fr 1fr; } }
+
+    /* Details list */
+    .detail-list{
+      list-style:none; padding:0; margin:24px 0;
+    }
+    .detail-list li{
+      padding:16px 0; border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex; justify-content:space-between; align-items:center;
+      color:var(--g-200);
+    }
+    .detail-list li:last-child{ border:0; }
+    .detail-list .label{ color:var(--g-400); font-size:14px; text-transform:uppercase; letter-spacing:1px; }
+    .detail-list .value{ color:var(--white); font-weight:500; font-size:18px; }
+
+    /* CTA */
+    .btn{
+      display:inline-block;
+      border:2px solid var(--gold); color:var(--gold);
+      text-decoration:none;
+      padding:16px 36px; border-radius:14px; font-weight:600; font-size:16px;
+      background:linear-gradient(135deg, rgba(212,175,55,.1) 0%, rgba(184,148,45,.05) 100%);
+      box-shadow:0 4px 20px rgba(212,175,55,.2);
+      transition:all .35s cubic-bezier(0.4, 0, 0.2, 1);
+      position:relative; overflow:hidden; z-index:1;
+      text-transform:uppercase; letter-spacing:1px;
+    }
+    .btn::before{
+      content:""; position:absolute; inset:0; background:var(--gold);
+      transform:translateY(100%); transition:transform .35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index:-1;
+    }
+    .btn:hover{ color:var(--black); transform:translateY(-2px); box-shadow:0 8px 32px rgba(212,175,55,.4); }
+    .btn:hover::before{ transform:translateY(0); }
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--g-400); font-size:14px; text-align:center; padding:48px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <div class="top">
+    <div class="wrap nav">
+      <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="exclusive-badge">Invitation Only</div>
+      <h1>Exclusive AI Leadership Summit</h1>
+      <p class="lede">
+        An intimate gathering for C-suite executives, technical leaders, and decision-makers who are shaping the future of AI adoption in South Africa. Limited to 50 participants.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Event Details -->
+    <section class="section">
+      <h2>Event Details</h2>
+      <div class="grid-2" style="margin-top:32px;">
+        <div class="card">
+          <h3>When & Where</h3>
+          <ul class="detail-list">
+            <li>
+              <span class="label">Date</span>
+              <span class="value">15 November 2025</span>
+            </li>
+            <li>
+              <span class="label">Time</span>
+              <span class="value">14:00 – 18:00 SAST</span>
+            </li>
+            <li>
+              <span class="label">Venue</span>
+              <span class="value">Sandton, Johannesburg</span>
+            </li>
+            <li>
+              <span class="label">Format</span>
+              <span class="value">Hybrid (In-Person + Virtual)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>What to Expect</h3>
+          <p style="color:var(--g-200); margin-bottom:24px;">
+            This is not a product pitch. This is a strategic conversation about the real challenges of AI adoption—governance, compliance, ROI, and execution.
+          </p>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li style="margin:12px 0; padding-left:24px; position:relative; color:var(--g-200);">
+              <span style="position:absolute; left:0; color:var(--gold);">→</span>
+              Live case studies: POPIA-compliant AI deployments
+            </li>
+            <li style="margin:12px 0; padding-left:24px; position:relative; color:var(--g-200);">
+              <span style="position:absolute; left:0; color:var(--gold);">→</span>
+              Panel: Legal, technical, and executive perspectives
+            </li>
+            <li style="margin:12px 0; padding-left:24px; position:relative; color:var(--g-200);">
+              <span style="position:absolute; left:0; color:var(--gold);">→</span>
+              Closed-door Q&A with High Court Advocates
+            </li>
+            <li style="margin:12px 0; padding-left:24px; position:relative; color:var(--g-200);">
+              <span style="position:absolute; left:0; color:var(--gold);">→</span>
+              Private networking with peers facing similar challenges
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who Should Attend -->
+    <section class="section">
+      <h2>Who Should Attend</h2>
+      <div class="card" style="margin-top:32px;">
+        <p style="font-size:18px; color:var(--g-200); margin-bottom:32px;">
+          This event is designed for senior leaders who are accountable for AI strategy, compliance, or delivery.
+        </p>
+        <div class="grid-2">
+          <div>
+            <h3 style="font-size:18px; margin-bottom:16px; color:var(--gold);">Executive Leadership</h3>
+            <ul style="list-style:disc; padding-left:20px; color:var(--g-300);">
+              <li>CEOs & CTOs</li>
+              <li>Chief Legal Officers</li>
+              <li>Chief Compliance Officers</li>
+              <li>Chief Data Officers</li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="font-size:18px; margin-bottom:16px; color:var(--gold);">Technical & Strategy</h3>
+            <ul style="list-style:disc; padding-left:20px; color:var(--g-300);">
+              <li>AI/ML Leads & Architects</li>
+              <li>Enterprise Architects</li>
+              <li>Strategy & Transformation Leads</li>
+              <li>Legal & Risk Advisors</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="section" style="text-align:center;">
+      <h2>Request Your Invitation</h2>
+      <p class="lede" style="margin:24px auto 40px;">
+        Attendance is by invitation only. Space is limited to ensure meaningful dialogue.
+      </p>
+      <a href="mailto:info@vcb-ai.online?subject=Event Invitation Request" class="btn">Request Invitation</a>
+      <p style="margin-top:32px; color:var(--g-400); font-size:14px;">
+        You will receive a confirmation within 48 hours. Invitations are subject to availability and role suitability.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> VCB · Viable Core Business — All rights reserved.
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
