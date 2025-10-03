@@ -93,6 +93,10 @@
     font-style:italic; color:var(--g-700); max-width:1000px; margin:0 auto;
     font-size:clamp(15px, 2vw, 18px); line-height:1.6;
     font-weight:400;
+    transition:opacity 0.8s ease-in-out;
+  }
+  .compliance-banner p.fade-out{
+    opacity:0;
   }
 
   /* HERO */
@@ -231,7 +235,7 @@
 <!-- Compliance Banner -->
 <div class="compliance-banner">
   <div class="wrap">
-    <p>Turn data into decisions through secure, privacy-by-design AI and auditable, high-performance storage.</p>
+    <p id="rotating-mission">Turn data into decisions through secure, privacy-by-design AI and auditable, high-performance storage.</p>
   </div>
 </div>
 
@@ -668,6 +672,38 @@
     });
   }, {threshold:.2});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Rotating mission statements
+  (function(){
+    const missions = [
+      "Turn data into decisions through secure, privacy-by-design AI and auditable, high-performance storage.",
+      "Empower businesses with trustworthy AI—secured end-to-end, privacy-first, and compliant by design—running on resilient, high-performance storage.",
+      "Deliver practical AI with uncompromising security, data protection, and built-in compliance—backed by enterprise-grade storage.",
+      "Make AI safe to adopt: secure-by-default, compliant-from-day-one, and powered by unbreakable storage.",
+      "Build outcomes, not risk—governed AI on resilient storage with privacy, security, and compliance at the core.",
+      "Ship AI you can trust: encrypted, governed, and audit-ready on a rock-solid storage backbone."
+    ];
+
+    const element = document.getElementById('rotating-mission');
+    if(!element) return;
+
+    let currentIndex = 0;
+
+    function rotateMission(){
+      // Fade out
+      element.classList.add('fade-out');
+
+      // After fade out, change text and fade in
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % missions.length;
+        element.textContent = missions[currentIndex];
+        element.classList.remove('fade-out');
+      }, 800); // Match CSS transition duration
+    }
+
+    // Rotate every 6 seconds
+    setInterval(rotateMission, 6000);
+  })();
 </script>
 </body>
 </html>
