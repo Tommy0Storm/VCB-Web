@@ -306,6 +306,135 @@
     .reveal{ opacity:1; transform:none; }
     body::before{ animation:none; }
   }
+
+  /* Mobile Optimization */
+  @media(max-width:768px){
+    .wrap{ padding:0 16px; }
+
+    /* Smaller logo for mobile */
+    .brand img{ height:120px; }
+
+    /* Mobile nav - stack or reduce size */
+    .nav{ padding:6px 0; flex-wrap:wrap; gap:8px; }
+    .nav nav{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      width:100%;
+    }
+    .nav nav a{
+      font-size:0.85em;
+      margin-left:8px;
+      margin-right:8px;
+    }
+
+    /* Compliance banner mobile */
+    .compliance-banner{ padding:20px 0; }
+    .compliance-banner p{ font-size:14px; line-height:1.5; }
+
+    /* Event banner mobile */
+    .event-exclusive{ padding:40px 0; }
+    .event-exclusive .exclusive-tag{ font-size:10px; padding:5px 12px; }
+    .event-exclusive h2{ font-size:clamp(24px,6vw,36px); }
+    .event-exclusive p{ font-size:14px; }
+    .event-exclusive .btn-gold{
+      padding:12px 28px;
+      font-size:14px;
+      display:block;
+      max-width:280px;
+      margin:0 auto;
+    }
+    .event-exclusive .event-meta{ font-size:12px; }
+
+    /* Hero adjustments */
+    .hero{ padding:60px 0 40px; }
+    h1{ font-size:clamp(28px,7vw,42px); }
+    h2{ font-size:clamp(22px,5vw,32px); }
+    h3{ font-size:clamp(18px,4vw,24px); }
+
+    /* Reduce section padding */
+    .section{ padding:48px 0; }
+
+    /* Smaller card padding */
+    .card{ padding:20px; }
+
+    /* Badges wrap better */
+    .badges{ gap:8px; }
+    .badge{ font-size:12px; padding:8px 14px; }
+
+    /* Stats adjustments */
+    .stats{ gap:12px; grid-template-columns:1fr 1fr; }
+    .stat{ padding:16px; }
+    .stat .n{ font-size:clamp(24px,5vw,36px); }
+    .stat .l{ font-size:0.85rem; }
+
+    /* CTA buttons */
+    .btn{
+      font-size:14px;
+      padding:12px 20px;
+    }
+    .cta-row{ justify-content:center; }
+
+    /* Tile icons smaller */
+    .icon{ width:24px; height:24px; }
+
+    /* Lane adjustments */
+    .lane{ grid-template-columns:32px 1fr; gap:10px; }
+    .lanetag{ width:32px; height:32px; }
+    .lanetag .icon{ width:18px; height:18px; }
+
+    /* Disable hover effects on mobile */
+    .card:hover{
+      transform:none;
+      box-shadow:var(--shadow);
+    }
+    .badge:hover{
+      transform:none;
+      box-shadow:0 2px 8px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.02);
+    }
+    .btn:hover{
+      transform:none;
+      box-shadow:0 2px 12px rgba(0,0,0,.05), 0 4px 24px rgba(0,0,0,.03);
+    }
+
+    /* Better list spacing */
+    ul{ margin-left:0.8rem; }
+    li{ font-size:15px; }
+
+    /* Hide mesh canvas on mobile for performance */
+    #mesh-canvas{ display:none; }
+
+    /* Disable grid animation on mobile for performance */
+    body::before{ animation:none; }
+  }
+
+  /* Extra small mobile */
+  @media(max-width:480px){
+    .brand img{ height:90px; }
+
+    .nav nav a{
+      font-size:0.75em;
+      margin-left:6px;
+      margin-right:6px;
+    }
+
+    h1{ font-size:clamp(24px,8vw,36px); }
+    h2{ font-size:clamp(20px,6vw,28px); }
+
+    .card{ padding:16px; }
+
+    .event-exclusive{ padding:32px 0; }
+    .event-exclusive h2{ font-size:clamp(20px,7vw,32px); }
+    .event-exclusive .btn-gold{ padding:10px 24px; font-size:13px; }
+
+    .stats{ grid-template-columns:1fr; }
+    .stat .n{ font-size:clamp(28px,6vw,40px); }
+
+    .compliance-banner p{ font-size:13px; }
+
+    /* Hide particle background on very small screens for performance */
+    #particle-bg{ display:none; }
+  }
 </style>
 
 <!-- Premium inline SVG icon sprite (monochrome) -->
