@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VCB — Voice & Omnichannel AI Agents</title>
+
+  <!-- Quicksand: 300 (body) & 500 (headers) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --black:#0B0B0B;
+      --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+      --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+      --white:#fff;
+      --radius:14px; --max:1120px;
+    }
+    html,body{
+      margin:0; background:var(--white); color:var(--g-800);
+      font-family:"Quicksand",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-weight:300; line-height:1.65; -webkit-font-smoothing:antialiased;
+    }
+    h1,h2,h3,h4{ font-weight:500; color:var(--black); margin:0 0 .5rem; letter-spacing:.2px; }
+    h1{ font-size:clamp(34px,4.6vw,56px); line-height:1.12; }
+    h2{ font-size:clamp(24px,3vw,30px); }
+    h3{ font-size:clamp(18px,2.2vw,22px); color:var(--g-700); }
+    p{ margin:.35rem 0 1rem; }
+    ul{ margin:.2rem 0 1rem 1.1rem; padding:0; }
+    li{ margin:.25rem 0; color:var(--g-700); }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:48px 0; }
+    .divider{ height:1px; background:var(--g-100); margin:26px 0; }
+
+    /* Top bar */
+    .top{ border-bottom:1px solid var(--g-100); background:linear-gradient(180deg,#fafafa,var(--white)); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+    .brand{ display:flex; align-items:center; }
+    .brand img{ height:160px; width:auto; }
+    .nav a{ color:var(--g-600); text-decoration:none; margin-left:14px; }
+    .nav a:hover{ color:var(--black); }
+
+    /* Hero */
+    .hero{ padding:56px 0 28px; }
+    .lede{ color:var(--g-500); max-width:880px; }
+
+    /* Badges */
+    .badges{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .badge{
+      border:1px solid var(--g-200); color:var(--g-700);
+      border-radius:999px; padding:6px 10px; font-size:13px; background:#FAFAFA; white-space:nowrap;
+    }
+
+    /* Cards & grids */
+    .card{
+      background:#fff; border:1px solid var(--g-100); border-radius:14px;
+      padding:24px; box-shadow:0 6px 20px rgba(0,0,0,.04);
+    }
+    .grid-2{ display:grid; gap:18px; grid-template-columns:1fr; }
+    .grid-3{ display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-2{ grid-template-columns:1fr 1fr; } .grid-3{ grid-template-columns:repeat(3,1fr); } }
+
+    /* Role chips */
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .chip{
+      border:1px solid var(--g-200); color:var(--g-700);
+      border-radius:999px; padding:6px 10px; font-size:13px; background:#fff;
+    }
+
+    /* Voice flow map (SVG) */
+    .flow{ position:relative; padding:18px; background:#FAFAFA; border:1px solid var(--g-100); border-radius:14px; }
+    .flow svg{ width:100%; height:auto; display:block; }
+    .flow .note{ color:var(--g-500); font-size:13px; margin-top:8px; }
+
+    /* Lists in columns */
+    .cols{ columns:1; column-gap:26px; }
+    @media(min-width:900px){ .cols{ columns:2; } }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:24px 0 36px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top -->
+  <div class="top">
+    <div class="wrap nav">
+      <a href="main.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+      <nav>
+        <a href="#agents">Agents</a>
+        <a href="#voice">Voice</a>
+        <a href="#channels">Channels</a>
+        <a href="#compliance">Compliance</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <h1>Voice-first Agents that Show Up to Work.</h1>
+      <p class="lede">
+        We deploy production-grade AI agents — **sales, service, collections, tech support, and legal** — that speak on the phone, escalate to a human **on the same call**, and continue the conversation on **WhatsApp, Facebook Messenger, SMS, email, or web chat** without dropping context.
+      </p>
+      <div class="badges">
+        <span class="badge">Model-agnostic</span>
+        <span class="badge">Call-in human assist</span>
+        <span class="badge">Omnichannel continuity</span>
+        <span class="badge">POPIA • audit trail</span>
+        <span class="badge">Sovereign-capable</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Agent catalogue -->
+    <section id="agents" class="section">
+      <h2>What We Can Staff (AI)</h2>
+      <div class="divider"></div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Sales & Growth</h3>
+          <p class="cols">
+            Inbound SDR, Outbound SDR, Lead Qualifier, Appointment Setter, Renewal Nurture, Win-Back, Post-Demo Follow-up.
+          </p>
+          <div class="chips">
+            <span class="chip">Prospecting</span><span class="chip">Qualification</span><span class="chip">Cross-sell</span><span class="chip">Renewals</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Service & Collections</h3>
+          <p class="cols">
+            Tier-1 Customer Service, Billing Queries, Order Status, Returns, Payment Reminder, Promise-to-Pay Capture, Dispute Triage.
+          </p>
+          <div class="chips">
+            <span class="chip">Debt Collection</span><span class="chip">CSAT</span><span class="chip">KBA/IDV</span><span class="chip">Multilingual</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Technical Support</h3>
+          <p class="cols">
+            First-line Troubleshooting, Guided Diagnostics, Outage Broadcasts, Ticket Creation/Update, Knowledge-base Answers.
+          </p>
+          <div class="chips">
+            <span class="chip">Device/ISP</span><span class="chip">How-to</span><span class="chip">Status</span><span class="chip">Hand-off</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Legal (Workplace & Intake)</h3>
+          <p class="cols">
+            Matter Intake, Document Checklist, Hearing Day Coordinator, Compliance Checklists, Status Updates, Case Summary & Minutes.
+          </p>
+          <div class="chips">
+            <span class="chip">POPIA</span><span class="chip">Audit trail</span><span class="chip">Transcripts</span><span class="chip">Escalation</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Back-Office</h3>
+          <p class="cols">
+            Appointment Booking, Account Updates, Address/Contact Changes, Balance/Usage, Meter/Reading Capture, Survey/NPS.
+          </p>
+          <div class="chips">
+            <span class="chip">RPA hand-off</span><span class="chip">CRM write-back</span><span class="chip">ETL safe</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Custom Agents</h3>
+          <p>Bring sector-specific scripts and processes. We’ll wire them into your systems and governance.</p>
+          <div class="chips">
+            <span class="chip">Playbooks</span><span class="chip">KPIs</span><span class="chip">Observability</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Voice focus -->
+    <section id="voice" class="section">
+      <h2>Voice: Where It Matters Most</h2>
+      <div class="divider"></div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Live on the Phone</h3>
+          <ul>
+            <li>Inbound & outbound; PSTN or SIP.</li>
+            <li>Natural turn-taking, barge-in, and latency-aware prompting.</li>
+            <li>Secure KBA/IDV flows; consent capture & recording banners.</li>
+            <li>Automatic transcripts & smart summaries attached to the case.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Call-In Human Assistance</h3>
+          <ul>
+            <li><strong>Whisper:</strong> human coach can join silently to guide the agent.</li>
+            <li><strong>Barge-in:</strong> take over the call instantly when needed.</li>
+            <li><strong>Warm transfer:</strong> AI stays on the line to brief the human, then drops.</li>
+            <li><strong>Conference:</strong> 3-way participant for complex issues or compliance reads.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Simple voice flow map -->
+      <div class="flow" style="margin-top:18px;">
+        <svg viewBox="0 0 1100 220" aria-hidden="true">
+          <!-- nodes -->
+          <rect x="30" y="70" width="200" height="80" rx="12" fill="#fff" stroke="#EFEFEF"/>
+          <text x="130" y="115" text-anchor="middle" font-family="Quicksand" font-size="16" fill="#111">Customer</text>
+
+          <rect x="320" y="30" width="220" height="80" rx="12" fill="#fff" stroke="#EFEFEF"/>
+          <text x="430" y="75" text-anchor="middle" font-family="Quicksand" font-size="16" fill="#111">AI Voice Agent</text>
+
+          <rect x="320" y="130" width="220" height="80" rx="12" fill="#fff" stroke="#EFEFEF"/>
+          <text x="430" y="175" text-anchor="middle" font-family="Quicksand" font-size="16" fill="#111">Messaging Thread</text>
+
+          <rect x="650" y="30" width="200" height="80" rx="12" fill="#fff" stroke="#EFEFEF"/>
+          <text x="750" y="75" text-anchor="middle" font-family="Quicksand" font-size="16" fill="#111">Human Assist</text>
+
+          <rect x="920" y="70" width="150" height="80" rx="12" fill="#fff" stroke="#EFEFEF"/>
+          <text x="995" y="115" text-anchor="middle" font-family="Quicksand" font-size="16" fill="#111">Systems/CRM</text>
+
+          <!-- lines -->
+          <path d="M230,110 L320,70" stroke="#9A9A9A" stroke-width="2.5" fill="none"/>
+          <path d="M230,110 L320,170" stroke="#9A9A9A" stroke-width="2.5" fill="none"/>
+          <path d="M540,70 L650,70" stroke="#9A9A9A" stroke-width="2.5" fill="none"/>
+          <path d="M540,170 L920,110" stroke="#9A9A9A" stroke-width="2.5" fill="none"/>
+          <path d="M850,70 L920,110" stroke="#9A9A9A" stroke-width="2.5" fill="none" stroke-dasharray="8 8"/>
+
+          <!-- labels -->
+          <text x="275" y="52" font-size="12" font-family="Quicksand" fill="#777">Voice</text>
+          <text x="270" y="190" font-size="12" font-family="Quicksand" fill="#777">WhatsApp/Messenger/SMS</text>
+          <text x="600" y="55" font-size="12" font-family="Quicksand" fill="#777">Whisper / Barge-in / Transfer</text>
+          <text x="740" y="120" font-size="12" font-family="Quicksand" fill="#777">Notes+Summary →</text>
+        </svg>
+        <div class="note">AI leads by voice, invites human assistance when needed, and continues on messaging with full context.</div>
+      </div>
+    </section>
+
+    <!-- Channels -->
+    <section id="channels" class="section">
+      <h2>Omnichannel, Same Brain</h2>
+      <div class="divider"></div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>WhatsApp</h3>
+          <ul>
+            <li>Opt-in flows & consent capture.</li>
+            <li>Secure docs & media exchange.</li>
+            <li>Switch from voice → WhatsApp mid-case.</li>
+          </ul>
+          <div class="chips"><span class="chip">Handover</span><span class="chip">Templates</span><span class="chip">Webhooks</span></div>
+        </article>
+
+        <article class="card">
+          <h3>Facebook Messenger</h3>
+          <ul>
+            <li>Channel parity with WhatsApp scripts.</li>
+            <li>User profile linking & continuity.</li>
+            <li>CSAT & survey flows.</li>
+          </ul>
+          <div class="chips"><span class="chip">Threads</span><span class="chip">Quick Replies</span><span class="chip">Handoff</span></div>
+        </article>
+
+        <article class="card">
+          <h3>SMS, Email, Web Chat</h3>
+          <ul>
+            <li>Fallback for low-bandwidth contexts.</li>
+            <li>OTP, links, invoices, transcripts.</li>
+            <li>Web widget shares the same memory.</li>
+          </ul>
+          <div class="chips"><span class="chip">OTP</span><span class="chip">Transcripts</span><span class="chip">Link-out</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Compliance -->
+    <section id="compliance" class="section">
+      <h2>Compliance & Governance (Baked In)</h2>
+      <div class="divider"></div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>POPIA-Aligned by Design</h3>
+          <ul>
+            <li>Consent prompts, purpose limitation, retention policies.</li>
+            <li>Redaction & role-based access to transcripts.</li>
+            <li>Audit logs for every interaction & decision.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Operational Controls</h3>
+          <ul>
+            <li>Observability: prompts, responses, guardrails.</li>
+            <li>Playbooks & KPIs tied to business outcomes.</li>
+            <li>Human-in-the-loop approvals where required.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> VCB · Viable Core Business — Agents that do the work.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

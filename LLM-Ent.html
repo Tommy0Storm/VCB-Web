@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VCB · PRIME — Sovereign AI Platform</title>
+
+  <!-- Quicksand: 300 (body) & 500 (headers) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Same palette used on About page */
+      --black:#0B0B0B;
+      --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+      --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+      --white:#fff;
+      --radius:14px; --max:1120px;
+    }
+
+    html,body{
+      margin:0; background:var(--white); color:var(--g-800);
+      font-family:"Quicksand",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-weight:300; line-height:1.65; -webkit-font-smoothing:antialiased;
+    }
+    h1,h2,h3,h4{
+      font-weight:500; color:var(--black); margin:0 0 .5rem; letter-spacing:.2px;
+    }
+    h1{ font-size:clamp(32px,4vw,46px); }
+    h2{ font-size:clamp(24px,3vw,30px); }
+    h3{ font-size:clamp(18px,2.2vw,22px); color:var(--g-700); }
+    p{ margin:.35rem 0 1rem; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .divider{ height:1px; background:var(--g-100); margin:26px 0; }
+
+    /* Top bar (same as About) */
+    .top{ border-bottom:1px solid var(--g-100); background:linear-gradient(180deg,#fafafa,var(--white)); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+    .brand{ display:flex; align-items:center; }
+    .brand img{ height:160px; width:auto; }
+    .nav a{ color:var(--g-600); text-decoration:none; margin-left:14px; }
+    .nav a:hover{ color:var(--black); }
+
+    /* Hero (mirrors About) */
+    .hero{ padding:44px 0 36px; }
+    .slogan{ font-size:clamp(26px,3.6vw,38px); color:var(--black); }
+    .lede{ color:var(--g-500); max-width:860px; }
+
+    /* Sections & cards (same primitives) */
+    .section{ padding:44px 0; }
+    .card{
+      background:var(--white); border:1px solid var(--g-100); border-radius:var(--radius);
+      padding:24px; box-shadow:0 6px 20px rgba(0,0,0,.04);
+    }
+    .grid-3{ display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-3{ grid-template-columns:repeat(3,1fr); } }
+    .grid-2{ display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-2{ grid-template-columns:repeat(2,1fr); } }
+
+    /* Flow blocks (neutral greys) */
+    .flow{ display:grid; gap:14px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .flow{ grid-template-columns: repeat(6,1fr); } }
+    .flow .box{
+      border:1px solid var(--g-200); border-radius:12px; padding:16px;
+      text-align:center; background:#FAFAFA;
+    }
+    .flow .box .t{ font-weight:500; color:var(--black); }
+    .flow .box .s{ font-size:.9rem; color:var(--g-500); }
+
+    /* Stats */
+    .stats{ display:grid; gap:18px; grid-template-columns:1fr 1fr; }
+    @media(min-width:900px){ .stats{ grid-template-columns:repeat(4,1fr); } }
+    .stat{
+      background:#FAFAFA; border:1px solid var(--g-100); border-left:4px solid var(--g-800);
+      border-radius:12px; padding:18px; text-align:center;
+    }
+    .stat .n{ font-size:clamp(22px,2.6vw,32px); font-weight:500; color:var(--black); line-height:1; }
+    .stat .l{ color:var(--g-600); font-size:.9rem; margin-top:6px; }
+
+    /* Lists */
+    ul{ margin:.2rem 0 1rem 1.1rem; padding:0; }
+    li{ margin:.25rem 0; color:var(--g-700); }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:24px 0 36px; }
+    .btn{ display:inline-block; border:1px solid var(--g-700); color:var(--g-700); text-decoration:none; padding:10px 14px; border-radius:10px; }
+    .btn:hover{ border-color:var(--black); color:var(--black); }
+  </style>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <div class="top">
+    <div class="wrap nav">
+      <a href="main.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+      <nav>
+        <a href="#prime">PRIME</a>
+        <a href="#moats">Moats</a>
+        <a href="#flow">Architecture</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#returns">Outcomes</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <h1 id="prime">PRIME — Sovereign AI Platform</h1>
+      <p class="slogan">Persistent Reasoning Intelligence · Multi-modal Enterprise</p>
+      <p class="lede">
+        A model-agnostic, compliance-first architecture that unifies real-time inputs, builds persistent context,
+        and orchestrates multiple specialised models—delivering measurable outcomes without vendor lock-in.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Moats -->
+    <section id="moats" class="section">
+      <h2>The Three Strategic Moats</h2>
+      <div class="divider"></div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Persistent Intelligence Database</h3>
+          <p>
+            The <em>Gold Asset</em>: an appreciating customer & operational memory across channels and time.
+            It preserves knowledge independent of any single model and underpins true interchangeability.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Universal Standardisation Engine</h3>
+          <p>
+            Cleans, validates, and normalises data <em>before</em> inference to remove pre-processing drag,
+            drive accuracy, and make downstream models faster, cheaper, and more reliable.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>True Vendor Independence</h3>
+          <p>
+            A model-agnostic core that lets you mix specialised models and switch providers as they evolve—
+            without losing accumulated knowledge or re-architecting systems.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Architecture flow -->
+    <section id="flow" class="section">
+      <h2>The Architecture Flow</h2>
+      <div class="divider"></div>
+
+      <div class="card">
+        <div class="flow">
+          <div class="box">
+            <div class="t">1. Omnichannel Intake</div>
+            <div class="s">Voice · Chat · Email · Docs</div>
+          </div>
+          <div class="box">
+            <div class="t">2. Standardisation</div>
+            <div class="s">Clean · Validate · Normalise</div>
+          </div>
+          <div class="box">
+            <div class="t">3. Persistent Context DB</div>
+            <div class="s">Long-term Memory</div>
+          </div>
+          <div class="box">
+            <div class="t">4. RAG Intelligence</div>
+            <div class="s">Vector Store · Graphs</div>
+          </div>
+          <div class="box">
+            <div class="t">5. Multi-Model Orchestration</div>
+            <div class="s">Specialised LLMs · Multi-modal</div>
+          </div>
+          <div class="box">
+            <div class="t">6. Interchangeability</div>
+            <div class="s">Zero Lock-in</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section id="capabilities" class="section">
+      <h2>Advanced Capabilities</h2>
+      <div class="divider"></div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Caching for Speed & Cost</h3>
+          <ul>
+            <li>Multi-layer caching eliminates redundant inference</li>
+            <li>Targets sub-100ms P95 response times</li>
+            <li>Material opex reduction on high-volume workloads</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Sovereign Deployment Model</h3>
+          <ul>
+            <li>On-prem first with optional cloud connectivity</li>
+            <li>Data residency and perimeter security preserved</li>
+            <li>Regulatory alignment for FS/Insurance</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Academic-Grade Governance</h3>
+          <ul>
+            <li>Quality scoring, bias checks, cultural validation</li>
+            <li>POPIA/security by design with auditability</li>
+            <li>Policy-driven prompts & traceable outputs</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Multi-Model · Multi-Modal Core</h3>
+          <ul>
+            <li>Specialised LLMs orchestrated per function</li>
+            <li>Text · Voice · Video · Document pipelines</li>
+            <li>RAG via vector stores & knowledge graphs</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Outcomes -->
+    <section id="returns" class="section">
+      <h2>Operational & Financial Outcomes</h2>
+      <div class="divider"></div>
+
+      <div class="stats">
+        <div class="stat"><div class="n">9&nbsp;Months</div><div class="l">Indicative payback</div></div>
+        <div class="stat"><div class="n">70%</div><div class="l">Faster service response</div></div>
+        <div class="stat"><div class="n">60%</div><div class="l">Cost vs. call centres</div></div>
+        <div class="stat"><div class="n">750%</div><div class="l">3-year ROI (illustrative)</div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <article class="card">
+        <p>
+          PRIME consolidates fragmented channels, embeds governance from day one, and preserves organisational memory across models.
+          The result: faster service, lower cost-to-serve, and resilience against vendor volatility—without compromising sovereignty.
+        </p>
+        <p class="note">Metrics shown are representative targets and depend on context, scope, and integration approach.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> VCB · Viable Core Business — All rights reserved.
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

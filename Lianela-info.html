@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LIANELA V3 — The Future of Workplace Justice | VCB</title>
+
+  <!-- Quicksand: 300 (body) & 500 (headers) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --black:#0B0B0B;
+      --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+      --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+      --white:#fff;
+      --radius:14px; --max:1120px;
+    }
+
+    html,body{
+      margin:0; background:var(--white); color:var(--g-800);
+      font-family:"Quicksand",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-weight:300; line-height:1.65; -webkit-font-smoothing:antialiased;
+    }
+    h1,h2,h3,h4{ font-weight:500; color:var(--black); margin:0 0 .5rem; letter-spacing:.2px; }
+    h1{ font-size:clamp(32px,4vw,46px); }
+    h2{ font-size:clamp(24px,3vw,30px); }
+    h3{ font-size:clamp(18px,2.2vw,22px); color:var(--g-700); }
+    p{ margin:.35rem 0 1rem; }
+    ul{ margin:.2rem 0 1rem 1.1rem; padding:0; }
+    li{ margin:.25rem 0; color:var(--g-700); }
+
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:44px 0; }
+    .divider{ height:1px; background:var(--g-100); margin:26px 0; }
+
+    /* Top bar */
+    .top{ border-bottom:1px solid var(--g-100); background:linear-gradient(180deg,#fafafa,var(--white)); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+    .brand{ display:flex; align-items:center; }
+    .brand img{ height:160px; width:auto; }
+    .nav a{ color:var(--g-600); text-decoration:none; margin-left:14px; }
+    .nav a:hover{ color:var(--black); }
+
+    /* Hero */
+    .hero{ padding:44px 0 24px; }
+    .slogan{ font-size:clamp(26px,3.6vw,38px); color:var(--black); }
+    .lede{ color:var(--g-500); max-width:860px; }
+
+    /* Badges */
+    .badges{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .badge{
+      border:1px solid var(--g-200); color:var(--g-700);
+      border-radius:999px; padding:6px 10px; font-size:13px; background:#FAFAFA;
+    }
+
+    /* Cards & grids */
+    .card{
+      background:var(--white); border:1px solid var(--g-100); border-radius:var(--radius);
+      padding:24px; box-shadow:0 6px 20px rgba(0,0,0,.04);
+    }
+    .grid-3{ display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-3{ grid-template-columns:repeat(3,1fr); } }
+    .grid-5{ display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-5{ grid-template-columns:repeat(5,1fr); } }
+
+    /* Workflow: Heartbeat connector spanning steps 1→5 */
+    .steps{ position:relative; padding-top:18px; overflow:visible; }
+    .steps:before{ display:none; } /* remove straight line */
+    .steps{ --hb-top: 48px; }    /* adjust to thread the bubbles */
+
+    .steps .heartbeat{
+      position:absolute; top:var(--hb-top); left:0; right:0;
+      height:72px; width:100%;
+      pointer-events:none; display:none;
+      z-index:1; /* ensure visible */
+    }
+    .steps .heartbeat path{
+      fill:none; stroke:var(--g-300); stroke-width:2.5;
+      stroke-linecap:round; stroke-linejoin:round;
+      stroke-dasharray:14 10; animation:hb-dash 9s linear infinite;
+    }
+    @keyframes hb-dash{ to{ stroke-dashoffset:-1600; } }
+    @media (prefers-reduced-motion:reduce){ .steps .heartbeat path{ animation:none; } }
+    @media (min-width:900px){ .steps .heartbeat{ display:block; } }
+
+    /* Keep bubbles above the line */
+    .grid-5, .grid-5 .step, .bubble{ position:relative; z-index:2; background:transparent; }
+
+    /* Workflow bubbles */
+    .bubble{
+      width:64px; height:64px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      border:2px solid var(--g-200); background:#FAFAFA; color:var(--black); font-weight:500;
+      margin:0 auto;
+    }
+    .step p{ text-align:center; color:var(--g-600); margin-top:10px; }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:24px 0 36px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <div class="top">
+    <div class="wrap nav">
+      <a href="main.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#output">Output</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <h1>LIANELA V3</h1>
+      <p class="slogan">The Future of Workplace Justice.</p>
+      <p class="lede">
+        A policy-driven compliance blueprint that transforms complex disciplinary hearings into a streamlined, fair, and transparent process.
+      </p>
+      <div class="badges">
+        <span class="badge">Policy-driven</span>
+        <span class="badge">POPIA-aligned</span>
+        <span class="badge">Chair-friendly UI</span>
+        <span class="badge">Transcript-aware</span>
+        <span class="badge">Audit-grade outputs</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Intelligent Compliance Partner -->
+    <section id="features" class="section">
+      <h2>An Intelligent Compliance Partner</h2>
+      <div class="divider"></div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>The LIANELA-BRAIN</h3>
+          <p>
+            The core AI engine that acts as a guardian of procedural fairness—actively preventing errors and ensuring every step aligns with the LRA Code.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>BiasGuard</h3>
+          <p>
+            A proactive analysis layer that scans live transcripts for potential bias, providing confidential, real-time feedback so the hearing remains impartial.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>The Right Sentinel</h3>
+          <p>
+            An intuitive traffic-light system giving an at-a-glance status of procedural compliance, so all rights are protected throughout the proceedings.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Guided, Compliant Workflow -->
+    <section id="workflow" class="section">
+      <h2>A Guided, Compliant Workflow</h2>
+      <div class="divider"></div>
+
+      <div class="steps">
+        <!-- Heartbeat waveform spanning steps 1 → 5 with alternating higher peaks -->
+        <svg class="heartbeat" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+          <!-- Baseline + alternating spikes; approx bubble centers at 100, 300, 500, 700, 900 -->
+          <path d="
+            M   0,60  L   60,60
+            L  100,60  140,30  180,90  220,60      <!-- modest spike near step 1 -->
+            L  260,60  300,20  340,96  380,60      <!-- higher spike near step 2 -->
+            L  420,60  460,30  500,92  540,60      <!-- modest spike near step 3 -->
+            L  580,60  620,18  660,94  700,60      <!-- higher spike near step 4 -->
+            L  740,60  780,30  820,92  860,60      <!-- modest spike before step 5 -->
+            L  900,60  940,18  980,94 1000,60      <!-- higher spike at step 5 -->
+          " />
+        </svg>
+
+        <div class="grid-5">
+          <div class="step">
+            <div class="bubble">1</div>
+            <p>Case Initiation</p>
+          </div>
+          <div class="step">
+            <div class="bubble">2</div>
+            <p>Pre-Hearing</p>
+          </div>
+          <div class="step">
+            <div class="bubble">3</div>
+            <p>Evidence</p>
+          </div>
+          <div class="step">
+            <div class="bubble">4</div>
+            <p>Deliberation</p>
+          </div>
+          <div class="step">
+            <div class="bubble">5</div>
+            <p>Outcome &amp; Report</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Critical Output -->
+    <section id="output" class="section">
+      <h2>The Critical Output</h2>
+      <div class="divider"></div>
+      <article class="card">
+        <p>
+          Upon case closure, the LIANELA-BRAIN generates a comprehensive <strong>Case &amp; Compliance Report</strong>:
+          a full procedural audit, substantive-fairness analysis, complete hearing transcript, and a final risk assessment
+          for legal review and quality assurance.
+        </p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> LIANELA · Empowering fair and compliant workplace justice.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

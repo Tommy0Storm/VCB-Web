@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>VCB — Viable Core Business</title>
+
+<!-- Quicksand: 300 (body) & 500 (headers) -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --black:#0B0B0B;
+    --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+    --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+    --white:#fff;
+    --max:1200px; --radius:16px;
+    --shadow:0 10px 36px rgba(0,0,0,.10);
+    --glow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box}
+  html{
+    background:var(--white);
+  }
+  body{
+    margin:0; background:transparent; color:var(--g-800);
+    font-family:"Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    font-weight:300; line-height:1.65; -webkit-font-smoothing:antialiased;
+    scroll-behavior:smooth;
+  }
+  h1,h2,h3,h4{ font-weight:500; color:var(--black); margin:0 0 .6rem; letter-spacing:.2px; }
+  h1{ font-size:clamp(38px,5.2vw,64px); line-height:1.08; }
+  h2{ font-size:clamp(24px,3.2vw,34px); }
+  h3{ font-size:clamp(18px,2.2vw,22px); color:var(--g-700); }
+  p{ margin:.45rem 0 1rem; }
+  ul{ margin:.25rem 0 1rem 1.1rem; padding:0; }
+  li{ margin:.25rem 0; color:var(--g-700); }
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+  .section{ padding:68px 0; }
+  .divider{ height:1px; background:linear-gradient(90deg,#fff,#EFEFEF,#fff); margin:28px 0; border:0; }
+
+  /* Particle background iframe */
+  #particle-bg{
+    position:fixed; inset:0; z-index:-3; pointer-events:none;
+    width:100%; height:100%; border:0; background:transparent;
+  }
+
+  /* Subtle animated GRID background */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px);
+    transform:translateZ(0);
+    animation:gridFloat 32s linear infinite;
+  }
+  @keyframes gridFloat{ to{ transform:translate3d(-48px,-48px,0); } }
+
+  /* Sticky glass NAV with wire mesh */
+  .top{
+    position:sticky; top:0; z-index:20; overflow:hidden;
+    background:none;
+    border-bottom:1px solid rgba(239,239,239,0.3);
+  }
+  #mesh-canvas{
+    position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
+    width:100%; height:100%;
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+  .brand{ display:flex; align-items:center; }
+  .brand img{ height:160px; width:auto; mix-blend-mode:multiply; }
+  .nav nav a{
+    color:var(--g-600); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
+    font-size:2em; font-weight:700;
+    transition:transform .2s ease, color .2s ease;
+  }
+  .nav nav a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
+    transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
+  }
+  .nav nav a:hover{ color:var(--black); transform:translateY(3px); }
+  .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+  /* HERO */
+  .hero{
+    position:relative; overflow:hidden; padding:90px 0 46px;
+    background:none;
+  }
+
+  .lede{ color:var(--g-500); max-width:940px; }
+
+  /* Badges & CTA */
+  .badges{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+  .badge{
+    border:1px solid var(--g-200); color:var(--g-700); background:#fff; border-radius:999px;
+    padding:7px 12px; font-size:13px; box-shadow:0 2px 12px rgba(0,0,0,.05);
+  }
+  .cta-row{ margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; }
+  .btn{
+    display:inline-block; padding:10px 16px; border-radius:999px;
+    background:#0B0B0B; color:#fff; text-decoration:none; font-weight:500;
+    border:1px solid #111; box-shadow:0 8px 24px rgba(0,0,0,.12);
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:0 12px 30px rgba(0,0,0,.16); }
+
+  /* GRID & CARDS */
+  .grid-2{ display:grid; gap:20px; grid-template-columns:1fr; }
+  .grid-3{ display:grid; gap:20px; grid-template-columns:1fr; }
+  .grid-4{ display:grid; gap:20px; grid-template-columns:1fr; }
+  @media(min-width:900px){
+    .grid-2{ grid-template-columns:1fr 1fr; }
+    .grid-3{ grid-template-columns:repeat(3,1fr); }
+    .grid-4{ grid-template-columns:repeat(4,1fr); }
+  }
+  .card{
+    position:relative; background:#fff; border:1px solid var(--g-100); border-radius:var(--radius); padding:24px;
+    box-shadow:var(--shadow); transform:translateZ(0);
+  }
+  .card::before{
+    content:""; position:absolute; inset:-1px; border-radius:calc(var(--radius) + 1px);
+    background:conic-gradient(from 120deg, rgba(0,0,0,.06), rgba(0,0,0,0), rgba(0,0,0,.06));
+    z-index:-1; opacity:0; transition:opacity .35s ease;
+  }
+  .card:hover::before{ opacity:1; }
+  .card:hover{ transform:translateY(-2px); box-shadow:0 12px 36px rgba(0,0,0,.12); }
+
+  /* ICONS */
+  .tile{ display:grid; gap:12px; align-content:start; }
+  .tile .head{ display:flex; align-items:center; gap:12px; }
+  .icon{ width:30px; height:30px; stroke:var(--g-700); stroke-width:1.8; fill:none; }
+
+  /* STAT TILES */
+  .stats{ display:grid; gap:18px; grid-template-columns:1fr 1fr; margin-top:20px; }
+  @media(min-width:900px){ .stats{ grid-template-columns:repeat(4,1fr); } }
+  .stat{
+    background:linear-gradient(180deg,#fff,#FAFAFA); border:1px solid var(--g-100); border-radius:18px;
+    padding:22px; text-align:center; box-shadow:var(--shadow);
+  }
+  .stat .n{ font-size:clamp(30px,3.8vw,48px); font-weight:500; color:var(--black); line-height:1.04; letter-spacing:.2px; }
+  .stat .l{ color:var(--g-600); font-size:.95rem; margin-top:6px; }
+
+  /* LANES */
+  .lane{ display:grid; gap:14px; grid-template-columns:40px 1fr; align-items:flex-start; }
+  .lanetag{ width:40px; height:40px; border-radius:12px; border:1px solid var(--g-200);
+            display:grid; place-items:center; background:#fff; box-shadow:var(--glow); }
+  .lanetag .icon{ width:22px; height:22px; }
+
+  /* TEAM */
+  .person{
+    display:grid; grid-template-columns:72px 1fr; gap:16px; align-items:center;
+    border:1px solid var(--g-100); border-radius:var(--radius); padding:18px; background:#fff; box-shadow:var(--shadow);
+  }
+  .avatar{
+    width:72px; height:72px; border-radius:50%; display:grid; place-items:center;
+    border:2px solid var(--g-200); background:linear-gradient(180deg,#fff,#FAFAFA); color:var(--black); font-weight:500;
+  }
+  .meta{ font-size:13px; color:var(--g-500); }
+  .li-badge{ margin-top:10px; }
+  .LI-profile-badge{ width:100%; }
+  @media (max-width:520px){ .person{ grid-template-columns:1fr; } .avatar{ margin-bottom:8px; } }
+
+  /* Skill timelines */
+  .timeline{ display:grid; gap:12px; }
+  .trow{ display:grid; grid-template-columns:140px 1fr; gap:12px; }
+  .trow .label{ color:var(--g-600); font-size:13px; white-space:nowrap; }
+  .bar{ position:relative; height:10px; background:var(--g-100); border-radius:999px; overflow:hidden; }
+  .bar i{ position:absolute; left:0; top:0; bottom:0; width:60%; background:var(--g-700); }
+
+  /* Reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* Footer */
+  footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:30px 0 44px; }
+
+  @media (prefers-reduced-motion:reduce){
+    .card:hover{ transform:none; box-shadow:var(--shadow); }
+    .reveal{ opacity:1; transform:none; }
+    body::before{ animation:none; }
+  }
+</style>
+
+<!-- Premium inline SVG icon sprite (monochrome) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-voice" viewBox="0 0 24 24"><path d="M7 10a5 5 0 0 0 10 0V6a5 5 0 0 0-10 0v4z"/><path d="M5 10v0a7 7 0 0 0 14 0v0"/><path d="M12 21v-3M8 21h8" /></symbol>
+  <symbol id="i-hw" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="8" rx="2"/><rect x="3" y="12" width="18" height="8" rx="2"/><path d="M7 8h.01M7 16h.01"/></symbol>
+  <symbol id="i-sec" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"/><path d="M9.5 12l1.7 1.7 3.4-3.4"/></symbol>
+  <symbol id="i-consult" viewBox="0 0 24 24"><path d="M3 20l3-3h10a5 5 0 0 0 0-10H9"/><path d="M7 7l2-2-2-2"/></symbol>
+  <symbol id="i-legacy" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 12h8M16 8l2-2M16 16l2 2"/></symbol>
+  <symbol id="i-omni" viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="6" rx="1"/><rect x="13" y="4" width="8" height="6" rx="1"/><rect x="3" y="14" width="8" height="6" rx="1"/><rect x="13" y="14" width="8" height="6" rx="1"/></symbol>
+  <symbol id="i-assist" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5"/><path d="M3 21a7 7 0 0 1 14 0"/><circle cx="17.5" cy="6.5" r="2.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"/></symbol>
+</svg>
+</head>
+
+<body>
+
+<!-- Particle Background Layer -->
+<iframe id="particle-bg" src="whiteparticle.html"></iframe>
+
+<!-- Sticky Glass Nav -->
+<div class="top">
+  <canvas id="mesh-canvas"></canvas>
+  <div class="wrap nav">
+    <a href="main.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+    <nav>
+      <a href="#tracks">Tracks</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#proof">Proof</a>
+      <a href="#team">Team</a>
+      <a href="intelligent-compliance.html">Compliance</a> <!-- link to separate page -->
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <h1 class="reveal">Strategy that ships. Governance that holds.</h1>
+    <p class="lede reveal">
+      Voice-first agents that escalate to humans, OEM-neutral hardware & software supply, and trusted consulting that keeps you compliant.
+      One partner. Outcomes only.
+    </p>
+    <div class="badges reveal">
+      <span class="badge">Model-agnostic</span>
+      <span class="badge">POPIA-first</span>
+      <span class="badge">Court-grade auditability</span>
+      <span class="badge">Sovereign-capable</span>
+      <span class="badge">OEM-neutral</span>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n">90.11%</div><div class="l">Peak legal accuracy</div></div>
+      <div class="stat"><div class="n">1,000,000</div><div class="l">Token context window</div></div>
+      <div class="stat"><div class="n">6</div><div class="l">Judicial skill domains</div></div>
+      <div class="stat"><div class="n">100%</div><div class="l">Traceability coverage</div></div>
+    </div>
+    <!-- CTA to the separate page -->
+    <div class="cta-row reveal">
+      <a class="btn" href="intelligent-compliance.html">Explore Intelligent Compliance</a>
+      <!-- add target="_blank" rel="noopener" to open in new tab -->
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- TRACKS -->
+  <section id="tracks" class="section">
+    <h2 class="reveal">Three Tracks. One Backbone.</h2>
+    <hr class="divider" />
+    <div class="grid-3">
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-voice"/></svg><h3>Voice Agents</h3></div>
+        <p>Production phone agents with omnichannel continuation and live human assist.</p>
+        <ul>
+          <li>Inbound/Outbound, natural turn-taking</li>
+          <li>WhatsApp, FB Messenger, SMS, Email, Web chat</li>
+          <li>Whisper · Barge-in · Warm transfer · 3-way</li>
+        </ul>
+      </article>
+
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-hw"/></svg><h3>Hardware & Software</h3></div>
+        <p>OEM-neutral supply, logistics, and integration for traditional IT estates.</p>
+        <ul>
+          <li>Compute/Storage (SAN/NAS) · Backup/DR</li>
+          <li>Networking/Edge · VoIP/SIP gateways</li>
+          <li>Licensing · MDM/UEM · Security stack</li>
+        </ul>
+      </article>
+
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-consult"/></svg><h3>Trusted Advisor</h3></div>
+        <p>Architecture, delivery, and operations — AI when smart, non-AI when smarter.</p>
+        <ul>
+          <li>RFP/RFQ support, cost & contract optimisation</li>
+          <li>Deploy · Migrate · Integrate</li>
+          <li>Operate with observability & runbooks</li>
+        </ul>
+      </article>
+
+      <!-- OPTIONAL: Dedicated tile linking to the separate compliance page -->
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-shield"/></svg><h3>Intelligent Compliance</h3></div>
+        <p>Proactive dispute prediction, SA-aware docs, and B-BBEE planning — with voice + omnichannel access.</p>
+        <p><a class="btn" href="intelligent-compliance.html">View the page</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section id="capabilities" class="section">
+    <h2 class="reveal">Capabilities We Bring</h2>
+    <hr class="divider" />
+    <div class="grid-2">
+      <div class="card reveal">
+        <div class="lane">
+          <div class="lanetag"><svg class="icon"><use href="#i-omni"/></svg></div>
+          <div>
+            <strong>Omnichannel Continuity</strong>
+            <p>Single memory across voice and messaging. Consent, transcripts, and audit preserved end-to-end.</p>
+          </div>
+        </div>
+        <div class="lane">
+          <div class="lanetag"><svg class="icon"><use href="#i-assist"/></svg></div>
+          <div>
+            <strong>Call-in Human Assistance</strong>
+            <p>Whisper coaching, instant takeover, warm transfers, and conference for complex cases.</p>
+          </div>
+        </div>
+        <div class="lane">
+          <div class="lanetag"><svg class="icon"><use href="#i-sec"/></svg></div>
+          <div>
+            <strong>Security & Governance</strong>
+            <p>POPIA-aligned by design: redaction, RBAC, retention, and full traceability for critical decisions.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="lane">
+          <div class="lanetag"><svg class="icon"><use href="#i-legacy"/></svg></div>
+          <div>
+            <strong>Legacy AI & Data</strong>
+            <p>Classical ML, ETL/ELT, lakehouse patterns, search/RAG, and evaluation harnesses that don’t break.</p>
+          </div>
+        </div>
+        <div class="lane">
+          <div class="lanetag"><svg class="icon"><use href="#i-hw"/></svg></div>
+          <div>
+            <strong>OEM-Neutral Sourcing</strong>
+            <p>Spec-based or outcome-based supply. We source, integrate, image, tag, and support.</p>
+          </div>
+        </div>
+        <div class="lane">
+          <div class="lanetag"><svg class="icon"><use href="#i-consult"/></svg></div>
+          <div>
+            <strong>Operate</strong>
+            <p>Managed patching, SIEM/EDR integrations, incident runbooks, and sovereignty options.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section id="proof" class="section">
+    <h2 class="reveal">Proof, Not Promises</h2>
+    <hr class="divider" />
+    <div class="grid-4">
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-voice"/></svg><h3>Legal-grade Outputs</h3></div>
+        <p>Structured reasoning, <em>ratio decidendi</em> capture, and complete evidentiary trails.</p>
+      </article>
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-legacy"/></svg><h3>Ultra-Long Context</h3></div>
+        <p>Up to 1M tokens — grounded answers without brittle chunking.</p>
+      </article>
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-sec"/></svg><h3>Traceability</h3></div>
+        <p>100% decision traceability and audit logs attached to each case.</p>
+      </article>
+      <article class="card tile reveal">
+        <div class="head"><svg class="icon"><use href="#i-hw"/></svg><h3>Run in the Real World</h3></div>
+        <p>From racks to routers to headsets — we ship the plumbing so the outcomes stick.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- VISION & MISSION -->
+  <section id="vision" class="section">
+    <h2 class="reveal">Our Vision & Mission</h2>
+    <hr class="divider" />
+
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3>Vision</h3>
+        <p>To be the essential, integrated partner for businesses in South Africa, driving the future of data-driven innovation by delivering cohesive AI software and core storage and datacentre hardware solutions.</p>
+      </div>
+
+      <div class="card reveal">
+        <h3>Mission</h3>
+        <p>VCB-AI's mission is to empower businesses to harness the full potential of artificial intelligence by providing both innovative, proprietary AI platforms/applications.</p>
+        <p>We will also be offering our customers unique, robust, and high-performance storage infrastructure.</p>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:20px; text-align:center; background:linear-gradient(180deg,#fff,#FAFAFA);">
+      <h3>You're in Capable Hands</h3>
+      <p style="max-width:800px; margin:0 auto;">With decades of combined expertise in AI, legal compliance, and infrastructure, VCB is your trusted partner for transforming vision into viable outcomes. We deliver solutions that work—backed by experience, precision, and unwavering commitment to your success.</p>
+      <div class="cta-row reveal" style="margin-top:18px; justify-content:center;">
+        <a class="btn" href="aboutus.html">Meet Our Team</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> VCB · Viable Core Business — Vision becomes Viable.
+</footer>
+
+<!-- GSAP (not needed anymore) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Sophisticated 3D Wire Mesh Animation
+  (() => {
+    const canvas = document.getElementById('mesh-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+
+    // Enable smooth rendering
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    const gridSize = 15; // much denser mesh for HD quality
+    let cols = 0;
+    let rows = 0;
+    let time = 0;
+
+    function resize(){
+      const dpr = 2; // device pixel ratio multiplier
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      cols = Math.ceil(rect.width / gridSize) + 2;
+      rows = Math.ceil(rect.height / gridSize) + 2;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // AI-like complex noise function
+    function complexNoise(x, y, t){
+      let n = 0;
+      // Multiple octaves for Perlin-like noise
+      n += Math.sin(x * 0.1 + t * 0.3) * Math.cos(y * 0.15 - t * 0.4) * 12;
+      n += Math.sin(x * 0.23 + y * 0.17 + t * 0.6) * 8;
+      n += Math.cos(x * 0.31 - y * 0.22 + t * 0.9) * 6;
+      n += Math.sin((x + y) * 0.08 + t * 1.2) * 10;
+      n += Math.cos((x - y) * 0.13 + t * 0.5) * 7;
+      // Turbulence
+      n += Math.sin(x * 0.5 + Math.cos(y * 0.4 + t)) * 4;
+      return n;
+    }
+
+    // Calculate 3D position with AI-generated complexity
+    function get3DPoint(col, row, t){
+      const x = col * gridSize - gridSize;
+      const y = row * gridSize - gridSize;
+
+      // Complex AI-like displacement
+      const displacement = complexNoise(col, row, t);
+
+      // Spiral/vortex patterns
+      const angle = Math.atan2(row - rows/2, col - cols/2);
+      const radius = Math.hypot(col - cols/2, row - rows/2);
+      const spiral = Math.sin(angle * 3 + radius * 0.2 - t * 2) * 5;
+
+      // Neural-network-like pulsing
+      const pulse = Math.sin(t * 3 + col * 0.3) * Math.cos(t * 2.5 + row * 0.25) * 8;
+
+      // Calculate depth with multiple layers
+      const depth1 = Math.sin(col * 0.2 + t) * Math.cos(row * 0.25 + t * 0.7) * 35;
+      const depth2 = Math.sin(radius * 0.1 + t * 1.5) * 15;
+      const depth = depth1 + depth2;
+
+      return {
+        x: x + displacement + spiral,
+        y: y + displacement + pulse,
+        z: depth,
+        col: col,
+        row: row,
+        energy: Math.abs(Math.sin(col * 0.3 + row * 0.2 + t * 2)) // for energy flow
+      };
+    }
+
+    function animate(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      time += 0.005;
+
+      // Store all points with depth
+      const points = [];
+      for(let row = 0; row < rows; row++){
+        points[row] = [];
+        for(let col = 0; col < cols; col++){
+          points[row][col] = get3DPoint(col, row, time);
+        }
+      }
+
+      // Draw horizontal lines with depth-based styling - much thinner
+      for(let row = 0; row < rows; row++){
+        ctx.beginPath();
+        for(let col = 0; col < cols; col++){
+          const p = points[row][col];
+
+          // Depth influences opacity and thickness - thinner lines
+          const depthFactor = (p.z + 35) / 70; // normalize 0-1
+          ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+          ctx.lineWidth = 0.3 + depthFactor * 0.4;
+
+          if(col === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+      }
+
+      // Draw vertical lines with depth-based styling - thinner
+      const canvasHeight = canvas.height / 2; // adjust for DPR
+      for(let col = 0; col < cols; col++){
+        ctx.beginPath();
+        for(let row = 0; row < rows; row++){
+          const p = points[row][col];
+
+          const depthFactor = (p.z + 35) / 70;
+          ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+          ctx.lineWidth = 0.3 + depthFactor * 0.4;
+
+          // Make bottom edge straight/flat
+          const yPos = (row === rows - 1) ? canvasHeight - 1 : p.y;
+
+          if(row === 0) ctx.moveTo(p.x, yPos);
+          else ctx.lineTo(p.x, yPos);
+        }
+        ctx.stroke();
+      }
+
+      // Add subtle diagonal connections for enhanced 3D effect - thinner
+      ctx.lineWidth = 0.2;
+      for(let row = 0; row < rows - 1; row++){
+        for(let col = 0; col < cols - 1; col++){
+          const p1 = points[row][col];
+          const p2 = points[row + 1][col + 1];
+
+          // Only draw some diagonals based on depth and energy
+          if(Math.abs(p1.z - p2.z) > 10 || (p1.energy > 0.7 && p2.energy > 0.7)){
+            const avgDepth = (p1.z + p2.z) / 2;
+            const avgEnergy = (p1.energy + p2.energy) / 2;
+            const depthFactor = (avgDepth + 35) / 70;
+            const opacity = 0.1 + depthFactor * 0.3 + avgEnergy * 0.2;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw energy flow lines (AI neural-network style) - thinner
+      ctx.lineWidth = 0.25;
+      for(let row = 1; row < rows - 1; row += 2){
+        for(let col = 1; col < cols - 1; col += 2){
+          const p = points[row][col];
+          if(p.energy > 0.6){
+            // Find nearby high-energy nodes and connect
+            for(let dr = -2; dr <= 2; dr++){
+              for(let dc = -2; dc <= 2; dc++){
+                if(dr === 0 && dc === 0) continue;
+                const nr = row + dr;
+                const nc = col + dc;
+                if(nr >= 0 && nr < rows && nc >= 0 && nc < cols){
+                  const neighbor = points[nr][nc];
+                  if(neighbor.energy > 0.6){
+                    const distance = Math.hypot(dr, dc);
+                    const energyFlow = (p.energy + neighbor.energy) / 2;
+                    ctx.strokeStyle = `rgba(66, 66, 66, ${energyFlow * 0.15 / distance})`;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(neighbor.x, neighbor.y);
+                    ctx.stroke();
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Draw 3D connector dots at intersection points
+      for(let row = 0; row < rows; row++){
+        for(let col = 0; col < cols; col++){
+          const p = points[row][col];
+          const depthFactor = (p.z + 35) / 70;
+
+          // Dot size varies with depth AND energy - smaller/thinner
+          const energyBoost = p.energy > 0.7 ? p.energy * 0.5 : 0;
+          const dotSize = 1 + depthFactor * 1.5 + energyBoost;
+
+          // 3D gradient effect - darker grey with energy glow
+          const gradient = ctx.createRadialGradient(
+            p.x - dotSize * 0.3, p.y - dotSize * 0.3, 0,
+            p.x, p.y, dotSize
+          );
+          const energyGlow = p.energy > 0.7 ? 0.15 : 0;
+          gradient.addColorStop(0, `rgba(42, 42, 42, ${0.7 + depthFactor * 0.3 + energyGlow})`);
+          gradient.addColorStop(0.6, `rgba(66, 66, 66, ${0.6 + depthFactor * 0.3})`);
+          gradient.addColorStop(1, `rgba(86, 86, 86, ${0.3 + depthFactor * 0.4})`);
+
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Add subtle outer glow for depth - thinner
+          ctx.strokeStyle = `rgba(42, 42, 42, ${0.2 + depthFactor * 0.3})`;
+          ctx.lineWidth = 0.4;
+          ctx.stroke();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  })();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
