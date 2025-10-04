@@ -43,13 +43,44 @@
     .section{ padding:44px 0; }
     .divider{ height:1px; background:var(--g-100); margin:26px 0; }
 
-    /* Top bar */
-    .top{ border-bottom:1px solid var(--g-100); background:linear-gradient(180deg,#fafafa,var(--white)); }
+    /* Particle background iframe */
+    #particle-bg{
+      position:fixed; inset:0; z-index:-3; pointer-events:none;
+      width:100%; height:100%; border:0; background:transparent;
+    }
+
+    /* Subtle animated grid bg */
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px);
+      transform:translateZ(0);
+      animation:gridFloat 32s linear infinite;
+    }
+    @keyframes gridFloat{ to{ transform:translate3d(-48px,-48px,0); } }
+
+    /* Sticky glass NAV with wire mesh */
+    .top{
+      position:sticky; top:0; z-index:20; overflow:hidden;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(239,239,239,0.8);
+    }
+    #mesh-canvas{
+      position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
+      width:100%; height:100%;
+    }
     .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
     .brand{ display:flex; align-items:center; }
-    .brand img{ height:240px; width:auto; }
-    .nav a{ color:var(--g-600); text-decoration:none; margin-left:14px; }
-    .nav a:hover{ color:var(--black); }
+    .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
+    .nav nav a{
+      color:var(--g-700); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
+      font-size:2em; font-weight:700;
+      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-rendering:optimizeLegibility;
+    }
+    .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
 
     /* Hero */
     .hero{ padding:44px 0 24px; }
