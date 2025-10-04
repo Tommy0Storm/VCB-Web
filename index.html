@@ -68,7 +68,7 @@
   .top{
     position:sticky; top:0; z-index:20; overflow:hidden;
     background:rgba(255,255,255,0.95);
-    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     border-bottom:1px solid rgba(239,239,239,0.8);
   }
   #mesh-canvas{
@@ -97,7 +97,7 @@
     border-bottom:1px solid rgba(0,0,0,.06);
     padding:32px 0;
     text-align:center;
-    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     position:relative;
   }
   .compliance-banner::before{
@@ -265,7 +265,7 @@
     box-shadow:var(--shadow);
     transform:translateZ(0);
     transition:all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     overflow:hidden;
   }
   .card::before{
@@ -514,11 +514,11 @@
 <body>
 
 <!-- Particle Background Layer -->
-<iframe id="particle-bg" src="whiteparticle.html"></iframe>
+<iframe id="particle-bg" src="whiteparticle.html" title="Particle Background Animation"></iframe>
 
 <!-- Sticky Glass Nav -->
 <div class="top">
-  <canvas id="mesh-canvas"></canvas>
+  <canvas id="mesh-canvas" aria-label="3D Mesh Background Animation"></canvas>
   <div class="wrap nav">
     <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
     <nav>
