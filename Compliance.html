@@ -75,16 +75,12 @@
   .brand{ display:flex; align-items:center; }
   .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
   .nav nav a{
-    color:var(--g-600); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
+    color:var(--g-700); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
     font-size:2em; font-weight:700;
-    transition:transform .2s ease, color .2s ease;
-  }
-  .nav nav a::after{
-    content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
-    transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
+    transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-rendering:optimizeLegibility;
   }
   .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
-  .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
 
   /* Hero */
   .hero{
