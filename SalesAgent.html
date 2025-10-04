@@ -140,6 +140,39 @@
 
     /* Footer */
     footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:24px 0 36px; }
+
+    /* Mobile Optimization */
+    @media(max-width:768px){
+      .wrap{ padding:0 16px; }
+      .brand img{ height:120px; }
+      .nav{ padding:6px 0; flex-wrap:wrap; gap:8px; }
+      .nav nav{ display:flex; flex-wrap:wrap; justify-content:center; width:100%; }
+      .nav nav a{ font-size:0.85em; margin-left:8px; margin-right:8px; }
+      .hero{ padding:60px 0 40px; }
+      h1{ font-size:clamp(28px,7vw,42px); }
+      h2{ font-size:clamp(22px,5vw,32px); }
+      h3{ font-size:clamp(18px,4vw,24px); }
+      .section{ padding:48px 0; }
+      .card{ padding:20px; }
+      .card:hover{ transform:translateY(-8px) scale(1.01); box-shadow:0 8px 24px rgba(0,0,0,.1), 0 16px 48px rgba(0,0,0,.06); }
+      .badges{ gap:8px; }
+      .badge{ font-size:12px; padding:8px 14px; }
+      .chips{ gap:6px; }
+      .chip{ font-size:12px; padding:5px 9px; }
+      ul{ margin-left:0.8rem; }
+      li{ font-size:15px; }
+      #mesh-canvas{ display:none; }
+      body::before{ animation:none; }
+    }
+
+    @media(max-width:480px){
+      .brand img{ height:90px; }
+      .nav nav a{ font-size:0.75em; margin-left:6px; margin-right:6px; }
+      h1{ font-size:clamp(24px,8vw,36px); }
+      h2{ font-size:clamp(20px,6vw,28px); }
+      .card{ padding:16px; }
+      #particle-bg{ display:none; }
+    }
   </style>
 </head>
 <body>
