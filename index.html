@@ -48,7 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
   .section{ padding:96px 0; position:relative; }
   .section:not(:last-child)::after{
-    content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    content:"; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
     width:80%; max-width:600px; height:1px;
     background:linear-gradient(90deg, transparent, rgba(0,0,0,.08), transparent);
   }
@@ -62,7 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* Subtle animated GRID background */
   body::before{
-    content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    content:"; position:fixed; inset:0; z-index:-2; pointer-events:none;
     background:
       repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px),
       repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px);
@@ -92,12 +92,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-rendering:optimizeLegibility;
   }
   .nav nav a::after{
-    content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
+    content:"; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
     transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
   }
   .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
   .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
-
   /* Compliance Callout Banner */
   .compliance-banner{
     background:linear-gradient(135deg, rgba(248,249,250,.8) 0%, rgba(233,236,239,.6) 100%);
@@ -108,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     position:relative;
   }
   .compliance-banner::before{
-    content:""; position:absolute; inset:0;
+    content:"; position:absolute; inset:0;
     background:radial-gradient(ellipse at center, rgba(0,0,0,.02) 0%, transparent 70%);
     pointer-events:none;
   }
@@ -133,7 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     overflow:hidden;
   }
   .event-exclusive::before{
-    content:""; position:absolute; inset:0;
+    content:"; position:absolute; inset:0;
     background:radial-gradient(ellipse at center, rgba(212,175,55,.12) 0%, transparent 70%);
     pointer-events:none;
   }
@@ -167,7 +166,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-transform:uppercase; letter-spacing:1.2px;
   }
   .event-exclusive .btn-gold::before{
-    content:""; position:absolute; inset:0; background:#D4AF37;
+    content:"; position:absolute; inset:0; background:#D4AF37;
     transform:translateY(100%); transition:transform .4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index:-1;
   }
@@ -226,7 +225,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-rendering:optimizeLegibility;
   }
   .btn::before{
-    content:"";
+    content:";
     position:absolute;
     inset:0;
     background:linear-gradient(135deg, var(--g-800) 0%, var(--black) 100%);
@@ -235,7 +234,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     z-index:-1;
   }
   .btn::after{
-    content:"";
+    content:";
     position:absolute;
     inset:0;
     background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
@@ -276,7 +275,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     overflow:hidden;
   }
   .card::before{
-    content:"";
+    content:";
     position:absolute;
     inset:-1px;
     border-radius:calc(var(--radius) + 1px);
@@ -286,7 +285,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition:opacity .5s ease;
   }
   .card::after{
-    content:"";
+    content:";
     position:absolute;
     inset:0;
     border-radius:var(--radius);
@@ -532,12 +531,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <canvas id="mesh-canvas" aria-label="3D Mesh Background Animation"></canvas>
   <div class="wrap nav">
     <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
-    <nav>
+        <nav>
+      <a href="index.html">Home</a>
       <a href="aboutus.html">About</a>
+      <a href="Model-Train.html">#ProjectDarkMatter</a>
       <a href="Lianela-info.html">LIANELA V3</a>
-      <a href="Model-Train.html">LIANELA VOICE</a>
-      <a href="SalesAgent.html">Sales Agents</a>
+      <a href="SalesAgent.html">Voice-Agents</a>
       <a href="LLM-Ent.html">SIGMA</a>
+      <a href="Partnerships.html">Partnerships</a>
       <a href="Compliance.html">Compliance</a>
     </nav>
   </div>
@@ -1012,7 +1013,10 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       "Make AI safe to adopt: secure-by-default, compliant-from-day-one, and powered by unbreakable storage.",
       "Build outcomes, not risk—governed AI on resilient storage with privacy, security, and compliance at the core.",
       "Ship AI you can trust: encrypted, governed, and audit-ready on a rock-solid storage backbone."
-    ];
+    
+      ,"AI-first venture builder obsessed with making artificial intelligence useful, secure, and compliant, not just shiny."
+      ,"The name Viable Core Business isnt just a motivational posterits a philosophy. Every product has to make sense commercially, legally, and ethically."
+      ,"By pioneering the use of multi-skill fine-tuning on a premier, long-context foundation model, VCB has created a uniquely powerful and trustworthy tool for the legal profession."];
 
     const element = document.getElementById('rotating-mission');
     if(!element) return;
@@ -1037,6 +1041,12 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 </script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 

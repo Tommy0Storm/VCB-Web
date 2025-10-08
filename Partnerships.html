@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NR7C688Z');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Partnerships | VCB</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --black:#0B0B0B; --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D; --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF; --white:#fff; --max:1200px; --radius:18px; }
+  html,body{ margin:0; background:transparent; color:var(--g-900); font-family:"Quicksand",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  h1{ font-size:clamp(32px,4vw,46px); font-weight:700; color:var(--black); margin:.2rem 0 .5rem; }
+  p{ color:var(--g-700); }
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+  /* Particle bg */
+  #particle-bg{ position:fixed; inset:0; z-index:-3; pointer-events:none; width:100%; height:100%; border:0; background:transparent; }
+  body::before{ content:""; position:fixed; inset:0; z-index:-2; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px), repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px); animation:gridFloat 32s linear infinite; }
+  @keyframes gridFloat{ to{ transform:translate3d(-48px,-48px,0); } }
+  /* Top nav */
+  .top{ position:sticky; top:0; z-index:20; overflow:hidden; background:rgba(255,255,255,.95); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border-bottom:1px solid rgba(239,239,239,.8); }
+  #mesh-canvas{ position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.2; width:100%; height:100%; }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+  .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
+  .nav nav a{ color:var(--g-700); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px; font-size:2em; font-weight:700; transition:transform .2s ease, color .2s ease; }
+  .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
+  /* Hero */
+  .hero{ padding:44px 0 24px; }
+  .lede{ color:var(--g-600); max-width:860px; }
+  /* Unique Coming Soon block */
+  .coming-soon{ position:relative; margin:10px 0 6px; padding:18px 18px 20px; border-radius:16px; background:linear-gradient(180deg,#ffffff 0%, #fafafa 100%); border:1px solid rgba(0,0,0,.06); box-shadow:0 6px 24px rgba(0,0,0,.06), 0 16px 48px rgba(0,0,0,.05); overflow:hidden; }
+  .coming-soon::before{ content:""; position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(135deg, rgba(0,0,0,.03) 0 12px, rgba(0,0,0,.01) 12px 24px); }
+  .coming-soon .sweep{ content:""; position:absolute; inset:0; width:40%; pointer-events:none; background:linear-gradient(90deg, transparent, rgba(92,126,170,.10), transparent); animation:sweep 3.6s ease-in-out infinite; }
+  @keyframes sweep{ 0%{ transform:translateX(-120%);} 50%{ transform:translateX(0%);} 100%{ transform:translateX(120%);} }
+  .coming-soon .stamp{ display:inline-block; font-weight:700; letter-spacing:.12em; font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(0,0,0,.12); background:#fff; color:#1A1A1A; transform:rotate(-2deg); box-shadow:0 1px 0 rgba(0,0,0,.04); }
+  .coming-soon .line{ margin-top:10px; font-size:clamp(16px,2vw,20px); color:#2A2A2A; font-weight:600; }
+  .coming-soon .arrow{ width:0; height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-top:14px solid rgba(92,126,170,.8); margin:14px auto 0; animation:bounce 1.4s ease-in-out infinite; filter:drop-shadow(0 1px 0 rgba(0,0,0,.05)); }
+  @keyframes bounce{ 0%,100%{ transform:translateY(0); opacity:.85;} 50%{ transform:translateY(6px); opacity:1; } }
+  /* Image tile */
+  .img-link{ display:block; margin:20px 0 0; text-decoration:none; }
+  .img-card{ background:#fff; border:1px solid var(--g-100); border-radius:16px; padding:14px; box-shadow:0 4px 24px rgba(0,0,0,.06), 0 12px 48px rgba(0,0,0,.04); transition:transform .25s ease, box-shadow .25s ease; max-width:30%; margin:20px auto 0; min-width:280px; }
+  .img-card:hover{ transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,0,0,.10), 0 20px 64px rgba(0,0,0,.08); }
+  .img-card img{ width:100%; height:auto; display:block; border-radius:12px; }
+  @media(max-width:768px){ .wrap{ padding:0 16px; } .brand img{ height:120px; } .nav{ padding:6px 0; flex-wrap:wrap; gap:8px; } .nav nav{ display:flex; flex-wrap:wrap; justify-content:center; width:100%; } .nav nav a{ font-size:0.85em; margin:0 8px; } #mesh-canvas{ display:none; } body::before{ animation:none; } .img-card{ max-width:70%; } }
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NR7C688Z" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<iframe id="particle-bg" src="whiteparticle.html" title="Particle Background Animation"></iframe>
+<div class="top">
+  <canvas id="mesh-canvas" aria-label="3D Mesh Background Animation"></canvas>
+  <div class="wrap nav">
+    <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About</a>
+      <a href="Model-Train.html">#ProjectDarkMatter</a>
+      <a href="Lianela-info.html">LIANELA V3</a>
+      <a href="SalesAgent.html">Voice-Agents</a>
+      <a href="LLM-Ent.html">SIGMA</a>
+      <a href="Partnerships.html">Partnerships</a>
+      <a href="Compliance.html">Compliance</a>
+    </nav>
+  </div>
+</div>
+<header class="hero">
+  <div class="wrap">
+    <h1>Partnerships</h1>
+    <div class="coming-soon" role="status" aria-live="polite"><div class="sweep" aria-hidden="true"></div><span class="stamp">COMING SOON</span><div class="line">Great partnerships are being forged, in the mean time...</div><div class="arrow" aria-hidden="true"></div></div>
+    <a href="Lianela-info.html" class="img-link" aria-label="Open LIANELA V3">
+      <div class="img-card">
+        <img src="https://i.postimg.cc/fbZqxRht/LIANELA-Laptop.png" alt="LIANELA V3 preview on laptop" />
+      </div>
+    </a>
+  </div>
+</header>
+<script>
+  // Enhanced wire mesh header (rows + columns + subtle dots)
+  (() => {
+    const canvas = document.getElementById('mesh-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    const gridSize = 15;
+    let cols = 0, rows = 0, time = 0;
+
+    function resize(){
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(rect.width / gridSize) + 2;
+      rows = Math.ceil(rect.height / gridSize) + 2;
+    }
+
+    function complexNoise(x, y, t){
+      let n = Math.sin(x * 0.10 + t * 0.30) * Math.cos(y * 0.15 - t * 0.40) * 12;
+      n += Math.sin(x * 0.23 + y * 0.17 + t * 0.60) * 8;
+      n += Math.cos(x * 0.31 - y * 0.22 + t * 0.90) * 6;
+      n += Math.sin((x + y) * 0.08 + t * 1.20) * 10;
+      n += Math.cos((x - y) * 0.13 + t * 0.50) * 7;
+      return n;
+    }
+
+    function point(c, r, t){
+      const x = c * gridSize - gridSize;
+      const y = r * gridSize - gridSize;
+      const disp = complexNoise(c, r, t);
+      const depth = Math.sin(c * 0.2 + t) * Math.cos(r * 0.25 + t * 0.7) * 35;
+      const energy = Math.abs(Math.sin(c * 0.3 + r * 0.2 + t * 2));
+      return { x: x + disp, y: y + disp, z: depth, energy };
+    }
+
+    function draw(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      time += 0.01;
+
+      const pts = [];
+      for (let r = 0; r < rows; r++){
+        pts[r] = [];
+        for (let c = 0; c < cols; c++){
+          pts[r][c] = point(c, r, time);
+        }
+      }
+
+      // Horizontal lines
+      for (let r = 0; r < rows; r++){
+        ctx.beginPath();
+        for (let c = 0; c < cols; c++){
+          const p = pts[r][c];
+          const k = (p.z + 35) / 70;
+          ctx.strokeStyle = `rgba(86,86,86,${0.18 + k * 0.45})`;
+          ctx.lineWidth = 0.3 + k * 0.4;
+          c === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+      }
+
+      // Vertical lines
+      for (let c = 0; c < cols; c++){
+        ctx.beginPath();
+        for (let r = 0; r < rows; r++){
+          const p = pts[r][c];
+          const k = (p.z + 35) / 70;
+          ctx.strokeStyle = `rgba(86,86,86,${0.18 + k * 0.45})`;
+          ctx.lineWidth = 0.3 + k * 0.4;
+          r === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+      }
+
+      // Subtle connector dots
+      for (let r = 0; r < rows; r++){
+        for (let c = 0; c < cols; c++){
+          const p = pts[r][c];
+          const k = (p.z + 35) / 70;
+          const glow = p.energy > 0.7 ? 0.15 : 0;
+          const size = 1 + k * 1.5 + (p.energy > 0.7 ? p.energy * 0.5 : 0);
+          const g = ctx.createRadialGradient(p.x - size * 0.3, p.y - size * 0.3, 0, p.x, p.y, size);
+          g.addColorStop(0, `rgba(42,42,42,${0.7 + k * 0.3 + glow})`);
+          g.addColorStop(0.6, `rgba(66,66,66,${0.6 + k * 0.3})`);
+          g.addColorStop(1, `rgba(86,86,86,${0.3 + k * 0.4})`);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    draw();
+  })();
+</script>
+</body>
+</html>
+
+
+
+

@@ -29,7 +29,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     html,body{
-      margin:0; background:var(--white); color:var(--g-900);
+      margin:0; background:transparent; color:var(--g-900);
       font-family:"Quicksand",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       font-weight:400; line-height:1.65; -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
     .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
     .brand{ display:flex; align-items:center; }
-    .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
+    .brand img{ height:240px; width:auto; max-width:none; flex-shrink:0; object-fit:contain; mix-blend-mode:multiply; }
     .nav nav a{
       color:var(--g-700); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
       font-size:2em; font-weight:700;
@@ -101,6 +101,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       border-radius:999px; padding:6px 10px; font-size:13px; background:#FAFAFA;
       font-weight:500;
     }
+
+    .context-toggle{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      margin:18px auto 28px;
+      flex-wrap:wrap;
+    }
+    .context-btn{
+      background:rgba(250,250,250,0.92);
+      border:1px solid var(--g-200);
+      border-radius:999px;
+      padding:10px 22px;
+      font-size:0.85rem;
+      font-weight:600;
+      letter-spacing:0.5px;
+      text-transform:uppercase;
+      color:var(--g-600);
+      cursor:pointer;
+      transition:all .3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .context-btn:hover{
+      border-color:var(--g-400);
+      color:var(--black);
+      transform:translateY(-1px);
+    }
+    .context-btn.active{
+      background:var(--black);
+      color:var(--white);
+      border-color:var(--black);
+      box-shadow:0 12px 26px rgba(0,0,0,.16);
+    }
+    .chart-container{
+      position:relative;
+      margin:0 auto;
+      width:100%;
+      max-width:540px;
+      height:340px;
+    }
+    @media(max-width:600px){
+      .chart-container{ height:300px; }
+    }
+    .hidden{ display:none !important; }
 
     /* Cards & grids */
     .card{
@@ -173,7 +217,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     /* Mobile Optimization */
     @media(max-width:768px){
       .wrap{ padding:0 16px; }
-      .brand img{ height:120px; }
+      .brand img{ height:240px; width:auto; max-width:none; flex-shrink:0; object-fit:contain; mix-blend-mode:multiply; }
       .nav{ padding:6px 0; flex-wrap:wrap; gap:8px; }
       .nav nav{ display:flex; flex-wrap:wrap; justify-content:center; width:100%; }
       .nav nav a{ font-size:0.85em; margin-left:8px; margin-right:8px; }
@@ -196,7 +240,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     @media(max-width:480px){
-      .brand img{ height:90px; }
+      .brand img{ height:240px; width:auto; max-width:none; flex-shrink:0; object-fit:contain; mix-blend-mode:multiply; }
       .nav nav a{ font-size:0.75em; margin-left:6px; margin-right:6px; }
       h1{ font-size:clamp(24px,8vw,36px); }
       h2{ font-size:clamp(20px,6vw,28px); }
@@ -205,6 +249,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       #particle-bg{ display:none; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -221,174 +266,192 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <canvas id="mesh-canvas" aria-label="3D Mesh Background Animation"></canvas>
     <div class="wrap nav">
       <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
-      <nav>
+            <nav>
         <a href="index.html">Home</a>
         <a href="aboutus.html">About</a>
+        <a href="Model-Train.html">#ProjectDarkMatter</a>
         <a href="Lianela-info.html">LIANELA V3</a>
-        <a href="SalesAgent.html">Sales Agents</a>
+        <a href="SalesAgent.html">Voice-Agents</a>
         <a href="LLM-Ent.html">SIGMA</a>
-        <a href="Compliance.html">Compliance</a>
+      <a href="Partnerships.html">Partnerships</a>
+      <a href="Compliance.html">Compliance</a>
       </nav>
     </div>
   </div>
 
   <!-- Hero -->
-  <header class="hero">
+    <header class="hero">
     <div class="wrap">
-      <h1 id="voice">LIANELA VOICE</h1>
+      <h1 id="voice">#ProjectDarkMatter</h1>
       <p class="slogan">Judicial Reasoning Engine</p>
       <p class="lede">
-        The definitive AI solution for the South African legal jurisdiction, built on a premium foundation and validated by High Court Advocates.
+        A purpose-built legal cognition system engineered to read, reason, and write with the discipline of a seasoned judge, spanning the South African case law corpus with a million-token memory.
       </p>
       <p class="lede" style="font-style:italic; color:var(--g-600); margin-top:12px;">
-        Deliver practical AI with uncompromising security, data protection, and built-in compliance—backed by enterprise-grade storage.
+        Built to preserve the craft of judgment: every inference audited, every outcome explainable, every decision grounded in the record.
       </p>
-
-      <!-- Vendor-neutral proof badges -->
       <div class="badges">
-        <span class="badge">Model-agnostic core</span>
-        <span class="badge">Top-tier US East DC</span>
-        <span class="badge">Tier III+/IV design</span>
-        <span class="badge">SOC 2 Type II · ISO 27001/27018</span>
-        <span class="badge">Compliance-first (POPIA)</span>
+        <span class="badge">1M-token context</span>
+        <span class="badge">High Court advocate validated</span>
+        <span class="badge">POPIA-first governance</span>
+        <span class="badge">Foundation-agnostic</span>
+        <span class="badge">Traceability guaranteed</span>
       </div>
     </div>
   </header>
 
-  <main class="wrap">
+    <main class="wrap">
 
-    <!-- Metrics -->
     <section class="section" id="metrics">
       <h2>Performance at a Glance</h2>
       <div class="divider"></div>
-
       <div class="stats">
         <div class="stat">
           <div class="n">90.11%</div>
           <div class="l">Peak Accuracy</div>
-          <p class="note">(20.1% higher than industry average of 70%)</p>
+          <p class="note">20.1% higher than baseline general models.</p>
         </div>
         <div class="stat">
           <div class="n">1M Tokens</div>
           <div class="l">Context Window</div>
-          <p class="note">(25–250× larger than many legal AI systems)</p>
+          <p class="note">Processes an entire case in one pass.</p>
         </div>
         <div class="stat">
           <div class="n">43,124×</div>
           <div class="l">Impact Multiplier</div>
-          <p class="note">(baseline tasks automated vs. manual throughput)</p>
+          <p class="note">Relative task coverage vs. manual throughput.</p>
         </div>
         <div class="stat">
-          <div class="n">15,372+</div>
-          <div class="l">Proprietary Examples</div>
-          <p class="note">(multi-skill training corpus from 2,118 base cases)</p>
+          <div class="n">58,000</div>
+          <div class="l">Unique Training Instances</div>
+          <p class="note">Total examples processed across the legal corpus.</p>
         </div>
       </div>
     </section>
 
-    <!-- Non-monetary value (innovative presentation) -->
+    <section class="section" id="overview">
+      <h2>Project Overview</h2>
+      <div class="divider"></div>
+      <div class="grid-3">
+        <article class="card"><h3>Issue Spotting</h3><p>Identifies the core legal questions and disputes before the court.</p></article>
+        <article class="card"><h3>Principle Extraction</h3><p>Distils the <em>ratio decidendi</em> and binding rules from judgments.</p></article>
+        <article class="card"><h3>Precedent Analysis</h3><p>Understands whether authority is followed, distinguished, or overruled.</p></article>
+        <article class="card"><h3>Judgment Structuring</h3><p>Produces structured outlines (facts, issues, analysis, order).</p></article>
+        <article class="card"><h3>Outcome Reasoning</h3><p>Captures the probable order and the underlying reasoning steps.</p></article>
+        <article class="card"><h3>Legal Summarisation</h3><p>Generates comprehensive, court-aware summaries and synthesis.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="context">
+      <h2>South African & Global Context</h2>
+      <div class="divider"></div>
+
+      <div class="context-toggle">
+        <button id="sa-btn" class="context-btn active">South African Context</button>
+        <button id="global-btn" class="context-btn">Global Context</button>
+      </div>
+
+      <div id="sa-context" class="reveal">
+        <p style="text-align:center; max-width:780px; margin:0 auto;">
+          While the propiatary dataset provides raw material, no public record shows any other project in South Africa converting the corpus into a multi-skill legal training set for a long-context model. Project Dark Matter pioneers advanced generative AI tailored to the specifics of South African law.
+        </p>
+      </div>
+
+      <div id="global-context" class="reveal hidden">
+        <div style="max-width:760px; margin:0 auto 24px; text-align:center;">
+          <h3 style="margin-bottom:12px;">A World First in Legal AI Architecture</h3>
+          <p style="line-height:1.7;">
+            Project Dark Matter fine-tunes a premium foundation model with a million-token window on a judicial reasoning corpus. Entire case files are analysed end-to-end in a single pass—a capability previously unattainable and a paradigm shift for legal AI.
+          </p>
+        </div>
+        <div class="chart-container">
+          <canvas id="comparisonChart"></canvas>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="value">
       <h2>Value Without Currency</h2>
       <div class="divider"></div>
-
-      <article class="card">
-        <p>
-          We express value through defensible, non-monetary signals: reliability, traceability, governance readiness,
-          sovereignty, expert validation, and latency. These composite indicators reflect real-world performance and accountability.
-        </p>
-
-        <div class="dials">
-          <div>
-            <div class="dial" style="--p:96;"><div class="v">96</div></div>
-            <div class="k">Reliability Index</div>
-            <div class="s">legal accuracy & consistency</div>
-          </div>
-          <div>
-            <div class="dial" style="--p:100;"><div class="v">100</div></div>
-            <div class="k">Traceability Coverage</div>
-            <div class="s">evidence & reasoning audit trail</div>
-          </div>
-          <div>
-            <div class="dial" style="--p:94;"><div class="v">94</div></div>
-            <div class="k">Governance Readiness</div>
-            <div class="s">policies · POPIA · auditability</div>
-          </div>
-          <div>
-            <div class="dial" style="--p:92;"><div class="v">92</div></div>
-            <div class="k">Sovereign Assurance</div>
-            <div class="s">deployment & data-residency control</div>
-          </div>
-          <div>
-            <div class="dial" style="--p:98;"><div class="v">98</div></div>
-            <div class="k">Expert Validation</div>
-            <div class="s">High Court advocate review</div>
-          </div>
+      <div class="dials">
+        <div>
+          <div class="dial" style="--p:96;"><div class="v">96</div></div>
+          <div class="k">Reliability Index</div>
+          <div class="s">Accuracy & consistency</div>
         </div>
+        <div>
+          <div class="dial" style="--p:100;"><div class="v">100</div></div>
+          <div class="k">Traceability Coverage</div>
+          <div class="s">Evidence & reasoning audit trail</div>
+        </div>
+        <div>
+          <div class="dial" style="--p:94;"><div class="v">94</div></div>
+          <div class="k">Governance Readiness</div>
+          <div class="s">POPIA-ready policies</div>
+        </div>
+        <div>
+          <div class="dial" style="--p:92;"><div class="v">92</div></div>
+          <div class="k">Sovereign Assurance</div>
+          <div class="s">Deployment & residency control</div>
+        </div>
+        <div>
+          <div class="dial" style="--p:98;"><div class="v">98</div></div>
+          <div class="k">Expert Validation</div>
+          <div class="s">Reviewed by High Court advocates</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="architecture">
+      <h2>Technical Architecture & Moat</h2>
+      <div class="divider"></div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Premium Foundation</h3>
+          <ul>
+            <li>Latest-generation flagship LLM, foundation-agnostic approach.</li>
+            <li>Hosted in top-tier US East facility with sub-70ms latency.</li>
+            <li>Tier III+/IV design, SOC 2 Type II and ISO 27001/27018 alignment.</li>
+            <li>Ultra-long 1M token context window minimises chunking risk.</li>
+            <li>Adapter size 8 for multi-task capacity with efficient training.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Proprietary Data Pipeline</h3>
+          <ul>
+            <li>15,000+ multi-skill examples curated from authoritative cases.</li>
+            <li>Layered QC gates, split hygiene, leakage prevention.</li>
+            <li>Total of 58,000 unique training instances processed.</li>
+            <li>Multi-part JSONL format keeps the project foundation-agnostic.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Governance & Validation</h3>
+          <ul>
+            <li>Formal review by two High Court advocates.</li>
+            <li>Hallucination mitigation via specialised evaluation pipelines.</li>
+            <li>Full traceability for court-grade auditability.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="closing-quote">
+      <article class="card" style="text-align:center;">
+        <p style="font-size:1.05rem; line-height:1.8; font-weight:500; color:var(--black); margin-bottom:8px;">
+          "For centuries we trained minds to think like judges. Today, we trained a machine to reason like one—not to replace judgment, but to preserve its discipline."
+        </p>
+        <p class="note" style="margin-top:0;">— Advocate Nandi Basson</p>
       </article>
     </section>
 
-    <!-- Expertise -->
-    <section class="section" id="expertise">
-      <h2>Six-Domain Judicial Expertise</h2>
-      <div class="divider"></div>
-
-      <div class="grid-3">
-        <article class="card"><h3>1) Issue Spotting</h3><p>Identifies the core legal questions and disputes before the court.</p></article>
-        <article class="card"><h3>2) Principle Extraction</h3><p>Accurately distills the <em>ratio decidendi</em> (binding legal principle) from judgments.</p></article>
-        <article class="card"><h3>3) Precedent Analysis</h3><p>Analyzes the application of case law (distinguishing, following, or overruling).</p></article>
-        <article class="card"><h3>4) Judgment Structuring</h3><p>Produces structured legal outlines (Facts, Issue, Analysis, Order).</p></article>
-        <article class="card"><h3>5) Outcome Prediction</h3><p>Determines the probable court decision or extracts the final binding order.</p></article>
-        <article class="card"><h3>6) Legal Summarisation</h3><p>Creates comprehensive and nuanced case summaries and synthesis.</p></article>
-      </div>
-    </section>
-
-    <!-- Architecture / Moat -->
-    <section class="section" id="architecture">
-      <h2>Architectural & Competitive Moat</h2>
-      <div class="divider"></div>
-
-      <div class="grid-3">
-        <article class="card">
-          <h3>Premium Foundation (Flagship Model — US East Tier-1 DC)</h3>
-          <ul>
-            <li>Base: <strong>Leading premium flagship LLM</strong> (latest generation), vendor-neutral posture.</li>
-            <li>Hosting: <strong>Top-tier US East data center</strong> (Ashburn/N. Virginia class), low-latency backbone.</li>
-            <li>Standards: Tier III+/IV design; <strong>SOC 2 Type II</strong>, <strong>ISO 27001/27018</strong> alignment.</li>
-            <li>Context window: <strong>Ultra-long (up to ~1,000,000 tokens)</strong> to minimise chunking risk.</li>
-            <li>Adapter size: <strong>8</strong> (strategic capacity for multi-tasking).</li>
-            <li>Training efficiency: <strong>4–16× faster</strong> than full fine-tuning with comparable quality.</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>Proprietary Data & Pipeline</h3>
-          <ul>
-            <li>Proprietary corpus: <strong>15,372</strong> multi-skill examples (growing).</li>
-            <li>Format: <strong>Multi-part JSONL</strong> (messages/parts) — model-agnostic ingest.</li>
-            <li>Process: layered QC gates, split hygiene (V3.6), leakage prevention.</li>
-            <li>Total examples processed: <strong>58,000</strong> unique training instances.</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>Validation & Compliance</h3>
-          <ul>
-            <li>Oversight: formal review by <strong>2 High Court Advocates</strong>.</li>
-            <li>Hallucination mitigation: specialised pipelines reduce general-model risks.</li>
-            <li>Assurance: full traceability for <strong>court-grade auditability</strong>.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <!-- CTA -->
     <section class="section" id="contact">
       <h2>Contact</h2>
       <div class="divider"></div>
-      <article class="card">
-        <p>Available for due diligence, technical demonstration, and acquisition.</p>
-        <p><strong>CTO:</strong> Tommy Ferreira · <a class="btn" href="tel:+27847065929">+27&nbsp;84&nbsp;706&nbsp;5929</a></p>
-        <p class="note">Metrics shown are representative targets and depend on context, scope, and integration approach.</p>
+      <article class="card" style="text-align:center;">
+        <p>Currently in alpha phase.</p>
+        <p><strong>Contact us at</strong> <a class="btn" href="mailto:info@vcb-ai.online">info@vcb-ai.online</a></p>
+        <p class="note">We share detailed metrics and demo access under NDA.</p>
       </article>
     </section>
 
@@ -504,6 +567,115 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       animate();
     })();
 
+    // Context toggle & comparison chart
+    const saBtn = document.getElementById('sa-btn');
+    const globalBtn = document.getElementById('global-btn');
+    const saContext = document.getElementById('sa-context');
+    const globalContext = document.getElementById('global-context');
+    let comparisonChartInstance = null;
+
+    function setActiveState(targetBtn, isActive){
+      if(!targetBtn) return;
+      targetBtn.classList.toggle('active', isActive);
+    }
+
+    function destroyComparisonChart(){
+      if(comparisonChartInstance){
+        comparisonChartInstance.destroy();
+        comparisonChartInstance = null;
+      }
+    }
+
+    function initComparisonChart(){
+      const canvas = document.getElementById('comparisonChart');
+      if(!canvas || typeof Chart === 'undefined'){ return; }
+      const ctx = canvas.getContext('2d');
+      destroyComparisonChart();
+      comparisonChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Task Breadth', 'Context Length', 'SA Legal Specificity', 'Novel Methodology', 'Commercial Potential'],
+          datasets: [{
+            label: 'Project Dark Matter',
+            data: [9, 10, 10, 8, 9],
+            backgroundColor: 'rgba(17,17,17,0.08)',
+            borderColor: 'rgba(17,17,17,0.85)',
+            borderWidth: 1.6,
+            pointBackgroundColor: 'rgba(17,17,17,0.85)',
+            pointBorderColor: '#fff',
+            pointRadius: 4
+          }, {
+            label: 'Typical Global Project',
+            data: [5, 4, 2, 5, 6],
+            backgroundColor: 'rgba(92,126,170,0.14)',
+            borderColor: 'rgba(92,126,170,0.8)',
+            borderWidth: 1.4,
+            pointBackgroundColor: 'rgba(92,126,170,0.9)',
+            pointBorderColor: '#fff',
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#0B0B0B',
+                font: { family: "'Quicksand', system-ui", weight: 500 },
+                usePointStyle: true,
+                boxWidth: 10,
+                padding: 18
+              }
+            }
+          },
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 10,
+              grid: { color: 'rgba(0,0,0,0.08)' },
+              angleLines: { color: 'rgba(0,0,0,0.10)' },
+              pointLabels: {
+                color: '#1A1A1A',
+                font: { family: "'Quicksand', system-ui", size: 12, weight: 500 }
+              },
+              ticks: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function showSouthAfrican(){
+      if(!saContext || !globalContext) return;
+      saContext.classList.remove('hidden');
+      globalContext.classList.add('hidden');
+      setActiveState(saBtn, true);
+      setActiveState(globalBtn, false);
+      destroyComparisonChart();
+    }
+
+    function showGlobal(){
+      if(!saContext || !globalContext) return;
+      saContext.classList.add('hidden');
+      globalContext.classList.remove('hidden');
+      setActiveState(saBtn, false);
+      setActiveState(globalBtn, true);
+      initComparisonChart();
+    }
+
+    if(saBtn && globalBtn){
+      saBtn.addEventListener('click', showSouthAfrican);
+      globalBtn.addEventListener('click', showGlobal);
+    }
+
+    if(globalContext && !globalContext.classList.contains('hidden')){
+      showGlobal();
+    } else {
+      showSouthAfrican();
+    }
+
     // Reveal on scroll
     const io = new IntersectionObserver(entries=>{
       entries.forEach(e=>{
@@ -514,6 +686,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </script>
 </body>
 </html>
+
+
+
+
 
 
 
