@@ -906,7 +906,7 @@ User Query: "${userInput}"`;
                     <VcbLogo />
                     <ProgressBar current={currentSlide + 1} total={totalSlides} />
                     
-                    <div className="presentation w-full h-full pt-[80px] pb-[72px]">
+                    <div className="presentation w-full h-full pt-[80px] pb-[100px]">
                         {slideComponents.map((SlideComponent, index) => {
                             const isActive = index === currentSlide;
                             const isCurrentlyExiting = isExiting && index === currentSlide;
