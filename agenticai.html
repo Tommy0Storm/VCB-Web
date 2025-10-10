@@ -94,6 +94,34 @@
             0%, 100% { opacity: 0.7; }
             50% { opacity: 1; }
         }
+        @keyframes thinkingPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+        @keyframes progressBar {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        @keyframes checkmark {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-45deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(-45deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(-45deg);
+            }
+        }
         
         /* --- FORM STYLES --- */
         textarea:focus, input:focus {
@@ -650,14 +678,92 @@
                 'Internal Comms API': 'https://i.postimg.cc/W3hB2C7G/email.png',
             };
 
-            const LoadingState = () => (
-                <div className="flex items-center justify-center gap-3 text-sm text-gray-500 uppercase tracking-widest">
-                    <div className="w-2 h-2 bg-black rounded-full animate-pulse" />
-                    <div className="w-2 h-2 bg-black rounded-full animate-pulse [animation-delay:0.2s]" />
-                    <div className="w-2 h-2 bg-black rounded-full animate-pulse [animation-delay:0.4s]" />
-                    <p>Agent is planning...</p>
+            const ThinkingStage = ({ stage, label, isActive, isComplete, delay }) => (
+                <div
+                    className="flex items-center gap-4 transition-all duration-500"
+                    style={{
+                        animation: isActive || isComplete ? `fadeInUp 0.5s ease-out ${delay}s forwards` : 'none',
+                        opacity: isActive || isComplete ? 1 : 0
+                    }}
+                >
+                    <div className="flex items-center justify-center w-10 h-10 border-2 border-black relative">
+                        {isComplete ? (
+                            <svg
+                                className="w-6 h-6 text-black"
+                                style={{ animation: 'checkmark 0.3s ease-out forwards' }}
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <polyline points="20 6 9 17 4 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        ) : isActive ? (
+                            <div
+                                className="w-2 h-2 bg-black rounded-full"
+                                style={{ animation: 'thinkingPulse 1.5s ease-in-out infinite' }}
+                            />
+                        ) : (
+                            <div className="w-2 h-2 bg-gray-300 rounded-full" />
+                        )}
+                    </div>
+                    <div className="flex-1">
+                        <div className="text-sm font-medium uppercase tracking-wider text-black mb-1">
+                            {label}
+                        </div>
+                        {isActive && (
+                            <div className="h-1 bg-gray-200 overflow-hidden">
+                                <div
+                                    className="h-full bg-black"
+                                    style={{ animation: 'progressBar 2s ease-out forwards' }}
+                                />
+                            </div>
+                        )}
+                        {isComplete && (
+                            <div className="h-1 bg-black" />
+                        )}
+                    </div>
                 </div>
             );
+
+            const LoadingState = () => {
+                const [currentStage, setCurrentStage] = useState(0);
+                const stages = [
+                    { label: 'Analyzing Query', duration: 800 },
+                    { label: 'Identifying Data Sources', duration: 1000 },
+                    { label: 'Planning Execution Sequence', duration: 1200 },
+                    { label: 'Generating Action Plan', duration: 1000 }
+                ];
+
+                useEffect(() => {
+                    const timers = [];
+                    let cumulativeDelay = 0;
+
+                    stages.forEach((stage, index) => {
+                        timers.push(setTimeout(() => {
+                            setCurrentStage(index);
+                        }, cumulativeDelay));
+                        cumulativeDelay += stage.duration;
+                    });
+
+                    return () => timers.forEach(timer => clearTimeout(timer));
+                }, []);
+
+                return (
+                    <div className="w-full space-y-4 py-8">
+                        <h3 className="text-sm text-gray-500 uppercase tracking-wider text-center mb-8">Agent Cognitive Process</h3>
+                        {stages.map((stage, index) => (
+                            <ThinkingStage
+                                key={index}
+                                stage={index + 1}
+                                label={stage.label}
+                                isActive={currentStage === index}
+                                isComplete={currentStage > index}
+                                delay={index * 0.15}
+                            />
+                        ))}
+                    </div>
+                );
+            };
 
             const ErrorState = ({ message }) => (
                 <div className="flex flex-col items-center justify-center gap-3 text-red-600">
