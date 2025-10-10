@@ -894,16 +894,20 @@ User Query: "${userInput}"`;
                     <div className="w-full border border-gray-200 p-6 mb-6">
                         <textarea
                             value={userInput}
-                            onChange={(e) => setUserInput(e.target.value)}
+                            onChange={(e) => setUserInput(e.target.value.slice(0, 500))}
                             placeholder="Enter your business query here..."
-                            className="w-full h-24 p-3 bg-white border border-gray-300 text-lg text-black transition-shadow duration-300 focus:shadow-outline-black"
+                            className="w-full h-24 p-3 bg-white border border-gray-300 text-lg text-black transition-shadow duration-300 focus:shadow-outline-black resize-none overflow-hidden"
                             disabled={isLoading}
+                            maxLength={500}
                         />
+                        <div className="flex justify-between items-center mt-2">
+                            <span className="text-xs text-gray-500">{userInput.length}/500 characters</span>
+                        </div>
                         <button
                             onClick={generatePlan}
                             disabled={isLoading || !userInput}
                             data-interactive
-                            className="w-full mt-4 py-3 px-6 bg-transparent hover:bg-black border-2 border-black text-black hover:text-white font-medium uppercase tracking-wider transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+                            className="w-full mt-2 py-3 px-6 bg-transparent hover:bg-black border-2 border-black text-black hover:text-white font-medium uppercase tracking-wider transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
                         >
                             {isLoading ? 'Generating...' : 'Run Simulation'}
                         </button>
@@ -1001,6 +1005,12 @@ User Query: "${userInput}"`;
                 window.addEventListener('mouseup', handleMouseUp);
 
                 const handleKeyDown = (e) => {
+                    // Don't intercept keys when user is typing in textarea or input
+                    const target = e.target;
+                    if (target.tagName === 'TEXTAREA' || target.tagName === 'INPUT') {
+                        return;
+                    }
+
                     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); handleNext(); }
                     else if (e.key === 'ArrowLeft') { e.preventDefault(); handlePrev(); }
                 };
