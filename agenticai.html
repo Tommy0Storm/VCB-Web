@@ -181,7 +181,7 @@
         // --- START OF components/VcbLogo.tsx ---
         const VcbLogo = () => {
             return (
-                <header className="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-black">
+                <header className="fixed top-0 left-0 w-full px-4 py-1 flex justify-between items-center z-50 bg-black">
                     <a href="index.html" className="flex items-center gap-4 cursor-pointer transition-transform duration-300 hover:scale-105" data-interactive>
                         <img src="https://i.postimg.cc/xdJqP9br/logo-transparent-Black-Back.png" alt="VCB Logo" className="w-[140px] h-auto" />
                         <span className="hidden sm:block text-sm text-gray-300 tracking-wider uppercase">Agentic Platform</span>
@@ -201,7 +201,7 @@
             const progressPercentage = (current / total) * 100;
 
             return (
-                <div className="fixed top-[80px] left-0 w-full h-0.5 z-40 bg-gray-200">
+                <div className="fixed top-[60px] left-0 w-full h-0.5 z-40 bg-gray-200">
                     <div 
                         className="h-full bg-black"
                         style={{ 
@@ -906,7 +906,7 @@ User Query: "${userInput}"`;
                     <VcbLogo />
                     <ProgressBar current={currentSlide + 1} total={totalSlides} />
                     
-                    <div className="presentation w-full h-full pt-[80px] pb-[100px]">
+                    <div className="presentation w-full h-full pt-[60px] pb-[100px]">
                         {slideComponents.map((SlideComponent, index) => {
                             const isActive = index === currentSlide;
                             const isCurrentlyExiting = isExiting && index === currentSlide;
