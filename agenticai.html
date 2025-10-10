@@ -50,6 +50,12 @@
         }
         .custom-cursor.click { transform: translate(-50%, -50%) scale(0.8); }
         .custom-cursor.hover-link { transform: translate(-50%, -50%) scale(4); background-color: rgba(0, 0, 0, 0.3); }
+
+        /* Hide custom cursor on touch devices */
+        @media (pointer: coarse) {
+            body { cursor: auto; }
+            .custom-cursor-container { display: none; }
+        }
         
         /* --- BACKGROUND --- */
         #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
@@ -58,12 +64,13 @@
 
         /* --- SLIDE SYSTEM --- */
         .slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 60px; left: 0; width: 100%; height: calc(100% - 60px);
             opacity: 0; pointer-events: none;
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform: scale(1.02);
             overflow-y: auto; /* Allow vertical scrolling */
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
         .slide.active {
             opacity: 1; pointer-events: auto; z-index: 10;
@@ -201,7 +208,7 @@
             const progressPercentage = (current / total) * 100;
 
             return (
-                <div className="fixed top-[60px] left-0 w-full h-0.5 z-40 bg-gray-200">
+                <div className="fixed top-[50px] left-0 w-full h-0.5 z-40 bg-gray-200">
                     <div 
                         className="h-full bg-black"
                         style={{ 
@@ -286,7 +293,7 @@
         const Slide1 = ({ isActive }) => {
             return (
                 <div className="text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider">The Agentic AI Advantage</h1>
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">The Agentic AI Advantage</h1>
                     <h2 className="text-xl md:text-2xl text-gray-500 font-medium mt-4 mb-20">FROM REACTIVE TOOLS TO PROACTIVE PARTNERS</h2>
                     <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl items-center justify-center">
                         <AiBox 
@@ -345,11 +352,11 @@
             const [hoveredTool, setHoveredTool] = useState(null);
 
             return (
-                <div className="text-center pt-8">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider">Enterprise Integration Fabric</h1>
-                    <h2 className="text-xl text-gray-500 font-medium text-center mt-4 mb-16 max-w-2xl mx-auto">CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS.</h2>
+                <div className="text-center py-4 pb-24">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Enterprise Integration Fabric</h1>
+                    <h2 className="text-xl text-gray-500 font-medium text-center mt-4 mb-12 max-w-2xl mx-auto">CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS.</h2>
 
-                    <div className="relative w-[500px] h-[500px] flex items-center justify-center" onMouseLeave={() => setHoveredTool(null)}>
+                    <div className="relative w-[500px] h-[500px] mx-auto flex items-center justify-center" onMouseLeave={() => setHoveredTool(null)}>
                         <div className="absolute w-40 h-40 bg-white border-2 border-black rounded-lg flex flex-col items-center justify-center z-10">
                             <span className="text-6xl mb-1">🤖</span>
                             <h3 className="text-sm font-medium tracking-wider text-black">ORCHESTRATION<br/>ENGINE</h3>
@@ -405,7 +412,7 @@
         const Slide3 = ({ isActive }) => {
             return (
                 <div className="w-full max-w-5xl text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider">The Ad-Hoc Executive Query</h1>
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">The Ad-Hoc Executive Query</h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-16">WHEN STANDARD DASHBOARDS FALL SHORT.</h2>
                     
                     <div 
@@ -487,7 +494,7 @@
 
             return (
                 <div className="text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider">Autonomous Planning & Execution</h1>
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Autonomous Planning & Execution</h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-20">THE AGENT FORMULATES A MULTI-SYSTEM QUERY PLAN.</h2>
                     
                     <div className="w-full max-w-6xl border border-gray-200 p-8">
@@ -528,7 +535,7 @@
 
             return (
                 <div className="text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-16">From Raw Data to Actionable Insight</h1>
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-16">From Raw Data to Actionable Insight</h1>
                     
                     <div className="w-full max-w-3xl text-center">
                         {isProcessing && (
@@ -614,7 +621,7 @@
         const Slide6 = ({ isActive }) => {
             return (
                 <div className="w-full max-w-5xl text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider">Return on Investment</h1>
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Return on Investment</h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-16">FROM A COST CENTER TO A VALUE DRIVER.</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -693,7 +700,7 @@
                 );
             };
 
-            const [userInput, setUserInput] = useState('Identify our top 5 enterprise customers in EMEA by Q3 revenue who have not been contacted by sales in the last 90 days. For each, find the primary contact, draft a personalized follow-up email mentioning their recent product usage increase, and schedule it to be sent via the internal comms API.');
+            const [userInput, setUserInput] = useState('Identify our top 5 mining clients in Gauteng and Limpopo by Q3 revenue who have not been contacted by sales in the last 90 days. For each client, find the procurement director, draft a personalized follow-up email in Afrikaans or English based on their preference, mentioning their recent equipment usage patterns, and schedule delivery via our internal comms system.');
             const [plan, setPlan] = useState([]);
             const [isLoading, setIsLoading] = useState(false);
             const [error, setError] = useState('');
@@ -766,8 +773,8 @@ User Query: "${userInput}"`;
             };
 
             return (
-                <div className="w-full max-w-4xl flex flex-col items-center pt-8">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider text-center">Live Agent Simulation</h1>
+                <div className="w-full max-w-4xl flex flex-col items-center py-4 pb-40">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider text-center">Live Agent Simulation</h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-12 text-center max-w-2xl mx-auto">INPUT A QUERY AND WATCH THE AI GENERATE AN EXECUTION PLAN.</h2>
 
                     <div className="w-full border border-gray-200 p-6 mb-6">
@@ -788,7 +795,7 @@ User Query: "${userInput}"`;
                         </button>
                     </div>
 
-                    <div className="w-full min-h-[320px] max-h-[500px] border border-gray-200 p-6 flex items-center justify-center overflow-y-auto">
+                    <div className="w-full min-h-[320px] border border-gray-200 p-6 flex items-center justify-center">
                         {isLoading && <LoadingState />}
                         {error && <ErrorState message={error} />}
                         {!isLoading && !error && plan.length > 0 && <GeneratedPlan plan={plan} playSound={playSound} />}
@@ -859,7 +866,7 @@ User Query: "${userInput}"`;
             useEffect(() => {
                 window.addEventListener('click', startAmbientSound);
                 window.addEventListener('keydown', startAmbientSound);
-                
+
                 const cursor = document.querySelector('.custom-cursor');
 
                 const handleMouseMove = (e) => {
@@ -878,9 +885,9 @@ User Query: "${userInput}"`;
                 window.addEventListener('mousemove', handleMouseMove);
                 window.addEventListener('mousedown', handleMouseDown);
                 window.addEventListener('mouseup', handleMouseUp);
-                
+
                 const handleKeyDown = (e) => {
-                    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); handleNext(); } 
+                    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); handleNext(); }
                     else if (e.key === 'ArrowLeft') { e.preventDefault(); handlePrev(); }
                 };
                 const handleDoubleClick = () => {
@@ -890,6 +897,31 @@ User Query: "${userInput}"`;
                 window.addEventListener('keydown', handleKeyDown);
                 document.addEventListener('dblclick', handleDoubleClick);
 
+                // Touch swipe support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                const handleTouchStart = (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                };
+
+                const handleTouchEnd = (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const swipeDistance = touchEndX - touchStartX;
+                    const minSwipeDistance = 50;
+
+                    if (Math.abs(swipeDistance) > minSwipeDistance) {
+                        if (swipeDistance > 0) {
+                            handlePrev(); // Swipe right = previous
+                        } else {
+                            handleNext(); // Swipe left = next
+                        }
+                    }
+                };
+
+                document.addEventListener('touchstart', handleTouchStart);
+                document.addEventListener('touchend', handleTouchEnd);
+
                 return () => {
                     window.removeEventListener('mousemove', handleMouseMove);
                     window.removeEventListener('mousedown', handleMouseDown);
@@ -898,6 +930,8 @@ User Query: "${userInput}"`;
                     document.removeEventListener('dblclick', handleDoubleClick);
                     window.removeEventListener('click', startAmbientSound);
                     window.removeEventListener('keydown', startAmbientSound);
+                    document.removeEventListener('touchstart', handleTouchStart);
+                    document.removeEventListener('touchend', handleTouchEnd);
                 };
             }, [handleNext, handlePrev, startAmbientSound]);
 
@@ -905,18 +939,18 @@ User Query: "${userInput}"`;
                 <main className="relative w-screen h-screen">
                     <VcbLogo />
                     <ProgressBar current={currentSlide + 1} total={totalSlides} />
-                    
-                    <div className="presentation w-full h-full pt-[60px] pb-[100px]">
+
+                    <div className="presentation w-full h-full pt-[50px] pb-[100px]">
                         {slideComponents.map((SlideComponent, index) => {
                             const isActive = index === currentSlide;
                             const isCurrentlyExiting = isExiting && index === currentSlide;
                             return (
                                 <div
                                     key={index}
-                                    className={`slide flex flex-col justify-center items-center px-[5vw] md:px-[10vw] ${isActive && !isExiting ? 'active' : ''} ${isCurrentlyExiting ? 'exiting' : ''}`}
+                                    className={`slide flex flex-col justify-start items-center px-[5vw] md:px-[10vw] pt-20 ${isActive && !isExiting ? 'active' : ''} ${isCurrentlyExiting ? 'exiting' : ''}`}
                                     aria-hidden={!isActive}
                                 >
-                                    <div className="animated-content w-full h-full flex flex-col justify-center items-center">
+                                    <div className="animated-content w-full flex flex-col items-center">
                                        <SlideComponent isActive={isActive && !isExiting} playSound={playSound} />
                                     </div>
                                 </div>
