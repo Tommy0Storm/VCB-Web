@@ -1374,7 +1374,39 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     setInterval(rotateMission, 6000);
   })();
 
-  // Sarah Voice Chat Modal with ElevenLabs Integration
+  // ============================================================================
+  // SARAH VOICE CHAT - ElevenLabs Conversational AI Integration
+  // ============================================================================
+  //
+  // SETUP INSTRUCTIONS:
+  //
+  // 1. Create a Conversational Agent:
+  //    - Go to: https://elevenlabs.io/app/conversational-ai
+  //    - Click "Create Agent"
+  //    - Select voice: uYXf8XasLslADfZ2MB4u (Sarah)
+  //    - Configure agent settings (model, language, etc.)
+  //    - Save and copy the agent_id
+  //
+  // 2. Update AGENT_ID below:
+  //    - Replace 'YOUR_AGENT_ID_HERE' with your actual agent_id
+  //
+  // 3. Configure Agent Knowledge (optional):
+  //    - In the agent settings, you can paste the VCB_KNOWLEDGE prompt
+  //    - Or keep it in the code below and it will be sent on connection
+  //
+  // 4. Test:
+  //    - Click the floating "Speak to Sarah" button
+  //    - Allow microphone access
+  //    - Start speaking!
+  //
+  // FEATURES:
+  // - Real-time voice conversation with AI
+  // - Silence detection with automatic follow-ups (5 seconds)
+  // - Natural conversation ending detection
+  // - Comprehensive VCB product knowledge
+  // - South African business context awareness
+  // ============================================================================
+
   (function(){
     const floatBtn = document.getElementById('sarahFloatBtn');
     const modal = document.getElementById('voiceModal');
@@ -1388,7 +1420,8 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
     // ElevenLabs Configuration
     const ELEVENLABS_API_KEY = 'sk_0315f50486f317f436769a00942b5ae2fc9db3cfa2ed45ca';
-    const VOICE_ID = 'uYXf8XasLslADfZ2MB4u'; // Sarah's voice
+    const VOICE_ID = 'uYXf8XasLslADfZ2MB4u'; // Sarah's voice (for reference)
+    const AGENT_ID = 'YOUR_AGENT_ID_HERE'; // ⚠️ REPLACE THIS with your Conversational Agent ID
 
     // VCB Website Knowledge Base
     const VCB_KNOWLEDGE = `
@@ -1551,8 +1584,18 @@ CONVERSATION STYLE:
     // Connect to ElevenLabs WebSocket
     function connectWebSocket(){
       return new Promise((resolve, reject) => {
-        // Use signed URL approach for better authentication
-        const wsUrl = `wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${VOICE_ID}`;
+        // Check if agent ID is configured
+        if(AGENT_ID === 'YOUR_AGENT_ID_HERE'){
+          const errorMsg = 'Please create a Conversational Agent at elevenlabs.io/app/conversational-ai and update AGENT_ID';
+          console.error(errorMsg);
+          updateStatus(errorMsg);
+          reject(new Error(errorMsg));
+          return;
+        }
+
+        // Connect to ElevenLabs Conversational AI WebSocket
+        const wsUrl = `wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${AGENT_ID}`;
+        console.log('Connecting to:', wsUrl);
 
         websocket = new WebSocket(wsUrl);
 
