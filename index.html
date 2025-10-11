@@ -83,7 +83,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     width:100%; height:100%;
   }
   .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
-  .nav nav{ overflow-x:hidden; overflow-y:hidden; }
+  .nav nav{ overflow-x:hidden; overflow-y:visible; }
   .brand{ display:flex; align-items:center; }
   .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
   .nav nav a{
@@ -604,7 +604,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     100%{ transform:scale(1.25); opacity:0; }
   }
 
-  /* Voice Chat Modal */
+  /* Premium Voice Modal Container */
+  .voice-modal-content::before{
+    content:"";
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    background:conic-gradient(
+      from 0deg,
+      rgba(255,255,255,0.4),
+      rgba(180,180,255,0.25),
+      rgba(255,255,255,0.1),
+      rgba(200,220,255,0.3),
+      rgba(255,255,255,0.4)
+    );
+    animation:premiumRotate 6s linear infinite;
+    opacity:0.8;
+    z-index:-1;
+    filter:blur(4px);
+  }
+  @keyframes premiumRotate{
+    to{ transform:rotate(360deg); }
+  }
+
+  .voice-modal-content::after{
+    content:"";
+    position:absolute;
+    inset:-20px;
+    border-radius:50%;
+    background:radial-gradient(
+      circle,
+      rgba(255,255,255,0.25) 0%,
+      rgba(200,220,255,0.15) 40%,
+      transparent 70%
+    );
+    animation:premiumPulse 3s ease-in-out infinite;
+    z-index:-2;
+    filter:blur(10px);
+  }
+  @keyframes premiumPulse{
+    0%, 100%{ transform:scale(1); opacity:0.5; }
+    50%{ transform:scale(1.12); opacity:0.9; }
+  }
+
+  /* Shimmer effect */
+  @keyframes shimmer{
+    0%{ transform:translateX(-100%) translateY(-100%) rotate(45deg); }
+    100%{ transform:translateX(200%) translateY(200%) rotate(45deg); }
+  }
+
+  /* Voice Chat Modal - Premium */
   .voice-modal{
     display:none;
     position:fixed;
@@ -612,13 +661,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     left:0;
     right:0;
     bottom:0;
-    background:rgba(11,11,11,.85);
-    -webkit-backdrop-filter:blur(12px);
-    backdrop-filter:blur(12px);
+    background:transparent;
     z-index:10000;
-    align-items:center;
-    justify-content:center;
-    animation:modalFadeIn .4s cubic-bezier(0.4, 0, 0.2, 1);
+    align-items:flex-end;
+    justify-content:flex-end;
+    padding-right:24px;
+    padding-bottom:100px;
+    animation:modalFadeIn .6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events:none;
   }
   .voice-modal.active{
     display:flex;
@@ -1131,16 +1181,39 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
 <!-- Voice Chat Modal -->
 <div class="voice-modal" id="voiceModal">
-  <div class="voice-modal-content" style="max-width:400px; width:400px; max-height:400px; height:400px; padding:0; overflow:hidden; position:relative; border-radius:50%;">
-    <button class="voice-modal-close" id="closeModal" aria-label="Close voice chat" style="position:absolute; top:12px; right:12px; z-index:10001; background:rgba(11,11,11,0.8); width:32px; height:32px; border-radius:50%;">
-      <svg style="width:16px; height:16px;"><use href="#i-close"/></svg>
+  <!-- Premium Multi-Layer Glow Rings -->
+  <div style="position:absolute; width:260px; height:260px; border-radius:50%; border:3px solid rgba(255,255,255,0.15); box-shadow:0 0 40px rgba(255,255,255,0.2), inset 0 0 20px rgba(255,255,255,0.1); animation:premiumPulse 4s ease-in-out infinite; pointer-events:none; filter:blur(1px);"></div>
+  <div style="position:absolute; width:230px; height:230px; border-radius:50%; border:2px solid rgba(200,200,255,0.2); animation:premiumPulse 3.5s ease-in-out infinite 0.3s; pointer-events:none;"></div>
+  <div style="position:absolute; width:280px; height:280px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); animation:premiumPulse 5s ease-in-out infinite 0.7s; pointer-events:none; filter:blur(2px);"></div>
+
+  <!-- Rotating gradient ring -->
+  <div style="position:absolute; width:240px; height:240px; border-radius:50%; background:conic-gradient(from 0deg, rgba(255,255,255,0.3), transparent, rgba(200,200,255,0.2), transparent, rgba(255,255,255,0.3)); animation:premiumRotate 8s linear infinite; pointer-events:none; opacity:0.6; filter:blur(8px);"></div>
+
+  <div class="voice-modal-content" style="max-width:200px; width:200px; max-height:200px; height:200px; padding:0; overflow:visible; position:relative; border-radius:50%; box-shadow:0 12px 48px rgba(0,0,0,0.5), 0 24px 96px rgba(0,0,0,0.35), 0 0 0 2px rgba(255,255,255,0.15), 0 0 60px rgba(255,255,255,0.25), inset 0 0 40px rgba(255,255,255,0.1); pointer-events:auto; opacity:0.5; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:2px solid rgba(255,255,255,0.2);">
+    <!-- Shimmer overlay -->
+    <div style="position:absolute; inset:0; border-radius:50%; overflow:hidden; pointer-events:none;">
+      <div style="position:absolute; width:200%; height:200%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation:shimmer 3s infinite; transform:translateX(-100%) translateY(-100%) rotate(45deg);"></div>
+    </div>
+
+    <button class="voice-modal-close" id="closeModal" aria-label="Close voice chat" style="position:absolute; top:-35px; right:-10px; z-index:10001; background:linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(245,245,245,0.95) 100%); width:36px; height:36px; border-radius:50%; border:2px solid var(--black); cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,0.4), 0 0 0 3px rgba(255,255,255,0.2); transition:all 0.3s ease; pointer-events:auto;">
+      <svg style="width:18px; height:18px; stroke:var(--black); stroke-width:3; transition:all 0.3s ease;"><use href="#i-close"/></svg>
     </button>
 
-    <!-- Loading overlay -->
+    <div style="position:absolute; inset:0; border-radius:50%; overflow:hidden; pointer-events:auto;">
+      <iframe
+        id="voiceAppFrame"
+        src="https://vcbmain.vercel.app?autostart=true"
+        style="width:100%; height:100%; border:0; border-radius:50%; background:linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%); opacity:0; transition:opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1); transform:translateY(-1cm);"
+        title="VCB Voice Assistant"
+        allow="microphone; autoplay"
+      ></iframe>
+    </div>
+
+    <!-- Premium Loading Overlay -->
     <div id="voiceLoadingOverlay" style="
       position:absolute;
       inset:0;
-      background:var(--black);
+      background:linear-gradient(135deg, rgba(11,11,11,0.95) 0%, rgba(26,26,26,0.9) 100%);
       border-radius:50%;
       display:flex;
       flex-direction:column;
@@ -1148,20 +1221,34 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       justify-content:center;
       z-index:10000;
       transition:opacity 0.6s ease, visibility 0.6s ease;
+      overflow:hidden;
+      transform:translateY(-1cm);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      box-shadow:inset 0 0 30px rgba(255,255,255,0.1), 0 0 40px rgba(0,0,0,0.5);
     ">
-      <div style="width:60px; height:60px; border-radius:50%; background:var(--white); display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
-        <svg style="width:32px; height:32px; stroke:var(--black); stroke-width:2.5; fill:none;"><use href="#i-mic"/></svg>
+      <!-- Animated gradient overlay -->
+      <div style="position:absolute; inset:0; background:radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12) 0%, transparent 70%); animation:premiumPulse 2s ease-in-out infinite;"></div>
+
+      <!-- Outer pulsing ring -->
+      <div style="position:absolute; width:120px; height:120px; border:1px solid rgba(255,255,255,0.15); border-radius:50%; animation:premiumPulse 3s ease-in-out infinite;"></div>
+
+      <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,245,245,0.9) 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 30px rgba(255,255,255,0.4), 0 0 0 5px rgba(255,255,255,0.15), inset 0 2px 10px rgba(255,255,255,0.5); animation:premiumPulse 2s ease-in-out infinite; position:relative; z-index:1;">
+        <svg style="width:40px; height:40px; stroke:var(--black); stroke-width:2.5; fill:none; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.15));"><use href="#i-mic"/></svg>
       </div>
-      <p style="margin:0; color:var(--white); font-size:13px; font-weight:500;">Loading...</p>
+
+      <!-- Spinning loader rings -->
+      <div style="position:absolute; width:100px; height:100px; border:3px solid transparent; border-top-color:rgba(255,255,255,0.5); border-right-color:rgba(255,255,255,0.3); border-radius:50%; animation:premiumSpin 1.2s linear infinite;"></div>
+      <div style="position:absolute; width:110px; height:110px; border:2px solid transparent; border-bottom-color:rgba(255,255,255,0.25); border-radius:50%; animation:premiumSpin 1.8s linear infinite reverse;"></div>
+
+      <p style="margin:16px 0 0; color:var(--white); font-size:13px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; position:relative; z-index:1; text-shadow:0 2px 12px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.3);">Connecting...</p>
     </div>
 
-    <iframe
-      id="voiceAppFrame"
-      src="https://vcbmain.vercel.app"
-      style="width:100%; height:100%; border:0; border-radius:50%; background:var(--white); opacity:0; transition:opacity 0.6s ease;"
-      title="VCB Voice Assistant"
-      allow="microphone; autoplay"
-    ></iframe>
+    <style>
+      @keyframes premiumSpin{
+        to{ transform:rotate(360deg); }
+      }
+    </style>
   </div>
 </div>
 
@@ -1482,21 +1569,29 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       });
     }
 
-    // Close modal
+    // Close modal and terminate voice session
     function closeModal(){
       modal.classList.remove('active');
+      // Terminate the voice session by reloading the iframe
+      if(iframe){
+        iframe.src = iframe.src;
+      }
     }
 
     closeBtn.addEventListener('click', closeModal);
 
     // Make modal draggable
     let isDragging = false;
+    let hasMoved = false;
     let currentX;
     let currentY;
     let initialX;
     let initialY;
+    let startX;
+    let startY;
     let xOffset = 0;
     let yOffset = 0;
+    const dragThreshold = 5; // pixels movement to count as drag
 
     const modalContent = document.querySelector('.voice-modal-content');
 
@@ -1510,43 +1605,75 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     document.addEventListener('touchend', dragEnd);
 
     function dragStart(e) {
+      // Don't drag if clicking the close button or iframe
+      if (e.target.closest('.voice-modal-close') || e.target.closest('iframe')) {
+        return;
+      }
+
       if (e.type === 'touchstart') {
         initialX = e.touches[0].clientX - xOffset;
         initialY = e.touches[0].clientY - yOffset;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
       } else {
         initialX = e.clientX - xOffset;
         initialY = e.clientY - yOffset;
+        startX = e.clientX;
+        startY = e.clientY;
       }
 
       if (e.target === modalContent || e.target.closest('.voice-modal-content')) {
         isDragging = true;
+        hasMoved = false;
         modalContent.style.cursor = 'grabbing';
       }
     }
 
     function drag(e) {
       if (isDragging) {
-        e.preventDefault();
+        let clientX, clientY;
 
         if (e.type === 'touchmove') {
-          currentX = e.touches[0].clientX - initialX;
-          currentY = e.touches[0].clientY - initialY;
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
         } else {
-          currentX = e.clientX - initialX;
-          currentY = e.clientY - initialY;
+          clientX = e.clientX;
+          clientY = e.clientY;
         }
 
-        xOffset = currentX;
-        yOffset = currentY;
+        // Check if movement exceeds threshold
+        const deltaX = Math.abs(clientX - startX);
+        const deltaY = Math.abs(clientY - startY);
 
-        setTranslate(currentX, currentY, modalContent);
+        if (deltaX > dragThreshold || deltaY > dragThreshold) {
+          hasMoved = true;
+          e.preventDefault();
+
+          if (e.type === 'touchmove') {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+          } else {
+            currentX = clientX - initialX;
+            currentY = clientY - initialY;
+          }
+
+          xOffset = currentX;
+          yOffset = currentY;
+
+          setTranslate(currentX, currentY, modalContent);
+        }
       }
     }
 
     function dragEnd(e) {
+      if (isDragging && !hasMoved) {
+        // It was a click, not a drag - clicks on iframe still work due to pointer-events
+      }
+
       initialX = currentX;
       initialY = currentY;
       isDragging = false;
+      hasMoved = false;
       modalContent.style.cursor = 'grab';
     }
 
