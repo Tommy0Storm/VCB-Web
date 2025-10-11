@@ -542,49 +542,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     #particle-bg{ display:none; }
   }
 
-  /* Speak to Sarah - Floating Button */
+  /* Speak to Sarah - Floating Button (Small Circle) */
   .sarah-float-btn{
     position:fixed;
-    bottom:32px;
-    right:32px;
-    width:68px;
-    height:68px;
+    bottom:24px;
+    right:24px;
+    width:56px;
+    height:56px;
     border-radius:50%;
     background:linear-gradient(135deg, var(--black) 0%, var(--g-700) 100%);
-    border:3px solid var(--white);
-    box-shadow:0 8px 32px rgba(11,11,11,.3), 0 16px 64px rgba(11,11,11,.2);
+    border:2px solid var(--white);
+    box-shadow:0 4px 16px rgba(11,11,11,.25), 0 8px 32px rgba(11,11,11,.15);
     cursor:pointer;
     z-index:999;
     display:flex;
     align-items:center;
     justify-content:center;
-    transition:all .4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow:visible;
   }
   .sarah-float-btn:hover{
-    transform:scale(1.1) translateY(-4px);
-    box-shadow:0 12px 48px rgba(11,11,11,.4), 0 24px 96px rgba(11,11,11,.3);
+    transform:scale(1.15) translateY(-2px);
+    box-shadow:0 6px 24px rgba(11,11,11,.35), 0 12px 48px rgba(11,11,11,.25);
   }
   .sarah-float-btn svg{
-    width:32px;
-    height:32px;
+    width:24px;
+    height:24px;
     stroke:var(--white);
     stroke-width:2.5;
     fill:none;
-    transition:transform .3s ease;
+    transition:transform .2s ease;
   }
   .sarah-float-btn:hover svg{
-    transform:scale(1.15);
+    transform:scale(1.1);
   }
   .sarah-float-btn::before{
     content:"";
     position:absolute;
-    inset:-8px;
+    inset:-6px;
     border-radius:50%;
-    background:conic-gradient(from 0deg, rgba(11,11,11,.3), transparent, rgba(11,11,11,.3));
+    background:conic-gradient(from 0deg, rgba(11,11,11,.25), transparent, rgba(11,11,11,.25));
     animation:rotatePulse 4s linear infinite;
     opacity:0;
-    transition:opacity .4s ease;
+    transition:opacity .3s ease;
   }
   .sarah-float-btn:hover::before{
     opacity:1;
@@ -594,14 +594,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .sarah-float-btn .pulse-ring{
     position:absolute;
-    inset:-12px;
-    border:2px solid rgba(11,11,11,.3);
+    inset:-8px;
+    border:1.5px solid rgba(11,11,11,.25);
     border-radius:50%;
     animation:pulseRing 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
   @keyframes pulseRing{
-    0%{ transform:scale(1); opacity:.6; }
-    100%{ transform:scale(1.3); opacity:0; }
+    0%{ transform:scale(1); opacity:.5; }
+    100%{ transform:scale(1.25); opacity:0; }
   }
 
   /* Voice Chat Modal */
@@ -766,6 +766,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     stroke:var(--white);
   }
 
+  /* Debug Error Panel */
+  .debug-panel{
+    position:fixed;
+    bottom:120px;
+    right:32px;
+    max-width:400px;
+    max-height:300px;
+    background:rgba(255,0,0,.95);
+    border-radius:12px;
+    padding:16px;
+    box-shadow:0 8px 32px rgba(0,0,0,.4);
+    z-index:9999;
+    display:none;
+    overflow-y:auto;
+  }
+  .debug-panel.show{
+    display:block;
+  }
+  .debug-panel h3{
+    margin:0 0 12px;
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+  }
+  .debug-panel pre{
+    margin:0;
+    font-size:11px;
+    color:#fff;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+    font-family:monospace;
+    line-height:1.4;
+  }
+
   @media(max-width:600px){
     .voice-modal-content{
       padding:32px 24px;
@@ -780,6 +814,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       width:28px;
       height:28px;
     }
+  }
+
+  /* Loading bar animation */
+  @keyframes loadingBar{
+    0%{ transform:translateX(-100%); }
+    50%{ transform:translateX(150%); }
+    100%{ transform:translateX(-100%); }
+  }
+
+  /* Hide loading overlay */
+  .voice-loading-hidden{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
   }
 </style>
 
@@ -1083,32 +1131,44 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
 <!-- Voice Chat Modal -->
 <div class="voice-modal" id="voiceModal">
-  <div class="voice-modal-content">
-    <button class="voice-modal-close" id="closeModal" aria-label="Close voice chat">
-      <svg><use href="#i-close"/></svg>
+  <div class="voice-modal-content" style="max-width:360px; width:90%; max-height:480px; height:480px; padding:0; overflow:hidden; position:relative; border-radius:16px;">
+    <button class="voice-modal-close" id="closeModal" aria-label="Close voice chat" style="position:absolute; top:8px; right:8px; z-index:10001; background:rgba(11,11,11,0.7); width:28px; height:28px;">
+      <svg style="width:14px; height:14px;"><use href="#i-close"/></svg>
     </button>
 
-    <h2>Speak to Sarah</h2>
-    <p>Your AI voice assistant is ready to help</p>
-
-    <div class="voice-avatar">
-      <svg><use href="#i-mic"/></svg>
+    <!-- Loading overlay -->
+    <div id="voiceLoadingOverlay" style="
+      position:absolute;
+      inset:0;
+      background:var(--black);
+      border-radius:16px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      z-index:10000;
+      transition:opacity 0.6s ease, visibility 0.6s ease;
+    ">
+      <div style="width:48px; height:48px; border-radius:50%; background:var(--white); display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+        <svg style="width:24px; height:24px; stroke:var(--black); stroke-width:2.5; fill:none;"><use href="#i-mic"/></svg>
+      </div>
+      <p style="margin:0; color:var(--white); font-size:12px; font-weight:500;">Loading...</p>
     </div>
 
-    <div class="voice-status" id="voiceStatus">Click the microphone to start</div>
-
-    <div class="voice-controls">
-      <button class="voice-btn" id="micBtn" aria-label="Toggle microphone">
-        <svg><use href="#i-mic"/></svg>
-      </button>
-      <button class="voice-btn" id="muteBtn" aria-label="Toggle mute">
-        <svg><use href="#i-volume"/></svg>
-      </button>
-      <button class="voice-btn" id="phoneBtn" aria-label="End call">
-        <svg><use href="#i-phone"/></svg>
-      </button>
-    </div>
+    <iframe
+      id="voiceAppFrame"
+      src="https://vcbmain.vercel.app"
+      style="width:100%; height:100%; border:0; border-radius:16px; background:var(--white); opacity:0; transition:opacity 0.6s ease;"
+      title="VCB Voice Assistant"
+      allow="microphone; autoplay"
+    ></iframe>
   </div>
+</div>
+
+<!-- Debug Error Panel -->
+<div class="debug-panel" id="debugPanel">
+  <h3>🔍 Debug Console</h3>
+  <pre id="debugLog"></pre>
 </div>
 
 <!-- GSAP (not needed anymore) -->
@@ -1375,528 +1435,56 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   })();
 
   // ============================================================================
-  // SARAH VOICE CHAT - ElevenLabs Conversational AI Integration
+  // SARAH VOICE CHAT - Vercel Deployed Integration
   // ============================================================================
-  //
-  // SETUP INSTRUCTIONS:
-  //
-  // 1. Create a Conversational Agent:
-  //    - Go to: https://elevenlabs.io/app/conversational-ai
-  //    - Click "Create Agent"
-  //    - Select voice: uYXf8XasLslADfZ2MB4u (Sarah)
-  //    - Configure agent settings (model, language, etc.)
-  //    - Save and copy the agent_id
-  //
-  // 2. Update AGENT_ID below:
-  //    - Replace 'YOUR_AGENT_ID_HERE' with your actual agent_id
-  //
-  // 3. Configure Agent Knowledge (optional):
-  //    - In the agent settings, you can paste the VCB_KNOWLEDGE prompt
-  //    - Or keep it in the code below and it will be sent on connection
-  //
-  // 4. Test:
-  //    - Click the floating "Speak to Sarah" button
-  //    - Allow microphone access
-  //    - Start speaking!
-  //
-  // FEATURES:
-  // - Real-time voice conversation with AI
-  // - Silence detection with automatic follow-ups (5 seconds)
-  // - Natural conversation ending detection
-  // - Comprehensive VCB product knowledge
-  // - South African business context awareness
+  // The voice modal now loads the Vercel-deployed voice application in an iframe
+  // Deployment: https://vcbmain.vercel.app
+  // Status: Ready
   // ============================================================================
 
   (function(){
     const floatBtn = document.getElementById('sarahFloatBtn');
     const modal = document.getElementById('voiceModal');
     const closeBtn = document.getElementById('closeModal');
-    const micBtn = document.getElementById('micBtn');
-    const muteBtn = document.getElementById('muteBtn');
-    const phoneBtn = document.getElementById('phoneBtn');
-    const statusEl = document.getElementById('voiceStatus');
+    const iframe = document.getElementById('voiceAppFrame');
+    const loadingOverlay = document.getElementById('voiceLoadingOverlay');
 
     if(!floatBtn || !modal) return;
 
-    // ElevenLabs Configuration
-    const ELEVENLABS_API_KEY = 'sk_0315f50486f317f436769a00942b5ae2fc9db3cfa2ed45ca';
-    const VOICE_ID = 'uYXf8XasLslADfZ2MB4u'; // Sarah's voice (for reference)
-    const AGENT_ID = 'YOUR_AGENT_ID_HERE'; // ⚠️ REPLACE THIS with your Conversational Agent ID
-
-    // VCB Website Knowledge Base
-    const VCB_KNOWLEDGE = `
-You are Sarah, an intelligent and friendly AI voice assistant for VCB (Viable Core Business).
-
-ABOUT VCB:
-VCB is a South African AI-first venture builder focused on secure, compliant, and practical AI solutions.
-
-COMPANY VISION & MISSION:
-- Vision: To be the essential, integrated partner for businesses in South Africa, driving data-driven innovation with cohesive AI software and core storage solutions.
-- Mission: Turn AI into measurable outcomes without compromising trust through encryption, zero-trust access, model governance, and data sovereignty.
-
-CORE PRODUCTS & SERVICES:
-
-1. LIANELA V3 - Legal AI Assistant:
-   - 90.11% peak legal accuracy
-   - 1 million token context window
-   - 6 judicial skill domains
-   - 100% traceability coverage
-   - Specializes in South African law including LRA, POPIA, B-BBEE
-   - Proactive dispute prediction and SA-aware document generation
-
-2. Voice Agents:
-   - Production phone agents with omnichannel continuation
-   - Inbound/outbound with natural turn-taking
-   - WhatsApp, FB Messenger, SMS, Email, Web chat integration
-   - Whisper, barge-in, warm transfer, 3-way calling features
-   - Live human assist capabilities
-
-3. SIGMA - Enterprise AI:
-   - Secure, SA-ready generative AI from prototype to production
-   - RAG & fine-tuning with evals & guardrails
-   - PII redaction & safety by design
-   - MLOps & orchestration with pipelines, vector DBs
-   - Multilingual support: English, Afrikaans, isiZulu
-
-4. Compliance Solutions:
-   - POPIA-first approach (South African privacy law)
-   - Court-grade auditability
-   - Sovereign-capable infrastructure
-   - GDPR compliance
-   - Full traceability and audit logs
-
-5. Hardware & Software Supply:
-   - Enterprise-grade sourcing from brief to hand-over
-   - Compute/Storage (SAN/NAS), Backup/DR
-   - Networking/Edge, VoIP/SIP gateways
-   - Licensing, MDM/UEM, Security stack
-
-6. Consulting Services:
-   - Independent expert guidance from idea to outcome
-   - Discovery & strategy, TCO/ROI analysis
-   - POPIA/GDPR governance & compliance
-   - B-BBEE alignment
-   - Sovereign AI consulting & localized LLM support
-   - Change management & executive advisory
-
-KEY DIFFERENTIATORS:
-- Model-agnostic approach
-- POPIA-first compliance
-- Court-grade auditability
-- Sovereign-capable infrastructure
-- Ultra-low latency (sub-100ms)
-- Omnichannel continuity with single memory across voice and messaging
-
-UPCOMING EVENT:
-- "Will the New LRA Protect You or Expose You?" on October 16, 2025
-- High Court Advocates debate new Schedule 8 of the LRA
-- First major change to dismissals in 30 years
-- Virtual event on Microsoft Teams at 15:00 SAST
-- R200 per person, open to all
-- Sponsored by LIANELA
-
-PARTNERSHIPS:
-VCB is open to strategic partnerships that align with their vision of practical, compliant AI solutions.
-
-YOUR ROLE AS SARAH:
-- Be warm, professional, and knowledgeable
-- Demonstrate deep understanding of VCB's products and South African business context
-- Answer questions about services, capabilities, pricing, partnerships
-- Guide users to relevant pages or team members
-- If asked about technical details you're unsure of, offer to connect them with the team
-- Handle silence gracefully by offering gentle prompts
-- Recognize when a conversation naturally concludes
-- Be enthusiastic about VCB's mission of making AI trustworthy and practical
-
-CONVERSATION STYLE:
-- Speak naturally and conversationally
-- Use South African business context when relevant
-- Be concise but thorough
-- Ask clarifying questions when needed
-- Offer specific next steps or actions
-- Remember context from earlier in the conversation`;
-
-    let websocket = null;
-    let audioContext = null;
-    let audioQueue = [];
-    let isPlaying = false;
-    let mediaStream = null;
-    let mediaRecorder = null;
-    let isListening = false;
-    let isMuted = false;
-    let silenceTimer = null;
-    let conversationActive = false;
-
-    // Open modal and initialize
-    floatBtn.addEventListener('click', async () => {
+    // Open modal
+    floatBtn.addEventListener('click', () => {
       modal.classList.add('active');
-      updateStatus('Initializing Sarah...');
-      await initializeVoiceChat();
+      // Reset loading state when opening
+      if(loadingOverlay) loadingOverlay.classList.remove('voice-loading-hidden');
+      if(iframe) iframe.style.opacity = '0';
+
+      // Hide loading overlay after 2 seconds (adjust timing as needed)
+      setTimeout(() => {
+        hideLoading();
+      }, 2000);
     });
 
-    // Initialize ElevenLabs Voice Chat
-    async function initializeVoiceChat(){
-      try {
-        // Request microphone access
-        updateStatus('Requesting microphone access...');
-        mediaStream = await navigator.mediaDevices.getUserMedia({
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            sampleRate: 44100
-          }
-        });
-
-        // Initialize Audio Context
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-        // Connect to ElevenLabs WebSocket
-        updateStatus('Connecting to Sarah...');
-        await connectWebSocket();
-
-        conversationActive = true;
-        updateStatus('Sarah is ready. Start speaking!');
-
-        // Auto-start listening after proper initialization
-        setTimeout(() => {
-          if(websocket && websocket.readyState === WebSocket.OPEN){
-            startListening();
-          } else {
-            console.error('WebSocket not ready after timeout');
-            updateStatus('Connection issue. Please try clicking the microphone button.');
-          }
-        }, 1500);
-
-      } catch(error){
-        console.error('Voice chat initialization error:', error);
-        updateStatus('Error: ' + error.message);
-
-        if(error.name === 'NotAllowedError'){
-          updateStatus('Microphone access denied. Please allow microphone access.');
-        } else if(error.name === 'NotFoundError'){
-          updateStatus('No microphone found. Please connect a microphone.');
-        } else {
-          updateStatus('Initialization failed. Please try again.');
-        }
+    // Hide loading overlay and show iframe
+    function hideLoading(){
+      if(loadingOverlay){
+        loadingOverlay.classList.add('voice-loading-hidden');
+      }
+      if(iframe){
+        iframe.style.opacity = '1';
       }
     }
 
-    // Connect to ElevenLabs WebSocket
-    function connectWebSocket(){
-      return new Promise((resolve, reject) => {
-        // Check if agent ID is configured
-        if(AGENT_ID === 'YOUR_AGENT_ID_HERE'){
-          const errorMsg = 'Please create a Conversational Agent at elevenlabs.io/app/conversational-ai and update AGENT_ID';
-          console.error(errorMsg);
-          updateStatus(errorMsg);
-          reject(new Error(errorMsg));
-          return;
-        }
-
-        // Connect to ElevenLabs Conversational AI WebSocket
-        const wsUrl = `wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${AGENT_ID}`;
-        console.log('Connecting to:', wsUrl);
-
-        websocket = new WebSocket(wsUrl);
-
-        websocket.addEventListener('open', () => {
-          console.log('WebSocket connected to ElevenLabs');
-
-          // Send initial configuration with custom prompt
-          const initMessage = {
-            type: 'conversation_initiation_client_data',
-            conversation_config_override: {
-              agent: {
-                prompt: {
-                  prompt: VCB_KNOWLEDGE
-                },
-                first_message: "Hi! I'm Sarah, your VCB AI assistant. How can I help you today?",
-                language: "en"
-              }
-            }
-          };
-
-          websocket.send(JSON.stringify(initMessage));
-
-          // Wait a bit for initialization before resolving
-          setTimeout(() => {
-            console.log('WebSocket fully initialized');
-            resolve();
-          }, 1000);
-        });
-
-        websocket.addEventListener('message', handleWebSocketMessage);
-
-        websocket.addEventListener('error', (error) => {
-          console.error('WebSocket error:', error);
-          updateStatus('Connection error. Please try again.');
-          reject(error);
-        });
-
-        websocket.addEventListener('close', (event) => {
-          console.log('WebSocket closed:', event.code, event.reason);
-          conversationActive = false;
-          if(event.code !== 1000){
-            updateStatus('Connection lost. Please refresh and try again.');
-          }
-        });
+    // Listen for iframe load event (optional - more accurate timing)
+    if(iframe){
+      iframe.addEventListener('load', () => {
+        // Add slight delay for better UX
+        setTimeout(hideLoading, 800);
       });
     }
 
-    // Handle WebSocket messages
-    async function handleWebSocketMessage(event){
-      try {
-        const message = JSON.parse(event.data);
-
-        switch(message.type){
-          case 'conversation_initiation_metadata':
-            console.log('Conversation initialized:', message);
-            break;
-
-          case 'audio':
-            // Receive audio chunks from Sarah
-            if(message.audio_event && message.audio_event.audio_base_64){
-              await playAudioChunk(message.audio_event.audio_base_64);
-            }
-            break;
-
-          case 'agent_response':
-            updateStatus('Sarah is speaking...');
-            console.log('Agent response:', message);
-            break;
-
-          case 'user_transcript':
-            updateStatus(`You: ${message.user_transcript}`);
-            resetSilenceTimer();
-            break;
-
-          case 'interruption':
-            // Handle user interruption
-            stopAudioPlayback();
-            break;
-
-          case 'ping':
-            // Respond to ping
-            websocket.send(JSON.stringify({ type: 'pong' }));
-            break;
-
-          default:
-            console.log('Unknown message type:', message.type, message);
-        }
-      } catch(error){
-        console.error('Error handling WebSocket message:', error);
-      }
-    }
-
-    // Play audio chunk from Sarah
-    async function playAudioChunk(base64Audio){
-      try {
-        const audioData = atob(base64Audio);
-        const arrayBuffer = new ArrayBuffer(audioData.length);
-        const view = new Uint8Array(arrayBuffer);
-        for(let i = 0; i < audioData.length; i++){
-          view[i] = audioData.charCodeAt(i);
-        }
-
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-        audioQueue.push(audioBuffer);
-
-        if(!isPlaying){
-          playNextInQueue();
-        }
-      } catch(error){
-        console.error('Error playing audio:', error);
-      }
-    }
-
-    // Play next audio in queue
-    function playNextInQueue(){
-      if(audioQueue.length === 0){
-        isPlaying = false;
-        updateStatus('Listening...');
-        return;
-      }
-
-      isPlaying = true;
-      const audioBuffer = audioQueue.shift();
-
-      const source = audioContext.createBufferSource();
-      source.buffer = audioBuffer;
-
-      if(!isMuted){
-        source.connect(audioContext.destination);
-      }
-
-      source.onended = () => {
-        playNextInQueue();
-      };
-
-      source.start(0);
-    }
-
-    // Stop audio playback
-    function stopAudioPlayback(){
-      audioQueue = [];
-      isPlaying = false;
-    }
-
-    // Start listening to user
-    function startListening(){
-      if(!mediaStream){
-        console.error('Cannot start listening: media stream not available');
-        updateStatus('Microphone not available. Please refresh.');
-        return;
-      }
-
-      if(!websocket || websocket.readyState !== WebSocket.OPEN){
-        console.error('Cannot start listening: websocket not ready. State:', websocket?.readyState);
-        updateStatus('Connection not ready. Reconnecting...');
-
-        // Try to reconnect
-        setTimeout(async () => {
-          try {
-            await connectWebSocket();
-            startListening();
-          } catch(error){
-            updateStatus('Reconnection failed. Please close and try again.');
-          }
-        }, 1000);
-        return;
-      }
-
-      isListening = true;
-      micBtn.classList.add('active');
-      updateStatus('Listening...');
-
-      try {
-        // Create MediaRecorder to capture audio
-        mediaRecorder = new MediaRecorder(mediaStream, {
-          mimeType: 'audio/webm'
-        });
-
-        mediaRecorder.addEventListener('dataavailable', (event) => {
-          if(event.data.size > 0 && websocket && websocket.readyState === WebSocket.OPEN){
-            // Convert to base64 and send to ElevenLabs
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              const base64Audio = reader.result.split(',')[1];
-              if(websocket && websocket.readyState === WebSocket.OPEN){
-                websocket.send(JSON.stringify({
-                  type: 'audio',
-                  audio_event: {
-                    audio_base_64: base64Audio
-                  }
-                }));
-              }
-            };
-            reader.readAsDataURL(event.data);
-          }
-        });
-
-        mediaRecorder.addEventListener('error', (error) => {
-          console.error('MediaRecorder error:', error);
-          updateStatus('Recording error. Please try again.');
-          stopListening();
-        });
-
-        // Send audio chunks every 100ms
-        mediaRecorder.start(100);
-
-        // Start silence detection
-        startSilenceDetection();
-      } catch(error){
-        console.error('Error starting MediaRecorder:', error);
-        updateStatus('Could not start recording. Please try again.');
-        isListening = false;
-        micBtn.classList.remove('active');
-      }
-    }
-
-    // Stop listening
-    function stopListening(){
-      if(mediaRecorder && mediaRecorder.state !== 'inactive'){
-        mediaRecorder.stop();
-      }
-
-      isListening = false;
-      micBtn.classList.remove('active');
-      clearTimeout(silenceTimer);
-    }
-
-    // Silence detection and follow-up
-    function startSilenceDetection(){
-      resetSilenceTimer();
-    }
-
-    function resetSilenceTimer(){
-      clearTimeout(silenceTimer);
-
-      // After 5 seconds of silence, prompt user
-      silenceTimer = setTimeout(() => {
-        if(conversationActive && websocket && websocket.readyState === WebSocket.OPEN){
-          const followUpPrompts = [
-            "Is there anything else I can help you with?",
-            "Do you have any other questions about VCB?",
-            "Would you like to know more about our services?",
-            "Can I provide more information on any topic?"
-          ];
-
-          const randomPrompt = followUpPrompts[Math.floor(Math.random() * followUpPrompts.length)];
-
-          websocket.send(JSON.stringify({
-            type: 'user_transcript',
-            user_transcript: `[SILENCE_DETECTED] ${randomPrompt}`
-          }));
-        }
-      }, 5000);
-    }
-
-    // Detect conversation end signals
-    function detectConversationEnd(transcript){
-      const endPhrases = [
-        'goodbye', 'bye', 'thank you bye', 'thanks bye', 'see you',
-        'that\'s all', 'that is all', 'no thank you', 'i\'m done',
-        'end conversation', 'end call', 'hang up'
-      ];
-
-      const lowerTranscript = transcript.toLowerCase();
-      return endPhrases.some(phrase => lowerTranscript.includes(phrase));
-    }
-
-    // Close modal and cleanup
+    // Close modal
     function closeModal(){
-      // Stop everything
-      stopListening();
-      stopAudioPlayback();
-
-      // Close WebSocket
-      if(websocket){
-        websocket.close();
-        websocket = null;
-      }
-
-      // Stop media stream
-      if(mediaStream){
-        mediaStream.getTracks().forEach(track => track.stop());
-        mediaStream = null;
-      }
-
-      // Close audio context
-      if(audioContext){
-        audioContext.close();
-        audioContext = null;
-      }
-
-      // Reset state
       modal.classList.remove('active');
-      isListening = false;
-      isMuted = false;
-      conversationActive = false;
-      micBtn.classList.remove('active');
-      muteBtn.classList.remove('active');
-      updateMuteIcon(false);
-      updateStatus('Click the microphone to start');
-      clearTimeout(silenceTimer);
     }
 
     closeBtn.addEventListener('click', closeModal);
@@ -1914,57 +1502,6 @@ CONVERSATION STYLE:
         closeModal();
       }
     });
-
-    // Microphone toggle
-    micBtn.addEventListener('click', () => {
-      if(isListening){
-        stopListening();
-        updateStatus('Paused');
-      } else {
-        startListening();
-      }
-    });
-
-    // Mute toggle
-    muteBtn.addEventListener('click', () => {
-      isMuted = !isMuted;
-      muteBtn.classList.toggle('active');
-      updateMuteIcon(isMuted);
-
-      if(isMuted){
-        updateStatus('Audio muted');
-      } else {
-        updateStatus(isListening ? 'Listening...' : 'Ready to listen...');
-      }
-    });
-
-    // End call
-    phoneBtn.addEventListener('click', () => {
-      updateStatus('Ending conversation...');
-
-      if(websocket && websocket.readyState === WebSocket.OPEN){
-        websocket.send(JSON.stringify({
-          type: 'user_transcript',
-          user_transcript: 'Goodbye!'
-        }));
-      }
-
-      setTimeout(closeModal, 1500);
-    });
-
-    // Helper functions
-    function updateStatus(text){
-      if(statusEl){
-        statusEl.textContent = text;
-      }
-    }
-
-    function updateMuteIcon(muted){
-      const svg = muteBtn.querySelector('svg use');
-      if(svg){
-        svg.setAttribute('href', muted ? '#i-mute' : '#i-volume');
-      }
-    }
   })();
 </script>
 </body>
