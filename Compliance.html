@@ -69,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* Sticky glass NAV with wire mesh */
   .top{
-    position:sticky; top:0; z-index:20; overflow:hidden;
+    position:sticky; top:0; z-index:1000; overflow:visible;
     background:rgba(255,255,255,0.95);
     -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     border-bottom:1px solid rgba(239,239,239,0.8);
@@ -87,7 +87,71 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
     text-rendering:optimizeLegibility;
   }
+  .nav nav a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
+    transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
+  }
   .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
+  .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+  /* Dropdown Menu Styles */
+  .nav nav .dropdown{
+    position:relative;
+    display:inline-block;
+    margin-left:16px;
+  }
+  .nav nav .dropdown > a{
+    margin-left:0;
+    cursor:pointer;
+  }
+  .nav nav .dropdown-content{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:220px;
+    background:rgba(255,255,255,0.98);
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:12px;
+    box-shadow:0 8px 32px rgba(0,0,0,.12), 0 16px 64px rgba(0,0,0,.08);
+    padding:8px 0;
+    margin-top:8px;
+    z-index:1001;
+  }
+  .nav nav .dropdown:hover .dropdown-content{
+    display:block;
+    animation:dropdownFadeIn 0.3s ease;
+  }
+  @keyframes dropdownFadeIn{
+    from{
+      opacity:0;
+      transform:translateY(-8px);
+    }
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+  .nav nav .dropdown-content a{
+    display:block;
+    margin:0;
+    padding:12px 20px;
+    font-size:1em;
+    font-weight:600;
+    color:var(--g-700);
+    text-decoration:none;
+    transition:all .2s ease;
+  }
+  .nav nav .dropdown-content a::after{
+    display:none;
+  }
+  .nav nav .dropdown-content a:hover{
+    background:linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    color:var(--black);
+    transform:translateX(4px);
+  }
 
   /* Hero */
   .hero{
@@ -300,12 +364,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav>
       <a href="index.html">Home</a>
       <a href="aboutus.html">About</a>
-      <a href="Lianela-info.html">LIANELA V3</a>
-      <a href="Model-Train.html">#ProjectDarkMatter</a>
-      <a href="SalesAgent.html">Voice-Agents</a>
-      <a href="LLM-Ent.html">SIGMA</a>
+      <div class="dropdown">
+        <a>Our AI Projects</a>
+        <div class="dropdown-content">
+          <a href="Lianela-info.html">LIANELA V3</a>
+          <a href="SalesAgent.html">Voice-Agents</a>
+          <a href="LLM-Ent.html">SIGMA</a>
+          <a href="Compliance.html">Compliance</a>
+          <a href="agenticai.html">AgenticAI</a>
+          <a href="Model-Train.html">#ProjectDarkMatter</a>
+        </div>
+      </div>
       <a href="Partnerships.html">Partnerships</a>
-      </nav>
+    </nav>
   </div>
 </div>
 

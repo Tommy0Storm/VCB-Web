@@ -73,7 +73,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* Sticky glass NAV with wire mesh */
   .top{
-    position:sticky; top:0; z-index:20; overflow:hidden;
+    position:sticky; top:0; z-index:1000; overflow:visible;
     background:rgba(255,255,255,0.95);
     -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     border-bottom:1px solid rgba(239,239,239,0.8);
@@ -83,6 +83,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     width:100%; height:100%;
   }
   .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+  .nav nav{ overflow-x:hidden; overflow-y:hidden; }
   .brand{ display:flex; align-items:center; }
   .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
   .nav nav a{
@@ -97,6 +98,65 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
   .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+  /* Dropdown Menu Styles */
+  .nav nav .dropdown{
+    position:relative;
+    display:inline-block;
+    margin-left:16px;
+  }
+  .nav nav .dropdown > a{
+    margin-left:0;
+    cursor:pointer;
+  }
+  .nav nav .dropdown-content{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:220px;
+    background:rgba(255,255,255,0.98);
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:12px;
+    box-shadow:0 8px 32px rgba(0,0,0,.12), 0 16px 64px rgba(0,0,0,.08);
+    padding:8px 0;
+    margin-top:8px;
+    z-index:1001;
+  }
+  .nav nav .dropdown:hover .dropdown-content{
+    display:block;
+    animation:dropdownFadeIn 0.3s ease;
+  }
+  @keyframes dropdownFadeIn{
+    from{
+      opacity:0;
+      transform:translateY(-8px);
+    }
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+  .nav nav .dropdown-content a{
+    display:block;
+    margin:0;
+    padding:12px 20px;
+    font-size:1em;
+    font-weight:600;
+    color:var(--g-700);
+    text-decoration:none;
+    transition:all .2s ease;
+  }
+  .nav nav .dropdown-content a::after{
+    display:none;
+  }
+  .nav nav .dropdown-content a:hover{
+    background:linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    color:var(--black);
+    transform:translateX(4px);
+  }
   /* Compliance Callout Banner */
   .compliance-banner{
     background:linear-gradient(135deg, rgba(248,249,250,.8) 0%, rgba(233,236,239,.6) 100%);
@@ -105,6 +165,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-align:center;
     -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     position:relative;
+    min-height:120px;
+    display:flex;
+    align-items:center;
   }
   .compliance-banner::before{
     content:"; position:absolute; inset:0;
@@ -219,39 +282,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
     box-shadow:0 2px 12px rgba(0,0,0,.05), 0 4px 24px rgba(0,0,0,.03);
     transition:all .4s cubic-bezier(0.4, 0, 0.2, 1);
-    position:relative;
-    overflow:hidden;
-    z-index:1;
     text-rendering:optimizeLegibility;
   }
-  .btn::before{
-    content:";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(135deg, var(--g-800) 0%, var(--black) 100%);
-    transform:translateY(100%);
-    transition:transform .4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index:-1;
-  }
-  .btn::after{
-    content:";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
-    transform:translateX(-100%);
-    transition:transform .6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
   .btn:hover{
-    color:#fff !important;
-    background-color:var(--black);
+    color:var(--white) !important;
+    background:var(--black);
     transform:translateY(-3px);
     box-shadow:0 8px 28px rgba(0,0,0,.15), 0 16px 56px rgba(0,0,0,.1);
     border-color:var(--black);
-  }
-  .btn:hover::before{ transform:translateY(0); }
-  .btn:hover::after{
-    transform:translateX(100%);
-    transition:transform .6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* GRID & CARDS */
@@ -503,6 +541,246 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     /* Hide particle background on very small screens for performance */
     #particle-bg{ display:none; }
   }
+
+  /* Speak to Sarah - Floating Button */
+  .sarah-float-btn{
+    position:fixed;
+    bottom:32px;
+    right:32px;
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--black) 0%, var(--g-700) 100%);
+    border:3px solid var(--white);
+    box-shadow:0 8px 32px rgba(11,11,11,.3), 0 16px 64px rgba(11,11,11,.2);
+    cursor:pointer;
+    z-index:999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow:visible;
+  }
+  .sarah-float-btn:hover{
+    transform:scale(1.1) translateY(-4px);
+    box-shadow:0 12px 48px rgba(11,11,11,.4), 0 24px 96px rgba(11,11,11,.3);
+  }
+  .sarah-float-btn svg{
+    width:32px;
+    height:32px;
+    stroke:var(--white);
+    stroke-width:2.5;
+    fill:none;
+    transition:transform .3s ease;
+  }
+  .sarah-float-btn:hover svg{
+    transform:scale(1.15);
+  }
+  .sarah-float-btn::before{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:50%;
+    background:conic-gradient(from 0deg, rgba(11,11,11,.3), transparent, rgba(11,11,11,.3));
+    animation:rotatePulse 4s linear infinite;
+    opacity:0;
+    transition:opacity .4s ease;
+  }
+  .sarah-float-btn:hover::before{
+    opacity:1;
+  }
+  @keyframes rotatePulse{
+    to{ transform:rotate(360deg); }
+  }
+  .sarah-float-btn .pulse-ring{
+    position:absolute;
+    inset:-12px;
+    border:2px solid rgba(11,11,11,.3);
+    border-radius:50%;
+    animation:pulseRing 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  @keyframes pulseRing{
+    0%{ transform:scale(1); opacity:.6; }
+    100%{ transform:scale(1.3); opacity:0; }
+  }
+
+  /* Voice Chat Modal */
+  .voice-modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(11,11,11,.85);
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+    z-index:10000;
+    align-items:center;
+    justify-content:center;
+    animation:modalFadeIn .4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .voice-modal.active{
+    display:flex;
+  }
+  @keyframes modalFadeIn{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+  .voice-modal-content{
+    position:relative;
+    background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
+    border-radius:24px;
+    padding:48px;
+    max-width:520px;
+    width:90%;
+    box-shadow:0 24px 96px rgba(0,0,0,.3), 0 48px 192px rgba(0,0,0,.2);
+    border:1px solid rgba(255,255,255,.5);
+    animation:modalSlideUp .5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes modalSlideUp{
+    from{ opacity:0; transform:translateY(40px) scale(.95); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+  .voice-modal-close{
+    position:absolute;
+    top:20px;
+    right:20px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:rgba(11,11,11,.1);
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .3s ease;
+  }
+  .voice-modal-close:hover{
+    background:var(--black);
+    transform:rotate(90deg);
+  }
+  .voice-modal-close svg{
+    width:20px;
+    height:20px;
+    stroke:var(--g-700);
+    stroke-width:2.5;
+    transition:stroke .3s ease;
+  }
+  .voice-modal-close:hover svg{
+    stroke:var(--white);
+  }
+  .voice-modal h2{
+    margin-top:0;
+    margin-bottom:12px;
+    color:var(--black);
+    font-size:clamp(26px,3.5vw,32px);
+    text-align:center;
+  }
+  .voice-modal p{
+    text-align:center;
+    color:var(--g-600);
+    margin-bottom:32px;
+    font-size:16px;
+  }
+  .voice-avatar{
+    width:140px;
+    height:140px;
+    margin:0 auto 28px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--black) 0%, var(--g-700) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    box-shadow:0 12px 48px rgba(11,11,11,.2), 0 0 0 8px rgba(11,11,11,.05);
+  }
+  .voice-avatar svg{
+    width:72px;
+    height:72px;
+    stroke:var(--white);
+    stroke-width:2;
+    fill:none;
+  }
+  .voice-avatar::before{
+    content:"";
+    position:absolute;
+    inset:-16px;
+    border-radius:50%;
+    border:3px solid rgba(11,11,11,.15);
+    animation:voicePulse 2s ease-in-out infinite;
+  }
+  @keyframes voicePulse{
+    0%, 100%{ transform:scale(1); opacity:.4; }
+    50%{ transform:scale(1.15); opacity:.1; }
+  }
+  .voice-status{
+    text-align:center;
+    font-size:15px;
+    color:var(--g-500);
+    margin-bottom:24px;
+    font-weight:500;
+    min-height:24px;
+  }
+  .voice-controls{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    align-items:center;
+  }
+  .voice-btn{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    border:2px solid var(--g-800);
+    background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:0 4px 16px rgba(0,0,0,.08);
+  }
+  .voice-btn svg{
+    width:24px;
+    height:24px;
+    stroke:var(--g-800);
+    stroke-width:2.5;
+    fill:none;
+  }
+  .voice-btn:hover{
+    background:var(--black);
+    border-color:var(--black);
+    transform:translateY(-3px);
+    box-shadow:0 8px 24px rgba(11,11,11,.2);
+  }
+  .voice-btn:hover svg{
+    stroke:var(--white);
+  }
+  .voice-btn.active{
+    background:linear-gradient(135deg, var(--black) 0%, var(--g-700) 100%);
+    border-color:var(--black);
+  }
+  .voice-btn.active svg{
+    stroke:var(--white);
+  }
+
+  @media(max-width:600px){
+    .voice-modal-content{
+      padding:32px 24px;
+    }
+    .sarah-float-btn{
+      width:60px;
+      height:60px;
+      bottom:24px;
+      right:24px;
+    }
+    .sarah-float-btn svg{
+      width:28px;
+      height:28px;
+    }
+  }
 </style>
 
 <!-- Premium inline SVG icon sprite (monochrome) -->
@@ -515,6 +793,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <symbol id="i-omni" viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="6" rx="1"/><rect x="13" y="4" width="8" height="6" rx="1"/><rect x="3" y="14" width="8" height="6" rx="1"/><rect x="13" y="14" width="8" height="6" rx="1"/></symbol>
   <symbol id="i-assist" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5"/><path d="M3 21a7 7 0 0 1 14 0"/><circle cx="17.5" cy="6.5" r="2.5"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol>
 </svg>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17625349992"></script>
@@ -544,13 +827,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <nav>
       <a href="index.html">Home</a>
       <a href="aboutus.html">About</a>
-      <a href="Model-Train.html">#ProjectDarkMatter</a>
-      <a href="Lianela-info.html">LIANELA V3</a>
-      <a href="SalesAgent.html">Voice-Agents</a>
-      <a href="LLM-Ent.html">SIGMA</a>
-      <a href="agenticai.html">AgenticAI</a>
+      <div class="dropdown">
+        <a>Our AI Projects</a>
+        <div class="dropdown-content">
+          <a href="Lianela-info.html">LIANELA V3</a>
+          <a href="SalesAgent.html">Voice-Agents</a>
+          <a href="LLM-Ent.html">SIGMA</a>
+          <a href="Compliance.html">Compliance</a>
+          <a href="agenticai.html">AgenticAI</a>
+          <a href="Model-Train.html">#ProjectDarkMatter</a>
+        </div>
+      </div>
       <a href="Partnerships.html">Partnerships</a>
-      <a href="Compliance.html">Compliance</a>
     </nav>
   </div>
 </div>
@@ -786,6 +1074,42 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 <footer>
   © <span id="year"></span> VCB · Viable Core Business — Vision becomes Viable. · <a href="privacy.html">Privacy</a>
 </footer>
+
+<!-- Speak to Sarah - Floating Button -->
+<div class="sarah-float-btn" id="sarahFloatBtn" aria-label="Speak to Sarah voice assistant">
+  <div class="pulse-ring"></div>
+  <svg><use href="#i-mic"/></svg>
+</div>
+
+<!-- Voice Chat Modal -->
+<div class="voice-modal" id="voiceModal">
+  <div class="voice-modal-content">
+    <button class="voice-modal-close" id="closeModal" aria-label="Close voice chat">
+      <svg><use href="#i-close"/></svg>
+    </button>
+
+    <h2>Speak to Sarah</h2>
+    <p>Your AI voice assistant is ready to help</p>
+
+    <div class="voice-avatar">
+      <svg><use href="#i-mic"/></svg>
+    </div>
+
+    <div class="voice-status" id="voiceStatus">Click the microphone to start</div>
+
+    <div class="voice-controls">
+      <button class="voice-btn" id="micBtn" aria-label="Toggle microphone">
+        <svg><use href="#i-mic"/></svg>
+      </button>
+      <button class="voice-btn" id="muteBtn" aria-label="Toggle mute">
+        <svg><use href="#i-volume"/></svg>
+      </button>
+      <button class="voice-btn" id="phoneBtn" aria-label="End call">
+        <svg><use href="#i-phone"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- GSAP (not needed anymore) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1024,7 +1348,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       "Make AI safe to adopt: secure-by-default, compliant-from-day-one, and powered by unbreakable storage.",
       "Build outcomes, not risk—governed AI on resilient storage with privacy, security, and compliance at the core.",
       "Ship AI you can trust: encrypted, governed, and audit-ready on a rock-solid storage backbone."
-    
+
       ,"AI-first venture builder obsessed with making artificial intelligence useful, secure, and compliant, not just shiny."
       ,"The name Viable Core Business isnt just a motivational posterits a philosophy. Every product has to make sense commercially, legally, and ethically."
       ,"By pioneering the use of multi-skill fine-tuning on a premier, long-context foundation model, VCB has created a uniquely powerful and trustworthy tool for the legal profession."];
@@ -1048,6 +1372,556 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
     // Rotate every 6 seconds
     setInterval(rotateMission, 6000);
+  })();
+
+  // Sarah Voice Chat Modal with ElevenLabs Integration
+  (function(){
+    const floatBtn = document.getElementById('sarahFloatBtn');
+    const modal = document.getElementById('voiceModal');
+    const closeBtn = document.getElementById('closeModal');
+    const micBtn = document.getElementById('micBtn');
+    const muteBtn = document.getElementById('muteBtn');
+    const phoneBtn = document.getElementById('phoneBtn');
+    const statusEl = document.getElementById('voiceStatus');
+
+    if(!floatBtn || !modal) return;
+
+    // ElevenLabs Configuration
+    const ELEVENLABS_API_KEY = 'sk_0315f50486f317f436769a00942b5ae2fc9db3cfa2ed45ca';
+    const VOICE_ID = 'uYXf8XasLslADfZ2MB4u'; // Sarah's voice
+
+    // VCB Website Knowledge Base
+    const VCB_KNOWLEDGE = `
+You are Sarah, an intelligent and friendly AI voice assistant for VCB (Viable Core Business).
+
+ABOUT VCB:
+VCB is a South African AI-first venture builder focused on secure, compliant, and practical AI solutions.
+
+COMPANY VISION & MISSION:
+- Vision: To be the essential, integrated partner for businesses in South Africa, driving data-driven innovation with cohesive AI software and core storage solutions.
+- Mission: Turn AI into measurable outcomes without compromising trust through encryption, zero-trust access, model governance, and data sovereignty.
+
+CORE PRODUCTS & SERVICES:
+
+1. LIANELA V3 - Legal AI Assistant:
+   - 90.11% peak legal accuracy
+   - 1 million token context window
+   - 6 judicial skill domains
+   - 100% traceability coverage
+   - Specializes in South African law including LRA, POPIA, B-BBEE
+   - Proactive dispute prediction and SA-aware document generation
+
+2. Voice Agents:
+   - Production phone agents with omnichannel continuation
+   - Inbound/outbound with natural turn-taking
+   - WhatsApp, FB Messenger, SMS, Email, Web chat integration
+   - Whisper, barge-in, warm transfer, 3-way calling features
+   - Live human assist capabilities
+
+3. SIGMA - Enterprise AI:
+   - Secure, SA-ready generative AI from prototype to production
+   - RAG & fine-tuning with evals & guardrails
+   - PII redaction & safety by design
+   - MLOps & orchestration with pipelines, vector DBs
+   - Multilingual support: English, Afrikaans, isiZulu
+
+4. Compliance Solutions:
+   - POPIA-first approach (South African privacy law)
+   - Court-grade auditability
+   - Sovereign-capable infrastructure
+   - GDPR compliance
+   - Full traceability and audit logs
+
+5. Hardware & Software Supply:
+   - Enterprise-grade sourcing from brief to hand-over
+   - Compute/Storage (SAN/NAS), Backup/DR
+   - Networking/Edge, VoIP/SIP gateways
+   - Licensing, MDM/UEM, Security stack
+
+6. Consulting Services:
+   - Independent expert guidance from idea to outcome
+   - Discovery & strategy, TCO/ROI analysis
+   - POPIA/GDPR governance & compliance
+   - B-BBEE alignment
+   - Sovereign AI consulting & localized LLM support
+   - Change management & executive advisory
+
+KEY DIFFERENTIATORS:
+- Model-agnostic approach
+- POPIA-first compliance
+- Court-grade auditability
+- Sovereign-capable infrastructure
+- Ultra-low latency (sub-100ms)
+- Omnichannel continuity with single memory across voice and messaging
+
+UPCOMING EVENT:
+- "Will the New LRA Protect You or Expose You?" on October 16, 2025
+- High Court Advocates debate new Schedule 8 of the LRA
+- First major change to dismissals in 30 years
+- Virtual event on Microsoft Teams at 15:00 SAST
+- R200 per person, open to all
+- Sponsored by LIANELA
+
+PARTNERSHIPS:
+VCB is open to strategic partnerships that align with their vision of practical, compliant AI solutions.
+
+YOUR ROLE AS SARAH:
+- Be warm, professional, and knowledgeable
+- Demonstrate deep understanding of VCB's products and South African business context
+- Answer questions about services, capabilities, pricing, partnerships
+- Guide users to relevant pages or team members
+- If asked about technical details you're unsure of, offer to connect them with the team
+- Handle silence gracefully by offering gentle prompts
+- Recognize when a conversation naturally concludes
+- Be enthusiastic about VCB's mission of making AI trustworthy and practical
+
+CONVERSATION STYLE:
+- Speak naturally and conversationally
+- Use South African business context when relevant
+- Be concise but thorough
+- Ask clarifying questions when needed
+- Offer specific next steps or actions
+- Remember context from earlier in the conversation`;
+
+    let websocket = null;
+    let audioContext = null;
+    let audioQueue = [];
+    let isPlaying = false;
+    let mediaStream = null;
+    let mediaRecorder = null;
+    let isListening = false;
+    let isMuted = false;
+    let silenceTimer = null;
+    let conversationActive = false;
+
+    // Open modal and initialize
+    floatBtn.addEventListener('click', async () => {
+      modal.classList.add('active');
+      updateStatus('Initializing Sarah...');
+      await initializeVoiceChat();
+    });
+
+    // Initialize ElevenLabs Voice Chat
+    async function initializeVoiceChat(){
+      try {
+        // Request microphone access
+        updateStatus('Requesting microphone access...');
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            sampleRate: 44100
+          }
+        });
+
+        // Initialize Audio Context
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Connect to ElevenLabs WebSocket
+        updateStatus('Connecting to Sarah...');
+        await connectWebSocket();
+
+        conversationActive = true;
+        updateStatus('Sarah is ready. Start speaking!');
+
+        // Auto-start listening after proper initialization
+        setTimeout(() => {
+          if(websocket && websocket.readyState === WebSocket.OPEN){
+            startListening();
+          } else {
+            console.error('WebSocket not ready after timeout');
+            updateStatus('Connection issue. Please try clicking the microphone button.');
+          }
+        }, 1500);
+
+      } catch(error){
+        console.error('Voice chat initialization error:', error);
+        updateStatus('Error: ' + error.message);
+
+        if(error.name === 'NotAllowedError'){
+          updateStatus('Microphone access denied. Please allow microphone access.');
+        } else if(error.name === 'NotFoundError'){
+          updateStatus('No microphone found. Please connect a microphone.');
+        } else {
+          updateStatus('Initialization failed. Please try again.');
+        }
+      }
+    }
+
+    // Connect to ElevenLabs WebSocket
+    function connectWebSocket(){
+      return new Promise((resolve, reject) => {
+        // Use signed URL approach for better authentication
+        const wsUrl = `wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${VOICE_ID}`;
+
+        websocket = new WebSocket(wsUrl);
+
+        websocket.addEventListener('open', () => {
+          console.log('WebSocket connected to ElevenLabs');
+
+          // Send initial configuration with custom prompt
+          const initMessage = {
+            type: 'conversation_initiation_client_data',
+            conversation_config_override: {
+              agent: {
+                prompt: {
+                  prompt: VCB_KNOWLEDGE
+                },
+                first_message: "Hi! I'm Sarah, your VCB AI assistant. How can I help you today?",
+                language: "en"
+              }
+            }
+          };
+
+          websocket.send(JSON.stringify(initMessage));
+
+          // Wait a bit for initialization before resolving
+          setTimeout(() => {
+            console.log('WebSocket fully initialized');
+            resolve();
+          }, 1000);
+        });
+
+        websocket.addEventListener('message', handleWebSocketMessage);
+
+        websocket.addEventListener('error', (error) => {
+          console.error('WebSocket error:', error);
+          updateStatus('Connection error. Please try again.');
+          reject(error);
+        });
+
+        websocket.addEventListener('close', (event) => {
+          console.log('WebSocket closed:', event.code, event.reason);
+          conversationActive = false;
+          if(event.code !== 1000){
+            updateStatus('Connection lost. Please refresh and try again.');
+          }
+        });
+      });
+    }
+
+    // Handle WebSocket messages
+    async function handleWebSocketMessage(event){
+      try {
+        const message = JSON.parse(event.data);
+
+        switch(message.type){
+          case 'conversation_initiation_metadata':
+            console.log('Conversation initialized:', message);
+            break;
+
+          case 'audio':
+            // Receive audio chunks from Sarah
+            if(message.audio_event && message.audio_event.audio_base_64){
+              await playAudioChunk(message.audio_event.audio_base_64);
+            }
+            break;
+
+          case 'agent_response':
+            updateStatus('Sarah is speaking...');
+            console.log('Agent response:', message);
+            break;
+
+          case 'user_transcript':
+            updateStatus(`You: ${message.user_transcript}`);
+            resetSilenceTimer();
+            break;
+
+          case 'interruption':
+            // Handle user interruption
+            stopAudioPlayback();
+            break;
+
+          case 'ping':
+            // Respond to ping
+            websocket.send(JSON.stringify({ type: 'pong' }));
+            break;
+
+          default:
+            console.log('Unknown message type:', message.type, message);
+        }
+      } catch(error){
+        console.error('Error handling WebSocket message:', error);
+      }
+    }
+
+    // Play audio chunk from Sarah
+    async function playAudioChunk(base64Audio){
+      try {
+        const audioData = atob(base64Audio);
+        const arrayBuffer = new ArrayBuffer(audioData.length);
+        const view = new Uint8Array(arrayBuffer);
+        for(let i = 0; i < audioData.length; i++){
+          view[i] = audioData.charCodeAt(i);
+        }
+
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        audioQueue.push(audioBuffer);
+
+        if(!isPlaying){
+          playNextInQueue();
+        }
+      } catch(error){
+        console.error('Error playing audio:', error);
+      }
+    }
+
+    // Play next audio in queue
+    function playNextInQueue(){
+      if(audioQueue.length === 0){
+        isPlaying = false;
+        updateStatus('Listening...');
+        return;
+      }
+
+      isPlaying = true;
+      const audioBuffer = audioQueue.shift();
+
+      const source = audioContext.createBufferSource();
+      source.buffer = audioBuffer;
+
+      if(!isMuted){
+        source.connect(audioContext.destination);
+      }
+
+      source.onended = () => {
+        playNextInQueue();
+      };
+
+      source.start(0);
+    }
+
+    // Stop audio playback
+    function stopAudioPlayback(){
+      audioQueue = [];
+      isPlaying = false;
+    }
+
+    // Start listening to user
+    function startListening(){
+      if(!mediaStream){
+        console.error('Cannot start listening: media stream not available');
+        updateStatus('Microphone not available. Please refresh.');
+        return;
+      }
+
+      if(!websocket || websocket.readyState !== WebSocket.OPEN){
+        console.error('Cannot start listening: websocket not ready. State:', websocket?.readyState);
+        updateStatus('Connection not ready. Reconnecting...');
+
+        // Try to reconnect
+        setTimeout(async () => {
+          try {
+            await connectWebSocket();
+            startListening();
+          } catch(error){
+            updateStatus('Reconnection failed. Please close and try again.');
+          }
+        }, 1000);
+        return;
+      }
+
+      isListening = true;
+      micBtn.classList.add('active');
+      updateStatus('Listening...');
+
+      try {
+        // Create MediaRecorder to capture audio
+        mediaRecorder = new MediaRecorder(mediaStream, {
+          mimeType: 'audio/webm'
+        });
+
+        mediaRecorder.addEventListener('dataavailable', (event) => {
+          if(event.data.size > 0 && websocket && websocket.readyState === WebSocket.OPEN){
+            // Convert to base64 and send to ElevenLabs
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              const base64Audio = reader.result.split(',')[1];
+              if(websocket && websocket.readyState === WebSocket.OPEN){
+                websocket.send(JSON.stringify({
+                  type: 'audio',
+                  audio_event: {
+                    audio_base_64: base64Audio
+                  }
+                }));
+              }
+            };
+            reader.readAsDataURL(event.data);
+          }
+        });
+
+        mediaRecorder.addEventListener('error', (error) => {
+          console.error('MediaRecorder error:', error);
+          updateStatus('Recording error. Please try again.');
+          stopListening();
+        });
+
+        // Send audio chunks every 100ms
+        mediaRecorder.start(100);
+
+        // Start silence detection
+        startSilenceDetection();
+      } catch(error){
+        console.error('Error starting MediaRecorder:', error);
+        updateStatus('Could not start recording. Please try again.');
+        isListening = false;
+        micBtn.classList.remove('active');
+      }
+    }
+
+    // Stop listening
+    function stopListening(){
+      if(mediaRecorder && mediaRecorder.state !== 'inactive'){
+        mediaRecorder.stop();
+      }
+
+      isListening = false;
+      micBtn.classList.remove('active');
+      clearTimeout(silenceTimer);
+    }
+
+    // Silence detection and follow-up
+    function startSilenceDetection(){
+      resetSilenceTimer();
+    }
+
+    function resetSilenceTimer(){
+      clearTimeout(silenceTimer);
+
+      // After 5 seconds of silence, prompt user
+      silenceTimer = setTimeout(() => {
+        if(conversationActive && websocket && websocket.readyState === WebSocket.OPEN){
+          const followUpPrompts = [
+            "Is there anything else I can help you with?",
+            "Do you have any other questions about VCB?",
+            "Would you like to know more about our services?",
+            "Can I provide more information on any topic?"
+          ];
+
+          const randomPrompt = followUpPrompts[Math.floor(Math.random() * followUpPrompts.length)];
+
+          websocket.send(JSON.stringify({
+            type: 'user_transcript',
+            user_transcript: `[SILENCE_DETECTED] ${randomPrompt}`
+          }));
+        }
+      }, 5000);
+    }
+
+    // Detect conversation end signals
+    function detectConversationEnd(transcript){
+      const endPhrases = [
+        'goodbye', 'bye', 'thank you bye', 'thanks bye', 'see you',
+        'that\'s all', 'that is all', 'no thank you', 'i\'m done',
+        'end conversation', 'end call', 'hang up'
+      ];
+
+      const lowerTranscript = transcript.toLowerCase();
+      return endPhrases.some(phrase => lowerTranscript.includes(phrase));
+    }
+
+    // Close modal and cleanup
+    function closeModal(){
+      // Stop everything
+      stopListening();
+      stopAudioPlayback();
+
+      // Close WebSocket
+      if(websocket){
+        websocket.close();
+        websocket = null;
+      }
+
+      // Stop media stream
+      if(mediaStream){
+        mediaStream.getTracks().forEach(track => track.stop());
+        mediaStream = null;
+      }
+
+      // Close audio context
+      if(audioContext){
+        audioContext.close();
+        audioContext = null;
+      }
+
+      // Reset state
+      modal.classList.remove('active');
+      isListening = false;
+      isMuted = false;
+      conversationActive = false;
+      micBtn.classList.remove('active');
+      muteBtn.classList.remove('active');
+      updateMuteIcon(false);
+      updateStatus('Click the microphone to start');
+      clearTimeout(silenceTimer);
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal){
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && modal.classList.contains('active')){
+        closeModal();
+      }
+    });
+
+    // Microphone toggle
+    micBtn.addEventListener('click', () => {
+      if(isListening){
+        stopListening();
+        updateStatus('Paused');
+      } else {
+        startListening();
+      }
+    });
+
+    // Mute toggle
+    muteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      muteBtn.classList.toggle('active');
+      updateMuteIcon(isMuted);
+
+      if(isMuted){
+        updateStatus('Audio muted');
+      } else {
+        updateStatus(isListening ? 'Listening...' : 'Ready to listen...');
+      }
+    });
+
+    // End call
+    phoneBtn.addEventListener('click', () => {
+      updateStatus('Ending conversation...');
+
+      if(websocket && websocket.readyState === WebSocket.OPEN){
+        websocket.send(JSON.stringify({
+          type: 'user_transcript',
+          user_transcript: 'Goodbye!'
+        }));
+      }
+
+      setTimeout(closeModal, 1500);
+    });
+
+    // Helper functions
+    function updateStatus(text){
+      if(statusEl){
+        statusEl.textContent = text;
+      }
+    }
+
+    function updateMuteIcon(muted){
+      const svg = muteBtn.querySelector('svg use');
+      if(svg){
+        svg.setAttribute('href', muted ? '#i-mute' : '#i-volume');
+      }
+    }
   })();
 </script>
 </body>
