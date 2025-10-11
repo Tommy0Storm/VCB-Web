@@ -1131,9 +1131,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
 <!-- Voice Chat Modal -->
 <div class="voice-modal" id="voiceModal">
-  <div class="voice-modal-content" style="max-width:360px; width:90%; max-height:480px; height:480px; padding:0; overflow:hidden; position:relative; border-radius:16px;">
-    <button class="voice-modal-close" id="closeModal" aria-label="Close voice chat" style="position:absolute; top:8px; right:8px; z-index:10001; background:rgba(11,11,11,0.7); width:28px; height:28px;">
-      <svg style="width:14px; height:14px;"><use href="#i-close"/></svg>
+  <div class="voice-modal-content" style="max-width:400px; width:400px; max-height:400px; height:400px; padding:0; overflow:hidden; position:relative; border-radius:50%;">
+    <button class="voice-modal-close" id="closeModal" aria-label="Close voice chat" style="position:absolute; top:12px; right:12px; z-index:10001; background:rgba(11,11,11,0.8); width:32px; height:32px; border-radius:50%;">
+      <svg style="width:16px; height:16px;"><use href="#i-close"/></svg>
     </button>
 
     <!-- Loading overlay -->
@@ -1141,7 +1141,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       position:absolute;
       inset:0;
       background:var(--black);
-      border-radius:16px;
+      border-radius:50%;
       display:flex;
       flex-direction:column;
       align-items:center;
@@ -1149,16 +1149,16 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       z-index:10000;
       transition:opacity 0.6s ease, visibility 0.6s ease;
     ">
-      <div style="width:48px; height:48px; border-radius:50%; background:var(--white); display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
-        <svg style="width:24px; height:24px; stroke:var(--black); stroke-width:2.5; fill:none;"><use href="#i-mic"/></svg>
+      <div style="width:60px; height:60px; border-radius:50%; background:var(--white); display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+        <svg style="width:32px; height:32px; stroke:var(--black); stroke-width:2.5; fill:none;"><use href="#i-mic"/></svg>
       </div>
-      <p style="margin:0; color:var(--white); font-size:12px; font-weight:500;">Loading...</p>
+      <p style="margin:0; color:var(--white); font-size:13px; font-weight:500;">Loading...</p>
     </div>
 
     <iframe
       id="voiceAppFrame"
       src="https://vcbmain.vercel.app"
-      style="width:100%; height:100%; border:0; border-radius:16px; background:var(--white); opacity:0; transition:opacity 0.6s ease;"
+      style="width:100%; height:100%; border:0; border-radius:50%; background:var(--white); opacity:0; transition:opacity 0.6s ease;"
       title="VCB Voice Assistant"
       allow="microphone; autoplay"
     ></iframe>
