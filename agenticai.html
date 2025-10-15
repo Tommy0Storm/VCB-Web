@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentic AI - VCB Enterprise Briefing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <script type="module">
+        import { GoogleGenAI } from 'https://esm.run/@google/genai';
+        window.GoogleGenAI = GoogleGenAI;
+    </script>
+    <style>
+        :root {
+            --white: #FFFFFF;
+            --light-grey: #E0E0E0;
+            --mid-grey: #808080;
+            --dark-grey: #333333;
+            --black: #000000;
+            --cursor-x: 50vw;
+            --cursor-y: 50vh;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 300;
+            background-color: var(--white);
+            color: var(--black);
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        /* --- TYPOGRAPHY --- */
+        h1 { font-family: 'Quicksand', sans-serif; font-weight: 700; text-transform: uppercase; }
+        h2, h3, h4, h5, h6 { font-family: 'Quicksand', sans-serif; font-weight: 500; text-transform: uppercase; }
+        p, span, div, li, button, a, input, textarea { font-family: 'Quicksand', sans-serif; font-weight: 300; }
+        
+        /* --- CURSOR --- */
+        .custom-cursor-container { pointer-events: none; z-index: 9999; position: fixed; top: 0; left: 0; }
+        .custom-cursor {
+            position: fixed; top: var(--cursor-y); left: var(--cursor-x); transform: translate(-50%, -50%);
+            width: 8px; height: 8px;
+            background-color: var(--black);
+            border-radius: 50%;
+            transition: width 0.2s, height 0.2s, transform 0.2s;
+            mix-blend-mode: difference;
+        }
+        .custom-cursor.click { transform: translate(-50%, -50%) scale(0.8); }
+        .custom-cursor.hover-link { transform: translate(-50%, -50%) scale(4); background-color: rgba(0, 0, 0, 0.3); }
+
+        /* Hide custom cursor on touch devices */
+        @media (pointer: coarse) {
+            body { cursor: auto; }
+            .custom-cursor-container { display: none; }
+        }
+        
+        /* --- BACKGROUND --- */
+        #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
+            background: var(--white);
+        }
+
+        /* --- SLIDE SYSTEM --- */
+        .slide {
+            position: absolute; top: 60px; left: 0; width: 100%; height: calc(100% - 60px);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1.02);
+            overflow-y: auto; /* Allow vertical scrolling */
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+        .slide.active {
+            opacity: 1; pointer-events: auto; z-index: 10;
+            transform: scale(1);
+        }
+        .slide.exiting {
+            opacity: 0;
+            z-index: 5;
+            transform: scale(0.98);
+        }
+        .slide.active .animated-content {
+             animation: content-fade-in 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+        }
+        
+        /* --- KEYFRAMES --- */
+        @keyframes content-fade-in { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes breathing {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        @keyframes thinkingPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+        @keyframes progressBar {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        @keyframes checkmark {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-45deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(-45deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(-45deg);
+            }
+        }
+        
+        /* --- FORM STYLES --- */
+        textarea:focus, input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--black);
+        }
+
+    </style>
+    
+    <!-- React and Babel CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="background-container">
+        <!-- Canvas removed for cleaner theme -->
+    </div>
+    <!-- AI Paint Canvas (interactive visual/sound layer for Slide 7) -->
+    <canvas id="ai-paint-canvas" style="position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none;
+      /* transparent canvas over white background */"></canvas>
+    <div class="custom-cursor-container">
+        <div class="custom-cursor"></div>
+    </div>
+    
+    <div id="audio-container" style="display: none;">
+        <audio id="audio-transition">
+            <source src="https://aistudio-app-assets.googleusercontent.com/projects/775bf769-2019-4c28-857a-976451e06497/files/a2b27076-2f04-419b-8664-96f30a4421d8" type="audio/mpeg">
+        </audio>
+        <audio id="audio-click">
+            <source src="https://aistudio-app-assets.googleusercontent.com/projects/775bf769-2019-4c28-857a-976451e06497/files/54256bd4-3363-4809-9b93-4a165f573950" type="audio/mpeg">
+        </audio>
+        <audio id="audio-complete">
+            <source src="https://aistudio-app-assets.googleusercontent.com/projects/775bf769-2019-4c28-857a-976451e06497/files/720d249d-4299-4c6e-8120-4e4b2160d297" type="audio/mpeg">
+        </audio>
+        <audio id="audio-error">
+            <source src="https://aistudio-app-assets.googleusercontent.com/projects/775bf769-2019-4c28-857a-976451e06497/files/9b360f2d-8355-46f9-b8a7-a5c68961730b" type="audio/mpeg">
+        </audio>
+        <audio id="audio-hover">
+            <source src="https://aistudio-app-assets.googleusercontent.com/projects/775bf769-2019-4c28-857a-976451e06497/files/5d540212-0545-4299-9141-8c01d4a1386d" type="audio/mpeg">
+        </audio>
+        <audio id="audio-ambient" loop>
+            <source src="https://aistudio-app-assets.googleusercontent.com/projects/775bf769-2019-4c28-857a-976451e06497/files/1ab3a34a-9503-4677-85d8-6f68e0d99723" type="audio/mpeg">
+        </audio>
+    </div>
+    
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback, useRef, StrictMode } = React;
+        
+        // === Lightweight port of paint-sounds (visual + audio) ===
+        // Active only on last slide. No UI controls; clicks create bursts; thinking triggers musical explosions.
+        (function setupAIPaint(){
+          const canvas = document.getElementById('ai-paint-canvas');
+          if(!canvas) return;
+          const ctx = canvas.getContext('2d');
+          let width = canvas.width = window.innerWidth;
+          let height = canvas.height = window.innerHeight;
+          let particles = [];
+          let ripples = [];
+          let audioContext = null;
+          let active = false;
+          let rafId = null;
+
+          const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#6c5ce7', '#a8e6cf', '#ff8b94', '#ffd93d'];
+          const scale = [523.25, 587.33, 659.25, 698.46, 783.99, 880.0, 987.77]; // C major 5th octave
+
+          class Particle{
+            constructor(x,y,color,size){
+              this.x=x; this.y=y; this.color=color; this.size=size||6;
+              const ang = Math.random()*Math.PI*2;
+              const spd = 3 + Math.random()*4;
+              this.vx = Math.cos(ang)*spd;
+              this.vy = Math.sin(ang)*spd;
+              this.life=1; this.decay=0.01+Math.random()*0.01;
+            }
+            update(){ this.x+=this.vx; this.y+=this.vy; this.vy+=0.04; this.life-=this.decay; this.size*=0.995; }
+            draw(){
+              ctx.save(); ctx.globalAlpha = Math.max(this.life,0);
+              ctx.fillStyle=this.color; ctx.shadowBlur=12; ctx.shadowColor=this.color;
+              ctx.beginPath(); ctx.arc(this.x,this.y,Math.max(this.size,0),0,Math.PI*2); ctx.fill(); ctx.restore();
+            }
+          }
+          class Ripple{
+            constructor(x,y,color){ this.x=x; this.y=y; this.color=color; this.r=0; this.maxR=280; this.life=1; this.speed=5; }
+            update(){ this.r+=this.speed; this.life = 1 - (this.r/this.maxR); }
+            draw(){ ctx.save(); ctx.globalAlpha=this.life*0.25; ctx.strokeStyle=this.color; ctx.lineWidth=2;
+              ctx.shadowBlur=18; ctx.shadowColor=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.stroke(); ctx.restore(); }
+          }
+          function initAudio(){ if(!audioContext){ audioContext = new (window.AudioContext||window.webkitAudioContext)(); } }
+          function playTone(freq, dur=0.28, gain=0.18){
+            if(!audioContext||!freq) return; const osc=audioContext.createOscillator(); const g=audioContext.createGain();
+            osc.type='sine'; osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+            g.gain.setValueAtTime(gain, audioContext.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime+dur);
+            osc.connect(g); g.connect(audioContext.destination); osc.start(); osc.stop(audioContext.currentTime+dur);
+          }
+          function burst(x,y,intensity=60){
+            const color = colors[Math.floor(Math.random()*colors.length)];
+            const note = scale[Math.floor(Math.random()*scale.length)];
+            playTone(note, 0.4, 0.22);
+            for(let i=0;i<intensity;i++) particles.push(new Particle(x+(Math.random()-0.5)*60,y+(Math.random()-0.5)*60,color, 8+Math.random()*10));
+            ripples.push(new Ripple(x,y,color));
+          }
+          function explodeMultifold(cx,cy){
+            // Arpeggiated multi-burst
+            initAudio();
+            const steps = [0,120,240,360,520,760];
+            steps.forEach((t,idx)=>{ setTimeout(()=> burst(cx,cy, 70+idx*6), t); });
+          }
+          function animate(){
+            // Soft white trail over white bg
+            ctx.fillStyle = 'rgba(255,255,255,0.05)'; ctx.fillRect(0,0,width,height);
+            particles = particles.filter(p=>{ p.update(); if(p.life>0){ p.draw(); return true;} return false; });
+            ripples = ripples.filter(r=>{ r.update(); if(r.life>0){ r.draw(); return true;} return false; });
+            rafId = requestAnimationFrame(animate);
+          }
+          function resize(){ width=canvas.width=window.innerWidth; height=canvas.height=window.innerHeight; }
+          window.addEventListener('resize', resize);
+          // Click passthrough (canvas has pointer-events:none)
+          window.addEventListener('click', (e)=>{ if(!active) return; initAudio(); burst(e.clientX,e.clientY,60); });
+
+          // Start anim loop immediately
+          animate();
+
+          // Expose small API to React
+          window.AIPaint = {
+            setActive: (v)=>{ active = !!v; },
+            explode: ()=>{ const cx=width/2, cy=height*0.45; explodeMultifold(cx,cy); },
+            stageBurst: (i)=>{ const angle = (i*137.5)%360, r=180+ i*25; const cx=width/2 + Math.cos(angle*Math.PI/180)*r; const cy=height*0.45 + Math.sin(angle*Math.PI/180)*r; burst(cx,cy, 50+i*8); },
+            initAudio: ()=> initAudio(),
+          };
+        })();
+        
+        // --- START OF components/AnimatedNumber.tsx ---
+        const AnimatedNumber = ({ value, duration = 1200, prefix = '', suffix = '', decimals = 0 }) => {
+            const [displayValue, setDisplayValue] = useState(0);
+
+            useEffect(() => {
+                let start = 0;
+                const end = value;
+                if (end === 0) {
+                    setDisplayValue(0);
+                    return;
+                };
+
+                const startTime = Date.now();
+                const frame = () => {
+                    const now = Date.now();
+                    const time = Math.min(1, (now - startTime) / duration);
+                    const easedValue = end * (1 - Math.pow(1 - time, 3)); // easeOutCubic
+                    
+                    if (time >= 1) {
+                        setDisplayValue(end);
+                        return;
+                    }
+
+                    setDisplayValue(parseFloat(easedValue.toFixed(decimals)));
+                    requestAnimationFrame(frame);
+                };
+                requestAnimationFrame(frame);
+            }, [value, duration, decimals]);
+
+            return <>{prefix}{displayValue.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</>;
+        };
+
+
+        // --- START OF components/VcbLogo.tsx ---
+        const VcbLogo = () => {
+            return (
+                <header className="fixed top-0 left-0 w-full px-4 py-1 flex justify-between items-center z-50 bg-black">
+                    <a href="index.html" className="flex items-center gap-4 cursor-pointer transition-transform duration-300 hover:scale-105" data-interactive>
+                        <img src="https://i.postimg.cc/xdJqP9br/logo-transparent-Black-Back.png" alt="VCB Logo" className="w-[140px] h-auto" />
+                        <span className="hidden sm:block text-sm text-gray-300 tracking-wider uppercase">Agentic Platform</span>
+                    </a>
+                    <div className="flex items-center gap-2 bg-gray-800/50 text-gray-300 px-2 py-1 rounded-full">
+                         <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-xs uppercase tracking-widest">Secure</span>
+                    </div>
+                </header>
+            );
+        };
+
+        // --- START OF components/ProgressBar.tsx ---
+        const ProgressBar = ({ current, total }) => {
+            const progressPercentage = (current / total) * 100;
+
+            return (
+                <div className="fixed top-[50px] left-0 w-full h-0.5 z-40 bg-gray-200">
+                    <div 
+                        className="h-full bg-black"
+                        style={{ 
+                            width: `${progressPercentage}%`,
+                            transition: 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                        }}
+                    />
+                </div>
+            );
+        };
+        
+        // --- START OF components/NavControls.tsx ---
+        const NavButton = ({ onClick, disabled, children, 'aria-label': ariaLabel }) => (
+            <button
+                onClick={onClick}
+                disabled={disabled}
+                aria-label={ariaLabel}
+                className="w-10 h-10 border border-black flex items-center justify-center text-black transition-colors duration-300 hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+                {children}
+            </button>
+        );
+
+        const NavControls = ({ onPrev, onNext, isFirst, isLast, playSound }) => {
+            const handlePrevClick = () => {
+                if (!isFirst) {
+                    playSound();
+                    onPrev();
+                }
+            };
+
+            const handleNextClick = () => {
+                if (!isLast) {
+                    playSound();
+                    onNext();
+                }
+            };
+            
+            return (
+                <div className="flex gap-2">
+                    <NavButton onClick={handlePrevClick} disabled={isFirst} aria-label="Previous Slide">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </NavButton>
+                    <NavButton onClick={handleNextClick} disabled={isLast} aria-label="Next Slide">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </NavButton>
+                </div>
+            );
+        };
+        
+        // --- START OF components/slides/Slide1.tsx ---
+        const AiBox = ({ title, subtitle, desc, isAgentic = false, delay, isActive }) => {
+            return (
+                <div
+                    data-interactive
+                    className={`relative p-8 flex flex-col text-center w-full max-w-md border rounded-none transition-colors duration-300 hover:border-black ${isActive ? '[animation:fadeInUp_0.8s_ease-out_forwards]' : 'opacity-0'}`}
+                    style={{ 
+                      animationDelay: isActive ? delay : '0s',
+                      border: isAgentic ? '2px solid var(--black)' : '1px solid var(--light-grey)'
+                    }}
+                >
+                    <h3 className={`font-bold text-sm uppercase tracking-widest mb-2 ${isAgentic ? 'text-black' : 'text-gray-500'}`}>{title}</h3>
+                    <h4 className="font-bold text-2xl text-black mb-4">{subtitle}</h4>
+                    <p className="text-lg text-gray-600 leading-relaxed">{desc}</p>
+                </div>
+            );
+        }
+
+        const DataPipeline = ({ isActive }) => (
+            <div className={`relative w-32 h-1 mx-4 flex items-center justify-center transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: isActive ? '0.8s' : '0s' }}>
+                <svg width="100%" height="10px" viewBox="0 0 128 10" className="absolute overflow-visible">
+                    <path d="M0 5 H128" stroke="var(--light-grey)" strokeWidth="1" />
+                    <path d="M 120 1 L 128 5 L 120 9" stroke="var(--light-grey)" strokeWidth="1" fill="none" className="animate-[breathing_2s_ease-in-out_infinite]" style={{ animationDelay: '1s'}}/>
+                </svg>
+            </div>
+        );
+
+        const Slide1 = ({ isActive }) => {
+            return (
+                <div className="text-center">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">The Agentic AI Advantage</h1>
+                    <h2 className="text-xl md:text-2xl text-gray-500 font-medium mt-4 mb-20">FROM REACTIVE TOOLS TO PROACTIVE PARTNERS</h2>
+                    <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl items-center justify-center">
+                        <AiBox 
+                            title="Current State"
+                            subtitle="Reactive Data Retrieval"
+                            desc="Traditional AI and software act on direct command, serving as powerful but passive information providers."
+                            delay="0.4s"
+                            isActive={isActive}
+                        />
+                        <div className="hidden md:block">
+                            <DataPipeline isActive={isActive} />
+                        </div>
+                        <AiBox 
+                            title="Future State"
+                            subtitle="Proactive Workflow Automation"
+                            desc="Agentic AI autonomously executes multi-step tasks, orchestrating tools to achieve complex business objectives."
+                            isAgentic={true}
+                            delay="0.6s"
+                            isActive={isActive}
+                        />
+                    </div>
+                </div>
+            );
+        };
+        
+        // --- START OF components/slides/Slide2.tsx ---
+        const Slide2 = ({ isActive, playSound }) => {
+            const enterpriseTools = [
+                { name: 'Salesforce', category: 'CRM', angle: 30, logo: 'https://i.postimg.cc/k4y63H0w/salesforce.png' },
+                { name: 'AWS', category: 'Cloud Infra', angle: 90, logo: 'https://i.postimg.cc/mkb0K3m1/aws.png' },
+                { name: 'Internal DB', category: 'Proprietary Data', angle: 150, logo: 'https://i.postimg.cc/T3j2C2dB/database.png' },
+                { name: 'SAP', category: 'ERP', angle: 210, logo: 'https://i.postimg.cc/L82B710K/sap.png' },
+                { name: 'Mail API', category: 'Communication', angle: 270, logo: 'https://i.postimg.cc/W3hB2C7G/email.png' },
+                { name: 'Search API', category: 'Web Intelligence', angle: 330, logo: 'https://i.postimg.cc/J0k7M1zS/search.png' },
+            ];
+            const radius = 220;
+
+            const ToolNode = ({ tool, isHovered, onHover }) => {
+                const style = {
+                    transform: `rotate(${tool.angle}deg) translate(${radius}px) rotate(-${tool.angle}deg) scale(${isHovered ? 1.1 : 1})`,
+                    animation: isActive ? `popIn 0.5s ease-out ${0.5 + (tool.angle / 360)}s forwards` : 'none',
+                    transition: 'transform 0.3s ease, border-color 0.3s ease',
+                };
+                return (
+                    <div
+                        onMouseEnter={() => { onHover(); playSound('audio-hover', 0.1); }}
+                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white border border-gray-200 rounded-lg flex items-center justify-center z-20 cursor-pointer ${isHovered ? 'border-black' : ''} ${!isActive ? 'opacity-0' : ''}`}
+                        style={style}
+                        data-interactive
+                    >
+                        <img src={tool.logo} alt={tool.name} className="w-12 h-12 object-contain filter grayscale" />
+                    </div>
+                );
+            };
+
+            const [hoveredTool, setHoveredTool] = useState(null);
+
+            return (
+                <div className="text-center py-4 pb-24">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Enterprise Integration Fabric</h1>
+                    <h2 className="text-xl text-gray-500 font-medium text-center mt-4 mb-12 max-w-2xl mx-auto">CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS.</h2>
+
+                    <div className="relative w-[500px] h-[500px] mx-auto flex items-center justify-center" onMouseLeave={() => setHoveredTool(null)}>
+                        <div className="absolute w-40 h-40 bg-white border-2 border-black rounded-lg flex flex-col items-center justify-center z-10">
+                            <span className="text-6xl mb-1">🤖</span>
+                            <h3 className="text-sm font-medium tracking-wider text-black">ORCHESTRATION<br/>ENGINE</h3>
+                        </div>
+                        
+                        <svg className="absolute w-full h-full top-0 left-0 overflow-visible" aria-hidden="true">
+                            {enterpriseTools.map((tool) => {
+                                const angleRad = (tool.angle * Math.PI) / 180;
+                                const x = 50 + (radius / 500 * 100) * Math.cos(angleRad);
+                                const y = 50 + (radius / 500 * 100) * Math.sin(angleRad);
+                                const isHovered = hoveredTool?.name === tool.name;
+                                return (
+                                    <g key={tool.name}>
+                                        <line
+                                            x1="50%" y1="50%" x2={`${x}%`} y2={`${y}%`}
+                                            stroke={isHovered ? 'var(--black)' : 'var(--light-grey)'}
+                                            strokeWidth={isHovered ? 2 : 1}
+                                            className="transition-all duration-300"
+                                        />
+                                    </g>
+                                );
+                            })}
+                        </svg>
+
+                        {enterpriseTools.map((tool) => (
+                            <ToolNode 
+                                key={tool.name} 
+                                tool={tool} 
+                                isHovered={hoveredTool?.name === tool.name}
+                                onHover={() => setHoveredTool(tool)}
+                            />
+                        ))}
+                        
+                        <div className="absolute z-30 w-full text-center transition-all duration-300" style={{ top: '105%', opacity: hoveredTool ? 1 : 0 }}>
+                            <div className="inline-block bg-white py-2 px-4 border border-gray-200">
+                                <h4 className="font-medium text-lg text-black">{hoveredTool?.name || '...'}</h4>
+                                <p className="text-sm text-gray-500 uppercase">{hoveredTool?.category || '...'}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        // --- START OF components/slides/Slide3.tsx ---
+        const Challenge = ({ title, desc, delay, isActive }) => (
+            <div className={`border-l-2 border-black pl-4 ${isActive ? '[animation:fadeInUp_0.7s_ease-out_forwards]' : 'opacity-0'}`} style={{ animationDelay: delay }}>
+                <h3 className="font-medium text-lg text-black">{title}</h3>
+                <p className="text-gray-500">{desc}</p>
+            </div>
+        );
+
+        const Slide3 = ({ isActive }) => {
+            return (
+                <div className="w-full max-w-5xl text-center">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">The Ad-Hoc Executive Query</h1>
+                    <h2 className="text-xl text-gray-500 font-medium mt-4 mb-16">WHEN STANDARD DASHBOARDS FALL SHORT.</h2>
+                    
+                    <div 
+                        className={`w-full max-w-4xl mx-auto border border-gray-200 p-8 text-left ${isActive ? '[animation:fadeInUp_0.8s_ease-out_0.2s_forwards]' : 'opacity-0'}`}
+                    >
+                        <h3 className="font-medium text-sm tracking-wider text-gray-500 mb-3">INCOMING TRANSMISSION: CEO</h3>
+                        <div className="text-black p-4 bg-gray-50 text-lg italic leading-relaxed">
+                            "Which production line had the most downtime last month due to component shortages from our top 3 suppliers? Correlate this with logistics delays from our primary shipping partner."
+                        </div>
+                    </div>
+
+                    <div className={`mt-12 w-full max-w-4xl mx-auto text-left`}>
+                         <h4 className={`font-medium text-sm tracking-wider text-gray-500 mb-4 ${isActive ? '[animation:fadeInUp_0.7s_ease-out_1s_forwards]' : 'opacity-0'}`}>
+                            CHALLENGE ANALYSIS
+                         </h4>
+                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <Challenge isActive={isActive} delay="1.2s" title="Siloed Data" desc="Required information exists across disconnected ERP, MES, and Logistics systems." />
+                            <Challenge isActive={isActive} delay="1.4s" title="Complex Correlation" desc="Standard reports cannot perform real-time synthesis of multi-domain data." />
+                            <Challenge isActive={isActive} delay="1.6s" title="High Manual Effort" desc="Answering this would require days of data engineering and analyst time." />
+                         </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        // --- START OF components/slides/Slide4.tsx ---
+        const Slide4 = ({ isActive, playSound }) => {
+            const planSteps = [
+                { tool: 'SAP', action: 'ID Top Suppliers', icon: 'https://i.postimg.cc/L82B710K/sap.png' },
+                { tool: 'MES', action: 'Pull Downtime Logs', icon: 'https://i.postimg.cc/T3j2C2dB/database.png' },
+                { tool: 'Logistics API', action: 'Get Delay Data', icon: 'https://i.postimg.cc/J0k7M1zS/search.png' },
+                { tool: 'Synthesizer', action: 'Correlate Data', icon: 'https://i.postimg.cc/mkb0K3m1/aws.png' },
+                { tool: 'Report Gen', action: 'Build Summary', icon: 'https://i.postimg.cc/W3hB2C7G/email.png' },
+            ];
+
+            const PlanStepNode = ({ data, isVisible }) => {
+                useEffect(() => {
+                    if (isVisible) {
+                        playSound('audio-click', 0.15);
+                    }
+                }, [isVisible, playSound]);
+
+                return (
+                    <div className={`flex flex-col items-center gap-2 transition-all duration-500 w-32 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+                        <div className="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center">
+                            <img src={data.icon} alt={data.tool} className="w-10 h-10 object-contain filter grayscale" />
+                        </div>
+                        <div className="text-center mt-2">
+                            <h3 className="text-sm font-medium tracking-wider text-black">{data.tool}</h3>
+                            <p className="text-xs text-gray-500">{data.action}</p>
+                        </div>
+                    </div>
+                );
+            };
+
+            const ArrowConnector = ({ isVisible }) => (
+                <div className={`flex-1 flex items-center justify-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                    <svg width="100%" height="20" viewBox="0 0 100 20">
+                        <path d="M 0 10 L 100 10" stroke="var(--light-grey)" strokeWidth="1" />
+                        <path d="M 95 5 L 100 10 L 95 15" stroke="var(--light-grey)" strokeWidth="1" fill="none" />
+                    </svg>
+                </div>
+            );
+
+            const [visibleStep, setVisibleStep] = useState(-1);
+
+            useEffect(() => {
+                if (isActive) {
+                    const timers = planSteps.map((_, i) =>
+                        setTimeout(() => {
+                            setVisibleStep(i);
+                        }, 500 + i * 400)
+                    );
+                    return () => timers.forEach(clearTimeout);
+                } else {
+                    setVisibleStep(-1);
+                }
+            }, [isActive]);
+
+            return (
+                <div className="text-center">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Autonomous Planning & Execution</h1>
+                    <h2 className="text-xl text-gray-500 font-medium mt-4 mb-20">THE AGENT FORMULATES A MULTI-SYSTEM QUERY PLAN.</h2>
+                    
+                    <div className="w-full max-w-6xl border border-gray-200 p-8">
+                         <h3 className="font-medium text-sm tracking-wider text-gray-500 mb-12 text-center">GENERATED EXECUTION FLOW</h3>
+                         <div className="flex items-start justify-center">
+                            {planSteps.map((step, i) => (
+                                <React.Fragment key={i}>
+                                    <PlanStepNode data={step} isVisible={visibleStep >= i} />
+                                    {i < planSteps.length - 1 && <ArrowConnector isVisible={visibleStep > i} />}
+                                </React.Fragment>
+                            ))}
+                         </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        // --- START OF components/slides/Slide5.tsx ---
+        const Slide5 = ({ isActive, playSound }) => {
+            const [isProcessing, setIsProcessing] = useState(false);
+            const [showResult, setShowResult] = useState(false);
+
+            useEffect(() => {
+                if (isActive) {
+                    setIsProcessing(true);
+                    setShowResult(false);
+                    const timer = setTimeout(() => {
+                        setIsProcessing(false);
+                        setShowResult(true);
+                        playSound('audio-complete', 0.4);
+                    }, 2500);
+                    return () => clearTimeout(timer);
+                } else {
+                    setIsProcessing(false);
+                    setShowResult(false);
+                }
+            }, [isActive, playSound]);
+
+            return (
+                <div className="text-center">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-16">From Raw Data to Actionable Insight</h1>
+                    
+                    <div className="w-full max-w-3xl text-center">
+                        {isProcessing && (
+                            <div className="flex items-center justify-center gap-3" style={{ animation: 'fadeIn 0.5s' }}>
+                                <div className="w-2 h-2 bg-black rounded-full animate-pulse" />
+                                <div className="w-2 h-2 bg-black rounded-full animate-pulse [animation-delay:0.2s]" />
+                                <div className="w-2 h-2 bg-black rounded-full animate-pulse [animation-delay:0.4s]" />
+                                <p className="text-sm text-gray-500 uppercase tracking-widest ml-2">Synthesizing data across platforms...</p>
+                            </div>
+                        )}
+
+                        <div className={`border border-gray-200 text-black p-8 w-full transition-all duration-500 relative ${showResult ? 'opacity-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+                            <div className="flex items-center gap-3 text-lg font-medium uppercase tracking-wider text-black mb-6">
+                                <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                Insight Generated
+                            </div>
+                            
+                            <div className="text-left bg-gray-50 p-6 mb-6">
+                                <div style={{ animation: showResult ? 'fadeInUp 0.5s ease-out 0.2s forwards' : 'none', opacity: 0 }}>
+                                    <p className="text-lg text-gray-800">
+                                        <span className="font-bold text-black">Key Insight:</span> Production Line B saw <span className="font-bold text-black">18 hours of downtime</span>, with 80% linked to component shortages from <span className="font-bold text-black">'Supplier X'</span>. These events directly correlate with a <span className="font-bold text-black">48-hour average logistics delay</span>.
+                                    </p>
+                                </div>
+                                <div style={{ animation: showResult ? 'fadeInUp 0.5s ease-out 0.5s forwards' : 'none', opacity: 0 }}>
+                                    <p className="text-lg text-gray-800 mt-4">
+                                        <span className="font-bold text-black">Recommendation:</span> Diversify sourcing for component #ABC-123 and review logistics partner SLA.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="border-t border-gray-200 pt-6 mt-6 flex justify-between items-center" style={{ animation: showResult ? 'fadeInUp 0.5s ease-out 0.8s forwards' : 'none', opacity: 0 }}>
+                                <div className="text-left">
+                                   <h4 className="text-sm text-gray-500">MANUAL ANALYSIS TIME</h4>
+                                   <div className="text-2xl font-medium text-black">~ 2 Days</div>
+                                </div>
+                                <div className="text-right">
+                                   <h4 className="text-sm text-gray-500">AGENTIC RESOLUTION TIME</h4>
+                                   <div className="text-2xl font-medium text-black">
+                                        {isActive && showResult ? <AnimatedNumber value={45} suffix=" Seconds" /> : '...'}
+                                   </div>
+                                </div>
+                            </div>
+                             <div className="absolute top-6 right-6 flex gap-2" style={{ animation: showResult ? 'fadeIn 0.5s ease-out 1.2s forwards' : 'none', opacity: 0 }}>
+                                <button data-interactive className="flex items-center gap-1.5 text-xs px-3 py-1.5 border border-black text-black hover:bg-black hover:text-white transition-colors duration-300">
+                                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                      <path d="M13 4.5a2.5 2.5 0 11.702 4.283l-4.131 2.28a2.502 2.502 0 010 1.874l4.131 2.28A2.5 2.5 0 1113 15.5a2.5 2.5 0 11-.702-4.283l-4.131-2.28a2.502 2.502 0 010-1.874l4.131-2.28A2.5 2.5 0 0113 4.5z" />
+                                    </svg>
+                                    Share
+                                </button>
+                                <button data-interactive className="flex items-center gap-1.5 text-xs px-3 py-1.5 border border-black text-black hover:bg-black hover:text-white transition-colors duration-300">
+                                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                      <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                                    </svg>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        // --- START OF components/slides/Slide6.tsx ---
+        const ROIBox = ({ label, value, desc, isNew = false, isActive, delay, prefix = '$', suffix = '', decimals = 0 }) => (
+            <div className={`flex flex-col text-center p-8 border ${isNew ? 'border-2 border-black' : 'border-gray-200'} ${isActive ? '[animation:fadeInUp_0.8s_ease-out_forwards]' : 'opacity-0'}`} style={{ animationDelay: delay }}>
+                <h3 className="text-sm text-gray-500 uppercase tracking-wider mb-4">{label}</h3>
+                <div className="text-5xl md:text-6xl font-bold text-black my-4">
+                    {isActive ? <AnimatedNumber value={value} prefix={prefix} suffix={suffix} decimals={decimals} /> : `${prefix}0${suffix}`}
+                </div>
+                <p className="text-gray-600">{desc}</p>
+            </div>
+        );
+
+        const SavingsCard = ({ value, label, isActive, delay }) => (
+             <div className={`text-center border border-gray-200 p-6 ${isActive ? '[animation:popIn_0.8s_ease-out_forwards]' : 'opacity-0'}`} style={{ animationDelay: delay }}>
+                <div className="text-3xl md:text-4xl font-bold text-black mb-2">{value}</div>
+                <div className="text-xs text-gray-500 uppercase tracking-widest">{label}</div>
+            </div>
+        );
+
+        const Slide6 = ({ isActive }) => {
+            return (
+                <div className="w-full max-w-5xl text-center">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Return on Investment</h1>
+                    <h2 className="text-xl text-gray-500 font-medium mt-4 mb-16">FROM A COST CENTER TO A VALUE DRIVER.</h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <ROIBox isActive={isActive} delay="0.4s" label="Manual Operations" value={15.1} desc="Annual cost for analysts and data engineering." prefix="R" suffix="M" decimals={1} />
+                        <ROIBox isActive={isActive} delay="0.6s" label="Agentic Automation" value={3.2} desc="Platform license and strategic oversight." isNew prefix="R" suffix="M" decimals={1} />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <SavingsCard isActive={isActive} delay="1.0s" value="R11.9M" label="First Year Savings" />
+                        <SavingsCard isActive={isActive} delay="1.2s" value="R57.6M" label="Five Year Value" />
+                        <SavingsCard isActive={isActive} delay="1.4s" value="45" label="Days to Payback" />
+                    </div>
+                </div>
+            );
+        };
+        
+        // --- START OF components/slides/Slide7.tsx ---
+        const Slide7 = ({ isActive, playSound }) => {
+            const planIcons = {
+                'DEFAULT': '⚙️',
+                'Salesforce CRM': 'https://i.postimg.cc/k4y63H0w/salesforce.png',
+                'SAP ERP': 'https://i.postimg.cc/L82B710K/sap.png',
+                'Internal Production DB': 'https://i.postimg.cc/T3j2C2dB/database.png',
+                'AWS S3 Datalake': 'https://i.postimg.cc/mkb0K3m1/aws.png',
+                'Public Web Search API': 'https://i.postimg.cc/J0k7M1zS/search.png',
+                'Internal Comms API': 'https://i.postimg.cc/W3hB2C7G/email.png',
+            };
+
+            const ThinkingStage = ({ stage, label, isActive, isComplete, delay }) => (
+                <div
+                    className="flex items-center gap-4 transition-all duration-500"
+                    style={{
+                        animation: isActive || isComplete ? `fadeInUp 0.5s ease-out ${delay}s forwards` : 'none',
+                        opacity: isActive || isComplete ? 1 : 0
+                    }}
+                >
+                    <div className="flex items-center justify-center w-10 h-10 border-2 border-black relative">
+                        {isComplete ? (
+                            <svg
+                                className="w-6 h-6 text-black"
+                                style={{ animation: 'checkmark 0.3s ease-out forwards' }}
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <polyline points="20 6 9 17 4 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        ) : isActive ? (
+                            <div
+                                className="w-2 h-2 bg-black rounded-full"
+                                style={{ animation: 'thinkingPulse 1.5s ease-in-out infinite' }}
+                            />
+                        ) : (
+                            <div className="w-2 h-2 bg-gray-300 rounded-full" />
+                        )}
+                    </div>
+                    <div className="flex-1">
+                        <div className="text-sm font-medium uppercase tracking-wider text-black mb-1">
+                            {label}
+                        </div>
+                        {isActive && (
+                            <div className="h-1 bg-gray-200 overflow-hidden">
+                                <div
+                                    className="h-full bg-black"
+                                    style={{ animation: 'progressBar 2s ease-out forwards' }}
+                                />
+                            </div>
+                        )}
+                        {isComplete && (
+                            <div className="h-1 bg-black" />
+                        )}
+                    </div>
+                </div>
+            );
+
+            const LoadingState = () => {
+                const [currentStage, setCurrentStage] = useState(0);
+                const stages = [
+                    { label: 'Analyzing Query', duration: 800 },
+                    { label: 'Identifying Data Sources', duration: 1000 },
+                    { label: 'Planning Execution Sequence', duration: 1200 },
+                    { label: 'Generating Action Plan', duration: 1000 }
+                ];
+
+                useEffect(() => {
+                    const timers = [];
+                    let cumulativeDelay = 0;
+
+                    stages.forEach((stage, index) => {
+                        timers.push(setTimeout(() => {
+                            setCurrentStage(index);
+                            // Paint burst per thinking stage
+                            if (window.AIPaint) {
+                                window.AIPaint.stageBurst(index+1);
+                            }
+                        }, cumulativeDelay));
+                        cumulativeDelay += stage.duration;
+                    });
+
+                    return () => timers.forEach(timer => clearTimeout(timer));
+                }, []);
+
+                return (
+                    <div className="w-full space-y-4 py-8">
+                        <h3 className="text-sm text-gray-500 uppercase tracking-wider text-center mb-8">Agent Cognitive Process</h3>
+                        {stages.map((stage, index) => (
+                            <ThinkingStage
+                                key={index}
+                                stage={index + 1}
+                                label={stage.label}
+                                isActive={currentStage === index}
+                                isComplete={currentStage > index}
+                                delay={index * 0.15}
+                            />
+                        ))}
+                    </div>
+                );
+            };
+
+            const ErrorState = ({ message }) => (
+                <div className="flex flex-col items-center justify-center gap-3 text-red-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    <div className="text-center font-medium">{message}</div>
+                </div>
+            );
+
+            const GeneratedPlan = ({ plan }) => {
+                useEffect(() => {
+                    if(plan.length > 0) {
+                        playSound('audio-complete', 0.4);
+                    }
+                }, [plan, playSound]);
+
+                return (
+                    <div className="w-full">
+                        <h3 className="font-medium text-sm uppercase tracking-wider text-gray-500 mb-4 text-center">Generated Execution Plan</h3>
+                        <div className="space-y-3 mb-8">
+                            {plan.map(({ source_system, action, justification }, index) => (
+                                <div
+                                    key={index}
+                                    className="flex items-start gap-4 bg-gray-50 p-4 border border-gray-200"
+                                    style={{animation: `fadeInUp 0.5s ease-out ${index * 0.2}s forwards`, opacity: 0}}
+                                >
+                                    <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                        <img src={planIcons[source_system] || planIcons['DEFAULT']} alt={source_system} className="w-6 h-6 object-contain filter grayscale" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h4 className="font-medium text-black uppercase text-sm tracking-wider">{source_system}</h4>
+                                        <p className="text-gray-800 text-lg mt-1">{action}</p>
+                                        <p className="text-gray-500 text-sm mt-2 italic">"{justification}"</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div
+                            className="text-center pt-6 border-t border-gray-200"
+                            style={{animation: `fadeInUp 0.5s ease-out ${plan.length * 0.2 + 0.3}s forwards`, opacity: 0}}
+                        >
+                            <p className="text-lg text-gray-600 italic font-light tracking-wide">
+                                where vision becomes viable
+                            </p>
+                        </div>
+                    </div>
+                );
+            };
+
+            const [userInput, setUserInput] = useState('Identify our top 5 mining clients in Gauteng and Limpopo by Q3 revenue who have not been contacted by sales in the last 90 days. For each client, find the procurement director, draft a personalized follow-up email in Afrikaans or English based on their preference, mentioning their recent equipment usage patterns, and schedule delivery via our internal comms system.');
+            const [plan, setPlan] = useState([]);
+            const [isLoading, setIsLoading] = useState(false);
+            const [error, setError] = useState('');
+
+            const generatePlan = async () => {
+                if (!userInput) return;
+                setIsLoading(true);
+                setPlan([]);
+                setError('');
+                playSound('audio-transition', 0.2);
+                // Trigger paint + sound explosion at thinking start
+                if (window.AIPaint) {
+                    window.AIPaint.initAudio?.();
+                    window.AIPaint.explode();
+                }
+
+                try {
+                    // IMPORTANT: Replace with your actual API key.
+                    // For local development, you can paste your key here.
+                    // For production on GitHub Pages, this placeholder should be replaced by a GitHub Actions workflow that uses your GOOGLE_API_KEY secret.
+                    const apiKey = 'YOUR_GOOGLE_API_KEY';
+                    if (apiKey === 'YOUR_GOOGLE_API_KEY') {
+                        throw new Error("API Key is not configured. Please replace the placeholder in agenticai.html.");
+                    }
+                    const ai = new GoogleGenAI({ apiKey: apiKey });
+                    
+                    const prompt = `You are an expert Enterprise AI Agent platform. Your goal is to break down complex, high-level business queries into a logical, step-by-step execution plan.
+
+For each step, you must select the most appropriate source system from the available enterprise resources: [Salesforce CRM, SAP ERP, Internal Production DB, AWS S3 Datalake, Public Web Search API, Internal Comms API].
+
+You must provide a clear action to be performed on that system and a brief justification for why the step is necessary. The plan should be logical, efficient, and directly address the user's query.
+
+User Query: "${userInput}"`;
+
+                    const response = await ai.models.generateContent({
+                        model: 'gemini-2.5-flash',
+                        contents: prompt,
+                        config: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: 'ARRAY',
+                                items: {
+                                    type: 'OBJECT',
+                                    properties: {
+                                        source_system: { 
+                                            type: 'STRING', 
+                                            description: 'The specific source system chosen from the available list (e.g., Salesforce CRM, SAP ERP).' 
+                                        },
+                                        action: { 
+                                            type: 'STRING', 
+                                            description: 'The specific, concise action to perform on the source system.' 
+                                        },
+                                        justification: { 
+                                            type: 'STRING', 
+                                            description: 'A brief explanation of why this step is necessary to fulfill the query.'
+                                        },
+                                    },
+                                    required: ['source_system', 'action', 'justification']
+                                },
+                            },
+                        }
+                    });
+
+                    const jsonText = response.text.trim();
+                    const parsedPlan = JSON.parse(jsonText);
+                    setPlan(parsedPlan);
+
+                } catch (e) {
+                    console.error("Gemini API call failed:", e);
+                    let message = e.message || 'An unexpected error occurred.';
+                    if (typeof message === 'string' && message.toLowerCase().includes('api key')) {
+                        message = 'The API Key is invalid or not configured correctly. Please check your environment configuration.';
+                    }
+                    setError(message);
+                    playSound('audio-error', 0.4);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+
+            return (
+                <div className="w-full max-w-4xl flex flex-col items-center py-4 pb-40">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider text-center">Live Agent Simulation</h1>
+                    <h2 className="text-xl text-gray-500 font-medium mt-4 mb-12 text-center max-w-2xl mx-auto">INPUT A QUERY AND WATCH THE AI GENERATE AN EXECUTION PLAN.</h2>
+
+                    <div className="w-full border border-gray-200 p-6 mb-6">
+                        <textarea
+                            value={userInput}
+                            onChange={(e) => setUserInput(e.target.value.slice(0, 500))}
+                            placeholder="Enter your business query here..."
+                            className="w-full h-24 p-3 bg-white border border-gray-300 text-lg text-black transition-shadow duration-300 focus:shadow-outline-black resize-none overflow-hidden"
+                            disabled={isLoading}
+                            maxLength={500}
+                        />
+                        <div className="flex justify-between items-center mt-2">
+                            <span className="text-xs text-gray-500">{userInput.length}/500 characters</span>
+                        </div>
+                        <button
+                            onClick={generatePlan}
+                            disabled={isLoading || !userInput}
+                            data-interactive
+                            className="w-full mt-2 py-3 px-6 bg-transparent hover:bg-black border-2 border-black text-black hover:text-white font-medium uppercase tracking-wider transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+                        >
+                            {isLoading ? 'Generating...' : 'Run Simulation'}
+                        </button>
+                    </div>
+
+                    <div className="w-full min-h-[320px] border border-gray-200 p-6 flex items-center justify-center">
+                        {isLoading && <LoadingState />}
+                        {error && <ErrorState message={error} />}
+                        {!isLoading && !error && plan.length > 0 && <GeneratedPlan plan={plan} playSound={playSound} />}
+                        {!isLoading && !error && plan.length === 0 && (
+                            <div className="text-center text-gray-400">
+                                The generated execution plan will appear here.
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+        
+        // --- START OF App.tsx ---
+        const App = () => {
+            const slideComponents = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7];
+            const totalSlides = slideComponents.length;
+
+            const useSound = () => {
+                const playSound = useCallback((soundId, volume = 0.3) => {
+                    const sound = document.getElementById(soundId);
+                    if (sound) {
+                        sound.currentTime = 0;
+                        sound.volume = volume;
+                        sound.play().catch(e => console.error(`Audio play failed: ${e}`));
+                    }
+                }, []);
+                return playSound;
+            };
+
+            const [currentSlide, setCurrentSlide] = useState(0);
+            const [isExiting, setIsExiting] = useState(false);
+            const playSound = useSound();
+            const ambientAudioStarted = useRef(false);
+
+            const navigate = useCallback((direction) => {
+                setIsExiting(true);
+                playSound('audio-transition', 0.2);
+                
+                setTimeout(() => {
+                    setCurrentSlide(prev => {
+                        const newIndex = prev + direction;
+                        if (newIndex >= 0 && newIndex < totalSlides) {
+                            return newIndex;
+                        }
+                        return prev;
+                    });
+                    setIsExiting(false);
+                }, 600); // Increased to match new transition duration
+            }, [playSound]);
+
+            const handleNext = useCallback(() => currentSlide < totalSlides - 1 && !isExiting && navigate(1), [currentSlide, isExiting, navigate]);
+            const handlePrev = useCallback(() => currentSlide > 0 && !isExiting && navigate(-1), [currentSlide, isExiting, navigate]);
+
+            const startAmbientSound = useCallback(() => {
+                if (!ambientAudioStarted.current) {
+                    const ambient = document.getElementById('audio-ambient');
+                    if (ambient) {
+                        ambient.volume = 0.05;
+                        ambient.play().catch(e => console.error(`Ambient audio failed: ${e}`));
+                        ambientAudioStarted.current = true;
+                    }
+                    window.removeEventListener('click', startAmbientSound);
+                    window.removeEventListener('keydown', startAmbientSound);
+                }
+            }, []);
+
+            useEffect(() => {
+                window.addEventListener('click', startAmbientSound);
+                window.addEventListener('keydown', startAmbientSound);
+
+                const cursor = document.querySelector('.custom-cursor');
+
+                const handleMouseMove = (e) => {
+                    const { clientX: x, clientY: y } = e;
+                    document.documentElement.style.setProperty('--cursor-x', `${x}px`);
+                    document.documentElement.style.setProperty('--cursor-y', `${y}px`);
+                    const target = e.target;
+                    if (target.closest('button, a, [data-interactive]')) {
+                        cursor?.classList.add('hover-link');
+                    } else {
+                        cursor?.classList.remove('hover-link');
+                    }
+                };
+                const handleMouseDown = () => cursor?.classList.add('click');
+                const handleMouseUp = () => cursor?.classList.remove('click');
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mousedown', handleMouseDown);
+                window.addEventListener('mouseup', handleMouseUp);
+
+                const handleKeyDown = (e) => {
+                    // Don't intercept keys when user is typing in textarea or input
+                    const target = e.target;
+                    if (target.tagName === 'TEXTAREA' || target.tagName === 'INPUT') {
+                        return;
+                    }
+
+                    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); handleNext(); }
+                    else if (e.key === 'ArrowLeft') { e.preventDefault(); handlePrev(); }
+                };
+                const handleDoubleClick = () => {
+                    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+                    else document.exitFullscreen();
+                };
+                window.addEventListener('keydown', handleKeyDown);
+                document.addEventListener('dblclick', handleDoubleClick);
+
+                // Touch swipe support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                const handleTouchStart = (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                };
+
+                const handleTouchEnd = (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const swipeDistance = touchEndX - touchStartX;
+                    const minSwipeDistance = 50;
+
+                    if (Math.abs(swipeDistance) > minSwipeDistance) {
+                        if (swipeDistance > 0) {
+                            handlePrev(); // Swipe right = previous
+                        } else {
+                            handleNext(); // Swipe left = next
+                        }
+                    }
+                };
+
+                document.addEventListener('touchstart', handleTouchStart);
+                document.addEventListener('touchend', handleTouchEnd);
+
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    window.removeEventListener('mousedown', handleMouseDown);
+                    window.removeEventListener('mouseup', handleMouseUp);
+                    window.removeEventListener('keydown', handleKeyDown);
+                    document.removeEventListener('dblclick', handleDoubleClick);
+                    window.removeEventListener('click', startAmbientSound);
+                    window.removeEventListener('keydown', startAmbientSound);
+                    document.removeEventListener('touchstart', handleTouchStart);
+                    document.removeEventListener('touchend', handleTouchEnd);
+                };
+            }, [handleNext, handlePrev, startAmbientSound]);
+
+            // Toggle AI paint only on last slide
+            useEffect(() => {
+                if (window.AIPaint) {
+                    const isLast = (currentSlide === (totalSlides - 1));
+                    window.AIPaint.setActive(isLast);
+                }
+            }, [currentSlide]);
+
+            return (
+                <main className="relative w-screen h-screen">
+                    <VcbLogo />
+                    <ProgressBar current={currentSlide + 1} total={totalSlides} />
+
+                    <div className="presentation w-full h-full pt-[50px] pb-[100px]">
+                        {slideComponents.map((SlideComponent, index) => {
+                            const isActive = index === currentSlide;
+                            const isCurrentlyExiting = isExiting && index === currentSlide;
+                            return (
+                                <div
+                                    key={index}
+                                    className={`slide flex flex-col justify-start items-center px-[5vw] md:px-[10vw] pt-20 ${isActive && !isExiting ? 'active' : ''} ${isCurrentlyExiting ? 'exiting' : ''}`}
+                                    aria-hidden={!isActive}
+                                >
+                                    <div className="animated-content w-full flex flex-col items-center">
+                                       <SlideComponent isActive={isActive && !isExiting} playSound={playSound} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <footer className="fixed bottom-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-white/80 backdrop-blur-sm border-t border-gray-200">
+                         <div className="text-xs text-gray-500 uppercase tracking-widest">VCB AGENTIC PLATFORM</div>
+                         <NavControls
+                            onPrev={handlePrev}
+                            onNext={handleNext}
+                            isFirst={currentSlide === 0}
+                            isLast={currentSlide === totalSlides - 1}
+                            playSound={() => playSound('audio-click', 0.2)}
+                        />
+                    </footer>
+                </main>
+            );
+        };
+        
+        // --- START OF index.tsx ---
+        const rootElement = document.getElementById('root');
+        if (!rootElement) {
+            throw new Error("Could not find root element to mount to");
+        }
+
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(
+            <StrictMode>
+                <App />
+            </StrictMode>
+        );
+
+    </script>
+</body>
+</html>

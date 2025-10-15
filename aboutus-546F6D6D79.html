@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NR7C688Z');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --><meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — VCB · Viable Core Business</title>
+
+  <!-- Quicksand: 400, 500, 600, 700 (enhanced readability) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --black:#0B0B0B;
+      --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+      --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+      --white:#fff;
+      --max:1200px; --radius:18px;
+      --shadow:0 4px 24px rgba(0,0,0,.06), 0 12px 48px rgba(0,0,0,.04);
+      --shadow-lg:0 8px 32px rgba(0,0,0,.08), 0 20px 64px rgba(0,0,0,.06);
+      --glow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html{
+      background:var(--white);
+    }
+    body{
+      margin:0; background:transparent; color:var(--g-900);
+      font-family:"Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-weight:400; line-height:1.65; -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+      scroll-behavior:smooth;
+    }
+    h1,h2,h3,h4{ font-weight:600; color:var(--black); margin:0 0 .6rem; letter-spacing:-.015em; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
+    h1{ font-size:clamp(42px,5.6vw,72px); line-height:1.05; letter-spacing:-.02em; font-weight:700; }
+    h2{ font-size:clamp(28px,3.6vw,42px); letter-spacing:-.01em; margin-bottom:1rem; font-weight:600; }
+    h3{ font-size:clamp(20px,2.4vw,26px); color:var(--g-800); letter-spacing:-.005em; font-weight:600; }
+    p{ margin:.45rem 0 1rem; color:var(--g-700); font-weight:400; }
+    ul{ margin:.25rem 0 1rem 1.1rem; padding:0; }
+    li{ margin:.25rem 0; color:var(--g-800); font-weight:400; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:96px 0; position:relative; }
+    .section:not(:last-child)::after{
+      content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+      width:80%; max-width:600px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(0,0,0,.08), transparent);
+    }
+    .divider{ height:1px; background:linear-gradient(90deg,transparent,rgba(0,0,0,.1),transparent); margin:32px 0; border:0; }
+
+    /* Particle background iframe */
+    #particle-bg{
+      position:fixed; inset:0; z-index:-3; pointer-events:none;
+      width:100%; height:100%; border:0; background:transparent;
+    }
+
+    /* Subtle animated GRID background */
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px);
+      transform:translateZ(0);
+      animation:gridFloat 32s linear infinite;
+    }
+    @keyframes gridFloat{ to{ transform:translate3d(-48px,-48px,0); } }
+
+    /* Sticky glass NAV with wire mesh */
+    .top{
+      position:sticky; top:0; z-index:20; overflow:hidden;
+      background:rgba(255,255,255,0.95);
+      -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(239,239,239,0.8);
+    }
+    #mesh-canvas{
+      position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
+      width:100%; height:100%;
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+    .brand{ display:flex; align-items:center; }
+    .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
+    .nav nav a{
+      color:var(--g-600); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
+      font-size:2em; font-weight:700;
+      transition:transform .2s ease, color .2s ease;
+    }
+    .nav nav a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
+      transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
+    }
+    .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
+    .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+    /* Hero */
+    .hero{
+      position:relative; overflow:hidden; padding:120px 0 80px;
+      background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(250,250,250,.4) 100%);
+    }
+    .hero h1{
+      background:linear-gradient(135deg, var(--black) 0%, var(--g-700) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .slogan{ font-size:clamp(26px,3.6vw,38px); color:var(--black); }
+    .lede{ color:var(--g-600); max-width:940px; font-size:clamp(16px, 2vw, 19px); line-height:1.7; font-weight:400; }
+
+    /* Cards & grids */
+    .card{
+      position:relative; background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
+      border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:32px;
+      box-shadow:var(--shadow); transform:translateZ(0);
+      transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    }
+    .card::before{
+      content:""; position:absolute; inset:-1px; border-radius:calc(var(--radius) + 1px);
+      background:conic-gradient(from 120deg, rgba(0,0,0,.08), rgba(0,0,0,0), rgba(0,0,0,.08));
+      z-index:-1; opacity:0; transition:opacity .4s ease;
+    }
+    .card::after{
+      content:""; position:absolute; inset:0; border-radius:var(--radius);
+      background:linear-gradient(135deg, rgba(255,255,255,.8) 0%, rgba(255,255,255,.2) 100%);
+      opacity:0; transition:opacity .4s ease; pointer-events:none;
+    }
+    .card:hover::before{ opacity:1; animation:rotateGlow 3s linear infinite; }
+    @keyframes rotateGlow{ to{ transform:rotate(360deg); } }
+    .card:hover::after{ opacity:.4; }
+    .card:hover{ transform:translateY(-18px) scale(1.025); box-shadow:0 16px 48px rgba(0,0,0,.14), 0 32px 96px rgba(0,0,0,.1), 0 0 0 1px rgba(11,11,11,.12), 0 0 24px rgba(11,11,11,.06); border-color:rgba(11,11,11,.18); }
+
+    .pillars{ display:grid; gap:28px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .pillars{ grid-template-columns: repeat(3,1fr); } }
+    .grid-2{ display:grid; gap:28px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-2{ grid-template-columns: 1fr 1fr; } }
+
+    /* People */
+    .person h3{ margin-bottom:.25rem; }
+    .role{ color:var(--g-500); margin-bottom:.6rem; }
+
+    /* LinkedIn Badge */
+    .LI-profile-badge{
+      margin-top:20px;
+    }
+
+    /* Callouts */
+    .note{ font-size:13px; color:var(--g-400); margin-top:8px; }
+
+    /* Buttons */
+    .btn{
+      display:inline-block; border:1.5px solid var(--g-800); color:var(--g-800); text-decoration:none;
+      padding:14px 28px; border-radius:14px; font-weight:600; font-size:15px;
+      background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
+      box-shadow:0 2px 12px rgba(0,0,0,.05), 0 4px 24px rgba(0,0,0,.03);
+      transition:all .35s cubic-bezier(0.4, 0, 0.2, 1);
+      position:relative; overflow:hidden; z-index:1;
+      text-rendering:optimizeLegibility;
+    }
+    .btn::before{
+      content:""; position:absolute; inset:0; background:var(--g-800);
+      transform:translateY(100%); transition:transform .35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index:-1;
+    }
+    .btn:hover{ color:#fff; transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.12); }
+    .btn:hover::before{ transform:translateY(0); }
+
+    /* Reveal on scroll */
+    .reveal{
+      opacity:0; transform:translateY(40px);
+      transition:opacity .8s cubic-bezier(0.4, 0, 0.2, 1), transform .8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.in{ opacity:1; transform:none; }
+    .reveal:nth-child(1){ transition-delay:.05s; }
+    .reveal:nth-child(2){ transition-delay:.1s; }
+    .reveal:nth-child(3){ transition-delay:.15s; }
+    .reveal:nth-child(4){ transition-delay:.2s; }
+    .reveal:nth-child(5){ transition-delay:.25s; }
+    .reveal:nth-child(6){ transition-delay:.3s; }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:30px 0 44px; }
+
+    @media (prefers-reduced-motion:reduce){
+      .card:hover{ transform:none; box-shadow:var(--shadow); }
+      .reveal{ opacity:1; transform:none; }
+      body::before{ animation:none; }
+    }
+
+    /* Mobile Optimization */
+    @media(max-width:768px){
+      .wrap{ padding:0 16px; }
+      .brand img{ height:120px; }
+      .nav{ padding:6px 0; flex-wrap:wrap; gap:8px; }
+      .nav nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        width:100%;
+      }
+      .nav nav a{
+        font-size:0.85em;
+        margin-left:8px;
+        margin-right:8px;
+      }
+      .hero{ padding:60px 0 40px; }
+      h1{ font-size:clamp(28px,7vw,42px); }
+      h2{ font-size:clamp(22px,5vw,32px); }
+      h3{ font-size:clamp(18px,4vw,24px); }
+      .section{ padding:48px 0; }
+      .card{ padding:20px; }
+      .card:hover{
+        transform:none;
+        box-shadow:var(--shadow);
+      }
+      .btn:hover{
+        transform:none;
+        box-shadow:0 2px 12px rgba(0,0,0,.05), 0 4px 24px rgba(0,0,0,.03);
+      }
+      ul{ margin-left:0.8rem; }
+      li{ font-size:15px; }
+      #mesh-canvas{ display:none; }
+      body::before{ animation:none; }
+    }
+
+    @media(max-width:480px){
+      .brand img{ height:90px; }
+      .nav nav a{
+        font-size:0.75em;
+        margin-left:6px;
+        margin-right:6px;
+      }
+      h1{ font-size:clamp(24px,8vw,36px); }
+      h2{ font-size:clamp(20px,6vw,28px); }
+      .card{ padding:16px; }
+      #particle-bg{ display:none; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17625349992"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);} 
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17625349992');
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NR7C688Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Particle Background Layer -->
+<iframe id="particle-bg" src="whiteparticle.html" title="Particle Background Animation"></iframe>
+
+<!-- Sticky Glass Nav -->
+<div class="top">
+  <canvas id="mesh-canvas" aria-label="3D Mesh Background Animation"></canvas>
+  <div class="wrap nav">
+    <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Lianela-info.html">LIANELA V3</a>
+      <a href="Model-Train.html">#ProjectDarkMatter</a>
+      <a href="SalesAgent.html">Voice-Agents</a>
+      <a href="LLM-Ent.html">SIGMA</a>
+      <a href="Partnerships.html">Partnerships</a>
+      <a href="Compliance.html">Compliance</a>
+    </nav>
+  </div>
+</div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <h1>About VCB — Viable Core Business</h1>
+      <p class="slogan">Vision becomes Viable.</p>
+      <p class="lede">
+        We are builders at the intersection of strategy, delivery, and product. VCB aligns vision with disciplined execution to turn
+        AI-native ideas into measurable outcomes for South Africa and the continent.
+      </p>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <main class="wrap">
+    <section id="about" class="section">
+      <h2>Who We Are</h2>
+      <div class="divider"></div>
+      <div class="card">
+        <p>
+          <strong>VCB</strong> is a South African AI-native venture designed to operate across multiple sectors with one clear promise:
+          align vision with execution. We help organisations adopt and integrate AI responsibly, deliver end-to-end projects with
+          measurable impact, and develop products that solve real problems while unlocking new market opportunities.
+        </p>
+        <p>
+          Our five-year ambition is bold—become one of Africa’s leading AI services and product companies, spanning the full AI value
+          chain from strategy to delivery. To accelerate capability and scale, we are open to strategic partnerships, including
+          equity participation or structured debt.
+        </p>
+        <p>
+          At our core lies a conviction that AI should be a national enabler—streamlining public services, reducing inefficiency,
+          empowering businesses, and strengthening communities. With strong operational leadership and the right partners, VCB will
+          drive responsible, large-scale transformation.
+        </p>
+      </div>
+    </section>
+
+    <!-- PILLARS -->
+    <section id="pillars" class="section">
+      <h2>What We Do</h2>
+      <div class="divider"></div>
+      <div class="pillars">
+        <div class="card">
+          <h3>Advisory Services</h3>
+          <p>Strategy, governance, and adoption roadmaps to integrate AI responsibly and effectively.</p>
+          <ul>
+            <li>AI strategy & operating model</li>
+            <li>Risk, POPIA & Responsible AI governance</li>
+            <li>Data readiness & value mapping</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Project Delivery Services</h3>
+          <p>End-to-end delivery with measurable outcomes and enterprise-grade controls.</p>
+          <ul>
+            <li>Solution architecture & implementation</li>
+            <li>MLOps, observability & support</li>
+            <li>Change enablement & value realisation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Product Development</h3>
+          <p>Applications that solve business problems and open new markets.</p>
+          <ul>
+            <li>AI-native product design & build</li>
+            <li>Compliance-by-design (POPIA, security)</li>
+            <li>Commercialisation & go-to-market</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES & VISION -->
+    <section id="principles" class="section">
+      <h2>How We Work</h2>
+      <div class="divider"></div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Operating Principles</h3>
+          <ul>
+            <li><strong>Proof over promise:</strong> pilot quickly, measure value, scale what works.</li>
+            <li><strong>Governance-first:</strong> POPIA, security and auditability from day one.</li>
+            <li><strong>Outcome alignment:</strong> business KPIs drive technical decisions.</li>
+            <li><strong>Build to operate:</strong> solutions you can run, support, and govern.</li>
+          </ul>
+          <p style="margin-top:16px; font-style:italic; color:var(--g-600); border-left:3px solid var(--g-300); padding-left:12px;">
+            Make AI safe to adopt: secure-by-default, compliant-from-day-one, and powered by unbreakable storage.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Five-Year Vision</h3>
+          <p>
+            Establish one of Africa’s leading AI service and product firms with capabilities across the value chain—strategy to scale.
+            We aim to be recognised for execution discipline, responsible innovation, and measurable national impact.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section" aria-label="Leadership">
+      <h2>Leadership</h2>
+      <div class="divider"></div>
+
+      <article class="card person">
+        <h3>Dawn Beech</h3>
+        <div class="role">CEO · Co-founder</div>
+        <p>
+          A seasoned technology professional with extensive experience delivering solutions across industries in South Africa,
+          Dawn is driving the creation of an AI-native business designed to operate across multiple sectors of the economy.
+          The venture is built on three focus areas:
+          <em>Advisory Services</em>, <em>Project Delivery Services</em>, and <em>Product Development</em>.
+        </p>
+        <p>
+          The five-year vision is bold: to establish one of Africa's leading AI services and product development companies,
+          with capabilities spanning the full AI value chain—from strategy to execution. To achieve this, the venture is seeking
+          a strategic funder who can provide capital investment as well as project and operational support, ideally through
+          equity partnership or structured debt funding.
+        </p>
+        <p>
+          At its core is the conviction that AI can serve as a national enabler—streamlining government services,
+          reducing inefficiencies, empowering businesses, and strengthening communities. With strong operational leadership
+          and the right investment, this business will become a dominant force in AI-driven transformation across Africa.
+        </p>
+        <div style="margin-top:20px;">
+          <a href="https://za.linkedin.com/in/dawnbeech" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#0A66C2;color:#fff;text-decoration:none;padding:10px 20px;border-radius:4px;font-weight:600;font-size:14px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+            View Dawn Beech on LinkedIn
+          </a>
+        </div>
+      </article>
+
+      <div class="divider"></div>
+
+      <article class="card person">
+        <h3>Advocate Nandi Basson</h3>
+        <div class="role">Chief Legal Officer · Co-founder</div>
+        <p>
+          <strong>Disclosure:</strong> Not generated by ChatGPT. Who I Am: My journey as an advocate has been dedicated to one
+          core principle: navigating complexity to find just outcomes for people. From the intricacies of labour disputes and
+          complex civil claims to corporate litigation and foundational constitutional challenges, my work has always been at the
+          intersection of systems and the human beings they are meant to serve.
+        </p>
+        <p>
+          I see the coming wave of artificial intelligence not as a technological challenge, but as a profoundly human one.
+          My vision is to ensure that our innovations are built with empathy and foresight. With a foundation in Labour Law,
+          I bring a unique perspective on the profound impact AI will have on our workforce and society. My contribution is to
+          ask the critical questions: How do we ensure fairness? How do we protect rights? How do we build systems that empower,
+          rather than displace?
+        </p>
+        <p>
+          While my partners masterfully build the technology, I will focus on its application, ensuring our solutions are not only
+          powerful but also principled. My experience in corporate and civil law provides the framework to manage risk and ensure
+          our innovations are commercially sound and legally robust. I am a builder of bridges—connecting the vast potential of AI
+          with the practical, ethical, and legal realities of the world. This means embedding compliance into our products from the
+          outset, upholding crucial legislation such as the Protection of Personal Information Act (POPIA), and ensuring our legacy
+          is one of responsible innovation that uplifts industries and empowers communities with integrity.
+        </p>
+        <div style="margin-top:20px;">
+          <a href="https://za.linkedin.com/in/nandi-basson" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#0A66C2;color:#fff;text-decoration:none;padding:10px 20px;border-radius:4px;font-weight:600;font-size:14px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+            View Advocate Nandi Basson on LinkedIn
+          </a>
+        </div>
+      </article>
+
+      <div class="divider"></div>
+
+      <article class="card person">
+        <h3>Tommy Ferreira</h3>
+        <div class="role">CTO · Co-founder</div>
+        <p>
+          I am a builder of systems and a strategist of transformation. For three decades I have worked at the frontlines of
+          technology, from the early days of mainframes and networks to the current wave of artificial intelligence. My journey
+          has never been about chasing trends, but about recognising when an innovation is ready to shift from theory into impact—
+          and then creating the frameworks to make that impact real.
+        </p>
+        <p>
+          I thrive in complexity. Whether stabilising failing operations, architecting resilient infrastructures, or unlocking new
+          capabilities, my role has always been to see the whole board and move the right pieces at the right time. I have learned
+          that true transformation does not come from technology alone, but from trust, timing, and execution discipline.
+        </p>
+        <p>
+          I am a connector. I bring together advisory insight, delivery execution, and product innovation into a single continuum—
+          ensuring that ideas do not die in strategy decks, but become measurable outcomes in the real world.
+        </p>
+        <p>
+          Most of all, I am committed to a bigger vision: that artificial intelligence can be more than a tool of efficiency.
+          It can be a national enabler—a force that streamlines systems, empowers businesses, and uplifts communities. My purpose
+          is to ensure that this potential is realised responsibly, securely, and at scale.
+        </p>
+        <p>
+          I am not just a technologist. I am a bridge between innovation and transformation. I am a strategist, builder, and
+          enabler. I am thirty years of lessons turned into foresight for the future.
+        </p>
+        <div style="margin-top:20px;">
+          <a href="https://za.linkedin.com/in/tommy-ferreira-cissp" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#0A66C2;color:#fff;text-decoration:none;padding:10px 20px;border-radius:4px;font-weight:600;font-size:14px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+            View Tommy Ferreira on LinkedIn
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <!-- PARTNERS -->
+    <section id="partners" class="section">
+      <h2>Strategic Partnerships</h2>
+      <div class="divider"></div>
+      <div class="card">
+        <p>
+          We collaborate with organisations that turn vision into measurable outcomes.
+          VCB is open to <em>capital</em> (equity or structured debt), <em>delivery</em>,
+          <em>channel</em>, and <em>co-build</em> partnerships that accelerate value creation.
+        </p>
+        <p>
+          <a class="btn" href="#contact">Request our Partner Pack</a>
+        </p>
+        <p class="note">Note: This is not a public offering of securities.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="divider"></div>
+      <div class="card">
+        <p>Start a conversation with the team. We'll respond with next steps and a meeting slot.</p>
+        <p><strong>Email:</strong> <a href="mailto:info@vcb-ai.online">info@vcb-ai.online</a> • <strong>Location:</strong> South Africa</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> VCB · Viable Core Business — All rights reserved.
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Sophisticated 3D Wire Mesh Animation
+    (() => {
+      const canvas = document.getElementById('mesh-canvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      const gridSize = 15;
+      let cols = 0;
+      let rows = 0;
+      let time = 0;
+
+      function resize(){
+        const dpr = 2;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        cols = Math.ceil(rect.width / gridSize) + 2;
+        rows = Math.ceil(rect.height / gridSize) + 2;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function complexNoise(x, y, t){
+        let n = 0;
+        n += Math.sin(x * 0.1 + t * 0.3) * Math.cos(y * 0.15 - t * 0.4) * 12;
+        n += Math.sin(x * 0.23 + y * 0.17 + t * 0.6) * 8;
+        n += Math.cos(x * 0.31 - y * 0.22 + t * 0.9) * 6;
+        n += Math.sin((x + y) * 0.08 + t * 1.2) * 10;
+        n += Math.cos((x - y) * 0.13 + t * 0.5) * 7;
+        n += Math.sin(x * 0.5 + Math.cos(y * 0.4 + t)) * 4;
+        return n;
+      }
+
+      function get3DPoint(col, row, t){
+        const x = col * gridSize - gridSize;
+        const y = row * gridSize - gridSize;
+
+        const displacement = complexNoise(col, row, t);
+
+        const angle = Math.atan2(row - rows/2, col - cols/2);
+        const radius = Math.hypot(col - cols/2, row - rows/2);
+        const spiral = Math.sin(angle * 3 + radius * 0.2 - t * 2) * 5;
+
+        const pulse = Math.sin(t * 3 + col * 0.3) * Math.cos(t * 2.5 + row * 0.25) * 8;
+
+        const depth1 = Math.sin(col * 0.2 + t) * Math.cos(row * 0.25 + t * 0.7) * 35;
+        const depth2 = Math.sin(radius * 0.1 + t * 1.5) * 15;
+        const depth = depth1 + depth2;
+
+        return {
+          x: x + displacement + spiral,
+          y: y + displacement + pulse,
+          z: depth,
+          col: col,
+          row: row,
+          energy: Math.abs(Math.sin(col * 0.3 + row * 0.2 + t * 2))
+        };
+      }
+
+      function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        time += 0.010;
+
+        const points = [];
+        for(let row = 0; row < rows; row++){
+          points[row] = [];
+          for(let col = 0; col < cols; col++){
+            points[row][col] = get3DPoint(col, row, time);
+          }
+        }
+
+        for(let row = 0; row < rows; row++){
+          ctx.beginPath();
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+
+            if(col === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.stroke();
+        }
+
+        const canvasHeight = canvas.height / 2;
+        for(let col = 0; col < cols; col++){
+          ctx.beginPath();
+          for(let row = 0; row < rows; row++){
+            const p = points[row][col];
+
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+
+            const yPos = (row === rows - 1) ? canvasHeight - 1 : p.y;
+
+            if(row === 0) ctx.moveTo(p.x, yPos);
+            else ctx.lineTo(p.x, yPos);
+          }
+          ctx.stroke();
+        }
+
+        ctx.lineWidth = 0.2;
+        for(let row = 0; row < rows - 1; row++){
+          for(let col = 0; col < cols - 1; col++){
+            const p1 = points[row][col];
+            const p2 = points[row + 1][col + 1];
+
+            if(Math.abs(p1.z - p2.z) > 10 || (p1.energy > 0.7 && p2.energy > 0.7)){
+              const avgDepth = (p1.z + p2.z) / 2;
+              const avgEnergy = (p1.energy + p2.energy) / 2;
+              const depthFactor = (avgDepth + 35) / 70;
+              const opacity = 0.1 + depthFactor * 0.3 + avgEnergy * 0.2;
+              ctx.strokeStyle = `rgba(86, 86, 86, ${opacity})`;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        ctx.lineWidth = 0.25;
+        for(let row = 1; row < rows - 1; row += 2){
+          for(let col = 1; col < cols - 1; col += 2){
+            const p = points[row][col];
+            if(p.energy > 0.6){
+              for(let dr = -2; dr <= 2; dr++){
+                for(let dc = -2; dc <= 2; dc++){
+                  if(dr === 0 && dc === 0) continue;
+                  const nr = row + dr;
+                  const nc = col + dc;
+                  if(nr >= 0 && nr < rows && nc >= 0 && nc < cols){
+                    const neighbor = points[nr][nc];
+                    if(neighbor.energy > 0.6){
+                      const distance = Math.hypot(dr, dc);
+                      const energyFlow = (p.energy + neighbor.energy) / 2;
+                      ctx.strokeStyle = `rgba(66, 66, 66, ${energyFlow * 0.15 / distance})`;
+                      ctx.beginPath();
+                      ctx.moveTo(p.x, p.y);
+                      ctx.lineTo(neighbor.x, neighbor.y);
+                      ctx.stroke();
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        for(let row = 0; row < rows; row++){
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+
+            const energyBoost = p.energy > 0.7 ? p.energy * 0.5 : 0;
+            const dotSize = 1 + depthFactor * 1.5 + energyBoost;
+
+            const gradient = ctx.createRadialGradient(
+              p.x - dotSize * 0.3, p.y - dotSize * 0.3, 0,
+              p.x, p.y, dotSize
+            );
+            const energyGlow = p.energy > 0.7 ? 0.15 : 0;
+            gradient.addColorStop(0, `rgba(42, 42, 42, ${0.7 + depthFactor * 0.3 + energyGlow})`);
+            gradient.addColorStop(0.6, `rgba(66, 66, 66, ${0.6 + depthFactor * 0.3})`);
+            gradient.addColorStop(1, `rgba(86, 86, 86, ${0.3 + depthFactor * 0.4})`);
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = `rgba(42, 42, 42, ${0.2 + depthFactor * 0.3})`;
+            ctx.lineWidth = 0.4;
+            ctx.stroke();
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.2});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
+
+
+
+
+
+

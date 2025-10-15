@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sarah - VCB AI Sales Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24..48,400..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    :root{--black:#000000;--dark-grey:#1a1a1a;--medium-grey:#333333;--light-grey:#d1d1d1;--white:#ffffff}
+    *{box-sizing:border-box}
+    body{margin:0;padding:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--black),var(--dark-grey) 30%,var(--medium-grey) 60%,var(--black));font-family:'Quicksand',sans-serif;font-weight:300;overflow:hidden;color:var(--white)}
+
+    /* Animated background particles */
+    .background-particles{position:fixed;inset:0;pointer-events:none;z-index:1}
+    .particle{position:absolute;width:2px;height:2px;background:rgba(255,255,255,.12);border-radius:50%;animation:float 8s infinite linear}
+    @keyframes float{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) rotate(360deg);opacity:0}}
+
+    /* Canvas for 3D */
+    canvas{width:100%!important;height:100%!important;position:absolute;inset:0;z-index:2;display:block;pointer-events:none}
+
+    /* Header and branding */
+    .logo{position:absolute;top:20px;left:20px;z-index:10;width:220px;height:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+    .header-info{position:absolute;top:30px;left:260px;right:30px;z-index:10;text-align:left;color:var(--white);text-shadow:0 4px 12px rgba(0,0,0,.8)}
+    h1{margin:0 0 10px 0;font-size:32px;font-weight:700;letter-spacing:-.2px}
+    .header-info p{margin:0;font-size:18px;opacity:.9}
+    .contact-info{position:absolute;top:30px;right:30px;z-index:10;color:var(--white);text-align:right;font-size:14px;font-weight:700;text-shadow:0 4px 8px rgba(0,0,0,.8);background:rgba(0,0,0,.3);backdrop-filter:blur(20px);padding:16px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+
+    /* Status and controls */
+    #status{position:absolute;bottom:5vh;left:0;right:0;z-index:10;text-align:center;color:var(--white);font-weight:700;font-size:16px;text-shadow:0 4px 8px rgba(0,0,0,.8);background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px 24px;border-radius:24px;margin:0 20px;border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+    .controls{z-index:10;position:absolute;bottom:12vh;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;flex-direction:row}
+    .controls button{outline:none;border:2px solid rgba(255,255,255,.35);color:var(--white);border-radius:20px;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);width:72px;height:72px;cursor:pointer;font-size:28px;padding:0;margin:0;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+    .controls button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s}
+    .controls button:hover::before{left:100%}
+    .controls button:hover{background:rgba(255,255,255,.18);transform:scale(1.06) translateY(-1px);box-shadow:0 10px 30px rgba(0,0,0,.3);border-color:rgba(255,255,255,.5)}
+    .controls button:active{transform:scale(1.02)}
+    .controls button[disabled]{display:none}
+
+    /* Modals */
+    .modal{display:flex;position:fixed;z-index:1000;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+    .modal-content{background:linear-gradient(135deg, rgba(16,16,16,.95), rgba(40,40,40,.95));backdrop-filter:blur(30px);padding:40px;border:1px solid rgba(255,255,255,.25);border-radius:24px;width:700px;max-width:92vw;max-height:92vh;text-align:center;color:var(--white);box-shadow:0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.1);position:relative;overflow:auto}
+    .modal-content::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent)}
+    .modal h2{margin:0 0 12px 0;font-size:30px;font-weight:700}
+    .modal .subtitle{color:#ddd;margin-bottom:22px;font-size:18px;font-weight:400}
+    .modal .description{background:rgba(255,255,255,.08);backdrop-filter:blur(15px);padding:20px;border-radius:16px;margin:20px 0;line-height:1.7;border:1px solid rgba(255,255,255,.15);font-weight:300;box-shadow:inset 0 1px 0 rgba(255,255,255,.1);text-align:left}
+    .modal input,.modal select{width:80%;padding:14px 18px;margin:10px 0;border:2px solid rgba(255,255,255,.3);border-radius:14px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);color:var(--white);font-size:16px;text-align:center;font-family:'Quicksand',sans-serif;font-weight:400;transition:all .2s}
+    .modal select{cursor:pointer}
+    .modal input:focus,.modal select:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.15);transform:scale(1.01)}
+    .modal input::placeholder{color:rgba(255,255,255,.7)}
+    .modal select option{background:#111;color:var(--white)}
+    .modal .actions{margin-top:12px}
+    .modal button{background:rgba(255,255,255,.15);color:var(--white);padding:14px 30px;border:none;border-radius:14px;cursor:pointer;font-size:16px;font-weight:700;margin:8px 10px;transition:all .25s}
+    .modal button:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.35)}
+    .modal button.secondary{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.25)}
+
+    .features{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0;font-size:15px}
+    .feature{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);padding:16px 14px;border-radius:12px;border-left:4px solid var(--light-grey);transition:all .2s;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+    .feature:hover{background:rgba(255,255,255,.12);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 5px 15px rgba(0,0,0,.2)}
+
+    .banking-form{display:grid;gap:12px;margin:14px 0;text-align:left}
+    .form-row{display:flex;gap:12px;align-items:center}
+    .form-row label{min-width:150px;font-weight:700}
+    .form-row input,.form-row select{flex:1;text-align:left}
+    .security-notice{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:12px;margin:12px 0;font-size:14px;line-height:1.5}
+    .premium-info{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:12px;margin:12px 0;font-size:16px;font-weight:700}
+
+    /* Loading overlay */
+    .loading-overlay{position:fixed;inset:0;background:rgba(16,16,16,.95);backdrop-filter:blur(10px);z-index:999;display:none;align-items:center;justify-content:center;flex-direction:column}
+    .loading-spinner{width:60px;height:60px;border:3px solid rgba(255,255,255,.1);border-top:3px solid var(--light-grey);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:16px}
+    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+    .loading-text{color:var(--white);font-size:16px;font-weight:700}
+
+    @media (max-width:800px){
+      .logo{width:180px}
+      .header-info{left:20px;top:90px}
+      .header-info p{font-size:16px}
+      .contact-info{top:auto;bottom:20px;right:20px}
+      .controls{bottom:18vh}
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17625349992"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);} 
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17625349992');
+</script>
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div class="background-particles" id="particles"></div>
+  <canvas id="canvas"></canvas>
+
+  <!-- Branding -->
+  <img src="https://i.postimg.cc/xdJqP9br/logo-transparent-Black-Back.png" alt="VCB Logo" class="logo" />
+  <div class="header-info">
+    <h1>SARAH — VCB Voice & AI Sales</h1>
+    <p>Voice-first AI agents with omnichannel continuity and human assist</p>
+  </div>
+  <div class="contact-info">
+    <div>VCB — Viable Core Business</div>
+    <div>vcb-ai.online</div>
+  </div>
+
+  <!-- Name Input Modal -->
+  <div id="nameModal" class="modal">
+    <div class="modal-content">
+      <h2>Welcome to VCB</h2>
+      <p class="subtitle">Voice Agents, Omnichannel, and Trusted AI Delivery</p>
+      <div class="description">
+        <strong>Meet Sarah, your VCB sales specialist.</strong><br />
+        Sarah helps assess your use case and map it to VCB’s solutions: production phone agents with omnichannel continuation, call‑in human assist, and secure, compliant AI delivery in South Africa.
+      </div>
+      <div class="features">
+        <div class="feature"><strong>Voice Agents</strong><br />Sales, service, collections, tech support, legal</div>
+        <div class="feature"><strong>Omnichannel</strong><br />WhatsApp, Messenger, SMS, email, web chat</div>
+        <div class="feature"><strong>Human Assist</strong><br />Whisper, barge‑in, warm transfer</div>
+        <div class="feature"><strong>Governed AI</strong><br />POPIA audit trail, transcripts, consent</div>
+      </div>
+      <p>Please enter your name to begin your personalized consultation:</p>
+      <input type="text" id="nameInput" placeholder="Enter your name..." autocomplete="name" />
+      <div class="actions">
+        <button onclick="submitName()">Start Consultation with Sarah</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact / Lead Modal -->
+  <div id="contactModal" class="modal" style="display:none">
+    <div class="modal-content">
+      <h2>Book a Consultation</h2>
+      <p class="subtitle">Tell us about your use case</p>
+      <div class="banking-form">
+        <div class="form-row">
+          <label>Full Name:</label>
+          <input type="text" id="leadName" placeholder="Your name" />
+        </div>
+        <div class="form-row">
+          <label>Company:</label>
+          <input type="text" id="leadCompany" placeholder="Your company" />
+        </div>
+        <div class="form-row">
+          <label>Email:</label>
+          <input type="email" id="leadEmail" placeholder="you@company.com" />
+        </div>
+        <div class="form-row">
+          <label>Use Case:</label>
+          <select id="leadUsecase">
+            <option value="">Select...</option>
+            <option>Sales & Growth</option>
+            <option>Service & Collections</option>
+            <option>Technical Support</option>
+            <option>Legal/Intake</option>
+            <option>Back-Office</option>
+            <option>Custom</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Channels:</label>
+          <select id="leadChannels">
+            <option value="">Select...</option>
+            <option>Voice (PSTN/SIP)</option>
+            <option>WhatsApp</option>
+            <option>Messenger</option>
+            <option>SMS/Email</option>
+            <option>Web chat</option>
+            <option>Multiple</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Timeline:</label>
+          <select id="leadTimeline">
+            <option value="">Select...</option>
+            <option>ASAP (this month)</option>
+            <option>1–3 months</option>
+            <option>3+ months / exploring</option>
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button onclick="submitLeadDetails()">Submit</button>
+        <button class="secondary" onclick="cancelLead()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Connecting to Sarah...</div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="resetButton" title="Reset">
+      <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32" fill="#ffffff"><path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"/></svg>
+    </button>
+    <button id="startButton" title="Start">
+      <svg viewBox="0 0 100 100" width="28" height="28" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"/></svg>
+    </button>
+    <button id="stopButton" title="Stop" disabled>
+      <svg viewBox="0 0 100 100" width="28" height="28" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="15" width="70" height="70" rx="10"/></svg>
+    </button>
+    <button id="downloadButton" title="Download Transcript">
+      <svg xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 0 24 24" width="28" fill="#ffffff"><path d="M5 20h14v-2H5v2zm7-18-5 5h3v6h4V7h3l-5-5z"/></svg>
+    </button>
+  </div>
+
+  <div id="status">Click Start to begin your VCB consultation</div>
+
+  <!-- Import maps for ESM deps -->
+  <script type="importmap">
+  {
+    "imports": {
+      "lit": "https://esm.sh/lit@^3.3.0",
+      "lit/": "https://esm.sh/lit@^3.3.0/",
+      "@lit/context": "https://esm.sh/@lit/context@^1.1.5",
+      "@google/genai": "https://esm.sh/@google/genai@^0.9.0",
+      "three": "https://esm.sh/three@^0.176.0",
+      "three/": "https://esm.sh/three@^0.176.0/"
+    }
+  }
+  </script>
+
+  <script type="module">
+    // Redirect extensionless /sarah to /sarah.html so the right page loads
+    try{
+      const p = location.pathname.replace(/\\+/g,'/');
+      if(/\/sarah$/.test(p)){
+        const target = p + '.html' + location.search + location.hash;
+        location.replace(target);
+      }
+    }catch(_){ }
+
+    // Enable local speech recognition by default (fills transcript when SDK doesn't return user text)
+    try{ if(typeof window.ENABLE_LOCAL_STT==='undefined') window.ENABLE_LOCAL_STT = true; }catch(_){ }
+    import { GoogleGenAI, Modality } from '@google/genai';
+    import * as THREE from 'three';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+    // Background particles
+    function createParticles(){
+      const container=document.getElementById('particles');
+      const N=50;
+      for(let i=0;i<N;i++){
+        const p=document.createElement('div');
+        p.className='particle';
+        p.style.left=Math.random()*100+'%';
+        p.style.animationDelay=(Math.random()*8)+'s';
+        p.style.animationDuration=(8+Math.random()*4)+'s';
+        container.appendChild(p);
+      }
+    }
+
+    // Utils
+    function encode(bytes){
+      let binary='';
+      for(let i=0;i<bytes.byteLength;i++){ binary += String.fromCharCode(bytes[i]); }
+      return btoa(binary);
+    }
+    function decode(base64){
+      const binaryString=atob(base64);
+      const len=binaryString.length; const out=new Uint8Array(len);
+      for(let i=0;i<len;i++){ out[i]=binaryString.charCodeAt(i); }
+      return out;
+    }
+    function createBlob(float32Data){
+      const l=float32Data.length; const int16=new Int16Array(l);
+      for(let i=0;i<l;i++){ int16[i]=Math.max(-1,Math.min(1,float32Data[i]))*32767; }
+      return { data: encode(new Uint8Array(int16.buffer)), mimeType:'audio/pcm;rate=16000' };
+    }
+    async function decodeAudioPcmToBuffer(uint8, ctx, sampleRate, channels){
+      const int16 = new Int16Array(uint8.buffer);
+      const length = Math.floor(int16.length / channels);
+      const buffer = ctx.createBuffer(channels, length, sampleRate);
+      for(let ch=0; ch<channels; ch++){
+        const channelData = buffer.getChannelData(ch);
+        for(let i=0;i<length;i++){
+          channelData[i] = int16[i*channels + ch] / 32768.0;
+        }
+      }
+      return buffer;
+    }
+
+    class Analyser {
+      constructor(node){
+        this.analyser = node.context.createAnalyser();
+        this.analyser.fftSize = 32;
+        try{ this.analyser.smoothingTimeConstant = 0.8; }catch(_){ }
+        this.bufferLength = this.analyser.frequencyBinCount;
+        this.dataArray = new Uint8Array(this.bufferLength);
+        node.connect(this.analyser);
+      }
+      update(){ this.analyser.getByteFrequencyData(this.dataArray); }
+      get data(){ return this.dataArray; }
+    }
+
+    class PlatinumLifeSalesAgent{
+      constructor(){
+        this.isRecording=false; this.status='Click Start to begin your VCB consultation';
+        this.error=''; this.isConnected=true; this.userName=''; this.originalName='';
+        this.nameInfoSent=false; this.sources=new Set(); this.nextStartTime=0; this.framesSent=0;
+        this.inputAudioContext=new (window.AudioContext||window.webkitAudioContext)({sampleRate:16000});
+        this.outputAudioContext=new (window.AudioContext||window.webkitAudioContext)({sampleRate:24000});
+        this.inputNode=this.inputAudioContext.createGain(); this.outputNode=this.outputAudioContext.createGain();
+        this.inputAnalyser=null; this.outputAnalyser=null; this.bargeInAnalyser=null; this.ttsDucked=false; this.canvas=document.getElementById('canvas');
+        this.client=null; this.session=null; this.sessionOpen=false; this.canSend=false; this.sourceNode=null; this.captureNode=null; this.scriptProcessorNode=null; this.mediaStream=null; this.lastAssistantText=''; this.workletReady=false;
+        this.speechRec=null; this.hookUrl=(new URLSearchParams(location.search).get('hook')) || (window.TRANSCRIPT_URL||'');
+        try{ window.__transcript = window.__transcript || []; }catch(_){ }
+
+        this.init3D();
+        this.initClient();
+        this.setupEventListeners();
+      }
+
+      initAudio(){
+        this.nextStartTime=this.outputAudioContext.currentTime;
+        this.inputAnalyser=new Analyser(this.inputNode);
+        this.outputAnalyser=new Analyser(this.outputNode);
+        // Barge-in analyser (time-domain for RMS)
+        this.bargeInAnalyser=this.inputAudioContext.createAnalyser();
+        this.bargeInAnalyser.fftSize=2048;
+        // Connect actual mic source later when it is created in startRecording
+      }
+
+      async initClient(){
+        this.initAudio();
+        // IMPORTANT: Do not hardcode secrets in production. Use a server to mint an ephemeral token.
+        const apiKey = (window.GOOGLE_API_KEY) || new URLSearchParams(location.search).get('key') || 'YOUR_GOOGLE_API_KEY';
+        if(apiKey==='YOUR_GOOGLE_API_KEY'){
+          console.warn('Set GOOGLE_API_KEY via window.GOOGLE_API_KEY or ?key=... for live testing.');
+        }
+        this.client = new GoogleGenAI({ apiKey });
+        this.outputNode.connect(this.outputAudioContext.destination);
+        await this.initSession();
+      }
+
+      async getModelCandidates(){
+        const base = [
+          'gemini-2.5-flash-preview-native-audio-dialog',
+          'gemini-2.0-flash-exp',
+          'gemini-2.0-pro-exp-02-05',
+          'gemini-2.0-flash'
+        ];
+        try{
+          const listed = await (this.client?.models?.list?.({}) ?? Promise.reject());
+          const arr = (listed?.models)||listed||[];
+          const names = arr.map(m=>m?.name||m?.model||m?.id).filter(Boolean);
+          const realtime = names.filter(n=>/realtime|native|audio|dialog|bidi|flash/i.test(n));
+          return [...new Set([...realtime, ...base])];
+        }catch(_){ return base; }
+      }
+
+      async initSession(){
+        try{
+          document.getElementById('loadingOverlay').style.display='flex';
+          const systemInstruction={ parts:[{ text: `You are SARAH, a professional sales consultant for VCB (Viable Core Business) - https://vcb-ai.online - focused on deploying production-grade AI voice agents and secure, compliant AI solutions for South African businesses. You speak in concise, natural South African English.
+
+PRIMARY GOAL
+- Listen first. Do not assume a default like "customer service" — confirm the agent type the client wants.
+- Then guide them to a tailored VCB setup and next steps.
+
+WHAT VCB DELIVERS (keep succinct)
+- Voice-first agents: Sales & Growth, Service & Collections, Technical Support, Legal/Intake, Back‑Office, or Custom.
+- Omnichannel continuity: continue the same case on WhatsApp, Messenger, SMS, Email, or Web chat without losing context.
+- Human assist: whisper coaching, barge‑in takeover, warm transfer, conference.
+- Governance: POPIA consent, transcripts, audit trail, sovereign‑capable options.
+- Gen AI & Data: model‑agnostic (RAG, fine‑tuning, evals, guardrails, PII redaction), classical ML, ETL/ELT, lakehouse patterns.
+
+DISCOVERY FLOW (2–3 short questions at a time)
+1) Which agent type do you need? (Sales & Growth · Service & Collections · Technical Support · Legal/Intake · Back‑Office · Custom)
+2) In‑call tasks: Should the agent do specific tasks while on the call (e.g., identity verification, ticket/case creation, appointment booking, CRM updates, payment reminders, order checks, warm transfer)? Confirm the list.
+3) Channels during/after call: Should the agent also message via WhatsApp, Facebook Messenger, SMS, Email, or Web chat while on the call? Confirm which channels are required.
+4) Volume & hours (approximate) and whether 24/7 is needed.
+5) Current systems: CRM/helpdesk/telephony (PSTN/SIP) that we should integrate with.
+6) Compliance: Any POPIA/consent/auditing specifics.
+
+MAPPING & VALUE (be specific)
+- Map their answers to a VCB solution: voice agent + chosen in‑call tasks + selected channels + human assist + CRM write‑back + transcripts/audit.
+- Highlight low‑latency turn‑taking, barge‑in, consent capture, transcripts, omnichannel continuity, and South Africa‑ready compliance.
+
+CLOSE & NEXT STEP
+- If they want to continue, say EXACTLY: TRIGGER_CONTACT_FORM
+- Keep replies under 30 seconds. Be confident, helpful, and non‑pushy.
+- If high‑detail is requested, explain PSTN/SIP, IDV/KBA, CRM integration patterns briefly.
+
+BOUNDARIES
+- Do not promise fixed pricing/SLAs; suggest a discovery call for scope/pricing.
+          - Be compliant, privacy-first, and respectful.
+          ` } ] };
+          const sysText = (systemInstruction?.parts||[]).map(p=>p?.text||'').join('\n');
+          const candidates = await this.getModelCandidates();
+          let lastErr=null; let connected=false;
+          for(const model of candidates){
+            try{
+              this.updateStatus('Connecting to Sarah (model: '+model+')...');
+              const modelName = model.startsWith('models/') ? model : ('models/'+model);
+              this.session = await this.client.live.connect({
+                model: modelName,
+                callbacks:{
+              onopen:()=>{
+                this.isConnected=true; this.sessionOpen=true; this.canSend=false;
+                this.updateStatus('Sarah is ready - Click Start to begin consultation');
+                try{ console.log('[Sarah] live.onopen'); this.appendTranscript('assistant','Connection established.'); }catch(_){ }
+                document.getElementById('loadingOverlay').style.display='none';
+                // give the transport a brief moment before streaming
+                setTimeout(()=>{ if(this.sessionOpen) this.canSend=true; }, 0);
+              },
+              onmessage: async (message)=>{
+                try{ console.debug('[Sarah] live.onmessage', message); }catch(_){ }
+                // Try multiple shapes for text/audio parts
+                let audio = undefined; let textVal = '';
+                try{
+                  // v1 shape (serverContent.modelTurn.parts)
+                  const parts = message?.serverContent?.modelTurn?.parts || [];
+                  const a = parts.find(p=>p.inlineData)?.inlineData; if(a) audio=a;
+                  const tp = parts.find(p=>p.text); if(tp?.text) textVal = tp.text;
+                }catch(_){ }
+                if(!audio || !textVal){
+                  try{
+                    // candidates/content fallback
+                    const cand = (message?.candidates && message.candidates[0]) || null;
+                    const cparts = cand?.content?.parts || cand?.content || [];
+                    const a2 = cparts.find?.(p=>p.inlineData)?.inlineData; if(a2) audio=a2;
+                    const t2 = cparts.find?.(p=>p.text)?.text; if(t2) textVal=t2;
+                  }catch(_){ }
+                }
+                if(textVal){
+                  this.lastAssistantText = textVal;
+                  this.appendTranscript('assistant', textVal);
+                  if(textVal.includes('TRIGGER_CONTACT_FORM')) this.showContactForm();
+                  if(!this.canSend && this.sessionOpen) this.canSend=true;
+                }
+                // capture user text if SDK returns it in various shapes
+                try{
+                  const uText = (message?.clientContent?.userTurn?.parts?.find(p=>p.text)?.text)
+                    || (message?.serverContent?.userTurn?.parts?.find(p=>p.text)?.text)
+                    || (message?.clientContent?.role==='user' && message?.clientContent?.parts?.find(p=>p.text)?.text) || '';
+                  if(uText) this.appendTranscript('user', uText);
+                }catch(_){ }
+                if(audio){
+                  this.nextStartTime=Math.max(this.nextStartTime,this.outputAudioContext.currentTime);
+                  const buf=await decodeAudioPcmToBuffer(decode(audio.data), this.outputAudioContext, 24000, 1);
+                  const src=this.outputAudioContext.createBufferSource();
+                  src.buffer=buf; src.connect(this.outputNode);
+                  src.addEventListener('ended',async ()=>{
+                    this.sources.delete(src);
+                    try{
+                      if(this.lastAssistantText && /[?]\s*$/.test(this.lastAssistantText.trim())){
+                        // Natural brief pause after a question
+                        await new Promise(r=>setTimeout(r, 450));
+                      }
+                    }catch(_){/* no-op */}
+                  });
+                  src.start(this.nextStartTime);
+                  this.nextStartTime+=buf.duration; this.sources.add(src);
+                }
+                if(message.serverContent?.interrupted){
+                  for(const s of this.sources){ try{s.stop();}catch(_){} }
+                  this.sources.clear(); this.nextStartTime=0;
+                }
+              },
+              onerror:(e)=>{
+                this.isConnected=false; this.sessionOpen=false; this.canSend=false; this.isRecording=false;
+                document.getElementById('loadingOverlay').style.display='none';
+                this.updateError('Connection error: '+e.message);
+                try{ console.error('[Sarah] live.onerror', e); }catch(_){ }
+              },
+              onclose:(e)=>{
+                this.isConnected=false; this.sessionOpen=false; this.canSend=false; this.isRecording=false;
+                document.getElementById('loadingOverlay').style.display='none';
+                this.updateStatus('Sarah disconnected: '+(e?.reason||''));
+                try{ console.warn('[Sarah] live.onclose', e); }catch(_){ }
+              }
+            },
+                config:{
+                  // Prefer audio responses; include text if available
+                  responseModalities:[Modality.AUDIO],
+                  // Live expects instructions as plain text
+                  instructions: sysText,
+                  // Explicit audio formats for low-latency PCM
+                  inputAudioFormat:{ encoding:'LINEAR16', sampleRateHertz:16000 },
+                  outputAudioFormat:{ encoding:'LINEAR16', sampleRateHertz:24000 }
+                }
+              });
+              connected=true; break;
+            }catch(err){
+              lastErr=err; console.warn('[Sarah] connect failed with model', model, err?.message||err);
+              continue;
+            }
+          }
+          if(!connected){ throw lastErr || new Error('No realtime-capable model available for this API key'); }
+        }catch(e){
+          console.error(e);
+          document.getElementById('loadingOverlay').style.display='none';
+          this.updateError('Failed to initialize Sarah: '+e.message);
+        }
+      }
+
+      showContactForm(){
+        const nEl=document.getElementById('leadName');
+        if(nEl && this.originalName){ nEl.value=this.originalName; }
+        document.getElementById('contactModal').style.display='flex';
+        this.updateStatus('Please share your contact details to book a consultation');
+      }
+      updateStatus(msg){ this.status=msg; const el=document.getElementById('status'); if(el) el.textContent=msg; }
+      updateError(msg){ this.error=msg; const el=document.getElementById('status'); if(el) el.textContent='Error: '+msg; }
+
+      appendTranscript(role, text){
+        if(!text) return;
+        try{ (window.__transcript = window.__transcript || []).push({ role, text, time:new Date().toISOString() }); }catch(_){ }
+      }
+
+      getTranscriptPayload(extra={}){
+        return {
+          meta: { page: location.pathname, at: new Date().toISOString(), name: this.originalName||'', userAgent: navigator.userAgent, ...extra },
+          transcript: (window.__transcript||[])
+        };
+      }
+
+      async postTranscript(extra={}){
+        try{
+          if(!this.hookUrl) return false;
+          const payload=this.getTranscriptPayload(extra);
+          await fetch(this.hookUrl, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+          return true;
+        }catch(e){ console.warn('Transcript POST failed:', e); return false; }
+      }
+
+      async startRecording(){
+        if(this.isRecording) return;
+        this.canSend=false;
+        if(!this.session || !this.isConnected){ await this.initSession(); }
+        this.inputAudioContext.resume();
+        this.updateStatus('Requesting microphone access...');
+        try{
+          this.mediaStream = await navigator.mediaDevices.getUserMedia({
+            audio: { echoCancellation:true, noiseSuppression:true, autoGainControl:true, channelCount:1, sampleRate:16000 },
+            video:false
+          });
+          this.updateStatus('Microphone ready - Sarah is listening...');
+          this.sourceNode = this.inputAudioContext.createMediaStreamSource(this.mediaStream);
+          // Re-tap input analyser directly from the mic source so visuals react immediately to your voice
+          try { this.inputAnalyser = new Analyser(this.sourceNode); } catch(_) {}
+          const workletOk = await this.ensureWorklet();
+          if(workletOk){
+            this.captureNode = new AudioWorkletNode(this.inputAudioContext, 'vcb-capture', { processorOptions:{ frameSize:1024 } });
+            this.captureNode.port.onmessage = (evt)=>{ const frame=evt.data; if(frame && frame.length) this.sendAudioFrame(frame); };
+            // audio graph: mic -> worklet -> gain(analyser) -> destination(silent)
+            this.sourceNode.connect(this.captureNode);
+            this.captureNode.connect(this.inputNode);
+          } else {
+            // Fallback: ScriptProcessorNode path
+            const proc = this.setupScriptProcessorFallback();
+            this.sourceNode.connect(proc);
+            proc.connect(this.inputNode);
+          }
+          // Keep analyser seeing real levels; mute via a downstream gain to avoid feedback
+          this.inputNode.gain.value = 1;
+          try {
+            this._muteNode = this._muteNode || this.inputAudioContext.createGain();
+            this._muteNode.gain.value = 0;
+            this.inputNode.connect(this._muteNode);
+            this._muteNode.connect(this.inputAudioContext.destination);
+          } catch(_) {}
+          // Ensure barge-in analyser reads from mic source (not capture output)
+          try { if(this.bargeInAnalyser && this.sourceNode){ this.sourceNode.connect(this.bargeInAnalyser); } } catch(_) {}
+          this.isRecording=true; this.updateStatus('Listening... You can start speaking to Sarah');
+          document.getElementById('startButton').disabled=true;
+          document.getElementById('stopButton').disabled=false;
+          // Optional local STT (Chromium) to capture USER transcript
+          try{
+            if(window.ENABLE_LOCAL_STT){
+              const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+              if(SR){
+                this.speechRec = new SR(); this.speechRec.continuous = true; this.speechRec.interimResults = false; this.speechRec.lang = 'en-ZA';
+                this.speechRec.onresult = (e)=>{
+                  const text = Array.from(e.results).slice(e.resultIndex).map(r=>r[0].transcript).join(' ').trim();
+                  if(text) this.appendTranscript('user', text);
+                };
+                try{ this.speechRec.start(); }catch(_){ }
+              }
+            }
+          }catch(_){ }
+          // Start barge-in monitoring loop
+          const timeData=new Uint8Array(this.bargeInAnalyser.fftSize);
+          let speakFrames=0;
+          const monitor=()=>{
+            if(!this.isRecording) return;
+            try{
+              this.bargeInAnalyser.getByteTimeDomainData(timeData);
+              let rms=0; for(let i=0;i<timeData.length;i++){ const v=(timeData[i]-128)/128; rms+=v*v; }
+              rms=Math.sqrt(rms/timeData.length);
+              const speaking=rms>0.045; // tweak as needed
+              // ramp output volume
+              const target=speaking?0.12:1.0;
+              const now=this.outputAudioContext.currentTime;
+              try{ this.outputNode.gain.cancelScheduledValues(now); this.outputNode.gain.linearRampToValueAtTime(target, now+0.12); }catch(_){ this.outputNode.gain.value=target; }
+              // hard interrupt if user keeps speaking for a few frames
+              speakFrames = speaking ? Math.min(speakFrames+1, 10) : 0;
+              if(speakFrames>=3 && this.sources.size>0){
+                // stop all current TTS to avoid talking over the user
+                for(const s of this.sources){ try{s.stop();}catch(_){} }
+                this.sources.clear();
+                this.nextStartTime = this.outputAudioContext.currentTime;
+              }
+            }catch(_){ /* ignore */ }
+            requestAnimationFrame(monitor);
+          };
+          requestAnimationFrame(monitor);
+        }catch(err){
+          console.error('Error starting recording:',err);
+          this.updateStatus('Microphone error: '+err.message);
+          this.stopRecording();
+        }
+      }
+
+      async ensureWorklet(){
+        if(this.workletReady) return true;
+        if(!this.inputAudioContext?.audioWorklet || !window.isSecureContext){
+          console.warn('AudioWorklet unavailable or insecure context. Falling back to ScriptProcessor.');
+          this.workletReady = false;
+          return false;
+        }
+        try{
+          const workletUrl = new URL('./vcb-capture.worklet.js', import.meta.url).toString();
+          await this.inputAudioContext.audioWorklet.addModule(workletUrl);
+          this.workletReady = true;
+          return true;
+        }catch(e){
+          console.warn('AudioWorklet addModule failed from file. Retrying with inline blob...', e);
+          try{
+            const code = `class VcbCaptureProcessor extends AudioWorkletProcessor{\n  constructor(options){ super(); this._f=(options && options.processorOptions && options.processorOptions.frameSize)||1024; }\n  process(inputs){ const i=inputs[0]; if(!i||!i[0]) return true; const ch=i[0]; this.port.postMessage(new Float32Array(ch)); return true; }\n}\nregisterProcessor('vcb-capture', VcbCaptureProcessor);`;
+            const blob = new Blob([code], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            await this.inputAudioContext.audioWorklet.addModule(url);
+            this.workletReady = true;
+            return true;
+          }catch(e2){
+            console.warn('AudioWorklet addModule failed. Using ScriptProcessor fallback.', e2);
+            this.workletReady = false;
+            return false;
+          }
+        }
+      }
+
+      setupScriptProcessorFallback(){
+        if(this.scriptProcessorNode) return this.scriptProcessorNode;
+        const frameSize = 1024;
+        const proc = this.inputAudioContext.createScriptProcessor(frameSize, 1, 1);
+        proc.onaudioprocess = (evt)=>{
+          const input = evt.inputBuffer.getChannelData(0);
+          const frame = new Float32Array(input.length);
+          frame.set(input);
+          this.sendAudioFrame(frame);
+        };
+        this.scriptProcessorNode = proc;
+        return proc;
+      }
+
+      sendAudioFrame(pcm){
+        if(!this.isRecording || !this.session || !this.isConnected || !this.sessionOpen || !this.canSend) return;
+        try{
+          this.session.sendRealtimeInput({ media: createBlob(pcm) });
+          if(++this.framesSent===1){ try{ console.log('[Sarah] streaming mic audio...'); this.updateStatus('Streaming audio to Sarah...'); }catch(_){ } }
+        }
+        catch(err){ console.warn('sendRealtimeInput failed:', err?.message||err); this.isConnected=false; this.sessionOpen=false; this.isRecording=false; }
+      }
+
+      stopRecording(){
+        if(!this.isRecording && !this.mediaStream && !this.inputAudioContext) return;
+        this.updateStatus('Ending consultation...');
+        this.isRecording=false;
+        try{
+          if(this.captureNode){ this.captureNode.disconnect(); this.captureNode.port.onmessage=null; }
+          if(this.sourceNode){ this.sourceNode.disconnect(); }
+          if(this.inputNode){ try{ this.inputNode.disconnect(); }catch(_){ } }
+        }catch(_){ }
+        this.captureNode=null; this.scriptProcessorNode=null; this.sourceNode=null;
+        if(this.mediaStream){ this.mediaStream.getTracks().forEach(t=>t.stop()); this.mediaStream=null; }
+        try{ if(this.speechRec){ this.speechRec.stop(); this.speechRec=null; } }catch(_){ }
+        // try auto-post if hook provided
+        this.postTranscript({ reason:'stop' });
+        this.updateStatus('Consultation ended. Visit vcb-ai.online to learn more.');
+        document.getElementById('startButton').disabled=false;
+        document.getElementById('stopButton').disabled=true;
+      }
+
+      reset(){
+        try{ this.session?.close(); }catch(_){}
+        this.isConnected=true; this.nameInfoSent=false; this.sources.clear(); this.nextStartTime=0;
+        this.initSession();
+        this.updateStatus('New consultation session started');
+      }
+
+      setUserName(name){
+        this.originalName=(name||'').trim();
+        this.userName=this.originalName.toLowerCase();
+        if(this.originalName){ this.updateStatus(`Welcome ${this.originalName}! Sarah is ready for your VCB consultation`); }
+      }
+
+      setupEventListeners(){
+        document.getElementById('startButton').addEventListener('click',()=>this.startRecording());
+        document.getElementById('stopButton').addEventListener('click',()=>this.stopRecording());
+        document.getElementById('resetButton').addEventListener('click',()=>this.reset());
+      }
+
+      // Minimal 3D scene with audio-reactive sphere (grayscale + blue accent)
+      init3D(){
+        const scene=new THREE.Scene(); scene.background=new THREE.Color(0x0e0f12);
+        const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000); camera.position.set(0,0,5);
+        const renderer=new THREE.WebGLRenderer({canvas:this.canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+        renderer.setSize(window.innerWidth,window.innerHeight); renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+        // calibrated tonemapping and energy for restrained glow
+        try{
+          renderer.physicallyCorrectLights = true;
+          renderer.toneMapping = THREE.ACESFilmicToneMapping;
+          renderer.toneMappingExposure = 0.95;
+        }catch(_){ }
+
+        // lights (neutral grays + subtle blue)
+        const key=new THREE.DirectionalLight(0xffffff,0.75); key.position.set(3,4,5); scene.add(key);
+        const fill=new THREE.DirectionalLight(0x6e86b8,0.18); fill.position.set(-5,-2,3); scene.add(fill); // touch of blue
+        const rim=new THREE.PointLight(0x2a3b5f,0.45,10); rim.position.set(-2,3,-1); scene.add(rim); // subtle blue rim
+        scene.add(new THREE.AmbientLight(0xffffff,0.12));
+
+        // geometry
+        const geo=new THREE.IcosahedronGeometry(1.25,6);
+        const mat=new THREE.MeshStandardMaterial({
+          color:0x141414,              // dark neutral gray
+          metalness:0.70,
+          roughness:0.22,
+          emissive:0x0a0f1a,           // blue-gray emissive (very subtle)
+          emissiveIntensity:0.35
+        });
+        const sphere=new THREE.Mesh(geo,mat); scene.add(sphere);
+
+        // post
+        const composer=new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene,camera));
+        const bloom=new UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),0.58,0.4,0.28);
+        composer.addPass(bloom);
+
+        // responsive
+        const onResize=()=>{
+          const w=window.innerWidth, h=window.innerHeight;
+          camera.aspect=w/h; camera.updateProjectionMatrix();
+          renderer.setSize(w,h); composer.setSize(w,h);
+        };
+        window.addEventListener('resize', onResize);
+        onResize();
+
+        // animate
+        // helper to compute mic RMS for stronger visual response
+        const getMicRms=()=>{
+          try{
+            if(this.bargeInAnalyser){
+              const td=new Uint8Array(this.bargeInAnalyser.fftSize);
+              this.bargeInAnalyser.getByteTimeDomainData(td);
+              let s=0; for(let i=0;i<td.length;i++){ const v=(td[i]-128)/128; s+=v*v; }
+              return Math.sqrt(s/td.length);
+            }
+          }catch(_){ }
+          return 0;
+        };
+        const animate=()=>{
+          requestAnimationFrame(animate);
+          // Drive the orb from both TTS (output) and mic (input) so it reacts when you talk
+          let bass=0, mid=0;
+          if(this.outputAnalyser){ this.outputAnalyser.update(); bass=Math.max(bass, this.outputAnalyser.data[1]/255); mid=Math.max(mid, this.outputAnalyser.data[4]/255); }
+          if(this.inputAnalyser){ this.inputAnalyser.update(); bass=Math.max(bass, this.inputAnalyser.data[1]/255*0.9); mid=Math.max(mid, this.inputAnalyser.data[4]/255*0.7); }
+          const mic = getMicRms();
+          // Fallback idle motion if no analyzers
+          if(bass===0 && mid===0 && mic===0){ sphere.rotation.y += 0.0025; sphere.rotation.x += 0.001; composer.render(); return; }
+          const scaleBoost = 0.45*mic + 0.22*bass;
+          sphere.scale.setScalar(1 + Math.min(0.9, scaleBoost));
+          sphere.rotation.y += 0.004 + 0.012*mid + 0.01*mic;
+          sphere.rotation.x += 0.002 + 0.008*bass + 0.006*mic;
+          composer.render();
+        };
+        animate();
+      }
+    }
+
+    // Global helpers referenced by buttons
+    window.submitName=function(){
+      const name=document.getElementById('nameInput').value.trim();
+      if(name){ app.setUserName(name); document.getElementById('nameModal').style.display='none'; }
+      else{ alert('Please enter your name to begin the consultation'); }
+    }
+    window.submitLeadDetails=function(){
+      const name=(document.getElementById('leadName')?.value||'').trim();
+      const company=(document.getElementById('leadCompany')?.value||'').trim();
+      const email=(document.getElementById('leadEmail')?.value||'').trim();
+      const usecase=(document.getElementById('leadUsecase')?.value||'').trim();
+      const channels=(document.getElementById('leadChannels')?.value||'').trim();
+      const timeline=(document.getElementById('leadTimeline')?.value||'').trim();
+      if(!name||!company||!email){ alert('Please fill in your name, company, and email'); return; }
+      const lead={ name, company, email, usecase, channels, timeline, ts:new Date().toISOString() };
+      console.log('Lead collected:', lead);
+      document.getElementById('contactModal').style.display='none';
+      app.updateStatus('Thanks! A VCB specialist will reach out to schedule a consultation.');
+      alert(`Thank you${name?` ${name}`:''}! We will contact you to schedule a consultation.`);
+      try{ app.postTranscript({ reason:'lead', lead }); }catch(_){ }
+    }
+    window.cancelLead=function(){ document.getElementById('contactModal').style.display='none'; app.updateStatus('You can continue exploring or say “book a consultation” to open the form'); }
+
+    // Bootstrap
+    let app;
+    document.addEventListener('DOMContentLoaded',()=>{
+      try{ const el=document.getElementById('status'); if(el) el.textContent='Booting Sarah UI...'; }catch(_){ }
+      try{
+        window.addEventListener('error',(e)=>{ const el=document.getElementById('status'); if(el) el.textContent='Error: '+(e?.message||'Unknown'); });
+        window.addEventListener('unhandledrejection',(e)=>{ const el=document.getElementById('status'); const msg=(e?.reason?.message||String(e?.reason)||'Unknown'); if(el) el.textContent='Error: '+msg; });
+      }catch(_){ }
+      createParticles();
+      app = new PlatinumLifeSalesAgent();
+      // Soft notice for insecure contexts (file://) that can break AudioWorklet
+      try{
+        const secureOk = (window.isSecureContext || location.hostname==='localhost');
+        if(!secureOk){
+          const el=document.getElementById('status');
+          if(el){ el.textContent='Open via http://localhost or HTTPS for low‑latency audio. Fallback mode enabled.'; }
+        }
+      }catch(_){ }
+      const nameInput=document.getElementById('nameInput');
+      if(nameInput){ nameInput.addEventListener('keypress',(e)=>{ if(e.key==='Enter') submitName(); }); nameInput.focus(); }
+      const dl=document.getElementById('downloadButton');
+      if(dl){ dl.addEventListener('click', ()=>{
+        const lines=(window.__transcript||[]).map(t=>`[${t.time}] ${t.role.toUpperCase()}: ${t.text}`).join('\n');
+        const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([lines||''],{type:'text/plain'}));
+        a.download=`transcript-${new Date().toISOString().replace(/[:.]/g,'-')}.txt`; a.click();
+      }); }
+    });
+  </script>
+</body>
+</html>
+

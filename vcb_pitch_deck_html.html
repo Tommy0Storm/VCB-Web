@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCB Investment Pitch Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 300;
+            overflow: hidden;
+            background: #fff;
+            color: #000;
+        }
+
+        .deck-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-area {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .slide-content {
+            height: 100%;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-number {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-body {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* Cover and Closing Slides */
+        .cover-slide, .closing-slide {
+            background: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem;
+        }
+
+        .cover-slide img {
+            width: 300px;
+            margin-bottom: 4rem;
+        }
+
+        .cover-slide h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-slide h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.075em;
+            line-height: 1.4;
+        }
+
+        .tagline {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: #c0c0c0;
+            margin-top: 1rem;
+        }
+
+        .closing-slide h1 {
+            font-size: 3.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+        }
+
+        .closing-slide h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 4rem;
+        }
+
+        .closing-divider {
+            border-top: 1px solid #666;
+            padding-top: 2rem;
+            width: 100%;
+            max-width: 48rem;
+        }
+
+        .closing-divider p:first-child {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .closing-divider p:nth-child(2) {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+        }
+
+        .contact-info p:first-child {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info p:last-child {
+            color: #999;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            border: 1px solid #e0e0e0;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            border-left: 4px solid #000;
+            background: #f8f8f8;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #000;
+            color: #fff;
+            padding: 2.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        /* Content Spacing */
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+
+        .space-y-10 > * + * {
+            margin-top: 2.5rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .subsection-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .subsection-text {
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* Table Styling */
+        .financial-table {
+            margin: 2rem 0;
+        }
+
+        .table-header {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .table-row {
+            padding-top: 0.75rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .table-total {
+            padding-top: 1rem;
+            border-top: 2px solid #000;
+            font-weight: 700;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        /* Team Cards */
+        .team-avatar {
+            width: 8rem;
+            height: 8rem;
+            border-radius: 50%;
+            background: #e0e0e0;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #666;
+        }
+
+        .team-name {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-bio {
+            font-size: 0.75rem;
+            font-weight: 300;
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            height: 4rem;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            background: #fff;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            color: #000;
+            transition: background 0.2s;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: #f0f0f0;
+        }
+
+        .nav-button:disabled {
+            color: #d0d0d0;
+            cursor: not-allowed;
+        }
+
+        .nav-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .slide-counter {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .slide-indicators {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .indicator-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background: #d0d0d0;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0;
+        }
+
+        .indicator-dot.active {
+            background: #000;
+            width: 2rem;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="deck-container">
+        <div class="slide-area">
+            <!-- Slide 1: Cover -->
+            <div class="slide active cover-slide">
+                <img src="https://i.postimg.cc/xdJqP9br/logo-transparent-Black-Back.png" alt="VCB Logo">
+                <h1>Investment Prospectus</h1>
+                <h2>Africa's AI Dominance<br>Built on Proven Technology</h2>
+                <p class="tagline">Where Vision Becomes Viable</p>
+            </div>
+
+            <!-- Slide 2: The Problem -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">1.0</div>
+                        <h2 class="slide-title">The Market Disruption</h2>
+                    </div>
+                    <div class="slide-body space-y-10">
+                        <div class="grid-3">
+                            <div class="metric-card">
+                                <div class="metric-value">238K</div>
+                                <div class="metric-label">Employers Facing Compliance Crisis</div>
+                                <p class="subsection-text" style="margin-top: 1rem; font-size: 0.875rem;">Constitutional Court ruling mandates live hearings for all disciplinary actions</p>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">95%</div>
+                                <div class="metric-label">Businesses Affected by Load-Shedding</div>
+                                <p class="subsection-text" style="margin-top: 1rem; font-size: 0.875rem;">International SaaS fails under South African infrastructure reality</p>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">R50K</div>
+                                <div class="metric-label">Cost Per Legal Hearing</div>
+                                <p class="subsection-text" style="margin-top: 1rem; font-size: 0.875rem;">SMEs cannot afford constitutional compliance at current rates</p>
+                            </div>
+                        </div>
+                        <div class="highlight-box">
+                            <p class="subsection-text" style="font-size: 1.125rem;">Three simultaneous market disruptions have created urgent demand for AI solutions that international competitors cannot deliver</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: The Solution -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">2.0</div>
+                        <h2 class="slide-title">Our Solution: Specialized AI Dominance</h2>
+                    </div>
+                    <div class="slide-body space-y-8">
+                        <div class="grid-2" style="gap: 3rem;">
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="subsection-title">2.1 LIANELA Legal Compliance</div>
+                                    <p class="subsection-text">AI-guided disciplinary hearings delivering constitutional compliance at R2,500 per case versus R50,000 traditional legal costs</p>
+                                </div>
+                                <div>
+                                    <div class="subsection-title">2.2 Voice AI Infrastructure</div>
+                                    <p class="subsection-text">Load-shedding resilient conversational AI with South African accent optimization and offline-capable architecture</p>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="subsection-title">2.3 Project Dark Matter</div>
+                                    <p class="subsection-text">Supervised fine-tuned legal reasoning model outperforming international RAG systems on South African jurisprudence</p>
+                                </div>
+                                <div>
+                                    <div class="subsection-title">2.4 Enterprise Infrastructure</div>
+                                    <p class="subsection-text">Cloud platforms engineered for intermittent connectivity and infrastructure instability</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cta-section">
+                            <p style="font-size: 1.25rem; font-weight: 300;">We do not compete on features. We compete on architectural superiority for African conditions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Market Opportunity -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">3.0</div>
+                        <h2 class="slide-title">Market Opportunity</h2>
+                    </div>
+                    <div class="slide-body space-y-10">
+                        <div class="grid-4">
+                            <div class="text-center">
+                                <div class="metric-value" style="font-size: 2rem;">R18B</div>
+                                <div class="metric-label">Legal Tech TAM</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="metric-value" style="font-size: 2rem;">R45B</div>
+                                <div class="metric-label">Contact Center AI</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="metric-value" style="font-size: 2rem;">R12B</div>
+                                <div class="metric-label">HR Compliance</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="metric-value" style="font-size: 2rem;">R75B+</div>
+                                <div class="metric-label">Total Addressable</div>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="subsection-title">3.1 Regulatory Catalyst</div>
+                                <p class="subsection-text">Chirwa Constitutional Court judgment created immediate compliance obligations for 238,000 employers with no affordable solution available</p>
+                            </div>
+                            <div>
+                                <div class="subsection-title">3.2 Infrastructure Crisis</div>
+                                <p class="subsection-text">Ongoing load-shedding eliminated international SaaS viability, creating permanent demand for resilient local solutions</p>
+                            </div>
+                            <div>
+                                <div class="subsection-title">3.3 First-Mover Advantage</div>
+                                <p class="subsection-text">No competitor offers our combination of legal AI expertise, infrastructure resilience, and transformation credentials</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Technology Moat -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">4.0</div>
+                        <h2 class="slide-title">Technology Moat: Project Dark Matter</h2>
+                    </div>
+                    <div class="slide-body space-y-8">
+                        <div class="highlight-box">
+                            <div class="subsection-title">4.1 Architectural Superiority</div>
+                            <p class="subsection-text" style="font-size: 1.125rem; margin-bottom: 1rem;">Supervised fine-tuning embeds South African legal reasoning directly into neural parameters versus RAG's external database retrieval</p>
+                            <div class="grid-2" style="gap: 2rem; margin-top: 1.5rem;">
+                                <div>
+                                    <div class="font-bold mb-3">Traditional RAG Systems</div>
+                                    <p style="font-size: 0.875rem; color: #666;">Chunk documents → Search fragments → Lose context → Limited reasoning</p>
+                                </div>
+                                <div>
+                                    <div class="font-bold mb-3">Project Dark Matter</div>
+                                    <p style="font-size: 0.875rem; color: #666;">1M token context → Complete case analysis → Intrinsic expertise → Superior outcomes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="subsection-title">4.2 Performance Validation</div>
+                                <p class="subsection-text">Independent benchmarking confirms superiority to Anthropic Claude 3.5 Sonnet across six legal reasoning capabilities including judicial reasoning, precedent analysis, and outcome prediction</p>
+                            </div>
+                            <div>
+                                <div class="subsection-title">4.3 Competitive Moat</div>
+                                <p class="subsection-text">This is not incremental improvement but generational architectural difference requiring complete system redesign to replicate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Traction -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">5.0</div>
+                        <h2 class="slide-title">Traction & Validation</h2>
+                    </div>
+                    <div class="slide-body space-y-10">
+                        <div class="grid-3">
+                            <div class="metric-card text-center">
+                                <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.75rem;">✓</div>
+                                <div class="metric-label" style="margin-bottom: 0.5rem;">Technology Proven</div>
+                                <p style="font-size: 0.875rem; font-weight: 300;">Project Dark Matter operational and benchmarked superior to international models</p>
+                            </div>
+                            <div class="metric-card text-center">
+                                <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.75rem;">✓</div>
+                                <div class="metric-label" style="margin-bottom: 0.5rem;">Market Validated</div>
+                                <p style="font-size: 0.875rem; font-weight: 300;">LIANELA pilot deployments confirm R2,500 price point with 94% satisfaction</p>
+                            </div>
+                            <div class="metric-card text-center">
+                                <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.75rem;">✓</div>
+                                <div class="metric-label" style="margin-bottom: 0.5rem;">Infrastructure Resilient</div>
+                                <p style="font-size: 0.875rem; font-weight: 300;">Voice AI operating through Stage 6 load-shedding with zero downtime</p>
+                            </div>
+                        </div>
+                        <div class="highlight-box">
+                            <div class="subsection-title">5.1 Key Insight</div>
+                            <p class="subsection-text" style="font-size: 1.125rem;">This is not speculative early-stage technology investment. VCB has built, deployed, and validated superior AI capabilities. This funding accelerates proven systems to market dominance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Competitive Advantage -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">6.0</div>
+                        <h2 class="slide-title">Transformation as Strategic Moat</h2>
+                    </div>
+                    <div class="slide-body space-y-8">
+                        <div class="cta-section">
+                            <h2 style="font-size: 1.875rem; margin-bottom: 1rem;">51% Black Ownership = 125% B-BBEE Recognition</h2>
+                            <p style="font-size: 1.125rem; font-weight: 300;">Level Two B-BBEE status creates 20% effective price advantage over non-transformed competitors</p>
+                        </div>
+                        <div class="grid-2" style="gap: 2rem;">
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="subsection-title">6.1 Procurement Advantage</div>
+                                    <p class="subsection-text">Corporate clients receive R1.25 in B-BBEE value for every R1 spent with VCB, making identical services 20% more valuable than international competitors</p>
+                                </div>
+                                <div>
+                                    <div class="subsection-title">6.2 Government Access</div>
+                                    <p class="subsection-text">Mandatory transformation requirements in public sector AI procurement create exclusive bidding opportunities</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="subsection-title">6.3 Development Finance</div>
+                                    <p class="subsection-text">Preferential access to impact capital and development finance institutions mandating Black-owned technology support</p>
+                                </div>
+                                <div>
+                                    <div class="subsection-title">6.4 Irreplicable Barrier</div>
+                                    <p class="subsection-text">International competitors cannot acquire this advantage regardless of technical capability or financial resources</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Business Model -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">7.0</div>
+                        <h2 class="slide-title">Revenue Model & Unit Economics</h2>
+                    </div>
+                    <div class="slide-body space-y-8">
+                        <div class="grid-4">
+                            <div class="metric-card">
+                                <div class="metric-value">78%</div>
+                                <div class="metric-label">Gross Margin</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">6mo</div>
+                                <div class="metric-label">CAC Payback</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">6.8x</div>
+                                <div class="metric-label">LTV:CAC Ratio</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">95%</div>
+                                <div class="metric-label">Target Retention</div>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="subsection-title">7.1 Multi-Product Revenue Streams</div>
+                                <p class="subsection-text">Voice AI subscriptions, LIANELA per-case fees, Legal AI enterprise licenses, and infrastructure platform revenue create diversified, recurring income</p>
+                            </div>
+                            <div>
+                                <div class="subsection-title">7.2 Transformation-Driven CAC Reduction</div>
+                                <p class="subsection-text">B-BBEE credentials reduce customer acquisition costs by 40% relative to international competitors through preferential procurement and mandatory transformation quotas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Financial Projections -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">8.0</div>
+                        <h2 class="slide-title">Financial Projections</h2>
+                    </div>
+                    <div class="slide-body">
+                        <div class="subsection-title" style="margin-bottom: 1rem;">8.1 Conservative Growth Scenario</div>
+                        <div class="financial-table">
+                            <div class="grid-5 table-header">
+                                <div class="text-left">Product Vertical</div>
+                                <div>Year 1</div>
+                                <div>Year 2</div>
+                                <div>Year 3</div>
+                                <div>Year 5</div>
+                            </div>
+                            <div class="grid-5 table-row">
+                                <div class="text-left" style="font-size: 0.875rem;">Voice & Omnichannel</div>
+                                <div style="font-size: 0.875rem;">R2.4M</div>
+                                <div style="font-size: 0.875rem;">R9.6M</div>
+                                <div style="font-size: 0.875rem;">R22.5M</div>
+                                <div style="font-size: 0.875rem; font-weight: 700;">R67M</div>
+                            </div>
+                            <div class="grid-5 table-row">
+                                <div class="text-left" style="font-size: 0.875rem;">LIANELA Compliance</div>
+                                <div style="font-size: 0.875rem;">R0.6M</div>
+                                <div style="font-size: 0.875rem;">R2.5M</div>
+                                <div style="font-size: 0.875rem;">R6.8M</div>
+                                <div style="font-size: 0.875rem; font-weight: 700;">R18M</div>
+                            </div>
+                            <div class="grid-5 table-row">
+                                <div class="text-left" style="font-size: 0.875rem;">Legal AI Platform</div>
+                                <div style="font-size: 0.875rem;">R0.8M</div>
+                                <div style="font-size: 0.875rem;">R3.2M</div>
+                                <div style="font-size: 0.875rem;">R8.5M</div>
+                                <div style="font-size: 0.875rem; font-weight: 700;">R24M</div>
+                            </div>
+                            <div class="grid-5 table-row">
+                                <div class="text-left" style="font-size: 0.875rem;">Enterprise Infrastructure</div>
+                                <div style="font-size: 0.875rem;">R1.2M</div>
+                                <div style="font-size: 0.875rem;">R4.8M</div>
+                                <div style="font-size: 0.875rem;">R11.2M</div>
+                                <div style="font-size: 0.875rem; font-weight: 700;">R31M</div>
+                            </div>
+                            <div class="grid-5 table-total">
+                                <div class="text-left" style="font-size: 0.875rem;">TOTAL REVENUE</div>
+                                <div style="font-size: 1.125rem;">R5.0M</div>
+                                <div style="font-size: 1.125rem;">R20.1M</div>
+                                <div style="font-size: 1.125rem;">R49.0M</div>
+                                <div style="font-size: 1.5rem;">R140M</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: The Ask -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">9.0</div>
+                        <h2 class="slide-title">The Investment Ask</h2>
+                    </div>
+                    <div class="slide-body space-y-10">
+                        <div class="cta-section">
+                            <h2 style="font-size: 3rem;">R25 Million Primary Round</h2>
+                            <p style="font-size: 1.25rem; font-weight: 300;">Strategic growth capital for market dominance deployment</p>
+                        </div>
+                        <div class="grid-3">
+                            <div class="metric-card">
+                                <div class="subsection-title">9.1 Engineering (38%)</div>
+                                <div class="metric-value" style="font-size: 1.875rem; margin: 0.75rem 0;">R9.5M</div>
+                                <p style="font-size: 0.875rem; font-weight: 300;">Hire 12 senior AI engineers, accelerate product roadmap, maintain architectural leadership</p>
+                            </div>
+                            <div class="metric-card">
+                                <div class="subsection-title">9.2 Sales Infrastructure (32%)</div>
+                                <div class="metric-value" style="font-size: 1.875rem; margin: 0.75rem 0;">R8.0M</div>
+                                <p style="font-size: 0.875rem; font-weight: 300;">Build enterprise sales team, SME channel partnerships, marketing automation</p>
+                            </div>
+                            <div class="metric-card">
+                                <div class="subsection-title">9.3 Customer Success (20%)</div>
+                                <div class="metric-value" style="font-size: 1.875rem; margin: 0.75rem 0;">R5.0M</div>
+                                <p style="font-size: 0.875rem; font-weight: 300;">Customer success organization, 24/7 technical support, enterprise SLA compliance</p>
+                            </div>
+                        </div>
+                        <div class="highlight-box">
+                            <p class="subsection-text" style="font-size: 1.125rem;">This capital does not fund product development or market validation. Those phases are complete. This funding accelerates proven capabilities to market dominance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Team -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">10.0</div>
+                        <h2 class="slide-title">Leadership Team</h2>
+                    </div>
+                    <div class="slide-body space-y-10">
+                        <div class="grid-3">
+                            <div class="text-center">
+                                <div class="team-avatar">TF</div>
+                                <div class="team-name">Tommy Ferreira</div>
+                                <div class="team-title">CTO & Co-Founder</div>
+                                <p class="team-bio">30+ years technical engineering, CISSP since 2006, Project Dark Matter architect</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="team-avatar">DB</div>
+                                <div class="team-name">Dawn Beech</div>
+                                <div class="team-title">CEO & Co-Founder</div>
+                                <p class="team-bio">Strategic partnerships and market execution leadership</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="team-avatar">NB</div>
+                                <div class="team-name">Advocate Nandi Basson</div>
+                                <div class="team-title">Chief Legal Officer</div>
+                                <p class="team-bio">High Court Advocate, legal compliance and regulatory strategy</p>
+                            </div>
+                        </div>
+                        <div class="highlight-box">
+                            <div class="subsection-title">10.1 Advisory & Governance</div>
+                            <p class="subsection-text">Nkuli Mbundu (Non-Executive Director, 30% shareholder): Former MMC Economic Development Johannesburg, current executive Liquid Telecoms, delivers public sector relationships and B-BBEE Level Two status</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Why Now -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">11.0</div>
+                        <h2 class="slide-title">Why Now? Market Timing is Critical</h2>
+                    </div>
+                    <div class="slide-body space-y-10">
+                        <div class="grid-2" style="gap: 2.5rem;">
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="subsection-title">11.1 Regulatory Window</div>
+                                    <p class="subsection-text">Chirwa judgment created immediate compliance crisis with no affordable solutions available. First mover captures market before international competitors adapt</p>
+                                </div>
+                                <div>
+                                    <div class="subsection-title">11.2 Technology Maturity</div>
+                                    <p class="subsection-text">Project Dark Matter represents 18 months of specialized development that competitors must replicate to match our capabilities</p>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="subsection-title">11.3 Infrastructure Crisis Permanence</div>
+                                    <p class="subsection-text">Load-shedding is structural, not cyclical. Solutions engineered for South African conditions become permanent competitive advantages</p>
+                                </div>
+                                <div>
+                                    <div class="subsection-title">11.4 Transformation Requirements</div>
+                                    <p class="subsection-text">Public sector AI procurement increasingly mandates transformation credentials that international players cannot acquire</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cta-section">
+                            <p style="font-size: 1.25rem; font-weight: 300;">The question is not whether to invest in African AI. The question is whether to invest before or after international competitors recognize the opportunity</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Vision -->
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="section-number">12.0</div>
+                        <h2 class="slide-title">Vision: Technology Sovereignty for Africa</h2>
+                    </div>
+                    <div class="slide-body space-y-10">
+                        <div class="highlight-box">
+                            <p class="subsection-text" style="font-size: 1.25rem; margin-bottom: 1rem;">VCB proves that world-class AI innovation originates from Africa to solve African problems</p>
+                            <p class="subsection-text">Our success demonstrates technological sovereignty—that cutting-edge artificial intelligence development happens locally, creates local wealth, and empowers local institutions</p>
+                        </div>
+                        <div class="grid-3">
+                            <div class="metric-card text-center">
+                                <div class="metric-value">75</div>
+                                <div class="metric-label" style="margin-bottom: 0.5rem;">High-Value Jobs by Year 3</div>
+                                <p class="team-bio">60% from previously disadvantaged backgrounds in technical roles</p>
+                            </div>
+                            <div class="metric-card text-center">
+                                <div class="metric-value">800</div>
+                                <div class="metric-label" style="margin-bottom: 0.5rem;">SMEs Empowered Year 3</div>
+                                <p class="team-bio">Access to constitutional compliance without legal department costs</p>
+                            </div>
+                            <div class="metric-card text-center">
+                                <div class="metric-value">51%</div>
+                                <div class="metric-label" style="margin-bottom: 0.5rem;">Black Ownership</div>
+                                <p class="team-bio">Wealth creation flows to historically disadvantaged stakeholders</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="subsection-title">12.1 For Impact Investors</div>
+                                <p class="subsection-text">VCB delivers exceptional financial returns while creating measurable economic transformation, skills development, and technological independence for Africa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Closing -->
+            <div class="slide closing-slide">
+                <h1>We Have Built the Capability</h1>
+                <h2>We Need the Capital to Deploy It at Scale</h2>
+                <div class="closing-divider">
+                    <p>The Market is Ready. The Technology is Proven.</p>
+                    <p>Dominance Awaits Deployment</p>
+                </div>
+                <div class="contact-info">
+                    <p>Tommy Ferreira, CTO</p>
+                    <p>tommy@vcb-ai.online</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <button class="nav-button" id="prevBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            
+            <div class="nav-info">
+                <div class="slide-counter" id="slideCounter">Slide 1 of 14</div>
+                <div class="slide-indicators" id="indicators"></div>
+            </div>
+
+            <button class="nav-button" id="nextBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize deck state
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const indicators = document.getElementById('indicators');
+
+        // Create indicator dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'indicator-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            indicators.appendChild(dot);
+        }
+
+        // Update slide display
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            // Update indicators
+            const dots = indicators.querySelectorAll('.indicator-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            // Update counter
+            slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        // Navigate to specific slide
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+
+        // Navigate to next slide
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        // Navigate to previous slide
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Event listeners for buttons
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>

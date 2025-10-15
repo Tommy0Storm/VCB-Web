@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NR7C688Z');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --><meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LIANELA VOICE — Judicial Reasoning Engine | VCB</title>
+
+  <!-- Quicksand: 400, 500, 600, 700 (enhanced readability) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Same palette as About Us */
+      --black:#0B0B0B;
+      --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+      --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+      --white:#fff;
+      --max:1200px; --radius:18px;
+      --shadow:0 4px 24px rgba(0,0,0,.06), 0 12px 48px rgba(0,0,0,.04);
+      --shadow-lg:0 8px 32px rgba(0,0,0,.08), 0 20px 64px rgba(0,0,0,.06);
+      --glow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    html,body{
+      margin:0; background:transparent; color:var(--g-900);
+      font-family:"Quicksand",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-weight:400; line-height:1.65; -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+    }
+    h1,h2,h3,h4{
+      font-weight:600; color:var(--black); margin:0 0 .5rem; letter-spacing:.2px;
+      text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
+    }
+    h1{ font-size:clamp(32px,4vw,46px); font-weight:700; }
+    h2{ font-size:clamp(24px,3vw,30px); font-weight:600; }
+    h3{ font-size:clamp(18px,2.2vw,22px); color:var(--g-800); font-weight:600; }
+    p{ margin:.35rem 0 1rem; color:var(--g-700); font-weight:400; }
+    ul{ margin:.2rem 0 1rem 1.1rem; padding:0; }
+    li{ margin:.25rem 0; color:var(--g-800); font-weight:400; }
+
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:44px 0; }
+    .divider{ height:1px; background:var(--g-100); margin:26px 0; }
+
+    /* Particle background iframe */
+    #particle-bg{
+      position:fixed; inset:0; z-index:-3; pointer-events:none;
+      width:100%; height:100%; border:0; background:transparent;
+    }
+
+    /* Subtle animated grid bg */
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px);
+      transform:translateZ(0);
+      animation:gridFloat 32s linear infinite;
+    }
+    @keyframes gridFloat{ to{ transform:translate3d(-48px,-48px,0); } }
+
+    /* Sticky glass NAV with wire mesh */
+    .top{
+      position:sticky; top:0; z-index:1000; overflow:visible;
+      background:rgba(255,255,255,0.95);
+      -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(239,239,239,0.8);
+    }
+    #mesh-canvas{
+      position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
+      width:100%; height:100%;
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+    .brand{ display:flex; align-items:center; }
+    .brand img{ height:240px; width:auto; max-width:none; flex-shrink:0; object-fit:contain; mix-blend-mode:multiply; }
+    .nav nav a{
+      color:var(--g-700); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
+      font-size:2em; font-weight:700;
+      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-rendering:optimizeLegibility;
+    }
+    .nav nav a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
+      transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
+    }
+    .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
+    .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+    /* Dropdown Menu Styles */
+    .nav nav .dropdown{
+      position:relative;
+      display:inline-block;
+      margin-left:16px;
+    }
+    .nav nav .dropdown > a{
+      margin-left:0;
+      cursor:pointer;
+    }
+    .nav nav .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      min-width:220px;
+      background:rgba(255,255,255,0.98);
+      -webkit-backdrop-filter:blur(12px);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:12px;
+      box-shadow:0 8px 32px rgba(0,0,0,.12), 0 16px 64px rgba(0,0,0,.08);
+      padding:8px 0;
+      margin-top:8px;
+      z-index:1001;
+    }
+    .nav nav .dropdown:hover .dropdown-content{
+      display:block;
+      animation:dropdownFadeIn 0.3s ease;
+    }
+    @keyframes dropdownFadeIn{
+      from{
+        opacity:0;
+        transform:translateY(-8px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+    .nav nav .dropdown-content a{
+      display:block;
+      margin:0;
+      padding:12px 20px;
+      font-size:1em;
+      font-weight:600;
+      color:var(--g-700);
+      text-decoration:none;
+      transition:all .2s ease;
+    }
+    .nav nav .dropdown-content a::after{
+      display:none;
+    }
+    .nav nav .dropdown-content a:hover{
+      background:linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+      color:var(--black);
+      transform:translateX(4px);
+    }
+
+    /* Hero */
+    .hero{ padding:44px 0 24px; }
+    .slogan{ font-size:clamp(26px,3.6vw,38px); color:var(--black); }
+    .lede{ color:var(--g-600); max-width:860px; font-weight:400; }
+
+    /* Badges under hero */
+    .badges{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .badge{
+      border:1px solid var(--g-200); color:var(--g-800);
+      border-radius:999px; padding:6px 10px; font-size:13px; background:#FAFAFA;
+      font-weight:500;
+    }
+
+    .context-toggle{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      margin:18px auto 28px;
+      flex-wrap:wrap;
+    }
+    .context-btn{
+      background:rgba(250,250,250,0.92);
+      border:1px solid var(--g-200);
+      border-radius:999px;
+      padding:10px 22px;
+      font-size:0.85rem;
+      font-weight:600;
+      letter-spacing:0.5px;
+      text-transform:uppercase;
+      color:var(--g-600);
+      cursor:pointer;
+      transition:all .3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .context-btn:hover{
+      border-color:var(--g-400);
+      color:var(--black);
+      transform:translateY(-1px);
+    }
+    .context-btn.active{
+      background:var(--black);
+      color:var(--white);
+      border-color:var(--black);
+      box-shadow:0 12px 26px rgba(0,0,0,.16);
+    }
+    .chart-container{
+      position:relative;
+      margin:0 auto;
+      width:100%;
+      max-width:540px;
+      height:340px;
+    }
+    @media(max-width:600px){
+      .chart-container{ height:300px; }
+    }
+    .hidden{ display:none !important; }
+
+    /* Cards & grids */
+    .card{
+      position:relative;
+      background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:0 4px 24px rgba(0,0,0,.06), 0 12px 48px rgba(0,0,0,.04);
+      transform:translateZ(0);
+      transition:all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    }
+    .card::before{
+      content:""; position:absolute; inset:-1px; border-radius:calc(var(--radius) + 1px);
+      background:conic-gradient(from 120deg, rgba(11,11,11,.12), rgba(42,42,42,0), rgba(11,11,11,.12));
+      z-index:-1; opacity:0; transition:opacity .5s ease;
+    }
+    .card::after{
+      content:""; position:absolute; inset:0; border-radius:var(--radius);
+      background:linear-gradient(135deg, rgba(255,255,255,.9) 0%, rgba(245,245,245,.3) 100%);
+      opacity:0; transition:opacity .5s ease; pointer-events:none;
+    }
+    .card:hover::before{ opacity:1; animation:rotateGlow 3s linear infinite; }
+    @keyframes rotateGlow{ to{ transform:rotate(360deg); } }
+    .card:hover::after{ opacity:.4; }
+    .card:hover{
+      transform:translateY(-18px) scale(1.025);
+      box-shadow:0 16px 48px rgba(0,0,0,.14), 0 32px 96px rgba(0,0,0,.1), 0 0 0 1px rgba(11,11,11,.12), 0 0 24px rgba(11,11,11,.06);
+      border-color:rgba(11,11,11,.18);
+    }
+    .grid-3{ display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-3{ grid-template-columns:repeat(3,1fr); } }
+    .grid-2{ display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-2{ grid-template-columns:repeat(2,1fr); } }
+
+    /* Stats */
+    .stats{ display:grid; gap:18px; grid-template-columns:1fr 1fr; }
+    @media(min-width:900px){ .stats{ grid-template-columns:repeat(4,1fr); } }
+    .stat{
+      background:#FAFAFA; border:1px solid var(--g-100); border-left:4px solid var(--g-800);
+      border-radius:12px; padding:18px; text-align:center;
+    }
+    .stat .n{ font-size:clamp(22px,2.6vw,32px); font-weight:500; color:var(--black); line-height:1; }
+    .stat .l{ color:var(--g-600); font-size:.9rem; margin-top:6px; }
+    .note{ font-size:13px; color:var(--g-400); margin-top:8px; }
+
+    /* Dials (non-monetary composite indices) */
+    .dials{ display:grid; gap:18px; grid-template-columns:1fr 1fr; margin-top:8px; }
+    @media(min-width:900px){ .dials{ grid-template-columns:repeat(5,1fr); } }
+    .dial{
+      --p:75;
+      width:140px; aspect-ratio:1; margin:0 auto;
+      background: conic-gradient(var(--black) calc(var(--p) * 1%), var(--g-100) 0);
+      border-radius:50%; position:relative; display:grid; place-items:center;
+    }
+    .dial:before{
+      content:""; position:absolute; inset:10px; background:#fff; border-radius:50%;
+      box-shadow: inset 0 0 0 1px var(--g-100);
+    }
+    .dial .v{ position:relative; font-weight:500; font-size:22px; color:var(--black); }
+    .dial .k{ text-align:center; margin-top:10px; font-weight:500; color:var(--black); }
+    .dial .s{ text-align:center; font-size:12px; color:var(--g-500); margin-top:4px; }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:24px 0 36px; }
+    .btn{ display:inline-block; border:1px solid var(--g-700); color:var(--g-700); text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:600; text-rendering:optimizeLegibility; }
+    .btn:hover{ border-color:var(--black); color:var(--black); }
+
+    /* Mobile Optimization */
+    @media(max-width:768px){
+      .wrap{ padding:0 16px; }
+      .brand img{ height:240px; width:auto; max-width:none; flex-shrink:0; object-fit:contain; mix-blend-mode:multiply; }
+      .nav{ padding:6px 0; flex-wrap:wrap; gap:8px; }
+      .nav nav{ display:flex; flex-wrap:wrap; justify-content:center; width:100%; }
+      .nav nav a{ font-size:0.85em; margin-left:8px; margin-right:8px; }
+      .hero{ padding:60px 0 40px; }
+      h1{ font-size:clamp(28px,7vw,42px); }
+      h2{ font-size:clamp(22px,5vw,32px); }
+      h3{ font-size:clamp(18px,4vw,24px); }
+      .section{ padding:48px 0; }
+      .card{ padding:20px; }
+      .card:hover{ transform:translateY(-8px) scale(1.01); box-shadow:0 8px 24px rgba(0,0,0,.1), 0 16px 48px rgba(0,0,0,.06); }
+      .badges{ gap:8px; }
+      .badge{ font-size:12px; padding:8px 14px; }
+      .btn{ font-size:14px; padding:12px 20px; }
+      .stats{ grid-template-columns:1fr; }
+      .dials{ grid-template-columns:1fr 1fr; }
+      ul{ margin-left:0.8rem; }
+      li{ font-size:15px; }
+      #mesh-canvas{ display:none; }
+      body::before{ animation:none; }
+    }
+
+    @media(max-width:480px){
+      .brand img{ height:240px; width:auto; max-width:none; flex-shrink:0; object-fit:contain; mix-blend-mode:multiply; }
+      .nav nav a{ font-size:0.75em; margin-left:6px; margin-right:6px; }
+      h1{ font-size:clamp(24px,8vw,36px); }
+      h2{ font-size:clamp(20px,6vw,28px); }
+      .card{ padding:16px; }
+      .dials{ grid-template-columns:1fr; }
+      #particle-bg{ display:none; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17625349992"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);} 
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17625349992');
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NR7C688Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Particle Background Layer -->
+<iframe id="particle-bg" src="whiteparticle.html" title="Particle Background Animation"></iframe>
+
+
+  <!-- Top nav (matches About) -->
+  <div class="top">
+  <canvas id="mesh-canvas" aria-label="3D Mesh Background Animation"></canvas>
+    <div class="wrap nav">
+      <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About</a>
+        <div class="dropdown">
+          <a>Our AI Projects</a>
+          <div class="dropdown-content">
+            <a href="Lianela-info.html">LIANELA V3</a>
+            <a href="SalesAgent.html">Voice-Agents</a>
+            <a href="LLM-Ent.html">SIGMA</a>
+            <a href="Compliance.html">Compliance</a>
+            <a href="agenticai.html">AgenticAI</a>
+            <a href="Model-Train.html">#ProjectDarkMatter</a>
+          </div>
+        </div>
+        <a href="Partnerships.html">Partnerships</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+    <header class="hero">
+    <div class="wrap">
+      <h1 id="voice">#ProjectDarkMatter</h1>
+      <p class="slogan">Judicial Reasoning Engine</p>
+      <p class="lede">
+        A purpose-built legal cognition system engineered to read, reason, and write with the discipline of a seasoned judge, spanning the South African case law corpus with a million-token memory.
+      </p>
+      <p class="lede" style="font-style:italic; color:var(--g-600); margin-top:12px;">
+        Built to preserve the craft of judgment: every inference audited, every outcome explainable, every decision grounded in the record.
+      </p>
+      <div class="badges">
+        <span class="badge">1M-token context</span>
+        <span class="badge">High Court advocate validated</span>
+        <span class="badge">POPIA-first governance</span>
+        <span class="badge">Foundation-agnostic</span>
+        <span class="badge">Traceability guaranteed</span>
+      </div>
+    </div>
+  </header>
+
+    <main class="wrap">
+
+    <section class="section" id="metrics">
+      <h2>Performance at a Glance</h2>
+      <div class="divider"></div>
+      <div class="stats">
+        <div class="stat">
+          <div class="n">90.11%</div>
+          <div class="l">Peak Accuracy</div>
+          <p class="note">20.1% higher than baseline general models.</p>
+        </div>
+        <div class="stat">
+          <div class="n">1M Tokens</div>
+          <div class="l">Context Window</div>
+          <p class="note">Processes an entire case in one pass.</p>
+        </div>
+        <div class="stat">
+          <div class="n">43,124×</div>
+          <div class="l">Impact Multiplier</div>
+          <p class="note">Relative task coverage vs. manual throughput.</p>
+        </div>
+        <div class="stat">
+          <div class="n">58,000</div>
+          <div class="l">Unique Training Instances</div>
+          <p class="note">Total examples processed across the legal corpus.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <h2>Project Overview</h2>
+      <div class="divider"></div>
+      <div class="grid-3">
+        <article class="card"><h3>Issue Spotting</h3><p>Identifies the core legal questions and disputes before the court.</p></article>
+        <article class="card"><h3>Principle Extraction</h3><p>Distils the <em>ratio decidendi</em> and binding rules from judgments.</p></article>
+        <article class="card"><h3>Precedent Analysis</h3><p>Understands whether authority is followed, distinguished, or overruled.</p></article>
+        <article class="card"><h3>Judgment Structuring</h3><p>Produces structured outlines (facts, issues, analysis, order).</p></article>
+        <article class="card"><h3>Outcome Reasoning</h3><p>Captures the probable order and the underlying reasoning steps.</p></article>
+        <article class="card"><h3>Legal Summarisation</h3><p>Generates comprehensive, court-aware summaries and synthesis.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="context">
+      <h2>South African & Global Context</h2>
+      <div class="divider"></div>
+
+      <div class="context-toggle">
+        <button id="sa-btn" class="context-btn active">South African Context</button>
+        <button id="global-btn" class="context-btn">Global Context</button>
+      </div>
+
+      <div id="sa-context" class="reveal">
+        <p style="text-align:center; max-width:780px; margin:0 auto;">
+          While the propiatary dataset provides raw material, no public record shows any other project in South Africa converting the corpus into a multi-skill legal training set for a long-context model. Project Dark Matter pioneers advanced generative AI tailored to the specifics of South African law.
+        </p>
+      </div>
+
+      <div id="global-context" class="reveal hidden">
+        <div style="max-width:760px; margin:0 auto 24px; text-align:center;">
+          <h3 style="margin-bottom:12px;">A World First in Legal AI Architecture</h3>
+          <p style="line-height:1.7;">
+            Project Dark Matter fine-tunes a premium foundation model with a million-token window on a judicial reasoning corpus. Entire case files are analysed end-to-end in a single pass—a capability previously unattainable and a paradigm shift for legal AI.
+          </p>
+        </div>
+        <div class="chart-container">
+          <canvas id="comparisonChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="value">
+      <h2>Value Without Currency</h2>
+      <div class="divider"></div>
+      <div class="dials">
+        <div>
+          <div class="dial" style="--p:96;"><div class="v">96</div></div>
+          <div class="k">Reliability Index</div>
+          <div class="s">Accuracy & consistency</div>
+        </div>
+        <div>
+          <div class="dial" style="--p:100;"><div class="v">100</div></div>
+          <div class="k">Traceability Coverage</div>
+          <div class="s">Evidence & reasoning audit trail</div>
+        </div>
+        <div>
+          <div class="dial" style="--p:94;"><div class="v">94</div></div>
+          <div class="k">Governance Readiness</div>
+          <div class="s">POPIA-ready policies</div>
+        </div>
+        <div>
+          <div class="dial" style="--p:92;"><div class="v">92</div></div>
+          <div class="k">Sovereign Assurance</div>
+          <div class="s">Deployment & residency control</div>
+        </div>
+        <div>
+          <div class="dial" style="--p:98;"><div class="v">98</div></div>
+          <div class="k">Expert Validation</div>
+          <div class="s">Reviewed by High Court advocates</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="architecture">
+      <h2>Technical Architecture & Moat</h2>
+      <div class="divider"></div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Premium Foundation</h3>
+          <ul>
+            <li>Latest-generation flagship LLM, foundation-agnostic approach.</li>
+            <li>Hosted in top-tier US East facility with sub-70ms latency.</li>
+            <li>Tier III+/IV design, SOC 2 Type II and ISO 27001/27018 alignment.</li>
+            <li>Ultra-long 1M token context window minimises chunking risk.</li>
+            <li>Adapter size 8 for multi-task capacity with efficient training.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Proprietary Data Pipeline</h3>
+          <ul>
+            <li>15,000+ multi-skill examples curated from authoritative cases.</li>
+            <li>Layered QC gates, split hygiene, leakage prevention.</li>
+            <li>Total of 58,000 unique training instances processed.</li>
+            <li>Multi-part JSONL format keeps the project foundation-agnostic.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Governance & Validation</h3>
+          <ul>
+            <li>Formal review by two High Court advocates.</li>
+            <li>Hallucination mitigation via specialised evaluation pipelines.</li>
+            <li>Full traceability for court-grade auditability.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="closing-quote">
+      <article class="card" style="text-align:center;">
+        <p style="font-size:1.05rem; line-height:1.8; font-weight:500; color:var(--black); margin-bottom:8px;">
+          "For centuries we trained minds to think like judges. Today, we trained a machine to reason like one—not to replace judgment, but to preserve its discipline."
+        </p>
+        <p class="note" style="margin-top:0;">— Advocate Nandi Basson</p>
+      </article>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <div class="divider"></div>
+      <article class="card" style="text-align:center;">
+        <p>Currently in alpha phase.</p>
+        <p><strong>Contact us at</strong> <a class="btn" href="mailto:info@vcb-ai.online">info@vcb-ai.online</a></p>
+        <p class="note">We share detailed metrics and demo access under NDA.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> VCB · Viable Core Business — All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 3D Wire Mesh Animation
+    (() => {
+      const canvas = document.getElementById('mesh-canvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      const gridSize = 15;
+      let cols = 0, rows = 0, time = 0;
+
+      function resize(){
+        const dpr = 2, rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        cols = Math.ceil(rect.width / gridSize) + 2;
+        rows = Math.ceil(rect.height / gridSize) + 2;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function complexNoise(x, y, t){
+        let n = Math.sin(x * 0.1 + t * 0.3) * Math.cos(y * 0.15 - t * 0.4) * 12;
+        n += Math.sin(x * 0.23 + y * 0.17 + t * 0.6) * 8;
+        n += Math.cos(x * 0.31 - y * 0.22 + t * 0.9) * 6;
+        n += Math.sin((x + y) * 0.08 + t * 1.2) * 10;
+        n += Math.cos((x - y) * 0.13 + t * 0.5) * 7;
+        n += Math.sin(x * 0.5 + Math.cos(y * 0.4 + t)) * 4;
+        return n;
+      }
+
+      function get3DPoint(col, row, t){
+        const x = col * gridSize - gridSize;
+        const y = row * gridSize - gridSize;
+        const displacement = complexNoise(col, row, t);
+        const angle = Math.atan2(row - rows/2, col - cols/2);
+        const radius = Math.hypot(col - cols/2, row - rows/2);
+        const spiral = Math.sin(angle * 3 + radius * 0.2 - t * 2) * 5;
+        const pulse = Math.sin(t * 3 + col * 0.3) * Math.cos(t * 2.5 + row * 0.25) * 8;
+        const depth1 = Math.sin(col * 0.2 + t) * Math.cos(row * 0.25 + t * 0.7) * 35;
+        const depth2 = Math.sin(radius * 0.1 + t * 1.5) * 15;
+        const depth = depth1 + depth2;
+        return { x: x + displacement + spiral, y: y + displacement + pulse, z: depth, col, row, energy: Math.abs(Math.sin(col * 0.3 + row * 0.2 + t * 2)) };
+      }
+
+      function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        time += 0.010;
+        const points = [];
+        for(let row = 0; row < rows; row++){
+          points[row] = [];
+          for(let col = 0; col < cols; col++){
+            points[row][col] = get3DPoint(col, row, time);
+          }
+        }
+        for(let row = 0; row < rows; row++){
+          ctx.beginPath();
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+            if(col === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.stroke();
+        }
+        const canvasHeight = canvas.height / 2;
+        for(let col = 0; col < cols; col++){
+          ctx.beginPath();
+          for(let row = 0; row < rows; row++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+            const yPos = (row === rows - 1) ? canvasHeight - 1 : p.y;
+            if(row === 0) ctx.moveTo(p.x, yPos);
+            else ctx.lineTo(p.x, yPos);
+          }
+          ctx.stroke();
+        }
+        for(let row = 0; row < rows; row++){
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            const energyBoost = p.energy > 0.7 ? p.energy * 0.5 : 0;
+            const dotSize = 1 + depthFactor * 1.5 + energyBoost;
+            const gradient = ctx.createRadialGradient(p.x - dotSize * 0.3, p.y - dotSize * 0.3, 0, p.x, p.y, dotSize);
+            const energyGlow = p.energy > 0.7 ? 0.15 : 0;
+            gradient.addColorStop(0, `rgba(42, 42, 42, ${0.7 + depthFactor * 0.3 + energyGlow})`);
+            gradient.addColorStop(0.6, `rgba(66, 66, 66, ${0.6 + depthFactor * 0.3})`);
+            gradient.addColorStop(1, `rgba(86, 86, 86, ${0.3 + depthFactor * 0.4})`);
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // Context toggle & comparison chart
+    const saBtn = document.getElementById('sa-btn');
+    const globalBtn = document.getElementById('global-btn');
+    const saContext = document.getElementById('sa-context');
+    const globalContext = document.getElementById('global-context');
+    let comparisonChartInstance = null;
+
+    function setActiveState(targetBtn, isActive){
+      if(!targetBtn) return;
+      targetBtn.classList.toggle('active', isActive);
+    }
+
+    function destroyComparisonChart(){
+      if(comparisonChartInstance){
+        comparisonChartInstance.destroy();
+        comparisonChartInstance = null;
+      }
+    }
+
+    function initComparisonChart(){
+      const canvas = document.getElementById('comparisonChart');
+      if(!canvas || typeof Chart === 'undefined'){ return; }
+      const ctx = canvas.getContext('2d');
+      destroyComparisonChart();
+      comparisonChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Task Breadth', 'Context Length', 'SA Legal Specificity', 'Novel Methodology', 'Commercial Potential'],
+          datasets: [{
+            label: 'Project Dark Matter',
+            data: [9, 10, 10, 8, 9],
+            backgroundColor: 'rgba(17,17,17,0.08)',
+            borderColor: 'rgba(17,17,17,0.85)',
+            borderWidth: 1.6,
+            pointBackgroundColor: 'rgba(17,17,17,0.85)',
+            pointBorderColor: '#fff',
+            pointRadius: 4
+          }, {
+            label: 'Typical Global Project',
+            data: [5, 4, 2, 5, 6],
+            backgroundColor: 'rgba(92,126,170,0.14)',
+            borderColor: 'rgba(92,126,170,0.8)',
+            borderWidth: 1.4,
+            pointBackgroundColor: 'rgba(92,126,170,0.9)',
+            pointBorderColor: '#fff',
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#0B0B0B',
+                font: { family: "'Quicksand', system-ui", weight: 500 },
+                usePointStyle: true,
+                boxWidth: 10,
+                padding: 18
+              }
+            }
+          },
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 10,
+              grid: { color: 'rgba(0,0,0,0.08)' },
+              angleLines: { color: 'rgba(0,0,0,0.10)' },
+              pointLabels: {
+                color: '#1A1A1A',
+                font: { family: "'Quicksand', system-ui", size: 12, weight: 500 }
+              },
+              ticks: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function showSouthAfrican(){
+      if(!saContext || !globalContext) return;
+      saContext.classList.remove('hidden');
+      globalContext.classList.add('hidden');
+      setActiveState(saBtn, true);
+      setActiveState(globalBtn, false);
+      destroyComparisonChart();
+    }
+
+    function showGlobal(){
+      if(!saContext || !globalContext) return;
+      saContext.classList.add('hidden');
+      globalContext.classList.remove('hidden');
+      setActiveState(saBtn, false);
+      setActiveState(globalBtn, true);
+      initComparisonChart();
+    }
+
+    if(saBtn && globalBtn){
+      saBtn.addEventListener('click', showSouthAfrican);
+      globalBtn.addEventListener('click', showGlobal);
+    }
+
+    if(globalContext && !globalContext.classList.contains('hidden')){
+      showGlobal();
+    } else {
+      showSouthAfrican();
+    }
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.2});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

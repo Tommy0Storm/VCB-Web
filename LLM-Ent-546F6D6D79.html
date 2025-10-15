@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NR7C688Z');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager --><meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VCB · S I G M A — Sovereign Intelligence Generating Multi-modal African solutions</title>
+
+  <!-- Quicksand: 400, 500, 600, 700 (enhanced readability) -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --black:#0B0B0B;
+      --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
+      --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
+      --white:#fff;
+      --max:1200px; --radius:18px;
+      --shadow:0 4px 24px rgba(0,0,0,.06), 0 12px 48px rgba(0,0,0,.04);
+      --shadow-lg:0 8px 32px rgba(0,0,0,.08), 0 20px 64px rgba(0,0,0,.06);
+      --glow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html{ background:var(--white); }
+    body{
+      margin:0; background:transparent; color:var(--g-900);
+      font-family:"Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-weight:400; line-height:1.65; -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+      scroll-behavior:smooth;
+    }
+    h1,h2,h3,h4{ font-weight:600; color:var(--black); margin:0 0 .6rem; letter-spacing:-.015em; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
+    h1{ font-size:clamp(42px,5.6vw,72px); line-height:1.05; letter-spacing:-.02em; font-weight:700; }
+    h2{ font-size:clamp(28px,3.6vw,42px); letter-spacing:-.01em; margin-bottom:1rem; font-weight:600; }
+    h3{ font-size:clamp(20px,2.4vw,26px); color:var(--g-800); letter-spacing:-.005em; font-weight:600; }
+    p{ margin:.45rem 0 1rem; color:var(--g-700); font-weight:400; }
+    ul{ margin:.25rem 0 1rem 1.1rem; padding:0; }
+    li{ margin:.25rem 0; color:var(--g-800); font-weight:400; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:96px 0; position:relative; }
+    .section:not(:last-child)::after{
+      content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+      width:80%; max-width:600px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(0,0,0,.08), transparent);
+    }
+    .divider{ height:1px; background:linear-gradient(90deg,transparent,rgba(0,0,0,.1),transparent); margin:32px 0; border:0; }
+
+    #particle-bg{
+      position:fixed; inset:0; z-index:-3; pointer-events:none;
+      width:100%; height:100%; border:0; background:transparent;
+    }
+
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px);
+      transform:translateZ(0);
+      animation:gridFloat 32s linear infinite;
+    }
+    @keyframes gridFloat{ to{ transform:translate3d(-48px,-48px,0); } }
+
+    .top{
+      position:sticky; top:0; z-index:1000; overflow:visible;
+      background:rgba(255,255,255,0.95);
+      -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(239,239,239,0.8);
+    }
+    #mesh-canvas{
+      position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
+      width:100%; height:100%;
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
+    .brand{ display:flex; align-items:center; }
+    .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
+    .nav nav a{
+      color:var(--g-600); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
+      font-size:2em; font-weight:700;
+      transition:transform .2s ease, color .2s ease;
+    }
+    .nav nav a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
+      transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
+    }
+    .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
+    .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+    /* Dropdown Menu Styles */
+    .nav nav .dropdown{
+      position:relative;
+      display:inline-block;
+      margin-left:16px;
+    }
+    .nav nav .dropdown > a{
+      margin-left:0;
+      cursor:pointer;
+    }
+    .nav nav .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      min-width:220px;
+      background:rgba(255,255,255,0.98);
+      -webkit-backdrop-filter:blur(12px);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:12px;
+      box-shadow:0 8px 32px rgba(0,0,0,.12), 0 16px 64px rgba(0,0,0,.08);
+      padding:8px 0;
+      margin-top:8px;
+      z-index:1001;
+    }
+    .nav nav .dropdown:hover .dropdown-content{
+      display:block;
+      animation:dropdownFadeIn 0.3s ease;
+    }
+    @keyframes dropdownFadeIn{
+      from{
+        opacity:0;
+        transform:translateY(-8px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+    .nav nav .dropdown-content a{
+      display:block;
+      margin:0;
+      padding:12px 20px;
+      font-size:1em;
+      font-weight:600;
+      color:var(--g-700);
+      text-decoration:none;
+      transition:all .2s ease;
+    }
+    .nav nav .dropdown-content a::after{
+      display:none;
+    }
+    .nav nav .dropdown-content a:hover{
+      background:linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+      color:var(--black);
+      transform:translateX(4px);
+    }
+
+    .hero{
+      position:relative; overflow:hidden; padding:120px 0 80px;
+      background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(250,250,250,.4) 100%);
+    }
+    .hero h1{
+      background:linear-gradient(135deg, var(--black) 0%, var(--g-700) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .slogan{ font-size:clamp(26px,3.6vw,38px); color:var(--black); }
+    .lede{ color:var(--g-600); max-width:940px; font-size:clamp(16px, 2vw, 19px); line-height:1.7; font-weight:400; }
+
+    .card{
+      position:relative; background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
+      border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:32px;
+      box-shadow:var(--shadow); transform:translateZ(0);
+      transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    }
+    .card::before{
+      content:""; position:absolute; inset:-1px; border-radius:calc(var(--radius) + 1px);
+      background:conic-gradient(from 120deg, rgba(0,0,0,.08), rgba(0,0,0,0), rgba(0,0,0,.08));
+      z-index:-1; opacity:0; transition:opacity .4s ease;
+    }
+    .card::after{
+      content:""; position:absolute; inset:0; border-radius:var(--radius);
+      background:linear-gradient(135deg, rgba(255,255,255,.8) 0%, rgba(255,255,255,.2) 100%);
+      opacity:0; transition:opacity .4s ease; pointer-events:none;
+    }
+    .card:hover::before{ opacity:1; animation:rotateGlow 3s linear infinite; }
+    @keyframes rotateGlow{ to{ transform:rotate(360deg); } }
+    .card:hover::after{ opacity:.4; }
+    .card:hover{ transform:translateY(-18px) scale(1.025); box-shadow:0 16px 48px rgba(0,0,0,.14), 0 32px 96px rgba(0,0,0,.1), 0 0 0 1px rgba(11,11,11,.12), 0 0 24px rgba(11,11,11,.06); border-color:rgba(11,11,11,.18); }
+
+    .grid-3{ display:grid; gap:28px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-3{ grid-template-columns:repeat(3,1fr); } }
+    .grid-2{ display:grid; gap:28px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid-2{ grid-template-columns:repeat(2,1fr); } }
+
+    .flow{ display:grid; gap:14px; grid-template-columns:1fr; }
+    @media(min-width:900px){ .flow{ grid-template-columns: repeat(6,1fr); } }
+    .flow .box{
+      border:1px solid var(--g-200); border-radius:12px; padding:16px;
+      text-align:center; background:#FAFAFA;
+    }
+    .flow .box .t{ font-weight:500; color:var(--black); }
+    .flow .box .s{ font-size:.9rem; color:var(--g-500); }
+
+    .stats{ display:grid; gap:18px; grid-template-columns:1fr 1fr; }
+    @media(min-width:900px){ .stats{ grid-template-columns:repeat(4,1fr); } }
+    .stat{
+      background:#FAFAFA; border:1px solid var(--g-100); border-left:4px solid var(--g-800);
+      border-radius:12px; padding:18px; text-align:center;
+    }
+    .stat .n{ font-size:clamp(22px,2.6vw,32px); font-weight:500; color:var(--black); line-height:1; }
+    .stat .l{ color:var(--g-600); font-size:.9rem; margin-top:6px; }
+
+    .btn{
+      display:inline-block; border:1.5px solid var(--g-800); color:var(--g-800); text-decoration:none;
+      padding:14px 28px; border-radius:14px; font-weight:600; font-size:15px;
+      background:linear-gradient(135deg, #fff 0%, #fafafa 100%);
+      box-shadow:0 2px 12px rgba(0,0,0,.05), 0 4px 24px rgba(0,0,0,.03);
+      transition:all .35s cubic-bezier(0.4, 0, 0.2, 1);
+      position:relative; overflow:hidden; z-index:1;
+      text-rendering:optimizeLegibility;
+    }
+    .btn::before{
+      content:""; position:absolute; inset:0; background:var(--g-800);
+      transform:translateY(100%); transition:transform .35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index:-1;
+    }
+    .btn:hover{ color:#fff; transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.12); }
+    .btn:hover::before{ transform:translateY(0); }
+
+    .reveal{
+      opacity:0; transform:translateY(40px);
+      transition:opacity .8s cubic-bezier(0.4, 0, 0.2, 1), transform .8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.in{ opacity:1; transform:none; }
+    .reveal:nth-child(1){ transition-delay:.05s; }
+    .reveal:nth-child(2){ transition-delay:.1s; }
+    .reveal:nth-child(3){ transition-delay:.15s; }
+    .reveal:nth-child(4){ transition-delay:.2s; }
+    .reveal:nth-child(5){ transition-delay:.25s; }
+    .reveal:nth-child(6){ transition-delay:.3s; }
+
+    footer{ border-top:1px solid var(--g-100); color:var(--g-400); font-size:14px; text-align:center; padding:30px 0 44px; }
+
+    @media (prefers-reduced-motion:reduce){
+      .card:hover{ transform:none; box-shadow:var(--shadow); }
+      .reveal{ opacity:1; transform:none; }
+      body::before{ animation:none; }
+    }
+
+    @media(max-width:768px){
+      .wrap{ padding:0 16px; }
+      .brand img{ height:120px; }
+      .nav{ padding:6px 0; flex-wrap:wrap; gap:8px; }
+      .nav nav{
+        display:flex; flex-wrap:wrap; justify-content:center; width:100%;
+      }
+      .nav nav a{ font-size:0.85em; margin-left:8px; margin-right:8px; }
+      .hero{ padding:60px 0 40px; }
+      h1{ font-size:clamp(28px,7vw,42px); }
+      h2{ font-size:clamp(22px,5vw,32px); }
+      h3{ font-size:clamp(18px,4vw,24px); }
+      .section{ padding:48px 0; }
+      .card{ padding:20px; }
+      .card:hover{ transform:none; box-shadow:var(--shadow); }
+      .btn:hover{ transform:none; box-shadow:0 2px 12px rgba(0,0,0,.05), 0 4px 24px rgba(0,0,0,.03); }
+      ul{ margin-left:0.8rem; }
+      li{ font-size:15px; }
+      #mesh-canvas{ display:none; }
+      body::before{ animation:none; }
+    }
+
+    @media(max-width:480px){
+      .brand img{ height:90px; }
+      .nav nav a{ font-size:0.75em; margin-left:6px; margin-right:6px; }
+      h1{ font-size:clamp(24px,8vw,36px); }
+      h2{ font-size:clamp(20px,6vw,28px); }
+      .card{ padding:16px; }
+      #particle-bg{ display:none; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17625349992"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);} 
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17625349992');
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NR7C688Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Particle Background Layer -->
+<iframe id="particle-bg" src="whiteparticle.html" title="Particle Background Animation"></iframe>
+
+<!-- Sticky Glass Nav -->
+<div class="top">
+  <canvas id="mesh-canvas" aria-label="3D Mesh Background Animation"></canvas>
+  <div class="wrap nav">
+    <a href="index.html" class="brand"><img src="https://i.postimg.cc/CKDGzk0c/VCBWhite.jpg" alt="VCB - Viable Core Business"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About</a>
+      <div class="dropdown">
+        <a>Our AI Projects</a>
+        <div class="dropdown-content">
+          <a href="Lianela-info.html">LIANELA V3</a>
+          <a href="SalesAgent.html">Voice-Agents</a>
+          <a href="LLM-Ent.html">SIGMA</a>
+          <a href="Compliance.html">Compliance</a>
+          <a href="agenticai.html">AgenticAI</a>
+          <a href="Model-Train.html">#ProjectDarkMatter</a>
+        </div>
+      </div>
+      <a href="Partnerships.html">Partnerships</a>
+    </nav>
+  </div>
+</div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <h1 id="SIGMA">S I G M A — Sovereign Intelligence Generating Multi-modal African solutions</h1>
+      <p class="slogan">Persistent Reasoning Intelligence · Multi-modal Enterprise</p>
+      <p class="lede">
+        A model-agnostic, compliance-first architecture that unifies real-time inputs, builds persistent context,
+        and orchestrates multiple specialised models—delivering measurable outcomes without vendor lock-in.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Moats -->
+    <section id="moats" class="section">
+      <h2>The Three Strategic Moats</h2>
+      <div class="divider"></div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Persistent Intelligence Database</h3>
+          <p>
+            The <em>Gold Asset</em>: an appreciating customer & operational memory across channels and time.
+            It preserves knowledge independent of any single model and underpins true interchangeability.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Universal Standardisation Engine</h3>
+          <p>
+            Cleans, validates, and normalises data <em>before</em> inference to remove pre-processing drag,
+            drive accuracy, and make downstream models faster, cheaper, and more reliable.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>True Vendor Independence</h3>
+          <p>
+            A model-agnostic core that lets you mix specialised models and switch providers as they evolve—
+            without losing accumulated knowledge or re-architecting systems.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Architecture flow -->
+    <section id="flow" class="section">
+      <h2>The Architecture Flow</h2>
+      <div class="divider"></div>
+
+      <div class="card">
+        <div class="flow">
+          <div class="box">
+            <div class="t">1. Omnichannel Intake</div>
+            <div class="s">Voice · Chat · Email · Docs</div>
+          </div>
+          <div class="box">
+            <div class="t">2. Standardisation</div>
+            <div class="s">Clean · Validate · Normalise</div>
+          </div>
+          <div class="box">
+            <div class="t">3. Persistent Context DB</div>
+            <div class="s">Long-term Memory</div>
+          </div>
+          <div class="box">
+            <div class="t">4. RAG Intelligence</div>
+            <div class="s">Vector Store · Graphs</div>
+          </div>
+          <div class="box">
+            <div class="t">5. Multi-Model Orchestration</div>
+            <div class="s">Specialised LLMs · Multi-modal</div>
+          </div>
+          <div class="box">
+            <div class="t">6. Interchangeability</div>
+            <div class="s">Zero Lock-in</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section id="capabilities" class="section">
+      <h2>Advanced Capabilities</h2>
+      <div class="divider"></div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Caching for Speed & Cost</h3>
+          <ul>
+            <li>Multi-layer caching eliminates redundant inference</li>
+            <li>Targets sub-100ms P95 response times</li>
+            <li>Material opex reduction on high-volume workloads</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Sovereign Deployment Model</h3>
+          <ul>
+            <li>On-prem first with optional cloud connectivity</li>
+            <li>Data residency and perimeter security preserved</li>
+            <li>Regulatory alignment for FS/Insurance</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Academic-Grade Governance</h3>
+          <ul>
+            <li>Quality scoring, bias checks, cultural validation</li>
+            <li>POPIA/security by design with auditability</li>
+            <li>Policy-driven prompts & traceable outputs</li>
+          </ul>
+          <p style="margin-top:16px; font-style:italic; color:var(--g-700); font-weight:500;">
+            Build outcomes, not risk—governed AI on resilient storage with privacy, security, and compliance at the core.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Multi-Model · Multi-Modal Core</h3>
+          <ul>
+            <li>Specialised LLMs orchestrated per function</li>
+            <li>Text · Voice · Video · Document pipelines</li>
+            <li>RAG via vector stores & knowledge graphs</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Outcomes -->
+    <section id="returns" class="section">
+      <h2>Operational & Financial Outcomes</h2>
+      <div class="divider"></div>
+
+      <div class="stats">
+        <div class="stat"><div class="n">9&nbsp;Months</div><div class="l">Indicative payback</div></div>
+        <div class="stat"><div class="n">70%</div><div class="l">Faster service response</div></div>
+        <div class="stat"><div class="n">60%</div><div class="l">Cost vs. call centres</div></div>
+        <div class="stat"><div class="n">750%</div><div class="l">3-year ROI (illustrative)</div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <article class="card">
+        <p>
+          SIGMA consolidates fragmented channels, embeds governance from day one, and preserves organisational memory across models.
+          The result: faster service, lower cost-to-serve, and resilience against vendor volatility—without compromising sovereignty.
+        </p>
+        <p class="note">Metrics shown are representative targets and depend on context, scope, and integration approach.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> VCB · Viable Core Business — All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 3D Wire Mesh Animation
+    (() => {
+      const canvas = document.getElementById('mesh-canvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      const gridSize = 15;
+      let cols = 0, rows = 0, time = 0;
+
+      function resize(){
+        const dpr = 2, rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        cols = Math.ceil(rect.width / gridSize) + 2;
+        rows = Math.ceil(rect.height / gridSize) + 2;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function complexNoise(x, y, t){
+        let n = Math.sin(x * 0.1 + t * 0.3) * Math.cos(y * 0.15 - t * 0.4) * 12;
+        n += Math.sin(x * 0.23 + y * 0.17 + t * 0.6) * 8;
+        n += Math.cos(x * 0.31 - y * 0.22 + t * 0.9) * 6;
+        n += Math.sin((x + y) * 0.08 + t * 1.2) * 10;
+        n += Math.cos((x - y) * 0.13 + t * 0.5) * 7;
+        n += Math.sin(x * 0.5 + Math.cos(y * 0.4 + t)) * 4;
+        return n;
+      }
+
+      function get3DPoint(col, row, t){
+        const x = col * gridSize - gridSize;
+        const y = row * gridSize - gridSize;
+        const displacement = complexNoise(col, row, t);
+        const angle = Math.atan2(row - rows/2, col - cols/2);
+        const radius = Math.hypot(col - cols/2, row - rows/2);
+        const spiral = Math.sin(angle * 3 + radius * 0.2 - t * 2) * 5;
+        const pulse = Math.sin(t * 3 + col * 0.3) * Math.cos(t * 2.5 + row * 0.25) * 8;
+        const depth1 = Math.sin(col * 0.2 + t) * Math.cos(row * 0.25 + t * 0.7) * 35;
+        const depth2 = Math.sin(radius * 0.1 + t * 1.5) * 15;
+        const depth = depth1 + depth2;
+        return { x: x + displacement + spiral, y: y + displacement + pulse, z: depth, col, row, energy: Math.abs(Math.sin(col * 0.3 + row * 0.2 + t * 2)) };
+      }
+
+      function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        time += 0.010;
+        const points = [];
+        for(let row = 0; row < rows; row++){
+          points[row] = [];
+          for(let col = 0; col < cols; col++){
+            points[row][col] = get3DPoint(col, row, time);
+          }
+        }
+        for(let row = 0; row < rows; row++){
+          ctx.beginPath();
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+            if(col === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.stroke();
+        }
+        const canvasHeight = canvas.height / 2;
+        for(let col = 0; col < cols; col++){
+          ctx.beginPath();
+          for(let row = 0; row < rows; row++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
+            ctx.lineWidth = 0.3 + depthFactor * 0.4;
+            const yPos = (row === rows - 1) ? canvasHeight - 1 : p.y;
+            if(row === 0) ctx.moveTo(p.x, yPos);
+            else ctx.lineTo(p.x, yPos);
+          }
+          ctx.stroke();
+        }
+        for(let row = 0; row < rows; row++){
+          for(let col = 0; col < cols; col++){
+            const p = points[row][col];
+            const depthFactor = (p.z + 35) / 70;
+            const energyBoost = p.energy > 0.7 ? p.energy * 0.5 : 0;
+            const dotSize = 1 + depthFactor * 1.5 + energyBoost;
+            const gradient = ctx.createRadialGradient(p.x - dotSize * 0.3, p.y - dotSize * 0.3, 0, p.x, p.y, dotSize);
+            const energyGlow = p.energy > 0.7 ? 0.15 : 0;
+            gradient.addColorStop(0, `rgba(42, 42, 42, ${0.7 + depthFactor * 0.3 + energyGlow})`);
+            gradient.addColorStop(0.6, `rgba(66, 66, 66, ${0.6 + depthFactor * 0.3})`);
+            gradient.addColorStop(1, `rgba(86, 86, 86, ${0.3 + depthFactor * 0.4})`);
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.2});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,115 @@
+{
+  "modal": {
+    "size": {
+      "width": "360px",
+      "height": "480px",
+      "mobileWidth": "90%",
+      "borderRadius": "16px"
+    },
+    "position": {
+      "centered": true
+    },
+    "voiceApp": {
+      "url": "https://vcbmain.vercel.app",
+      "alternativeUrl": "https://vcbmain-ciladbvv2-tommy0storms-projects.vercel.app",
+      "allowedDomains": [
+        "vcb-ai.online",
+        "www.vcb-ai.online",
+        "viablecorebusiness.co.za",
+        "www.viablecorebusiness.co.za",
+        "localhost",
+        "127.0.0.1",
+        "file://",
+        "tommy0storm.github.io",
+        "192.168.",
+        "10.0.",
+        "vcb-web"
+      ]
+    },
+    "closeButton": {
+      "size": "28px",
+      "position": {
+        "top": "8px",
+        "right": "8px"
+      },
+      "background": "rgba(11,11,11,0.7)"
+    },
+    "loadingScreen": {
+      "background": "var(--black)",
+      "iconSize": "48px",
+      "text": "Loading...",
+      "fontSize": "12px"
+    },
+    "floatingButton": {
+      "size": "68px",
+      "position": {
+        "bottom": "32px",
+        "right": "32px"
+      },
+      "mobileSize": "60px",
+      "mobilePosition": {
+        "bottom": "24px",
+        "right": "24px"
+      }
+    }
+  },
+  "deployment": {
+    "vercel": {
+      "projectName": "vcbmain",
+      "productionUrl": "https://vcbmain.vercel.app",
+      "status": "Ready",
+      "github": {
+        "repository": "https://github.com/Tommy0Storm/vcbmain",
+        "branch": "main",
+        "visibility": "private"
+      }
+    }
+  },
+  "integration": {
+    "linkedin": {
+      "embedCode": "<iframe src=\"https://vcbmain.vercel.app\" width=\"360\" height=\"480\" style=\"border:0; border-radius:16px;\" allow=\"microphone\" title=\"VCB Voice Assistant\"></iframe>",
+      "directLink": "https://vcbmain.vercel.app",
+      "note": "Note: Direct access will be blocked. Use the embed code or iframe integration."
+    },
+    "externalApps": {
+      "iframeSnippet": "<iframe src=\"https://vcbmain.vercel.app\" width=\"360\" height=\"480\" style=\"border:0; border-radius:16px;\" allow=\"microphone\" title=\"VCB Voice Assistant\"></iframe>",
+      "responsiveSnippet": "<iframe src=\"https://vcbmain.vercel.app\" width=\"100%\" height=\"600\" style=\"border:0; border-radius:16px; max-width:360px;\" allow=\"microphone\" title=\"VCB Voice Assistant\"></iframe>",
+      "popupSnippet": "window.open('https://vcbmain.vercel.app', 'VCB Voice', 'width=360,height=480,scrollbars=no,resizable=yes');"
+    },
+    "htmlButton": {
+      "code": "<button onclick=\"window.open('https://vcbmain.vercel.app', 'VCB Voice', 'width=360,height=480,scrollbars=no,resizable=yes');\">Speak to Sarah</button>",
+      "styledCode": "<button style=\"background: linear-gradient(135deg, #0B0B0B 0%, #2A2A2A 100%); color: white; border: none; padding: 14px 28px; border-radius: 14px; font-weight: 600; cursor: pointer;\" onclick=\"window.open('https://vcbmain.vercel.app', 'VCB Voice', 'width=360,height=480,scrollbars=no,resizable=yes');\">Speak to Sarah</button>"
+    }
+  },
+  "customization": {
+    "description": "To customize the modal, edit the inline styles in index.html at line 1134",
+    "colorScheme": {
+      "black": "#0B0B0B",
+      "grey900": "#111",
+      "grey800": "#1A1A1A",
+      "grey700": "#2A2A2A",
+      "white": "#fff"
+    },
+    "features": {
+      "iframeProtection": true,
+      "loadingOverlay": true,
+      "responsiveDesign": true,
+      "microphone": true,
+      "autoplay": false
+    }
+  },
+  "usage": {
+    "directLink": {
+      "url": "https://vcbmain.vercel.app",
+      "warning": "This URL is protected and will show 'Access Denied' when accessed directly. Use iframe integration instead."
+    },
+    "embeddedInWebsite": {
+      "mainSite": "https://vcb-ai.online",
+      "access": "Full functionality when embedded in main website"
+    },
+    "thirdPartyIntegration": {
+      "method": "iframe",
+      "recommendation": "Use the iframe snippet provided in integration.externalApps section"
+    }
+  }
+}
