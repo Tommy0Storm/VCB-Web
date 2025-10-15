@@ -10,6 +10,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <!-- Google Tag Manager --><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>VCB — Viable Core Business</title>
 
 <!-- Quicksand: 400, 500, 600, 700 (enhanced readability) -->
@@ -501,6 +504,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     /* Hide particle background on very small screens for performance */
     #particle-bg{ display:none; }
+    
+    /* Ensure all interactive elements meet minimum touch target size */
+    .btn, .btn-gold, a.btn{ min-height:48px; display:flex; align-items:center; justify-content:center; }
+    
+    /* Better spacing for small screens */
+    .badges{ flex-wrap:wrap; justify-content:center; }
   }
 </style>
 

@@ -10,6 +10,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <!-- Google Tag Manager --><meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Will the New LRA Protect You or Expose You? — VCB</title>
 
   <!-- Quicksand: 400, 500, 600, 700 (enhanced readability) -->
@@ -229,6 +232,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .card{ padding:16px; }
 
       .exclusive-badge{ font-size:10px; padding:5px 12px; }
+      
+      /* Ensure buttons are easy to tap on mobile */
+      .btn{ min-height:48px; }
+      
+      /* Better grid spacing on very small screens */
+      .grid-2{ gap:16px; }
+    }
+    
+    /* Gold button styling for section headings */
+    .section-heading-gold {
+      display:inline-block;
+      border:2px solid var(--gold);
+      color:#D4AF37;
+      padding:14px 32px;
+      border-radius:14px;
+      font-weight:700;
+      font-size:clamp(20px,4vw,28px);
+      background:linear-gradient(135deg, rgba(212,175,55,.15) 0%, rgba(184,148,45,.08) 100%);
+      box-shadow:0 4px 20px rgba(212,175,55,.25);
+      margin:0 auto 24px;
+      text-transform:none;
+      letter-spacing:-0.01em;
+      text-shadow:0 2px 8px rgba(0,0,0,.3);
+      transition:all .35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    @media(max-width:768px){
+      .section-heading-gold{
+        font-size:clamp(18px,5vw,24px);
+        padding:12px 24px;
+      }
     }
   </style>
 </head>
@@ -245,6 +279,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <nav>
         <a href="index.html">Home</a>
         <a href="aboutus.html">About</a>
+        <a href="Model-Train.html">#ProjectDarkMatter</a>
+        <a href="Lianela-info.html">LIANELA V3</a>
+        <a href="SalesAgent.html">Voice-Agents</a>
+        <a href="LLM-Ent.html">SIGMA</a>
+        <a href="Partnerships.html">Partnerships</a>
+        <a href="Compliance.html">Compliance</a>
       </nav>
     </div>
   </div>
@@ -272,8 +312,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <main class="wrap">
 
     <!-- Event Details -->
-    <section class="section">
-      <h2>Event Details</h2>
+    <section class="section" style="text-align:center;">
+      <h2 class="section-heading-gold">⚖️ Event Details</h2>
       <div class="grid-2" style="margin-top:32px;">
         <div class="card">
           <h3>When & Where</h3>
@@ -333,8 +373,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
 
     <!-- Who Should Attend -->
-    <section class="section">
-      <h2>Who Should Attend</h2>
+    <section class="section" style="text-align:center;">
+      <h2 class="section-heading-gold">👥 Who Should Attend</h2>
       <div class="card" style="margin-top:32px;">
         <p style="font-size:18px; color:var(--g-200); margin-bottom:32px;">
           This event is essential for anyone impacted by labour law—whether you employ others or are employed yourself.
