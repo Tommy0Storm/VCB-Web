@@ -622,15 +622,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   /* Video Modal - VCB Introduction */
+  .video-modal-overlay{
+    display:none;
+    position:fixed;
+    top:0; left:0; right:0; bottom:0;
+    background:rgba(0,0,0,0.7);
+    z-index:999; /* Layer 1: Behind the header */
+    animation:modalFadeIn .5s ease;
+  }
+  .video-modal-overlay.active{
+    display:block;
+  }
   .video-modal{
     display:none;
     position:fixed;
     top:0; left:0; right:0; bottom:0;
     background:transparent;
-    z-index:10001;
+    z-index:10001; /* Layer 3: On top of everything */
     align-items:center;
     justify-content:center;
-    animation:modalFadeIn .5s ease;
     pointer-events:none;
   }
   .video-modal.active{
@@ -972,7 +982,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       right:24px;
       /* Fix for mobile Safari */
       -webkit-transform: scale(0.5);
+      transform: scale(0.5);
       -webkit-transform-origin: bottom right;
+      transform-origin: bottom right;
     }
     .voice-modal > div{
       padding:0px !important;
@@ -1079,37 +1091,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <symbol id="i-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
   <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
   <symbol id="i-volume" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol>
-
-  <!-- Chroma Key Filter for White Background Removal -->
-  <filter id="chromakey" color-interpolation-filters="sRGB">
-    <!-- Brighten the video first -->
-    <feComponentTransfer result="brightened">
-      <feFuncR type="linear" slope="1.3" intercept="0.05"/>
-      <feFuncG type="linear" slope="1.3" intercept="0.05"/>
-      <feFuncB type="linear" slope="1.3" intercept="0.05"/>
-    </feComponentTransfer>
-
-    <!-- Convert to grayscale to detect luminance -->
-    <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0
-                                         0.2126 0.7152 0.0722 0 0
-                                         0.2126 0.7152 0.0722 0 0
-                                         0      0      0      1 0" in="brightened" result="gray"/>
-
-    <!-- Create alpha mask: only very bright areas (white) become transparent -->
-    <feColorMatrix type="matrix" values="1 0 0 0 0
-                                         0 1 0 0 0
-                                         0 0 1 0 0
-                                         -0.8 -0.8 -0.8 1.8 -0.7" in="gray" result="alpha"/>
-
-    <!-- Apply the alpha mask -->
-    <feComposite in="brightened" in2="alpha" operator="in" result="masked"/>
-
-    <!-- Enhance contrast and saturation -->
-    <feColorMatrix type="matrix" values="1.15 0    0    0 0.02
-                                         0    1.15 0    0 0.02
-                                         0    0    1.15 0 0.02
-                                         0    0    0    1 0" in="masked"/>
-  </filter>
 </svg>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17625349992"></script>
@@ -1360,16 +1341,41 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
     const [currentDigit, setCurrentDigit] = useState(digit);
     const [previousDigit, setPreviousDigit] = useState(digit);
     const [isFlipping, setIsFlipping] = useState(false);
+    const flipTimeoutRef = useRef(null);
+
     useEffect(() => {
       if (digit !== currentDigit) {
+        // If a flip is already in progress, clear it to start fresh
+        if (flipTimeoutRef.current) {
+          clearTimeout(flipTimeoutRef.current);
+        }
+        
         if (!isMuted && audioContext) {
           playFlipSound(audioContext, 0.38);
         }
+        
         setPreviousDigit(currentDigit);
         setCurrentDigit(digit);
         setIsFlipping(true);
+
+        // Set a timeout to finish the flip
+        flipTimeoutRef.current = setTimeout(() => {
+          setPreviousDigit(digit);
+          setIsFlipping(false);
+          flipTimeoutRef.current = null;
+        }, 600); // Match animation duration + a small buffer
       }
+
+      // Cleanup timeout on component unmount
+      return () => {
+        if (flipTimeoutRef.current) {
+          clearTimeout(flipTimeoutRef.current);
+        }
+      };
     }, [digit, currentDigit, isMuted, audioContext]);
+
+    // This effect is no longer needed as its logic is merged above.
+    /*
     useEffect(() => {
       if (!isFlipping) return;
       const timeoutId = setTimeout(() => {
@@ -1378,6 +1384,7 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
       }, 500);
       return () => clearTimeout(timeoutId);
     }, [isFlipping, digit]);
+    */
     return (
       <div className="relative w-10 h-16 sm:w-12 sm:h-20 md:w-16 md:h-24 lg:w-20 lg:h-32 perspective shadow-lg shadow-black/40 rounded-lg overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(165deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0)_20%)] z-30 pointer-events-none"></div>
@@ -1745,13 +1752,15 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 </main>
 
 <!-- Video Modal - Meet VCB -->
+<div class="video-modal-overlay" id="videoModalOverlay"></div>
 <div class="video-modal" id="videoModal">
   <div class="video-modal-content">
     <button type="button" class="video-modal-close" id="closeVideoModal" aria-label="Close video">
       <svg><use href="#i-close"/></svg>
     </button>
-    <video id="vcbVideo" autoplay muted playsinline webkit-playsinline x-webkit-airplay="allow" style="background:transparent;mix-blend-mode:normal">
-      <source id="vcbVideoSource" src="VEE2-alpha.webm" type="video/webm">
+    <div id="webgl-container" style="width: 80vw; height: 60vh; cursor: pointer;"></div>
+    <video id="vcbVideo" autoplay muted playsinline webkit-playsinline x-webkit-airplay="allow" style="display:none;">
+      <source id="vcbVideoSource" src="VEE2-alpha-fixed.webm" type="video/webm">
       <source src="vee01.mp4" type="video/mp4">
       Your browser does not support video playback.
     </video>
@@ -1840,7 +1849,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 </div>
 
 <!-- GSAP (not needed anymore) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script type="importmap">
   {
@@ -1852,7 +1861,200 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   </script>
   <script>
   // Year
-  document.getElementById('year').textContent = new Date().getFullYear();  // Sophisticated 3D Wire Mesh Animation
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Video Modal Logic with WebGL/Three.js
+  (function() {
+    const videoModal = document.getElementById('videoModal');
+    const videoOverlay = document.getElementById('videoModalOverlay');
+    const closeVideoModal = document.getElementById('closeVideoModal');
+    const meetVCBBtn = document.getElementById('meetVCBBtn');
+    const video = document.getElementById('vcbVideo');
+    const videoContent = document.querySelector('.video-modal-content');
+    const webglContainer = document.getElementById('webgl-container');
+
+    if (!videoModal || !closeVideoModal || !meetVCBBtn || !video || !videoContent || !videoOverlay || !webglContainer) {
+      console.error('A required element for the video modal is missing.');
+      return;
+    }
+
+    let scene, camera, renderer, videoTexture, material, plane, isWebGLInitialized = false;
+
+    function initWebGL() {
+      if (isWebGLInitialized) return;
+
+      // 1. Scene
+      scene = new THREE.Scene();
+
+      // 2. Camera
+      const aspectRatio = webglContainer.clientWidth / webglContainer.clientHeight;
+      camera = new THREE.OrthographicCamera(-aspectRatio / 2, aspectRatio / 2, 0.5, -0.5, 0.1, 100);
+      camera.position.z = 1;
+
+      // 3. Renderer
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(webglContainer.clientWidth, webglContainer.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      webglContainer.appendChild(renderer.domElement);
+
+      // 4. Video Texture
+      videoTexture = new THREE.VideoTexture(video);
+      videoTexture.minFilter = THREE.LinearFilter;
+      videoTexture.magFilter = THREE.LinearFilter;
+      videoTexture.format = THREE.RGBAFormat;
+
+      // 5. Shader Material for Chroma Key
+      const vertexShader = `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `;
+
+      const fragmentShader = `
+        varying vec2 vUv;
+        uniform sampler2D videoTexture;
+        uniform vec3 chromaColor;
+        uniform float tolerance;
+        uniform float smoothing;
+
+        void main() {
+          vec4 videoColor = texture2D(videoTexture, vUv);
+          
+          float distance = length(chromaColor - videoColor.rgb);
+          float alpha = smoothstep(tolerance, tolerance + smoothing, distance);
+          
+          gl_FragColor = vec4(videoColor.rgb, alpha * videoColor.a);
+        }
+      `;
+
+      material = new THREE.ShaderMaterial({
+        uniforms: {
+          videoTexture: { value: videoTexture },
+          chromaColor: { value: new THREE.Color(0.95, 0.95, 0.95) }, // Target near-white
+          tolerance: { value: 0.45 }, // How close to the color to be transparent
+          smoothing: { value: 0.2 }  // How soft the transition is
+        },
+        vertexShader,
+        fragmentShader,
+        transparent: true,
+      });
+
+      // 6. Plane Geometry
+      const videoAspectRatio = video.videoWidth / video.videoHeight;
+      const planeHeight = 1;
+      const planeWidth = planeHeight * videoAspectRatio;
+      const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
+      plane = new THREE.Mesh(geometry, material);
+      scene.add(plane);
+      
+      // Adjust camera to fit the plane
+      camera.left = -planeWidth / 2;
+      camera.right = planeWidth / 2;
+      camera.top = planeHeight / 2;
+      camera.bottom = -planeHeight / 2;
+      camera.updateProjectionMatrix();
+
+      isWebGLInitialized = true;
+    }
+
+    function animate() {
+      if (videoModal.classList.contains('active')) {
+        requestAnimationFrame(animate);
+        videoTexture.needsUpdate = true;
+        renderer.render(scene, camera);
+      }
+    }
+
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    const openModal = () => {
+      initWebGL();
+      videoModal.classList.add('active');
+      videoOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      video.play().catch(err => console.error("Video play failed:", err));
+      animate();
+    };
+
+    const closeModal = () => {
+      videoModal.classList.remove('active');
+      videoOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      video.pause();
+      video.currentTime = 0;
+    };
+
+    const startDrag = (e) => {
+      isDragging = true;
+      videoContent.classList.add('dragging');
+      const rect = videoContent.getBoundingClientRect();
+      
+      if (e.type === 'touchstart') {
+        offsetX = e.touches[0].clientX - rect.left;
+        offsetY = e.touches[0].clientY - rect.top;
+      } else {
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+      }
+      
+      document.addEventListener('mousemove', onDrag, { capture: true, passive: false });
+      document.addEventListener('touchmove', onDrag, { capture: true, passive: false });
+      document.addEventListener('mouseup', stopDrag, { capture: true });
+      document.addEventListener('touchend', stopDrag, { capture: true });
+    };
+
+    const onDrag = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      
+      let currentX, currentY;
+      if (e.type === 'touchmove') {
+        currentX = e.touches[0].clientX;
+        currentY = e.touches[0].clientY;
+      } else {
+        currentX = e.clientX;
+        currentY = e.clientY;
+      }
+      
+      let newLeft = currentX - offsetX;
+      let newTop = currentY - offsetY;
+
+      const parentRect = videoModal.getBoundingClientRect();
+      
+      newLeft = Math.max(0, Math.min(newLeft, parentRect.width - videoContent.offsetWidth));
+      newTop = Math.max(0, Math.min(newTop, parentRect.height - videoContent.offsetHeight));
+
+      videoContent.style.left = `${newLeft}px`;
+      videoContent.style.top = `${newTop}px`;
+    };
+
+    const stopDrag = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      videoContent.classList.remove('dragging');
+      document.removeEventListener('mousemove', onDrag, true);
+      document.removeEventListener('touchmove', onDrag, true);
+      document.removeEventListener('mouseup', stopDrag, true);
+      document.removeEventListener('touchend', stopDrag, true);
+    };
+
+    meetVCBBtn.addEventListener('click', openModal);
+    closeVideoModal.addEventListener('click', closeModal);
+    videoOverlay.addEventListener('click', closeModal);
+    videoContent.addEventListener('mousedown', startDrag);
+    videoContent.addEventListener('touchstart', startDrag);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  })();
+
+  // Sophisticated 3D Wire Mesh Animation
   (() => {
     const canvas = document.getElementById('mesh-canvas');
     if(!canvas) return;
@@ -2116,18 +2318,16 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     const meetVCBBtn = document.getElementById('meetVCBBtn');
     const closeVideoBtn = document.getElementById('closeVideoModal');
     const vcbVideo = document.getElementById('vcbVideo');
-    const playHint = document.getElementById('playHint');
+    const videoOverlay = document.getElementById('videoModalOverlay');
+    const videoContent = document.querySelector('.video-modal-content');
 
-    if(!videoModal || !meetVCBBtn || !closeVideoBtn || !vcbVideo) return;
+    if(!videoModal || !meetVCBBtn || !closeVideoBtn || !vcbVideo || !videoOverlay) return;
 
     // Force transparency on video and container
-    const videoContent = document.querySelector('.video-modal-content');
     vcbVideo.style.backgroundColor = 'transparent';
     vcbVideo.style.background = 'none';
-    if(videoContent) {
-      videoContent.style.backgroundColor = 'transparent';
-      videoContent.style.background = 'none';
-    }
+    videoContent.style.backgroundColor = 'transparent';
+    videoContent.style.background = 'none';
 
     // Detect mobile Safari and apply blend mode to remove white background
     const isMobileSafari = /iPhone|iPad|iPod/i.test(navigator.userAgent) &&
@@ -2139,107 +2339,20 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       vcbVideo.style.mixBlendMode = 'darken';
       vcbVideo.style.filter = 'brightness(1.15) contrast(1.4) saturate(1.2)';
       // Set a slightly off-white background to help blend
-      if(videoContent) {
-        videoContent.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-      }
+      videoContent.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
     }
-
-    // Enable dragging of the video modal content
-    (function enableVideoDrag(){
-      if(!videoContent) return;
-      let dragging = false;
-      let moved = false;
-      let startX = 0, startY = 0;
-      let offsetX = 0, offsetY = 0; // accumulated translation
-
-      function setTransform(x, y){
-        videoContent.style.transform = `translate(${x}px, ${y}px)`;
-      }
-
-      function onPointerDown(e){
-        const isClose = e.target && e.target.closest && e.target.closest('#closeVideoModal');
-        if (isClose) return;
-        dragging = true; moved = false;
-        videoContent.classList.add('dragging');
-        const p = (e.touches && e.touches[0]) || e;
-        startX = p.clientX - offsetX;
-        startY = p.clientY - offsetY;
-        document.body.style.userSelect = 'none';
-      }
-      function onPointerMove(e){
-        if(!dragging) return;
-        const p = (e.touches && e.touches[0]) || e;
-        const x = p.clientX - startX;
-        const y = p.clientY - startY;
-        if (!moved && (Math.abs(x - offsetX) > 3 || Math.abs(y - offsetY) > 3)) moved = true;
-        offsetX = x; offsetY = y;
-        setTransform(offsetX, offsetY);
-        if (e.cancelable) e.preventDefault();
-      }
-      function onPointerUp(){
-        if(!dragging) return;
-        dragging = false;
-        videoContent.classList.remove('dragging');
-        document.body.style.userSelect = '';
-      }
-
-      // Mouse
-      videoContent.addEventListener('mousedown', onPointerDown);
-      window.addEventListener('mousemove', onPointerMove);
-      window.addEventListener('mouseup', onPointerUp);
-      // Touch
-      videoContent.addEventListener('touchstart', onPointerDown, { passive:true });
-      window.addEventListener('touchmove', onPointerMove, { passive:false });
-      window.addEventListener('touchend', onPointerUp);
-
-      // Prevent click-to-play if the pointer moved
-      vcbVideo.addEventListener('click', function(ev){
-        if (moved) { ev.stopPropagation(); ev.preventDefault(); moved = false; }
-      }, true);
-
-      // Expose a reset helper
-      videoModal.__resetVideoDrag = function(){ offsetX = 0; offsetY = 0; setTransform(0,0); };
-      videoModal.__resetVideoDrag();
-    })();
 
     // Open video modal
     meetVCBBtn.addEventListener('click', async () => {
       videoModal.classList.add('active');
+      videoOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
 
       // Force transparency again on open
       vcbVideo.style.backgroundColor = 'transparent';
       vcbVideo.style.background = 'none';
-      if(videoContent) {
-        videoContent.style.backgroundColor = 'transparent';
-        videoContent.style.background = 'none';
-        if (typeof videoModal.__resetVideoDrag === 'function') videoModal.__resetVideoDrag();
-
-        // Position the video to the right of the Meet VCB button
-        try {
-          const margin = 12;
-          const btnRect = meetVCBBtn.getBoundingClientRect();
-          const place = () => {
-            const popRect = videoContent.getBoundingClientRect();
-            let left = btnRect.right + margin;
-            let top  = btnRect.top + (btnRect.height / 2) - (popRect.height / 2);
-            // Clamp within viewport
-            left = Math.max(8, Math.min(left, window.innerWidth - popRect.width - 8));
-            top  = Math.max(8, Math.min(top,  window.innerHeight - popRect.height - 8));
-            videoContent.style.position = 'fixed';
-            videoContent.style.left = left + 'px';
-            videoContent.style.top = top + 'px';
-            videoContent.style.right = 'auto';
-            videoContent.style.bottom = 'auto';
-            videoContent.style.transform = 'translate(0,0)';
-          };
-          // After layout
-          requestAnimationFrame(place);
-          // Reposition on resize while open
-          const onResize = () => { if (videoModal.classList.contains('active')) place(); };
-          window.addEventListener('resize', onResize, { once: true });
-        } catch(_) {}
-      }
+      videoContent.style.backgroundColor = 'transparent';
+      videoContent.style.background = 'none';
 
       // Reset and play video
       vcbVideo.currentTime = 0;
@@ -2251,17 +2364,17 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
         }, 100);
       } catch(err) {
         console.error('Video play failed:', err);
-        if(playHint) playHint.style.display = 'block';
+        playHint.style.display = 'block';
       }
     });
 
     // Close video modal
     function closeVideoModal(){
       videoModal.classList.remove('active');
+      videoOverlay.classList.remove('active');
       vcbVideo.pause();
       vcbVideo.currentTime = 0;
       document.body.style.overflow = '';
-      if (typeof videoModal.__resetVideoDrag === 'function') videoModal.__resetVideoDrag();
     }
 
     closeVideoBtn.addEventListener('click', closeVideoModal);

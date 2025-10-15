@@ -927,56 +927,36 @@
                     // For local development, you can paste your key here.
                     // For production on GitHub Pages, this placeholder should be replaced by a GitHub Actions workflow that uses your GOOGLE_API_KEY secret.
                     const apiKey = 'YOUR_GOOGLE_API_KEY';
-                    if (apiKey === 'YOUR_GOOGLE_API_KEY') {
-                        throw new Error("API Key is not configured. Please replace the placeholder in agenticai.html.");
+                    if (apiKey === 'YOUR_GOOGLE_API_KEY' || !apiKey) {
+                        throw new Error("The API Key is invalid or not configured correctly. Please check your environment configuration.");
                     }
-                    const ai = new GoogleGenAI({ apiKey: apiKey });
+                    const ai = new window.GoogleGenAI(apiKey);
                     
+                    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+
                     const prompt = `You are an expert Enterprise AI Agent platform. Your goal is to break down complex, high-level business queries into a logical, step-by-step execution plan.
 
 For each step, you must select the most appropriate source system from the available enterprise resources: [Salesforce CRM, SAP ERP, Internal Production DB, AWS S3 Datalake, Public Web Search API, Internal Comms API].
 
 You must provide a clear action to be performed on that system and a brief justification for why the step is necessary. The plan should be logical, efficient, and directly address the user's query.
 
+The output must be a valid JSON array of objects, where each object has "source_system", "action", and "justification" properties.
+
 User Query: "${userInput}"`;
 
-                    const response = await ai.models.generateContent({
-                        model: 'gemini-2.5-flash',
-                        contents: prompt,
-                        config: {
-                            responseMimeType: "application/json",
-                            responseSchema: {
-                                type: 'ARRAY',
-                                items: {
-                                    type: 'OBJECT',
-                                    properties: {
-                                        source_system: { 
-                                            type: 'STRING', 
-                                            description: 'The specific source system chosen from the available list (e.g., Salesforce CRM, SAP ERP).' 
-                                        },
-                                        action: { 
-                                            type: 'STRING', 
-                                            description: 'The specific, concise action to perform on the source system.' 
-                                        },
-                                        justification: { 
-                                            type: 'STRING', 
-                                            description: 'A brief explanation of why this step is necessary to fulfill the query.'
-                                        },
-                                    },
-                                    required: ['source_system', 'action', 'justification']
-                                },
-                            },
-                        }
-                    });
-
-                    const jsonText = response.text.trim();
+                    const result = await model.generateContent(prompt);
+                    const response = await result.response;
+                    const jsonText = response.text()
+                        .replace(/^```json\s*/, '')
+                        .replace(/```$/, '');
+                    
                     const parsedPlan = JSON.parse(jsonText);
                     setPlan(parsedPlan);
 
                 } catch (e) {
                     console.error("Gemini API call failed:", e);
                     let message = e.message || 'An unexpected error occurred.';
-                    if (typeof message === 'string' && message.toLowerCase().includes('api key')) {
+                    if (typeof message === 'string' && (message.toLowerCase().includes('api key') || message.includes("API Key is not configured"))) {
                         message = 'The API Key is invalid or not configured correctly. Please check your environment configuration.';
                     }
                     setError(message);
@@ -996,7 +976,7 @@ User Query: "${userInput}"`;
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value.slice(0, 500))}
                             placeholder="Enter your business query here..."
-                            className="w-full h-24 p-3 bg-white border border-gray-300 text-lg text-black transition-shadow duration-300 focus:shadow-outline-black resize-none overflow-hidden"
+                            className="w-full h-24 p-3 bg-white border border-gray-300 text-lg text-black transition-shadow duration-300 focus:shadow-outline-black resize-none"
                             disabled={isLoading}
                             maxLength={500}
                         />
@@ -1063,9 +1043,9 @@ User Query: "${userInput}"`;
                     });
                     setIsExiting(false);
                 }, 600); // Increased to match new transition duration
-            }, [playSound]);
+            }, [playSound, totalSlides]);
 
-            const handleNext = useCallback(() => currentSlide < totalSlides - 1 && !isExiting && navigate(1), [currentSlide, isExiting, navigate]);
+            const handleNext = useCallback(() => currentSlide < totalSlides - 1 && !isExiting && navigate(1), [currentSlide, totalSlides, isExiting, navigate]);
             const handlePrev = useCallback(() => currentSlide > 0 && !isExiting && navigate(-1), [currentSlide, isExiting, navigate]);
 
             const startAmbientSound = useCallback(() => {
@@ -1165,7 +1145,7 @@ User Query: "${userInput}"`;
                     const isLast = (currentSlide === (totalSlides - 1));
                     window.AIPaint.setActive(isLast);
                 }
-            }, [currentSlide]);
+            }, [currentSlide, totalSlides]);
 
             return (
                 <main className="relative w-screen h-screen">
