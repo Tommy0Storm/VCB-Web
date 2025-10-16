@@ -296,6 +296,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <nav>
         <a href="index.html">Home</a>
         <a href="aboutus.html">About</a>
+        <a href="#">Contact us</a>
       </nav>
     </div>
   </div>
@@ -471,9 +472,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* Custom utility for 3D transforms */
     .preserve-3d {
       transform-style: preserve-3d;
+      will-change: transform;
     }
     .perspective {
-      perspective: 1000px;
+      perspective: 800px;
     }
     .backface-hidden {
       backface-visibility: hidden;
@@ -719,7 +721,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <DigitCard digit={currentDigit} position="top" />
           </div>
           <div className="absolute top-1/2 -mt-px w-full h-px bg-black/50 z-20"></div>
-          <div className={`absolute top-0 left-0 w-full h-1/2 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.45,0,0.55,1)] preserve-3d ${isFlipping ? '[transform:rotateX(-180deg)]' : ''}`}>
+          <div className={`absolute top-0 left-0 w-full h-1/2 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.4,0.95,0.5,1)] preserve-3d ${isFlipping ? '[transform:rotateX(-180deg)]' : ''}`}>
             <div className="absolute inset-0 backface-hidden z-10">
               <DigitCard digit={previousDigit} position="top" />
             </div>
