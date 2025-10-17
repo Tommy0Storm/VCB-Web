@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="images/vcb-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agentic AI - VCB Enterprise Briefing</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -304,7 +305,7 @@
             return (
                 <header className="fixed top-0 left-0 w-full px-4 py-1 flex justify-between items-center z-50 bg-black">
                     <a href="index.html" className="flex items-center gap-4 cursor-pointer transition-transform duration-300 hover:scale-105" data-interactive>
-                        <img src="https://i.postimg.cc/xdJqP9br/logo-transparent-Black-Back.png" alt="VCB Logo" className="w-[140px] h-auto" />
+                        <img src="images/vcb-logo.png" alt="VCB Logo" className="w-[140px] h-auto" />
                         <span className="hidden sm:block text-sm text-gray-300 tracking-wider uppercase">Agentic Platform</span>
                     </a>
                     <div className="flex items-center gap-2 bg-gray-800/50 text-gray-300 px-2 py-1 rounded-full">
@@ -555,11 +556,11 @@
         // --- START OF components/slides/Slide4.tsx ---
         const Slide4 = ({ isActive, playSound }) => {
             const planSteps = [
-                { tool: 'SAP', action: 'ID Top Suppliers', icon: 'https://i.postimg.cc/L82B710K/sap.png' },
-                { tool: 'MES', action: 'Pull Downtime Logs', icon: 'https://i.postimg.cc/T3j2C2dB/database.png' },
-                { tool: 'Logistics API', action: 'Get Delay Data', icon: 'https://i.postimg.cc/J0k7M1zS/search.png' },
-                { tool: 'Synthesizer', action: 'Correlate Data', icon: 'https://i.postimg.cc/mkb0K3m1/aws.png' },
-                { tool: 'Report Gen', action: 'Build Summary', icon: 'https://i.postimg.cc/W3hB2C7G/email.png' },
+                { tool: 'SAP', action: 'ID Top Suppliers', icon: 'images/sap.svg' },
+                { tool: 'MES', action: 'Pull Downtime Logs', icon: 'images/database.svg' },
+                { tool: 'Logistics API', action: 'Get Delay Data', icon: 'images/search.svg' },
+                { tool: 'Synthesizer', action: 'Correlate Data', icon: 'images/aws.svg' },
+                { tool: 'Report Gen', action: 'Build Summary', icon: 'images/email.svg' },
             ];
 
             const PlanStepNode = ({ data, isVisible }) => {
@@ -664,7 +665,7 @@
                         <div className={`border border-gray-200 text-black p-8 w-full transition-all duration-500 relative ${showResult ? 'opacity-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
                             <div className="flex items-center gap-3 text-lg font-medium uppercase tracking-wider text-black mb-6">
                                 <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
                                 </svg>
                                 Insight Generated
                             </div>
@@ -684,8 +685,7 @@
 
                             <div className="border-t border-gray-200 pt-6 mt-6 flex justify-between items-center" style={{ animation: showResult ? 'fadeInUp 0.5s ease-out 0.8s forwards' : 'none', opacity: 0 }}>
                                 <div className="text-left">
-                                   <h4 className="text-sm text-gray-500">MANUAL ANALYSIS TIME</h4>
-                                   <div className="text-2xl font-medium text-black">~ 2 Days</div>
+                                  
                                 </div>
                                 <div className="text-right">
                                    <h4 className="text-sm text-gray-500">AGENTIC RESOLUTION TIME</h4>
@@ -756,12 +756,12 @@
         const Slide7 = ({ isActive, playSound }) => {
             const planIcons = {
                 'DEFAULT': '⚙️',
-                'Salesforce CRM': 'images/salesforce.png',
-                'SAP ERP': 'images/sap.png',
-                'Internal Production DB': 'images/database.png',
-                'AWS S3 Datalake': 'images/aws.png',
-                'Public Web Search API': 'images/search.png',
-                'Internal Comms API': 'images/email.png',
+                'Salesforce CRM': 'images/salesforce.svg',
+                'SAP ERP': 'images/sap.svg',
+                'Internal Production DB': 'images/database.svg',
+                'AWS S3 Datalake': 'images/aws.svg',
+                'Public Web Search API': 'images/search.svg',
+                'Internal Comms API': 'images/email.svg',
             };
 
             const ThinkingStage = ({ stage, label, isActive, isComplete, delay }) => (
