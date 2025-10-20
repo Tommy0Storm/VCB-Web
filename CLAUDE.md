@@ -87,3 +87,23 @@ Always use the defined navy blue, black, silver, and white palette. Reference ex
 - **Prefer editing** existing HTML files over creating new ones
 - All styles are inline — no separate CSS files needed
 - No build process or compilation required
+
+## WSL Development Notes
+
+**Environment:** Windows 11 with WSL
+
+### Local Development Server
+- Use `python3 -m http.server 8080` (instead of Windows `start python -m http.server`)
+- Open in browser: `explorer.exe http://localhost:8080` (from WSL)
+- Or navigate directly in Windows browser to `http://localhost:8080`
+
+### File Paths
+- Project location in WSL: `/mnt/c/Users/tommy/OneDrive/Dev-Projects/VCB-Web/`
+- Use forward slashes `/` for all paths
+- Files can be edited from both Windows and WSL
+
+### Common Commands
+- `ls` instead of `dir`
+- `cp` instead of `copy`
+- `rm` instead of `del`
+- `explorer.exe .` to open current directory in Windows Explorer

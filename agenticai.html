@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="images/vcb-logo.png" />
+    <link rel="icon" type="image/png" href="/images/vcb-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agentic AI - VCB Enterprise Briefing</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +22,6 @@
             --black: #000000;
             --cursor-x: 50vw;
             --cursor-y: 50vh;
-        }
 
         body {
             font-family: 'Quicksand', sans-serif;
@@ -303,12 +302,12 @@
         // --- START OF components/VcbLogo.tsx ---
         const VcbLogo = () => {
             return (
-                <header className="fixed top-0 left-0 w-full px-4 py-1 flex justify-between items-center z-50 bg-black">
-                    <a href="index.html" className="flex items-center gap-4 cursor-pointer transition-transform duration-300 hover:scale-105" data-interactive>
-                        <img src="images/vcb-logo.png" alt="VCB Logo" className="w-[140px] h-auto" />
-                        <span className="hidden sm:block text-sm text-gray-300 tracking-wider uppercase">Agentic Platform</span>
+                <header className="fixed top-0 left-0 w-full px-2 py-2 flex justify-between items-center z-50 bg-black border-b border-gray-900">
+                    <a href="index.html" className="flex items-center gap-2 cursor-pointer transition-transform duration-300 hover:scale-105" data-interactive>
+                        <img src="images/vcb-logo.png" alt="VCB Logo" className="w-20 h-auto sm:w-[140px]" />
+                        <span className="hidden sm:block text-xs sm:text-sm text-white tracking-wider uppercase">Agentic Platform</span>
                     </a>
-                    <div className="flex items-center gap-2 bg-gray-800/50 text-gray-300 px-2 py-1 rounded-full">
+                    <div className="flex items-center gap-1 sm:gap-2 bg-gray-900 text-white px-2 py-1 rounded-full">
                          <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
                         </svg>
@@ -764,6 +763,46 @@
                 'Internal Comms API': 'images/email.svg',
             };
 
+            const SAMPLE_PLAN = [
+                {
+                    source_system: 'Salesforce CRM',
+                    action: 'Segment Gauteng and Limpopo mining accounts by Q3 revenue and interaction history.',
+                    justification: 'Focus on top-tier clients with dormant engagement to maximise near-term revenue.'
+                },
+                {
+                    source_system: 'Internal Production DB',
+                    action: 'Pull the last 90 days of equipment utilisation and support telemetry for each shortlisted client.',
+                    justification: 'Surface operational context to personalise outreach and highlight intervention opportunities.'
+                },
+                {
+                    source_system: 'Public Web Search API',
+                    action: 'Confirm the procurement director or head of operations for each client and capture preferred language.',
+                    justification: 'Validate decision-makers and communication preferences before drafting automation.'
+                },
+                {
+                    source_system: 'SAP ERP',
+                    action: 'Check open service tickets or pending purchase orders linked to the shortlisted accounts.',
+                    justification: 'Align outreach with current commercial commitments to avoid duplicated or conflicted comms.'
+                },
+                {
+                    source_system: 'Internal Comms API',
+                    action: 'Queue bilingual follow-up emails with tailored utilisation insights and schedule staggered delivery.',
+                    justification: 'Automate compliant delivery while enabling human review prior to client-facing execution.'
+                }
+            ];
+
+            const resolveApiKey = () => {
+                const globalKey = (typeof window !== 'undefined' && window.GOOGLE_API_KEY)
+                    ? String(window.GOOGLE_API_KEY).trim()
+                    : '';
+                const queryParamKey = (typeof window !== 'undefined')
+                    ? new URLSearchParams(window.location.search).get('key') || ''
+                    : '';
+                const queryKey = queryParamKey.trim();
+                const candidate = [globalKey, queryKey].find(value => value && value !== 'YOUR_GOOGLE_API_KEY');
+                return candidate || '';
+            };
+
             const ThinkingStage = ({ stage, label, isActive, isComplete, delay }) => (
                 <div
                     className="flex items-center gap-4 transition-all duration-500"
@@ -921,14 +960,21 @@
                     window.AIPaint.explode();
                 }
 
-                try {
-                    // IMPORTANT: Replace with your actual API key.
-                    // For local development, you can paste your key here.
-                    // For production on GitHub Pages, this placeholder should be replaced by a GitHub Actions workflow that uses your GOOGLE_API_KEY secret.
-                    const apiKey = 'YOUR_GOOGLE_API_KEY';
-                    if (apiKey === 'YOUR_GOOGLE_API_KEY' || !apiKey) {
-                        throw new Error("The API Key is invalid or not configured correctly. Please check your environment configuration.");
+                const apiKey = resolveApiKey();
+                if (!apiKey) {
+                    console.warn('Gemini API key is not configured; falling back to the sample execution plan.');
+                    const simulatedPlan = SAMPLE_PLAN.map(step => ({ ...step }));
+                    setPlan(simulatedPlan);
+                    setIsLoading(false);
+                    if (window.AIPaint) {
+                        simulatedPlan.forEach((_, index) => {
+                            window.AIPaint.stageBurst?.(index + 1);
+                        });
                     }
+                    return;
+                }
+
+                try {
                     const ai = new window.GoogleGenAI(apiKey);
                     
                     const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -1077,8 +1123,10 @@ User Query: "${userInput}"`;
                         cursor?.classList.remove('hover-link');
                     }
                 };
+
                 const handleMouseDown = () => cursor?.classList.add('click');
                 const handleMouseUp = () => cursor?.classList.remove('click');
+
                 window.addEventListener('mousemove', handleMouseMove);
                 window.addEventListener('mousedown', handleMouseDown);
                 window.addEventListener('mouseup', handleMouseUp);
@@ -1144,58 +1192,76 @@ User Query: "${userInput}"`;
                     const isLast = (currentSlide === (totalSlides - 1));
                     window.AIPaint.setActive(isLast);
                 }
-            }, [currentSlide, totalSlides]);
+                // ...existing code...
+                const cursor = document.querySelector('.custom-cursor');
 
-            return (
-                <main className="relative w-screen h-screen">
-                    <VcbLogo />
-                    <ProgressBar current={currentSlide + 1} total={totalSlides} />
+                const handleMouseMove = (e) => {
+                    const { clientX: x, clientY: y } = e;
+                    document.documentElement.style.setProperty('--cursor-x', `${x}px`);
+                    document.documentElement.style.setProperty('--cursor-y', `${y}px`);
+                    const target = e.target;
+                    if (target.closest('button, a, [data-interactive]')) {
+                        cursor?.classList.add('hover-link');
+                    } else {
+                        cursor?.classList.remove('hover-link');
+                    }
+                };
 
-                    <div className="presentation w-full h-full pt-[50px] pb-[100px]">
-                        {slideComponents.map((SlideComponent, index) => {
-                            const isActive = index === currentSlide;
-                            const isCurrentlyExiting = isExiting && index === currentSlide;
-                            return (
-                                <div
-                                    key={index}
-                                    className={`slide flex flex-col justify-start items-center px-[5vw] md:px-[10vw] pt-20 ${isActive && !isExiting ? 'active' : ''} ${isCurrentlyExiting ? 'exiting' : ''}`}
-                                    aria-hidden={!isActive}
-                                >
-                                    <div className="animated-content w-full flex flex-col items-center">
-                                       <SlideComponent isActive={isActive && !isExiting} playSound={playSound} />
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+                const handleMouseDown = () => cursor?.classList.add('click');
+                const handleMouseUp = () => cursor?.classList.remove('click');
 
-                    <footer className="fixed bottom-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-white/80 backdrop-blur-sm border-t border-gray-200">
-                         <div className="text-xs text-gray-500 uppercase tracking-widest">VCB AGENTIC PLATFORM</div>
-                         <NavControls
-                            onPrev={handlePrev}
-                            onNext={handleNext}
-                            isFirst={currentSlide === 0}
-                            isLast={currentSlide === totalSlides - 1}
-                            playSound={() => playSound('audio-click', 0.2)}
-                        />
-                    </footer>
-                </main>
-            );
-        };
-        
-        // --- START OF index.tsx ---
-        const rootElement = document.getElementById('root');
-        if (!rootElement) {
-            throw new Error("Could not find root element to mount to");
-        }
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mousedown', handleMouseDown);
+                window.addEventListener('mouseup', handleMouseUp);
 
-        const root = ReactDOM.createRoot(rootElement);
-        root.render(
-            <StrictMode>
-                <App />
-            </StrictMode>
-        );
+                const handleKeyDown = (e) => {
+                    const target = e.target;
+                    if (target.tagName === 'TEXTAREA' || target.tagName === 'INPUT') {
+                        return;
+                    }
+                    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); handleNext(); }
+                    else if (e.key === 'ArrowLeft') { e.preventDefault(); handlePrev(); }
+                };
+                window.addEventListener('keydown', handleKeyDown);
 
-    </script>
-</body>
-</html>
+                const handleDoubleClick = () => {
+                    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+                    else document.exitFullscreen();
+                };
+                document.addEventListener('dblclick', handleDoubleClick);
+
+                // Touch swipe support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                const handleTouchStart = (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                };
+
+                const handleTouchEnd = (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const swipeDistance = touchEndX - touchStartX;
+                    const minSwipeDistance = 50;
+                    if (Math.abs(swipeDistance) > minSwipeDistance) {
+                        if (swipeDistance > 0) {
+                            handlePrev();
+                        } else {
+                            handleNext();
+                        }
+                    }
+                };
+                document.addEventListener('touchstart', handleTouchStart);
+                document.addEventListener('touchend', handleTouchEnd);
+
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    window.removeEventListener('mousedown', handleMouseDown);
+                    window.removeEventListener('mouseup', handleMouseUp);
+                    window.removeEventListener('keydown', handleKeyDown);
+                    document.removeEventListener('dblclick', handleDoubleClick);
+                    window.removeEventListener('click', startAmbientSound);
+                    window.removeEventListener('keydown', startAmbientSound);
+                    document.removeEventListener('touchstart', handleTouchStart);
+                    document.removeEventListener('touchend', handleTouchEnd);
+                };
+            }, [handleNext, handlePrev, startAmbientSound]);
