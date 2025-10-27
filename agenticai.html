@@ -909,8 +909,11 @@
                 useEffect(() => {
                     if(plan.length > 0) {
                         playSound('audio-complete', 0.4);
+                        console.log('GeneratedPlan component mounted with', plan.length, 'steps');
                     }
                 }, [plan, playSound]);
+
+                console.log('GeneratedPlan rendering with plan:', plan);
 
                 return (
                     <div className="w-full">
@@ -1096,6 +1099,7 @@ Return only the JSON array, no other text:`;
                     </div>
 
                     <div className="w-full min-h-[320px] border border-gray-200 p-6 flex items-center justify-center">
+                        {console.log('Render check - isLoading:', isLoading, 'error:', error, 'plan.length:', plan.length)}
                         {isLoading && <LoadingState />}
                         {error && <ErrorState message={error} />}
                         {!isLoading && !error && plan.length > 0 && <GeneratedPlan plan={plan} playSound={playSound} />}
