@@ -1018,7 +1018,10 @@ Return only the JSON array, no other text:`;
                     }
 
                     const data = await response.json();
+                    console.log('Cerebras API Response:', data);
+
                     const content = data.choices[0].message.content;
+                    console.log('AI Content:', content);
 
                     // Extract JSON from response, handling various formats
                     let jsonText = content.trim();
@@ -1049,6 +1052,7 @@ Return only the JSON array, no other text:`;
                         throw new Error(`Failed to parse AI response as JSON. The model may need better prompting.`);
                     }
 
+                    console.log('Setting plan with', parsedPlan.length, 'steps:', parsedPlan);
                     setPlan(parsedPlan);
 
                 } catch (e) {
