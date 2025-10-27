@@ -906,24 +906,35 @@
             );
 
             const GeneratedPlan = ({ plan }) => {
+                const planRef = useRef(null);
+
                 useEffect(() => {
                     if(plan.length > 0) {
                         playSound('audio-complete', 0.4);
                         console.log('GeneratedPlan component mounted with', plan.length, 'steps');
+
+                        // Scroll the results into view
+                        setTimeout(() => {
+                            if (planRef.current) {
+                                planRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }, 100);
                     }
                 }, [plan, playSound]);
 
                 console.log('GeneratedPlan rendering with plan:', plan);
 
                 return (
-                    <div className="w-full">
+                    <div className="w-full" ref={planRef}>
                         <h3 className="font-medium text-sm uppercase tracking-wider text-gray-500 mb-4 text-center">Generated Execution Plan</h3>
                         <div className="space-y-3 mb-8">
                             {plan.map(({ source_system, action, justification }, index) => (
                                 <div
                                     key={index}
                                     className="flex items-start gap-4 bg-gray-50 p-4 border border-gray-200"
-                                    style={{animation: `fadeInUp 0.5s ease-out ${index * 0.2}s forwards`, opacity: 0}}
+                                    style={{
+                                        animation: `fadeInUp 0.4s ease-out ${index * 0.1}s both`
+                                    }}
                                 >
                                     <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                                         <img src={planIcons[source_system] || planIcons['DEFAULT']} alt={source_system} className="w-6 h-6 object-contain filter grayscale" />
