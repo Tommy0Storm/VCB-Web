@@ -955,8 +955,9 @@
 
             const generatePlan = async () => {
                 if (!userInput) return;
+
                 setIsLoading(true);
-                setPlan([]);
+                // Don't clear plan immediately - keep showing previous results until new ones arrive
                 setError('');
                 playSound('audio-transition', 0.2);
                 // Trigger paint + sound explosion at thinking start
@@ -1098,11 +1099,26 @@ Return only the JSON array, no other text:`;
                         </button>
                     </div>
 
-                    <div className="w-full min-h-[320px] border border-gray-200 p-6 flex items-center justify-center">
+                    <div className="w-full min-h-[320px] border border-gray-200 p-6 flex items-center justify-center relative">
                         {console.log('Render check - isLoading:', isLoading, 'error:', error, 'plan.length:', plan.length)}
-                        {isLoading && <LoadingState />}
-                        {error && <ErrorState message={error} />}
+
+                        {/* Show loading overlay if generating new results while keeping old results visible */}
+                        {isLoading && plan.length > 0 && (
+                            <div className="absolute inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+                                <LoadingState />
+                            </div>
+                        )}
+
+                        {/* Show loading state if no previous results */}
+                        {isLoading && plan.length === 0 && <LoadingState />}
+
+                        {/* Show error if present */}
+                        {!isLoading && error && <ErrorState message={error} />}
+
+                        {/* Show generated plan */}
                         {!isLoading && !error && plan.length > 0 && <GeneratedPlan plan={plan} playSound={playSound} />}
+
+                        {/* Show placeholder if no plan and not loading */}
                         {!isLoading && !error && plan.length === 0 && (
                             <div className="text-center text-gray-400">
                                 The generated execution plan will appear here.
