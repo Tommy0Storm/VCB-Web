@@ -25,15 +25,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Note missing Cerebras API key
-        if: ${{ secrets.CEREBRAS_API_KEY == '' }}
-        run: |
-          echo "::warning::CEREBRAS_API_KEY secret is not configured; Agentic AI page will ship with empty API key."
-
       - name: Inject Cerebras API key
-        if: ${{ secrets.CEREBRAS_API_KEY != '' }}
+        env:
+          CEREBRAS_KEY: ${{ secrets.CEREBRAS_API_KEY }}
         run: |
-          sed -i "s|window.CEREBRAS_API_KEY = '';|window.CEREBRAS_API_KEY = '${{ secrets.CEREBRAS_API_KEY }}';|g" agenticai.html
+          if [ -n "$CEREBRAS_KEY" ]; then
+            sed -i "s|window.CEREBRAS_API_KEY = '';|window.CEREBRAS_API_KEY = '$CEREBRAS_KEY';|g" agenticai.html
+            echo "✓ Cerebras API key injected successfully"
+          else
+            echo "::warning::CEREBRAS_API_KEY secret is not configured; Agentic AI page will ship with empty API key."
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
