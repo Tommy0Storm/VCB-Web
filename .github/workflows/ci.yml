@@ -25,15 +25,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Note missing Google API key
-        if: ${{ secrets.GOOGLE_API_KEY == '' }}
+      - name: Note missing Cerebras API key
+        if: ${{ secrets.CEREBRAS_API_KEY == '' }}
         run: |
-          echo "::warning::GOOGLE_API_KEY secret is not configured; Agentic AI page will ship with the placeholder key."
+          echo "::warning::CEREBRAS_API_KEY secret is not configured; Agentic AI page will ship with empty API key."
 
-      - name: Inject Google API key
-        if: ${{ secrets.GOOGLE_API_KEY != '' }}
+      - name: Inject Cerebras API key
+        if: ${{ secrets.CEREBRAS_API_KEY != '' }}
         run: |
-          sed -i "s|YOUR_GOOGLE_API_KEY|${{ secrets.GOOGLE_API_KEY }}|g" agenticai.html
+          sed -i "s|window.CEREBRAS_API_KEY = '';|window.CEREBRAS_API_KEY = '${{ secrets.CEREBRAS_API_KEY }}';|g" agenticai.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
