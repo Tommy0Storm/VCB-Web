@@ -560,7 +560,7 @@
                 return (
                     <div
                         onMouseEnter={() => { onHover(); playSound('audio-hover', 0.1); }}
-                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-xl flex items-center justify-center z-20 cursor-pointer ${
+                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-xl flex items-center justify-center z-10 cursor-pointer ${
                             isCurrent ? 'border-4 border-black' :
                             isActivated ? 'border-2' :
                             'border border-gray-200'
@@ -652,7 +652,7 @@
 
             return (
                 <div className="text-center pt-12 pb-32 px-4 min-h-full flex flex-col">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-2 mt-4"
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-2 mt-12"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
                             WebkitBackgroundClip: 'text',
@@ -662,9 +662,17 @@
                     >
                         Enterprise Integration Fabric
                     </h1>
-                    <h2 className="text-lg text-gray-500 font-medium text-center mt-2 mb-6 max-w-2xl mx-auto">
-                        CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS.
-                    </h2>
+                    <div className="text-lg text-gray-500 font-medium text-left mt-2 mb-6 max-w-2xl mx-auto">
+                        <div className="flex items-center gap-2">
+                            CONNECTING TO YOUR EXISTING SYSTEMS
+                            <div className="flex gap-1">
+                                <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite'}} />
+                                <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite 0.5s'}} />
+                                <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite 1s'}} />
+                            </div>
+                        </div>
+                        <div>TO EXECUTE WORKFLOWS</div>
+                    </div>
 
                     {/* AI Narration Display */}
                     <div className="w-full max-w-3xl mx-auto mb-6 h-12 flex items-center justify-center">
@@ -694,7 +702,7 @@
                     <div className="relative w-full max-w-[480px] mx-auto flex-1 flex items-center justify-center min-h-[480px]" onMouseLeave={() => setHoveredTool(null)}>
                         {/* Central Orchestration Engine */}
                         <div
-                            className="absolute w-44 h-44 bg-gradient-to-br from-white to-gray-50 border-2 border-black rounded-xl flex flex-col items-center justify-center z-10 transition-all duration-500"
+                            className="absolute w-44 h-44 bg-gradient-to-br from-white to-gray-50 border-2 border-black rounded-xl flex flex-col items-center justify-center z-30 transition-all duration-500"
                             style={{
                                 transform: isActive ? 'scale(1)' : 'scale(0.8)',
                                 opacity: isActive ? 1 : 0,
@@ -719,11 +727,11 @@
                             </h3>
                             {activeToolIndex >= 0 && (
                                 <>
-                                    <div className="absolute inset-0 border-2 border-cyan-400 rounded-xl" style={{
+                                    <div className="absolute inset-0 border-2 border-cyan-400 rounded-xl z-20" style={{
                                         animation: 'breathing 2s ease-in-out infinite',
                                         opacity: 0.5
                                     }} />
-                                    <div className="absolute -inset-1 border border-cyan-400 rounded-xl" style={{
+                                    <div className="absolute -inset-1 border border-cyan-400 rounded-xl z-20" style={{
                                         animation: 'breathing 2s ease-in-out infinite 0.5s',
                                         opacity: 0.3
                                     }} />
