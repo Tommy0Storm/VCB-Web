@@ -465,7 +465,7 @@
                 { name: 'Mail API', category: 'Communication', angle: 270, logo: 'images/email.svg', color: '#EA4335' },
                 { name: 'Search API', category: 'Web Intelligence', angle: 330, logo: 'images/search.svg', color: '#34A853' },
             ];
-            const radius = 200;
+            const radius = 250;
 
             const [hoveredTool, setHoveredTool] = useState(null);
             const [activeToolIndex, setActiveToolIndex] = useState(-1);
@@ -627,8 +627,8 @@
                 if (!isActivated) return null;
 
                 const angleRad = (tool.angle * Math.PI) / 180;
-                const x = 50 + (radius / 480 * 100) * Math.cos(angleRad);
-                const y = 50 + (radius / 480 * 100) * Math.sin(angleRad);
+                const x = 50 + (radius / 600 * 100) * Math.cos(angleRad);
+                const y = 50 + (radius / 600 * 100) * Math.sin(angleRad);
 
                 return (
                     <circle
@@ -662,17 +662,9 @@
                     >
                         Enterprise Integration Fabric
                     </h1>
-                    <div className="text-lg text-gray-500 font-medium text-left mt-2 mb-6 max-w-2xl mx-auto">
-                        <div className="flex items-center gap-2">
-                            CONNECTING TO YOUR EXISTING SYSTEMS
-                            <div className="flex gap-1">
-                                <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite'}} />
-                                <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite 0.5s'}} />
-                                <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite 1s'}} />
-                            </div>
-                        </div>
-                        <div>TO EXECUTE WORKFLOWS</div>
-                    </div>
+                    <h2 className="text-lg text-gray-500 font-medium text-center mt-2 mb-6 max-w-2xl mx-auto">
+                        CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS
+                    </h2>
 
                     {/* AI Narration Display */}
                     <div className="w-full max-w-3xl mx-auto mb-6 h-12 flex items-center justify-center">
@@ -699,7 +691,22 @@
                         </div>
                     </div>
 
-                    <div className="relative w-full max-w-[480px] mx-auto flex-1 flex items-center justify-center min-h-[480px]" onMouseLeave={() => setHoveredTool(null)}>
+                    <div className="relative w-full max-w-[600px] mx-auto flex-1 flex items-center justify-center min-h-[600px]" onMouseLeave={() => setHoveredTool(null)}>
+                        {/* Connecting Text */}
+                        <div className="absolute left-8 top-1/2 -translate-y-1/2 text-left z-20">
+                            <div className={`text-sm text-gray-500 font-medium uppercase tracking-wider transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+                                <div className="flex items-center gap-2 mb-1">
+                                    CONNECTING TO YOUR
+                                    <div className="flex gap-1">
+                                        <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite'}} />
+                                        <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite 0.5s'}} />
+                                        <div className="w-1 h-1 bg-gray-500 rounded-full" style={{animation: 'thinkingPulse 1.5s ease-in-out infinite 1s'}} />
+                                    </div>
+                                </div>
+                                <div>EXISTING SYSTEMS</div>
+                            </div>
+                        </div>
+
                         {/* Central Orchestration Engine */}
                         <div
                             className="absolute w-44 h-44 bg-gradient-to-br from-white to-gray-50 border-2 border-black rounded-xl flex flex-col items-center justify-center z-30 transition-all duration-500"
@@ -743,8 +750,8 @@
                         <svg className="absolute w-full h-full top-0 left-0 overflow-visible" aria-hidden="true">
                             {enterpriseTools.map((tool, index) => {
                                 const angleRad = (tool.angle * Math.PI) / 180;
-                                const x = 50 + (radius / 480 * 100) * Math.cos(angleRad);
-                                const y = 50 + (radius / 480 * 100) * Math.sin(angleRad);
+                                const x = 50 + (radius / 600 * 100) * Math.cos(angleRad);
+                                const y = 50 + (radius / 600 * 100) * Math.sin(angleRad);
                                 const isHovered = hoveredTool?.name === tool.name;
                                 const isActivated = activeToolIndex >= index;
                                 const isCurrent = activeToolIndex === index;
