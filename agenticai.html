@@ -460,8 +460,8 @@
             const enterpriseTools = [
                 { name: 'Salesforce', category: 'CRM', angle: 30, logo: 'images/salesforce.svg', color: '#00A1E0' },
                 { name: 'AWS', category: 'Cloud Infra', angle: 90, logo: 'images/aws.svg', color: '#FF9900' },
-                { name: 'Internal DB', category: 'Proprietary Data', angle: 150, logo: 'images/database.svg', color: '#4285F4' },
-                { name: 'SAP', category: 'ERP', angle: 210, logo: 'images/sap.svg', color: '#0FAAFF' },
+                { name: 'Internal DB', category: 'Proprietary Data', angle: 135, logo: 'images/database.svg', color: '#4285F4' },
+                { name: 'SAP', category: 'ERP', angle: 225, logo: 'images/sap.svg', color: '#0FAAFF' },
                 { name: 'Mail API', category: 'Communication', angle: 270, logo: 'images/email.svg', color: '#EA4335' },
                 { name: 'Search API', category: 'Web Intelligence', angle: 330, logo: 'images/search.svg', color: '#34A853' },
             ];
@@ -627,8 +627,8 @@
                 if (!isActivated) return null;
 
                 const angleRad = (tool.angle * Math.PI) / 180;
-                const x = 50 + (radius / 600 * 100) * Math.cos(angleRad);
-                const y = 50 + (radius / 600 * 100) * Math.sin(angleRad);
+                const x = 50 + (radius / 480 * 100) * Math.cos(angleRad);
+                const y = 50 + (radius / 480 * 100) * Math.sin(angleRad);
 
                 return (
                     <circle
@@ -691,9 +691,9 @@
                         </div>
                     </div>
 
-                    <div className="relative w-full max-w-[600px] mx-auto flex-1 flex items-center justify-center min-h-[600px]" onMouseLeave={() => setHoveredTool(null)}>
+                    <div className="relative w-full max-w-[480px] mx-auto flex-1 flex items-center justify-center min-h-[480px]" style={{transform: 'scale(0.8)'}} onMouseLeave={() => setHoveredTool(null)}>
                         {/* Connecting Text */}
-                        <div className="absolute left-8 top-1/2 -translate-y-1/2 text-left z-20">
+                        <div className="absolute left-2 top-1/2 -translate-y-1/2 text-left z-20">
                             <div className={`text-sm text-gray-500 font-medium uppercase tracking-wider transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
                                 <div className="flex items-center gap-2 mb-1">
                                     CONNECTING TO YOUR
@@ -750,8 +750,8 @@
                         <svg className="absolute w-full h-full top-0 left-0 overflow-visible" aria-hidden="true">
                             {enterpriseTools.map((tool, index) => {
                                 const angleRad = (tool.angle * Math.PI) / 180;
-                                const x = 50 + (radius / 600 * 100) * Math.cos(angleRad);
-                                const y = 50 + (radius / 600 * 100) * Math.sin(angleRad);
+                                const x = 50 + (radius / 480 * 100) * Math.cos(angleRad);
+                                const y = 50 + (radius / 480 * 100) * Math.sin(angleRad);
                                 const isHovered = hoveredTool?.name === tool.name;
                                 const isActivated = activeToolIndex >= index;
                                 const isCurrent = activeToolIndex === index;
