@@ -542,39 +542,71 @@
                 const isCurrent = activeToolIndex === index;
 
                 const style = {
-                    transform: `rotate(${tool.angle}deg) translate(${radius}px) rotate(-${tool.angle}deg) scale(${isHovered ? 1.15 : 1})`,
+                    transform: `rotate(${tool.angle}deg) translate(${radius}px) rotate(-${tool.angle}deg) scale(${isHovered ? 1.2 : 1})`,
                     opacity: isActive ? (isActivated ? 1 : 0.3) : 0,
-                    transition: 'all 0.5s ease-out',
+                    transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 };
 
                 return (
                     <div
                         onMouseEnter={() => { onHover(); playSound('audio-hover', 0.1); }}
-                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white rounded-lg flex items-center justify-center z-20 cursor-pointer ${
-                            isCurrent ? 'border-4 border-black shadow-lg' :
-                            isActivated ? 'border-2 border-gray-400' :
+                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-xl flex items-center justify-center z-20 cursor-pointer ${
+                            isCurrent ? 'border-4 border-black' :
+                            isActivated ? 'border-2' :
                             'border border-gray-200'
                         }`}
-                        style={style}
+                        style={{
+                            ...style,
+                            background: isActivated
+                                ? `linear-gradient(135deg, white 0%, ${tool.color}05 100%)`
+                                : 'white',
+                            borderColor: isCurrent ? 'black' : isActivated ? tool.color : '#e5e7eb',
+                            boxShadow: isCurrent
+                                ? `0 0 30px ${tool.color}40, 0 4px 20px rgba(0,0,0,0.15)`
+                                : isActivated
+                                ? `0 4px 15px ${tool.color}20`
+                                : '0 2px 8px rgba(0,0,0,0.08)'
+                        }}
                         data-interactive
                     >
-                        <img
-                            src={tool.logo}
-                            alt={tool.name}
-                            className="w-12 h-12 object-contain"
-                            style={{
-                                filter: isActivated ? 'none' : 'grayscale(100%)',
-                                transition: 'filter 0.5s ease'
-                            }}
-                        />
-                        {isActivated && (
-                            <div
-                                className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-green-500"
+                        <div className="relative">
+                            <img
+                                src={tool.logo}
+                                alt={tool.name}
+                                className="w-14 h-14 object-contain transition-all duration-500"
                                 style={{
-                                    animation: isCurrent ? 'thinkingPulse 1s ease-in-out infinite' : 'none',
-                                    boxShadow: '0 0 8px rgba(34, 197, 94, 0.6)'
+                                    filter: isActivated
+                                        ? 'none'
+                                        : 'grayscale(100%) opacity(0.5)',
+                                    transform: isCurrent ? 'scale(1.1)' : 'scale(1)'
                                 }}
                             />
+                            {isCurrent && (
+                                <div className="absolute inset-0 -m-2 rounded-full"
+                                    style={{
+                                        background: `radial-gradient(circle, ${tool.color}30 0%, transparent 70%)`,
+                                        animation: 'thinkingPulse 1.5s ease-in-out infinite'
+                                    }}
+                                />
+                            )}
+                        </div>
+                        {isActivated && (
+                            <div
+                                className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center"
+                                style={{
+                                    background: isCurrent
+                                        ? `linear-gradient(135deg, ${tool.color} 0%, ${tool.color}dd 100%)`
+                                        : '#10b981',
+                                    animation: isCurrent ? 'thinkingPulse 1s ease-in-out infinite' : 'popIn 0.3s ease-out',
+                                    boxShadow: `0 0 12px ${isCurrent ? tool.color : '#10b981'}80`
+                                }}
+                            >
+                                {!isCurrent && (
+                                    <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polyline points="20 6 9 17 4 12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                )}
+                            </div>
                         )}
                     </div>
                 );
@@ -609,44 +641,83 @@
             };
 
             return (
-                <div className="text-center py-4 pb-24">
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Enterprise Integration Fabric</h1>
-                    <h2 className="text-xl text-gray-500 font-medium text-center mt-4 mb-8 max-w-2xl mx-auto">CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS.</h2>
+                <div className="text-center pt-12 pb-24 px-4">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-2"
+                        style={{
+                            background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                        }}
+                    >
+                        Enterprise Integration Fabric
+                    </h1>
+                    <h2 className="text-xl text-gray-500 font-medium text-center mt-4 mb-8 max-w-2xl mx-auto">
+                        CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS.
+                    </h2>
 
                     {/* AI Narration Display */}
-                    <div className="w-full max-w-3xl mx-auto mb-6 h-12 flex items-center justify-center">
+                    <div className="w-full max-w-3xl mx-auto mb-8 h-14 flex items-center justify-center">
                         <div
-                            className={`px-6 py-2 bg-black text-white text-sm uppercase tracking-wider transition-all duration-500 ${
+                            className={`px-8 py-3 bg-gradient-to-r from-gray-900 to-black text-white text-sm uppercase tracking-wider transition-all duration-500 shadow-lg ${
                                 aiNarration ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                             }`}
                             style={{
                                 fontFamily: 'Quicksand, sans-serif',
-                                fontWeight: 500
+                                fontWeight: 500,
+                                borderLeft: '4px solid #00A1E0',
+                                boxShadow: aiNarration ? '0 4px 20px rgba(0,0,0,0.15)' : 'none'
                             }}
                         >
                             {isNarrating && (
-                                <span className="inline-block w-2 h-2 bg-white rounded-full mr-2" style={{ animation: 'thinkingPulse 1s ease-in-out infinite' }} />
+                                <span className="inline-block w-2.5 h-2.5 bg-cyan-400 rounded-full mr-3"
+                                    style={{
+                                        animation: 'thinkingPulse 1s ease-in-out infinite',
+                                        boxShadow: '0 0 10px rgba(34, 211, 238, 0.6)'
+                                    }}
+                                />
                             )}
                             {aiNarration || '\u00A0'}
                         </div>
                     </div>
 
-                    <div className="relative w-[500px] h-[500px] mx-auto flex items-center justify-center" onMouseLeave={() => setHoveredTool(null)}>
+                    <div className="relative w-[520px] h-[520px] mx-auto flex items-center justify-center" onMouseLeave={() => setHoveredTool(null)}>
                         {/* Central Orchestration Engine */}
                         <div
-                            className="absolute w-40 h-40 bg-white border-2 border-black rounded-lg flex flex-col items-center justify-center z-10 transition-all duration-500"
+                            className="absolute w-44 h-44 bg-gradient-to-br from-white to-gray-50 border-2 border-black rounded-xl flex flex-col items-center justify-center z-10 transition-all duration-500"
                             style={{
                                 transform: isActive ? 'scale(1)' : 'scale(0.8)',
                                 opacity: isActive ? 1 : 0,
-                                boxShadow: activeToolIndex >= 0 ? '0 0 30px rgba(0,0,0,0.15)' : 'none'
+                                boxShadow: activeToolIndex >= 0
+                                    ? '0 0 40px rgba(0,0,0,0.15), 0 0 80px rgba(0,161,224,0.1)'
+                                    : '0 4px 10px rgba(0,0,0,0.1)'
                             }}
                         >
-                            <span className="text-6xl mb-1">🤖</span>
-                            <h3 className="text-sm font-medium tracking-wider text-black">ORCHESTRATION<br/>ENGINE</h3>
+                            <div className="relative">
+                                <span className="text-7xl mb-2 block" style={{
+                                    filter: activeToolIndex >= 0 ? 'drop-shadow(0 0 8px rgba(0,161,224,0.3))' : 'none',
+                                    transition: 'filter 0.5s ease'
+                                }}>🤖</span>
+                                {activeToolIndex >= 0 && (
+                                    <div className="absolute inset-0 bg-cyan-400 rounded-full blur-xl opacity-20"
+                                        style={{ animation: 'thinkingPulse 2s ease-in-out infinite' }}
+                                    />
+                                )}
+                            </div>
+                            <h3 className="text-xs font-bold tracking-widest text-black uppercase">
+                                ORCHESTRATION<br/>ENGINE
+                            </h3>
                             {activeToolIndex >= 0 && (
-                                <div className="absolute inset-0 border-2 border-black rounded-lg" style={{
-                                    animation: 'breathing 2s ease-in-out infinite'
-                                }} />
+                                <>
+                                    <div className="absolute inset-0 border-2 border-cyan-400 rounded-xl" style={{
+                                        animation: 'breathing 2s ease-in-out infinite',
+                                        opacity: 0.5
+                                    }} />
+                                    <div className="absolute -inset-1 border border-cyan-400 rounded-xl" style={{
+                                        animation: 'breathing 2s ease-in-out infinite 0.5s',
+                                        opacity: 0.3
+                                    }} />
+                                </>
                             )}
                         </div>
 
@@ -695,10 +766,32 @@
                         ))}
 
                         {/* Hover Info */}
-                        <div className="absolute z-30 w-full text-center transition-all duration-300" style={{ top: '105%', opacity: hoveredTool ? 1 : 0 }}>
-                            <div className="inline-block bg-white py-2 px-4 border border-gray-200">
-                                <h4 className="font-medium text-lg text-black">{hoveredTool?.name || '...'}</h4>
-                                <p className="text-sm text-gray-500 uppercase">{hoveredTool?.category || '...'}</p>
+                        <div className="absolute z-30 w-full text-center transition-all duration-300"
+                            style={{
+                                top: '108%',
+                                opacity: hoveredTool ? 1 : 0,
+                                transform: hoveredTool ? 'translateY(0)' : 'translateY(-10px)'
+                            }}
+                        >
+                            <div className="inline-block bg-white py-3 px-6 border-2 shadow-xl"
+                                style={{
+                                    borderColor: hoveredTool?.color || '#e5e7eb',
+                                    borderRadius: '12px',
+                                    boxShadow: `0 10px 40px ${hoveredTool?.color || '#000'}20`
+                                }}
+                            >
+                                <h4 className="font-bold text-xl text-black tracking-wide">{hoveredTool?.name || '...'}</h4>
+                                <p className="text-xs text-gray-500 uppercase tracking-widest mt-1">{hoveredTool?.category || '...'}</p>
+                                <div className="mt-2 pt-2 border-t"
+                                    style={{ borderColor: `${hoveredTool?.color || '#e5e7eb'}30` }}
+                                >
+                                    <div className="flex items-center gap-2 justify-center">
+                                        <div className="w-2 h-2 rounded-full"
+                                            style={{ background: hoveredTool?.color || '#10b981' }}
+                                        />
+                                        <span className="text-xs text-gray-600">Enterprise Integration Point</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -741,8 +834,17 @@
             }, [isActive]);
 
             return (
-                <div className="w-full max-w-5xl text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">The Ad-Hoc Executive Query</h1>
+                <div className="w-full max-w-5xl text-center pt-12 px-4">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-2"
+                        style={{
+                            background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                        }}
+                    >
+                        The Ad-Hoc Executive Query
+                    </h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-16">WHEN STANDARD DASHBOARDS FALL SHORT.</h2>
 
                     <div
@@ -911,8 +1013,17 @@
             );
 
             return (
-                <div className="text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Autonomous Planning & Execution</h1>
+                <div className="text-center pt-12 px-4">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-2"
+                        style={{
+                            background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                        }}
+                    >
+                        Autonomous Planning & Execution
+                    </h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-12">THE AGENT FORMULATES A MULTI-SYSTEM QUERY PLAN.</h2>
 
                     {/* Status Display */}
@@ -1006,8 +1117,17 @@
             }, [isActive, playSound]);
 
             return (
-                <div className="text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-16">From Raw Data to Actionable Insight</h1>
+                <div className="text-center pt-12 px-4">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-16"
+                        style={{
+                            background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                        }}
+                    >
+                        From Raw Data to Actionable Insight
+                    </h1>
 
                     <div className="w-full max-w-3xl mx-auto text-center">
                         {processingStage >= 0 && (
@@ -1489,8 +1609,17 @@ Return only the JSON array, no other text:`;
             };
 
             return (
-                <div className="w-full max-w-4xl flex flex-col items-center py-4 pb-40">
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider text-center">Live Agent Simulation</h1>
+                <div className="w-full max-w-4xl flex flex-col items-center pt-12 pb-40 px-4">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider text-center mb-2"
+                        style={{
+                            background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                        }}
+                    >
+                        Live Agent Simulation
+                    </h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-12 text-center max-w-2xl mx-auto">INPUT A QUERY AND WATCH THE AI GENERATE AN EXECUTION PLAN.</h2>
 
                     <div className="w-full border border-gray-200 p-6 mb-6">
