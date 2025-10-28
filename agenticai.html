@@ -75,13 +75,14 @@
 
         /* --- SLIDE SYSTEM --- */
         .slide {
-            position: absolute; top: 60px; left: 0; width: 100%; height: calc(100% - 60px);
+            position: absolute; top: 38px; left: 0; width: 100%; height: calc(100% - 38px);
             opacity: 0; pointer-events: none;
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform: scale(1.02);
             overflow-y: auto; /* Allow vertical scrolling */
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            padding-top: 0; /* Remove default padding */
         }
         .slide.active {
             opacity: 1; pointer-events: auto; z-index: 10;
@@ -314,7 +315,7 @@
         // --- START OF components/VcbLogo.tsx ---
         const VcbLogo = () => {
             return (
-                <header className="fixed top-0 left-0 w-full px-2 py-2 flex justify-between items-center z-50 bg-black border-b border-gray-900">
+                <header className="fixed top-0 left-0 w-full px-2 py-1 flex justify-between items-center z-50 bg-black border-b border-gray-900">
                     <a href="index.html" className="flex items-center gap-2 cursor-pointer transition-transform duration-300 hover:scale-105" data-interactive>
                         <img src="images/vcb-logo.png" alt="VCB Logo" className="w-20 h-auto sm:w-[140px]" />
                         <span className="hidden sm:block text-xs sm:text-sm text-white tracking-wider uppercase">Agentic Platform</span>
@@ -334,7 +335,7 @@
             const progressPercentage = (current / total) * 100;
 
             return (
-                <div className="fixed top-[50px] left-0 w-full h-0.5 z-40 bg-gray-200">
+                <div className="fixed top-[38px] left-0 w-full h-0.5 z-40 bg-gray-200">
                     <div 
                         className="h-full bg-black"
                         style={{ 
@@ -455,7 +456,7 @@
                 { name: 'Mail API', category: 'Communication', angle: 270, logo: 'images/email.svg', color: '#EA4335' },
                 { name: 'Search API', category: 'Web Intelligence', angle: 330, logo: 'images/search.svg', color: '#34A853' },
             ];
-            const radius = 220;
+            const radius = 200;
 
             const [hoveredTool, setHoveredTool] = useState(null);
             const [activeToolIndex, setActiveToolIndex] = useState(-1);
@@ -617,8 +618,8 @@
                 if (!isActivated) return null;
 
                 const angleRad = (tool.angle * Math.PI) / 180;
-                const x = 50 + (radius / 500 * 100) * Math.cos(angleRad);
-                const y = 50 + (radius / 500 * 100) * Math.sin(angleRad);
+                const x = 50 + (radius / 480 * 100) * Math.cos(angleRad);
+                const y = 50 + (radius / 480 * 100) * Math.sin(angleRad);
 
                 return (
                     <circle
@@ -641,8 +642,8 @@
             };
 
             return (
-                <div className="text-center pt-12 pb-24 px-4">
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-2"
+                <div className="text-center pt-4 pb-32 px-4 min-h-full flex flex-col">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-2"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
                             WebkitBackgroundClip: 'text',
@@ -652,14 +653,14 @@
                     >
                         Enterprise Integration Fabric
                     </h1>
-                    <h2 className="text-xl text-gray-500 font-medium text-center mt-4 mb-8 max-w-2xl mx-auto">
+                    <h2 className="text-lg text-gray-500 font-medium text-center mt-2 mb-6 max-w-2xl mx-auto">
                         CONNECTING TO YOUR EXISTING SYSTEMS TO EXECUTE WORKFLOWS.
                     </h2>
 
                     {/* AI Narration Display */}
-                    <div className="w-full max-w-3xl mx-auto mb-8 h-14 flex items-center justify-center">
+                    <div className="w-full max-w-3xl mx-auto mb-6 h-12 flex items-center justify-center">
                         <div
-                            className={`px-8 py-3 bg-gradient-to-r from-gray-900 to-black text-white text-sm uppercase tracking-wider transition-all duration-500 shadow-lg ${
+                            className={`px-6 py-2 bg-gradient-to-r from-gray-900 to-black text-white text-xs uppercase tracking-wider transition-all duration-500 shadow-lg ${
                                 aiNarration ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                             }`}
                             style={{
@@ -670,7 +671,7 @@
                             }}
                         >
                             {isNarrating && (
-                                <span className="inline-block w-2.5 h-2.5 bg-cyan-400 rounded-full mr-3"
+                                <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full mr-2"
                                     style={{
                                         animation: 'thinkingPulse 1s ease-in-out infinite',
                                         boxShadow: '0 0 10px rgba(34, 211, 238, 0.6)'
@@ -681,7 +682,7 @@
                         </div>
                     </div>
 
-                    <div className="relative w-[520px] h-[520px] mx-auto flex items-center justify-center" onMouseLeave={() => setHoveredTool(null)}>
+                    <div className="relative w-full max-w-[480px] mx-auto flex-1 flex items-center justify-center min-h-[480px]" onMouseLeave={() => setHoveredTool(null)}>
                         {/* Central Orchestration Engine */}
                         <div
                             className="absolute w-44 h-44 bg-gradient-to-br from-white to-gray-50 border-2 border-black rounded-xl flex flex-col items-center justify-center z-10 transition-all duration-500"
@@ -725,8 +726,8 @@
                         <svg className="absolute w-full h-full top-0 left-0 overflow-visible" aria-hidden="true">
                             {enterpriseTools.map((tool, index) => {
                                 const angleRad = (tool.angle * Math.PI) / 180;
-                                const x = 50 + (radius / 500 * 100) * Math.cos(angleRad);
-                                const y = 50 + (radius / 500 * 100) * Math.sin(angleRad);
+                                const x = 50 + (radius / 480 * 100) * Math.cos(angleRad);
+                                const y = 50 + (radius / 480 * 100) * Math.sin(angleRad);
                                 const isHovered = hoveredTool?.name === tool.name;
                                 const isActivated = activeToolIndex >= index;
                                 const isCurrent = activeToolIndex === index;
@@ -768,7 +769,7 @@
                         {/* Hover Info */}
                         <div className="absolute z-30 w-full text-center transition-all duration-300"
                             style={{
-                                top: '108%',
+                                top: 'calc(100% + 20px)',
                                 opacity: hoveredTool ? 1 : 0,
                                 transform: hoveredTool ? 'translateY(0)' : 'translateY(-10px)'
                             }}
@@ -834,7 +835,7 @@
             }, [isActive]);
 
             return (
-                <div className="w-full max-w-5xl text-center pt-12 px-4">
+                <div className="w-full max-w-5xl text-center pt-4 px-4">
                     <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-2"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
@@ -1013,7 +1014,7 @@
             );
 
             return (
-                <div className="text-center pt-12 px-4">
+                <div className="text-center pt-4 px-4">
                     <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-2"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
@@ -1117,7 +1118,7 @@
             }, [isActive, playSound]);
 
             return (
-                <div className="text-center pt-12 px-4">
+                <div className="text-center pt-4 px-4">
                     <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-16"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
@@ -1609,7 +1610,7 @@ Return only the JSON array, no other text:`;
             };
 
             return (
-                <div className="w-full max-w-4xl flex flex-col items-center pt-12 pb-40 px-4">
+                <div className="w-full max-w-4xl flex flex-col items-center pt-4 pb-40 px-4">
                     <h1 className="text-5xl md:text-6xl font-bold tracking-wider text-center mb-2"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
