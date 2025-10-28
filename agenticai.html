@@ -59,8 +59,18 @@
         }
         
         /* --- BACKGROUND --- */
-        #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
+        #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: var(--white);
+            background-image:
+                linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridSlide 20s linear infinite;
+        }
+
+        @keyframes gridSlide {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
         }
 
         /* --- SLIDE SYSTEM --- */
@@ -770,69 +780,173 @@
         // --- START OF components/slides/Slide4.tsx ---
         const Slide4 = ({ isActive, playSound }) => {
             const planSteps = [
-                { tool: 'SAP', action: 'ID Top Suppliers', icon: 'images/sap.svg' },
-                { tool: 'MES', action: 'Pull Downtime Logs', icon: 'images/database.svg' },
-                { tool: 'Logistics API', action: 'Get Delay Data', icon: 'images/search.svg' },
-                { tool: 'Synthesizer', action: 'Correlate Data', icon: 'images/aws.svg' },
-                { tool: 'Report Gen', action: 'Build Summary', icon: 'images/email.svg' },
+                { tool: 'SAP', action: 'ID Top Suppliers', icon: 'images/sap.svg', color: '#0FAAFF', status: 'Query supplier database...' },
+                { tool: 'MES', action: 'Pull Downtime Logs', icon: 'images/database.svg', color: '#4285F4', status: 'Extracting production metrics...' },
+                { tool: 'Logistics API', action: 'Get Delay Data', icon: 'images/search.svg', color: '#34A853', status: 'Analyzing shipping delays...' },
+                { tool: 'Synthesizer', action: 'Correlate Data', icon: 'images/aws.svg', color: '#FF9900', status: 'Cross-referencing datasets...' },
+                { tool: 'Report Gen', action: 'Build Summary', icon: 'images/email.svg', color: '#EA4335', status: 'Compiling executive report...' },
             ];
 
-            const PlanStepNode = ({ data, isVisible }) => {
-                useEffect(() => {
-                    if (isVisible) {
-                        playSound('audio-click', 0.15);
-                    }
-                }, [isVisible, playSound]);
+            const [visibleStep, setVisibleStep] = useState(-1);
+            const [executingStep, setExecutingStep] = useState(-1);
+            const [completedSteps, setCompletedSteps] = useState([]);
+            const [statusMessage, setStatusMessage] = useState('');
 
+            useEffect(() => {
+                if (!isActive) {
+                    setVisibleStep(-1);
+                    setExecutingStep(-1);
+                    setCompletedSteps([]);
+                    setStatusMessage('');
+                    return;
+                }
+
+                const sequence = async () => {
+                    setStatusMessage('AI Agent analyzing query complexity...');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+
+                    for (let i = 0; i < planSteps.length; i++) {
+                        // Make step visible
+                        setVisibleStep(i);
+                        playSound('audio-click', 0.15);
+                        await new Promise(resolve => setTimeout(resolve, 300));
+
+                        // Execute step
+                        setExecutingStep(i);
+                        setStatusMessage(planSteps[i].status);
+                        playSound('audio-transition', 0.1);
+                        await new Promise(resolve => setTimeout(resolve, 800));
+
+                        // Complete step
+                        setCompletedSteps(prev => [...prev, i]);
+                        setExecutingStep(-1);
+                        await new Promise(resolve => setTimeout(resolve, 200));
+                    }
+
+                    setStatusMessage('Execution plan completed successfully.');
+                    playSound('audio-complete', 0.3);
+                };
+
+                sequence();
+            }, [isActive, playSound]);
+
+            const PlanStepNode = ({ data, index, isVisible, isExecuting, isComplete }) => {
                 return (
-                    <div className={`flex flex-col items-center gap-2 transition-all duration-500 w-32 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
-                        <div className="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center">
-                            <img src={data.icon} alt={data.tool} className="w-10 h-10 object-contain filter grayscale" />
+                    <div className={`flex flex-col items-center gap-2 transition-all duration-500 w-32 relative ${
+                        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                    }`}>
+                        <div className={`w-20 h-20 bg-white rounded-full flex items-center justify-center transition-all duration-300 ${
+                            isExecuting ? 'border-4 border-black shadow-2xl scale-110' :
+                            isComplete ? 'border-2 border-green-500' :
+                            'border border-gray-200'
+                        }`}
+                        style={{
+                            boxShadow: isExecuting ? `0 0 30px ${data.color}40` : 'none'
+                        }}
+                        >
+                            <img
+                                src={data.icon}
+                                alt={data.tool}
+                                className="w-10 h-10 object-contain transition-all duration-300"
+                                style={{
+                                    filter: isComplete ? 'none' : 'grayscale(100%)',
+                                    transform: isExecuting ? 'scale(1.1)' : 'scale(1)'
+                                }}
+                            />
+                            {isExecuting && (
+                                <>
+                                    <div className="absolute inset-0 rounded-full border-2 border-black"
+                                        style={{ animation: 'breathing 1.5s ease-in-out infinite' }}
+                                    />
+                                    <div className="absolute -inset-2 rounded-full"
+                                        style={{
+                                            background: `radial-gradient(circle, ${data.color}20 0%, transparent 70%)`,
+                                            animation: 'thinkingPulse 1.5s ease-in-out infinite'
+                                        }}
+                                    />
+                                </>
+                            )}
+                            {isComplete && (
+                                <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center"
+                                    style={{ animation: 'popIn 0.3s ease-out forwards' }}
+                                >
+                                    <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polyline points="20 6 9 17 4 12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                </div>
+                            )}
                         </div>
                         <div className="text-center mt-2">
-                            <h3 className="text-sm font-medium tracking-wider text-black">{data.tool}</h3>
+                            <h3 className={`text-sm font-medium tracking-wider transition-colors duration-300 ${
+                                isComplete ? 'text-green-600' : 'text-black'
+                            }`}>{data.tool}</h3>
                             <p className="text-xs text-gray-500">{data.action}</p>
                         </div>
                     </div>
                 );
             };
 
-            const ArrowConnector = ({ isVisible }) => (
-                <div className={`flex-1 flex items-center justify-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            const ArrowConnector = ({ isVisible, isActive }) => (
+                <div className={`flex-1 flex items-center justify-center transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                     <svg width="100%" height="20" viewBox="0 0 100 20">
-                        <path d="M 0 10 L 100 10" stroke="var(--light-grey)" strokeWidth="1" />
-                        <path d="M 95 5 L 100 10 L 95 15" stroke="var(--light-grey)" strokeWidth="1" fill="none" />
+                        <defs>
+                            <linearGradient id={`arrow-gradient-${isActive}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor={isActive ? 'var(--black)' : 'var(--light-grey)'} />
+                                <stop offset="100%" stopColor={isActive ? 'var(--black)' : 'var(--light-grey)'} />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 0 10 L 100 10" stroke={`url(#arrow-gradient-${isActive})`} strokeWidth={isActive ? 2 : 1}
+                            className="transition-all duration-300"
+                        />
+                        <path d="M 95 5 L 100 10 L 95 15" stroke={isActive ? 'var(--black)' : 'var(--light-grey)'}
+                            strokeWidth={isActive ? 2 : 1} fill="none" className="transition-all duration-300"
+                        />
+                        {isActive && (
+                            <circle r="3" fill="var(--black)">
+                                <animateMotion dur="1s" repeatCount="indefinite" path="M 0 10 L 100 10" />
+                            </circle>
+                        )}
                     </svg>
                 </div>
             );
 
-            const [visibleStep, setVisibleStep] = useState(-1);
-
-            useEffect(() => {
-                if (isActive) {
-                    const timers = planSteps.map((_, i) =>
-                        setTimeout(() => {
-                            setVisibleStep(i);
-                        }, 500 + i * 400)
-                    );
-                    return () => timers.forEach(clearTimeout);
-                } else {
-                    setVisibleStep(-1);
-                }
-            }, [isActive]);
-
             return (
                 <div className="text-center">
                     <h1 className="text-5xl md:text-6xl font-bold tracking-wider">Autonomous Planning & Execution</h1>
-                    <h2 className="text-xl text-gray-500 font-medium mt-4 mb-20">THE AGENT FORMULATES A MULTI-SYSTEM QUERY PLAN.</h2>
-                    
+                    <h2 className="text-xl text-gray-500 font-medium mt-4 mb-12">THE AGENT FORMULATES A MULTI-SYSTEM QUERY PLAN.</h2>
+
+                    {/* Status Display */}
+                    <div className="w-full max-w-3xl mx-auto mb-8 h-10 flex items-center justify-center">
+                        <div className={`px-6 py-2 bg-gray-900 text-white text-xs uppercase tracking-wider transition-all duration-500 ${
+                            statusMessage ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                        }`}>
+                            {executingStep >= 0 && (
+                                <span className="inline-block w-2 h-2 bg-yellow-400 rounded-full mr-2"
+                                    style={{ animation: 'thinkingPulse 1s ease-in-out infinite' }}
+                                />
+                            )}
+                            {statusMessage || '\u00A0'}
+                        </div>
+                    </div>
+
                     <div className="w-full max-w-6xl border border-gray-200 p-8">
                          <h3 className="font-medium text-sm tracking-wider text-gray-500 mb-12 text-center">GENERATED EXECUTION FLOW</h3>
                          <div className="flex items-start justify-center">
                             {planSteps.map((step, i) => (
                                 <React.Fragment key={i}>
-                                    <PlanStepNode data={step} isVisible={visibleStep >= i} />
-                                    {i < planSteps.length - 1 && <ArrowConnector isVisible={visibleStep > i} />}
+                                    <PlanStepNode
+                                        data={step}
+                                        index={i}
+                                        isVisible={visibleStep >= i}
+                                        isExecuting={executingStep === i}
+                                        isComplete={completedSteps.includes(i)}
+                                    />
+                                    {i < planSteps.length - 1 && (
+                                        <ArrowConnector
+                                            isVisible={visibleStep > i}
+                                            isActive={executingStep === i + 1 || completedSteps.includes(i)}
+                                        />
+                                    )}
                                 </React.Fragment>
                             ))}
                          </div>
@@ -843,36 +957,114 @@
         
         // --- START OF components/slides/Slide5.tsx ---
         const Slide5 = ({ isActive, playSound }) => {
-            const [isProcessing, setIsProcessing] = useState(false);
+            const [processingStage, setProcessingStage] = useState(-1);
             const [showResult, setShowResult] = useState(false);
+            const [dataPoints, setDataPoints] = useState(0);
+
+            const processingStages = [
+                { label: 'Connecting to SAP ERP...', duration: 600 },
+                { label: 'Retrieving supplier records...', duration: 500 },
+                { label: 'Analyzing production downtime logs...', duration: 700 },
+                { label: 'Cross-referencing logistics data...', duration: 800 },
+                { label: 'Applying correlation algorithms...', duration: 600 },
+                { label: 'Generating executive summary...', duration: 500 }
+            ];
 
             useEffect(() => {
-                if (isActive) {
-                    setIsProcessing(true);
+                if (!isActive) {
+                    setProcessingStage(-1);
                     setShowResult(false);
-                    const timer = setTimeout(() => {
-                        setIsProcessing(false);
-                        setShowResult(true);
-                        playSound('audio-complete', 0.4);
-                    }, 2500);
-                    return () => clearTimeout(timer);
-                } else {
-                    setIsProcessing(false);
-                    setShowResult(false);
+                    setDataPoints(0);
+                    return;
                 }
+
+                const runProcessing = async () => {
+                    // Animate data points counter
+                    let points = 0;
+                    const pointsInterval = setInterval(() => {
+                        if (points < 2847) {
+                            points += Math.floor(Math.random() * 150) + 50;
+                            setDataPoints(Math.min(points, 2847));
+                        }
+                    }, 100);
+
+                    // Process stages
+                    for (let i = 0; i < processingStages.length; i++) {
+                        setProcessingStage(i);
+                        playSound('audio-click', 0.12);
+                        await new Promise(resolve => setTimeout(resolve, processingStages[i].duration));
+                    }
+
+                    clearInterval(pointsInterval);
+                    setDataPoints(2847);
+                    setProcessingStage(-1);
+                    setShowResult(true);
+                    playSound('audio-complete', 0.4);
+                };
+
+                runProcessing();
             }, [isActive, playSound]);
 
             return (
                 <div className="text-center">
                     <h1 className="text-5xl md:text-6xl font-bold tracking-wider mb-16">From Raw Data to Actionable Insight</h1>
-                    
-                    <div className="w-full max-w-3xl text-center">
-                        {isProcessing && (
-                            <div className="flex items-center justify-center gap-3" style={{ animation: 'fadeIn 0.5s' }}>
-                                <div className="w-2 h-2 bg-black rounded-full animate-pulse" />
-                                <div className="w-2 h-2 bg-black rounded-full animate-pulse [animation-delay:0.2s]" />
-                                <div className="w-2 h-2 bg-black rounded-full animate-pulse [animation-delay:0.4s]" />
-                                <p className="text-sm text-gray-500 uppercase tracking-widest ml-2">Synthesizing data across platforms...</p>
+
+                    <div className="w-full max-w-3xl mx-auto text-center">
+                        {processingStage >= 0 && (
+                            <div className="mb-8">
+                                {/* Processing Status Bar */}
+                                <div className="bg-gray-100 p-6 border border-gray-200">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 bg-blue-500 rounded-full"
+                                                style={{ animation: 'thinkingPulse 1s ease-in-out infinite' }}
+                                            />
+                                            <span className="text-sm font-medium text-gray-700 uppercase tracking-wider">
+                                                {processingStages[processingStage]?.label}
+                                            </span>
+                                        </div>
+                                        <span className="text-xs text-gray-500 font-mono">
+                                            {dataPoints.toLocaleString()} data points
+                                        </span>
+                                    </div>
+
+                                    {/* Progress visualization */}
+                                    <div className="space-y-2">
+                                        {processingStages.map((stage, idx) => (
+                                            <div key={idx} className="flex items-center gap-3">
+                                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                                                    idx < processingStage ? 'border-green-500 bg-green-500' :
+                                                    idx === processingStage ? 'border-blue-500 bg-blue-500' :
+                                                    'border-gray-300 bg-white'
+                                                }`}>
+                                                    {idx < processingStage && (
+                                                        <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                            <polyline points="20 6 9 17 4 12" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                                                    <div
+                                                        className={`h-full transition-all duration-500 ${
+                                                            idx < processingStage ? 'bg-green-500 w-full' :
+                                                            idx === processingStage ? 'bg-blue-500' :
+                                                            'bg-gray-200 w-0'
+                                                        }`}
+                                                        style={{
+                                                            width: idx === processingStage ? '100%' : undefined,
+                                                            animation: idx === processingStage ? `progressBar ${stage.duration}ms linear forwards` : 'none'
+                                                        }}
+                                                    />
+                                                </div>
+                                                <span className={`text-xs uppercase tracking-wide transition-colors duration-300 ${
+                                                    idx <= processingStage ? 'text-gray-700' : 'text-gray-400'
+                                                }`}>
+                                                    Stage {idx + 1}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         )}
 
