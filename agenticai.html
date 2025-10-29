@@ -10,10 +10,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <script type="module">
-        // Cerebras API key - set via environment variable or URL parameter
-        // For GitHub Pages: Use ?key=YOUR_API_KEY in URL
-        // For local dev: Set in .env file
-        window.CEREBRAS_API_KEY = '';
+        // Cerebras API key - can be set via URL parameter or directly in code
+        // Usage: Add ?key=YOUR_API_KEY to the URL
+        // Or set directly: window.CEREBRAS_API_KEY = 'your-key-here';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const keyFromUrl = urlParams.get('key');
+
+        if (keyFromUrl) {
+            window.CEREBRAS_API_KEY = keyFromUrl;
+            console.log('✓ Cerebras API key loaded from URL parameter');
+        } else {
+            window.CEREBRAS_API_KEY = '';
+            console.log('ℹ Cerebras API key not set. Using fallback narrations. Add ?key=YOUR_KEY to URL to enable AI narration.');
+        }
     </script>
     <style>
         :root {
@@ -57,6 +67,47 @@
             body { cursor: auto; }
             .custom-cursor-container { display: none; }
         }
+
+        /* --- MOBILE RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .slide {
+                padding-top: 0.5rem;
+                align-items: flex-start;
+            }
+
+            /* Make sure header is always visible and scaled properly */
+            header img {
+                max-width: 80px !important;
+            }
+
+            header span {
+                font-size: 0.65rem !important;
+            }
+
+            /* Adjust slide content for mobile */
+            h1 {
+                font-size: clamp(1.5rem, 5vw, 2.5rem) !important;
+            }
+
+            h2 {
+                font-size: clamp(0.875rem, 3vw, 1.25rem) !important;
+            }
+        }
+
+        /* Mobile adjustments for Slide 2 orchestration */
+        @media (max-width: 768px) {
+            .orchestration-container {
+                transform: scale(0.65) !important;
+                min-height: 380px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .orchestration-container {
+                transform: scale(0.5) !important;
+                min-height: 300px !important;
+            }
+        }
         
         /* --- BACKGROUND --- */
         #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
@@ -83,6 +134,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding-top: 1rem; /* Safe zone to prevent content from going under header */
         }
         
         /* Last slide (interactive) allows scrolling */
@@ -142,6 +194,10 @@
                 opacity: 1;
                 transform: scale(1) rotate(-45deg);
             }
+        }
+
+        .hover\:scale-102:hover {
+            transform: scale(1.02);
         }
         
         /* --- FORM STYLES --- */
@@ -273,16 +329,154 @@
           }
           function resize(){ width=canvas.width=window.innerWidth; height=canvas.height=window.innerHeight; }
           window.addEventListener('resize', resize);
-          // Click passthrough (canvas has pointer-events:none)
-          window.addEventListener('click', (e)=>{ if(!active) return; initAudio(); burst(e.clientX,e.clientY,60); });
+
+          // Interactive mouse-following particle system - ONLY FOR SLIDE 7
+          let isMouseDown = false;
+          let mouseX = 0;
+          let mouseY = 0;
+          let lastEmitTime = 0;
+          let mouseTrail = [];
+
+          // Track mouse position
+          window.addEventListener('mousemove', (e) => {
+            if(!active) return; // Only track on Slide 7
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            mouseTrail.push({x: mouseX, y: mouseY, time: Date.now()});
+            // Keep only last 10 positions
+            if(mouseTrail.length > 10) mouseTrail.shift();
+          });
+
+          // Mouse down - start following
+          window.addEventListener('mousedown', (e) => {
+            if(!active) return; // Only active on Slide 7
+            isMouseDown = true;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            initAudio();
+            // Initial burst on click
+            burst(mouseX, mouseY, 40);
+          });
+
+          // Mouse up - scatter burst
+          window.addEventListener('mouseup', (e) => {
+            if(!active) return; // Only active on Slide 7
+            if(isMouseDown) {
+              // Final scatter explosion
+              const scatterIntensity = 80;
+              const scatterColors = ['#007A4D', '#DE3831', '#002395', '#FFB81C', '#000000'];
+              const color = scatterColors[Math.floor(Math.random() * scatterColors.length)];
+
+              for(let i = 0; i < scatterIntensity; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 5 + Math.random() * 8;
+                particles.push(new Particle(
+                  mouseX + (Math.random() - 0.5) * 40,
+                  mouseY + (Math.random() - 0.5) * 40,
+                  color,
+                  8 + Math.random() * 12
+                ));
+              }
+              ripples.push(new Ripple(mouseX, mouseY, color));
+
+              const note = scale[Math.floor(Math.random() * scale.length)];
+              playTone(note * 1.5, 0.3, 0.15);
+            }
+            isMouseDown = false;
+          });
+
+          // Continuous particle emission while mouse pressed - ONLY SLIDE 7
+          function emitFollowParticles() {
+            if(!active) return; // Only on Slide 7
+            if(isMouseDown && Date.now() - lastEmitTime > 30) { // Emit every 30ms
+              lastEmitTime = Date.now();
+
+              // Emit particles that follow mouse
+              const emitColors = ['#007A4D', '#DE3831', '#002395', '#FFB81C'];
+              const color = emitColors[Math.floor(Math.random() * emitColors.length)];
+
+              for(let i = 0; i < 3; i++) {
+                particles.push(new Particle(
+                  mouseX + (Math.random() - 0.5) * 20,
+                  mouseY + (Math.random() - 0.5) * 20,
+                  color,
+                  6 + Math.random() * 8
+                ));
+              }
+
+              // Play subtle tone
+              if(Math.random() > 0.8) {
+                const note = scale[Math.floor(Math.random() * scale.length)];
+                playTone(note, 0.1, 0.05);
+              }
+            }
+          }
+
+          // Enhanced animation loop with mouse following
+          function animate(){
+            // Soft white trail over white bg
+            ctx.fillStyle = 'rgba(255,255,255,0.05)'; ctx.fillRect(0,0,width,height);
+
+            // Emit particles while mouse is down
+            emitFollowParticles();
+
+            // Draw mouse trail when pressed
+            if(isMouseDown && mouseTrail.length > 1) {
+              ctx.save();
+              ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+              ctx.lineWidth = 3;
+              ctx.lineCap = 'round';
+              ctx.beginPath();
+              mouseTrail.forEach((pos, i) => {
+                if(i === 0) ctx.moveTo(pos.x, pos.y);
+                else ctx.lineTo(pos.x, pos.y);
+              });
+              ctx.stroke();
+              ctx.restore();
+            }
+
+            particles = particles.filter(p=>{ p.update(); if(p.life>0){ p.draw(); return true;} return false; });
+            ripples = ripples.filter(r=>{ r.update(); if(r.life>0){ r.draw(); return true;} return false; });
+            rafId = requestAnimationFrame(animate);
+          }
 
           // Start anim loop immediately
           animate();
+
+          // Custom RED burst function
+          function redExplosion(cx, cy) {
+            initAudio();
+            const redColors = ['#DE3831', '#FF6B6B', '#FF4444', '#DC143C', '#8B0000'];
+            const redScale = [392.00, 440.00, 493.88, 523.25, 587.33]; // G to D (fiery tones)
+
+            // 6-stage red burst sequence
+            const steps = [0, 150, 300, 450, 600, 750];
+            steps.forEach((t, idx) => {
+              setTimeout(() => {
+                const color = redColors[Math.floor(Math.random() * redColors.length)];
+                const note = redScale[Math.floor(Math.random() * redScale.length)];
+                playTone(note, 0.35, 0.2);
+
+                // Create intense particle burst
+                const intensity = 90 + idx * 10;
+                for(let i = 0; i < intensity; i++) {
+                  particles.push(new Particle(
+                    cx + (Math.random() - 0.5) * 70,
+                    cy + (Math.random() - 0.5) * 70,
+                    color,
+                    10 + Math.random() * 14
+                  ));
+                }
+                ripples.push(new Ripple(cx, cy, color));
+              }, t);
+            });
+          }
 
           // Expose small API to React
           window.AIPaint = {
             setActive: (v)=>{ active = !!v; },
             explode: ()=>{ const cx=width/2, cy=height*0.45; explodeMultifold(cx,cy); },
+            redExplosion: ()=>{ const cx=width/2, cy=height*0.45; redExplosion(cx,cy); },
             stageBurst: (i)=>{ const angle = (i*137.5)%360, r=180+ i*25; const cx=width/2 + Math.cos(angle*Math.PI/180)*r; const cy=height*0.45 + Math.sin(angle*Math.PI/180)*r; burst(cx,cy, 50+i*8); },
             initAudio: ()=> initAudio(),
           };
@@ -458,18 +652,24 @@
         // --- START OF components/slides/Slide2.tsx ---
         const Slide2 = ({ isActive, playSound }) => {
             const enterpriseTools = [
-                { name: 'Salesforce', category: 'CRM', angle: 30, logo: 'images/salesforce.svg', color: '#00A1E0' },
-                { name: 'AWS', category: 'Cloud Infra', angle: 90, logo: 'images/aws.svg', color: '#FF9900' },
-                { name: 'Internal DB', category: 'Proprietary Data', angle: 135, logo: 'images/database.svg', color: '#4285F4' },
-                { name: 'SAP', category: 'ERP', angle: 225, logo: 'images/sap.svg', color: '#0FAAFF' },
-                { name: 'Mail API', category: 'Communication', angle: 270, logo: 'images/email.svg', color: '#EA4335' },
-                { name: 'Search API', category: 'Web Intelligence', angle: 330, logo: 'images/search.svg', color: '#34A853' },
+                { name: 'Salesforce', category: 'CRM', angle: 60, logo: 'images/salesforce.svg', color: '#00A1E0' },
+                { name: 'AWS', category: 'Cloud Infra', angle: 120, logo: 'images/aws.svg', color: '#FF9900' },
+                { name: 'Internal DB', category: 'Proprietary Data', angle: 180, logo: 'images/database.svg', color: '#4285F4' },
+                { name: 'SAP', category: 'ERP', angle: 240, logo: 'images/sap.svg', color: '#0FAAFF' },
+                { name: 'Mail API', category: 'Communication', angle: 300, logo: 'images/email.svg', color: '#EA4335' },
+                { name: 'Search API', category: 'Web Intelligence', angle: 0, logo: 'images/search.svg', color: '#34A853' },
             ];
-            const radius = 250;
+            const radius = 280;
 
             const [hoveredTool, setHoveredTool] = useState(null);
             const [activeToolIndex, setActiveToolIndex] = useState(-1);
             const [aiNarration, setAiNarration] = useState('');
+
+            // Interactive particle system for Slide 2
+            const [interactiveParticles, setInteractiveParticles] = useState([]);
+            const [isMousePressed, setIsMousePressed] = useState(false);
+            const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+            const animationFrameRef = useRef(null);
             const [isNarrating, setIsNarrating] = useState(false);
 
             // Generate AI narration using Cerebras
@@ -547,12 +747,89 @@
                 sequence();
             }, [isActive, playSound]);
 
+            // Handle mouse interactions for particles on Slide 2
+            useEffect(() => {
+                if (!isActive) return;
+
+                const handleMouseDown = (e) => {
+                    setIsMousePressed(true);
+                    setMousePos({ x: e.clientX, y: e.clientY });
+                    playSound('audio-click', 0.2);
+                };
+
+                const handleMouseMove = (e) => {
+                    setMousePos({ x: e.clientX, y: e.clientY });
+                };
+
+                const handleMouseUp = () => {
+                    setIsMousePressed(false);
+                };
+
+                window.addEventListener('mousedown', handleMouseDown);
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mouseup', handleMouseUp);
+
+                return () => {
+                    window.removeEventListener('mousedown', handleMouseDown);
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    window.removeEventListener('mouseup', handleMouseUp);
+                };
+            }, [isActive, playSound]);
+
+            // Animate interactive particles
+            useEffect(() => {
+                if (!isActive) {
+                    setInteractiveParticles([]);
+                    return;
+                }
+
+                const animate = () => {
+                    setInteractiveParticles(prev => {
+                        return prev.map(p => {
+                            if (isMousePressed) {
+                                // Follow mouse when pressed
+                                const dx = mousePos.x - p.x;
+                                const dy = mousePos.y - p.y;
+                                return {
+                                    ...p,
+                                    vx: dx * 0.1,
+                                    vy: dy * 0.1,
+                                    x: p.x + dx * 0.1,
+                                    y: p.y + dy * 0.1,
+                                    life: Math.max(p.life, 0.8) // Keep alive while following
+                                };
+                            } else {
+                                // Return to line flow
+                                return {
+                                    ...p,
+                                    x: p.x + p.vx,
+                                    y: p.y + p.vy,
+                                    life: p.life - 0.01
+                                };
+                            }
+                        }).filter(p => p.life > 0);
+                    });
+
+                    animationFrameRef.current = requestAnimationFrame(animate);
+                };
+
+                animationFrameRef.current = requestAnimationFrame(animate);
+
+                return () => {
+                    if (animationFrameRef.current) {
+                        cancelAnimationFrame(animationFrameRef.current);
+                    }
+                };
+            }, [isActive, isMousePressed, mousePos]);
+
             const ToolNode = ({ tool, index, isHovered, onHover }) => {
                 const isActivated = activeToolIndex >= index;
                 const isCurrent = activeToolIndex === index;
 
                 const style = {
-                    transform: `rotate(${tool.angle}deg) translate(${radius}px) rotate(-${tool.angle}deg) scale(${isHovered ? 1.2 : 1})`,
+                    top: '50%',  // Match center robot card position
+                    left: '50%',  // Match center robot card position
+                    transform: `translate(-50%, -50%) rotate(${tool.angle}deg) translate(${radius}px) rotate(-${tool.angle}deg) scale(${isHovered ? 1.2 : 1})`,
                     opacity: isActive ? (isActivated ? 1 : 0.3) : 0,
                     transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 };
@@ -560,7 +837,7 @@
                 return (
                     <div
                         onMouseEnter={() => { onHover(); playSound('audio-hover', 0.1); }}
-                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-xl flex items-center justify-center z-10 cursor-pointer ${
+                        className={`absolute w-24 h-24 rounded-xl flex items-center justify-center z-10 cursor-pointer ${
                             isCurrent ? 'border-4 border-black' :
                             isActivated ? 'border-2' :
                             'border border-gray-200'
@@ -583,7 +860,7 @@
                             <img
                                 src={tool.logo}
                                 alt={tool.name}
-                                className="w-14 h-14 object-contain transition-all duration-500"
+                                className="w-12 h-12 object-contain transition-all duration-500"
                                 style={{
                                     filter: isActivated
                                         ? 'none'
@@ -627,18 +904,19 @@
                 if (!isActivated) return null;
 
                 const angleRad = (tool.angle * Math.PI) / 180;
-                const x = 50 + (radius / 600 * 100) * Math.cos(angleRad);
-                const y = 50 + (radius / 600 * 100) * Math.sin(angleRad);
+                // Position relative to center (50,50 in viewBox 0-100 coordinate system)
+                const x = 50 + (radius / 650 * 100) * Math.cos(angleRad);
+                const y = 50 + (radius / 650 * 100) * Math.sin(angleRad);
 
                 return (
                     <circle
-                        cx={`${x}%`}
-                        cy={`${y}%`}
-                        r="4"
+                        cx={x}
+                        cy={y}
+                        r="0.6"
                         fill={tool.color || 'var(--black)'}
                         style={{
                             animation: 'breathing 2s ease-in-out infinite',
-                            filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.3))'
+                            filter: 'drop-shadow(0 0 0.5 rgba(0,0,0,0.3))'
                         }}
                     >
                         <animateMotion
@@ -651,8 +929,8 @@
             };
 
             return (
-                <div className="text-center pt-12 pb-32 px-4 min-h-full flex flex-col">
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-2 mt-16"
+                <div className="text-center pt-40 pb-32 px-4 min-h-full flex flex-col">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-2"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
                             WebkitBackgroundClip: 'text',
@@ -688,14 +966,33 @@
                         </div>
                     </div>
 
-                    <div className="relative w-full max-w-[600px] mx-auto flex-1 flex items-center justify-center min-h-[480px]" style={{transform: 'scale(0.8)'}} onMouseLeave={() => setHoveredTool(null)}>
+                    <div className="orchestration-container relative w-full max-w-[650px] mx-auto flex-1 flex items-center justify-center min-h-[550px]" onMouseLeave={() => setHoveredTool(null)}>
 
+                        {/* Interactive Particles Overlay */}
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none z-40" style={{ overflow: 'visible' }}>
+                            {interactiveParticles.map((particle, idx) => (
+                                <circle
+                                    key={idx}
+                                    cx={particle.x}
+                                    cy={particle.y}
+                                    r={particle.size}
+                                    fill={particle.color}
+                                    opacity={particle.life}
+                                    style={{
+                                        filter: `drop-shadow(0 0 4px ${particle.color})`,
+                                        transition: isMousePressed ? 'none' : 'opacity 0.3s'
+                                    }}
+                                />
+                            ))}
+                        </svg>
 
-                        {/* Central Orchestration Engine */}
+                        {/* Central Orchestration Engine - CENTERED */}
                         <div
-                            className="absolute w-44 h-44 bg-gradient-to-br from-white to-gray-50 border-2 border-black rounded-xl flex flex-col items-center justify-center z-30 transition-all duration-500"
+                            className="absolute w-40 h-40 bg-gradient-to-br from-white to-gray-50 border-2 border-black rounded-xl flex flex-col items-center justify-center z-30 transition-all duration-500"
                             style={{
-                                transform: isActive ? 'scale(1)' : 'scale(0.8)',
+                                top: '50%',
+                                left: '50%',
+                                transform: isActive ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.8)',
                                 opacity: isActive ? 1 : 0,
                                 boxShadow: activeToolIndex >= 0
                                     ? '0 0 40px rgba(0,0,0,0.15), 0 0 80px rgba(0,161,224,0.1)'
@@ -703,7 +1000,7 @@
                             }}
                         >
                             <div className="relative">
-                                <span className="text-7xl mb-2 block" style={{
+                                <span className="text-6xl mb-2 block" style={{
                                     filter: activeToolIndex >= 0 ? 'drop-shadow(0 0 8px rgba(0,161,224,0.3))' : 'none',
                                     transition: 'filter 0.5s ease'
                                 }}>🤖</span>
@@ -713,7 +1010,7 @@
                                     />
                                 )}
                             </div>
-                            <h3 className="text-xs font-bold tracking-widest text-black uppercase">
+                            <h3 className="text-[10px] font-bold tracking-widest text-black uppercase leading-tight">
                                 ORCHESTRATION<br/>ENGINE
                             </h3>
                             {activeToolIndex >= 0 && (
@@ -730,34 +1027,195 @@
                             )}
                         </div>
 
-                        {/* Connection Lines */}
-                        <svg className="absolute w-full h-full top-0 left-0 overflow-visible" aria-hidden="true">
+                        {/* Connection Lines - Enhanced */}
+                        <svg className="absolute w-full h-full top-0 left-0 overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                            <defs>
+                                {/* Glow filter for lines */}
+                                <filter id="lineGlow">
+                                    <feGaussianBlur stdDeviation="0.3" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                {/* Animated gradient for data flow */}
+                                <linearGradient id="dataFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="transparent"/>
+                                    <stop offset="50%" stopColor="white" stopOpacity="0.8"/>
+                                    <stop offset="100%" stopColor="transparent"/>
+                                    <animate attributeName="x1" values="-100%;100%" dur="1.5s" repeatCount="indefinite"/>
+                                    <animate attributeName="x2" values="0%;200%" dur="1.5s" repeatCount="indefinite"/>
+                                </linearGradient>
+                            </defs>
+
                             {enterpriseTools.map((tool, index) => {
                                 const angleRad = (tool.angle * Math.PI) / 180;
-                                const x = 50 + (radius / 600 * 100) * Math.cos(angleRad);
-                                const y = 50 + (radius / 600 * 100) * Math.sin(angleRad);
+
+                                // CENTER POSITION - true center
+                                const centerX = 50;
+                                const centerY = 50;
+
+                                // End point (tool position) - relative to center at 50%/50%
+                                const radiusPercent = (radius / 650 * 100); // 280/650*100 = 43.08%
+                                const toolX = centerX + radiusPercent * Math.cos(angleRad);
+                                const toolY = centerY + radiusPercent * Math.sin(angleRad);
+
+                                // Calculate direction vector
+                                const dx = toolX - centerX;
+                                const dy = toolY - centerY;
+                                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                                // Card edge offsets in percentage
+                                const centerEngineRadiusPercent = (80 / 650 * 100); // 12.31%
+                                const toolNodeRadiusPercent = (48 / 650 * 100); // 7.38%
+
+                                // Calculate offset ratios (fraction of the distance)
+                                const startOffsetRatio = centerEngineRadiusPercent / distance;
+                                const endOffsetRatio = toolNodeRadiusPercent / distance;
+
+                                // Start point (edge of center engine)
+                                let x1 = centerX + dx * startOffsetRatio;
+                                let y1 = centerY + dy * startOffsetRatio;
+
+                                // End point (edge of tool node)
+                                let x2 = toolX - dx * endOffsetRatio;
+                                let y2 = toolY - dy * endOffsetRatio;
+
+                                // For horizontal lines (0° and 180°), force y coordinates to be equal
+                                const isHorizontal = tool.angle === 0 || tool.angle === 180;
+                                // For vertical lines (90° and 270°), force x coordinates to be equal
+                                const isVertical = tool.angle === 90 || tool.angle === 270;
+
+                                // Force straight lines for horizontal/vertical positions
+                                if (isHorizontal) {
+                                    y1 = centerY;
+                                    y2 = centerY;
+                                }
+                                if (isVertical) {
+                                    x1 = centerX;
+                                    x2 = centerX;
+                                }
+
                                 const isHovered = hoveredTool?.name === tool.name;
                                 const isActivated = activeToolIndex >= index;
                                 const isCurrent = activeToolIndex === index;
 
                                 return (
                                     <g key={tool.name}>
+                                        {/* Background glow line */}
+                                        {isActivated && (
+                                            <line
+                                                x1={x1} y1={y1} x2={x2} y2={y2}
+                                                stroke={tool.color}
+                                                strokeWidth={isCurrent ? 1.2 : 0.9}
+                                                opacity="0.2"
+                                                className="transition-all duration-500"
+                                                filter="url(#lineGlow)"
+                                            />
+                                        )}
+
+                                        {/* Main connection line - THICKER & HIGH CONTRAST & CLICKABLE */}
                                         <line
-                                            x1="50%" y1="50%" x2={`${x}%`} y2={`${y}%`}
+                                            x1={x1} y1={y1} x2={x2} y2={y2}
                                             stroke={
-                                                isCurrent ? 'var(--black)' :
+                                                isCurrent ? '#000000' :
                                                 isActivated ? tool.color :
-                                                'var(--light-grey)'
+                                                '#CCCCCC'
                                             }
-                                            strokeWidth={isCurrent ? 3 : isActivated ? 2 : 1}
-                                            className="transition-all duration-500"
+                                            strokeWidth={isCurrent ? 0.6 : isActivated ? 0.45 : 0.3}
+                                            className="transition-all duration-500 cursor-pointer"
                                             style={{
-                                                opacity: isActivated ? 1 : 0.3,
-                                                strokeDasharray: isCurrent ? '5,5' : 'none',
-                                                animation: isCurrent ? 'progressBar 1s linear infinite' : 'none'
+                                                opacity: isActivated ? 1 : 0.4,
+                                                strokeDasharray: isCurrent ? '1.5,0.8' : 'none',
+                                                pointerEvents: isActivated ? 'stroke' : 'none'
+                                            }}
+                                            onClick={(e) => {
+                                                if (!isActivated) return;
+                                                const rect = e.currentTarget.ownerSVGElement.getBoundingClientRect();
+                                                const clickX = e.clientX;
+                                                const clickY = e.clientY;
+
+                                                // Spawn particles at click location
+                                                const newParticles = Array.from({ length: 15 }, () => ({
+                                                    x: clickX,
+                                                    y: clickY,
+                                                    vx: (Math.random() - 0.5) * 4,
+                                                    vy: (Math.random() - 0.5) * 4,
+                                                    color: tool.color,
+                                                    size: 4 + Math.random() * 6,
+                                                    life: 1.0
+                                                }));
+
+                                                setInteractiveParticles(prev => [...prev, ...newParticles]);
+                                                playSound('audio-click', 0.3);
                                             }}
                                         />
+
+                                        {/* Animated data flow overlay when current */}
+                                        {isCurrent && (
+                                            <line
+                                                x1={x1} y1={y1} x2={x2} y2={y2}
+                                                stroke="url(#dataFlow)"
+                                                strokeWidth="0.6"
+                                                opacity="1"
+                                                className="transition-all duration-500"
+                                            />
+                                        )}
+
+                                        {/* Enhanced data packets */}
                                         <DataPacket tool={tool} index={index} />
+
+                                        {/* Pulsing dots traveling along the line when activated - EDGE TO EDGE */}
+                                        {isActivated && (() => {
+                                            // Use the same coordinates as the line (viewBox 0-100 coordinate system)
+                                            const pathData = `M ${x1} ${y1} L ${x2} ${y2}`;
+
+                                            return (
+                                                <>
+                                                    <circle
+                                                        r="0.8"
+                                                        fill={tool.color}
+                                                        opacity="0.9"
+                                                        style={{
+                                                            animation: 'thinkingPulse 1.5s ease-in-out infinite',
+                                                            filter: `drop-shadow(0 0 1 ${tool.color})`
+                                                        }}
+                                                    >
+                                                        <animateMotion
+                                                            dur="2.5s"
+                                                            repeatCount="indefinite"
+                                                            path={pathData}
+                                                        />
+                                                    </circle>
+                                                    <circle
+                                                        r="0.5"
+                                                        fill="white"
+                                                        style={{
+                                                            filter: 'drop-shadow(0 0 0.5 rgba(255,255,255,0.9))'
+                                                        }}
+                                                    >
+                                                        <animateMotion
+                                                            dur="2.5s"
+                                                            repeatCount="indefinite"
+                                                            begin="0.8s"
+                                                            path={pathData}
+                                                        />
+                                                    </circle>
+                                                    <circle
+                                                        r="0.6"
+                                                        fill={tool.color}
+                                                        opacity="0.7"
+                                                    >
+                                                        <animateMotion
+                                                            dur="2.5s"
+                                                            repeatCount="indefinite"
+                                                            begin="1.6s"
+                                                            path={pathData}
+                                                        />
+                                                    </circle>
+                                                </>
+                                            );
+                                        })()}
                                     </g>
                                 );
                             })}
@@ -820,11 +1278,49 @@
             const fullQuery = "Which production line had the most downtime last month due to component shortages from our top 3 suppliers? Correlate this with logistics delays from our primary shipping partner.";
             const [displayedQuery, setDisplayedQuery] = useState('');
             const [showAnalysis, setShowAnalysis] = useState(false);
+            const [aiComplexityScore, setAiComplexityScore] = useState(0);
+            const [aiSystemsRequired, setAiSystemsRequired] = useState(0);
+
+            // AI-powered query analysis
+            const analyzeQueryComplexity = async () => {
+                const apiKey = window.CEREBRAS_API_KEY?.trim();
+                if (!apiKey) {
+                    setAiComplexityScore(87);
+                    setAiSystemsRequired(5);
+                    return;
+                }
+
+                try {
+                    const response = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                        body: JSON.stringify({
+                            model: 'llama-4-scout-17b-16e-instruct',
+                            messages: [{ role: 'user', content: `Analyze this business query complexity (0-100 score) and count systems needed: "${fullQuery}". Respond ONLY with: SCORE:XX SYSTEMS:Y` }],
+                            temperature: 0.3,
+                            max_tokens: 20
+                        })
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        const text = data.choices[0].message.content;
+                        const score = parseInt(text.match(/SCORE:(\d+)/)?.[1] || '87');
+                        const systems = parseInt(text.match(/SYSTEMS:(\d+)/)?.[1] || '5');
+                        setAiComplexityScore(score);
+                        setAiSystemsRequired(systems);
+                    }
+                } catch (e) {
+                    setAiComplexityScore(87);
+                    setAiSystemsRequired(5);
+                }
+            };
 
             useEffect(() => {
                 if (!isActive) {
                     setDisplayedQuery('');
                     setShowAnalysis(false);
+                    setAiComplexityScore(0);
+                    setAiSystemsRequired(0);
                     return;
                 }
 
@@ -835,6 +1331,7 @@
                         charIndex++;
                     } else {
                         clearInterval(typeInterval);
+                        analyzeQueryComplexity();
                         setTimeout(() => setShowAnalysis(true), 800);
                     }
                 }, 30);
@@ -878,6 +1375,19 @@
                             </svg>
                             AI COMPLEXITY ANALYSIS
                          </h4>
+
+                         {/* AI Metrics Bar */}
+                         <div className="mb-6 grid grid-cols-2 gap-4" style={{ animation: showAnalysis ? 'fadeInUp 0.7s ease-out forwards' : 'none', opacity: showAnalysis ? 1 : 0 }}>
+                            <div className="bg-black text-white p-4 border border-black">
+                                <div className="text-xs uppercase tracking-wider mb-2 text-gray-400">Complexity Score</div>
+                                <div className="text-3xl font-bold">{aiComplexityScore > 0 ? <AnimatedNumber value={aiComplexityScore} suffix="/100" /> : '...'}</div>
+                            </div>
+                            <div className="bg-black text-white p-4 border border-black">
+                                <div className="text-xs uppercase tracking-wider mb-2 text-gray-400">Systems Required</div>
+                                <div className="text-3xl font-bold">{aiSystemsRequired > 0 ? <AnimatedNumber value={aiSystemsRequired} /> : '...'}</div>
+                            </div>
+                         </div>
+
                          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <Challenge isActive={showAnalysis} delay="0.2s" title="Siloed Data" desc="Required information exists across disconnected ERP, MES, and Logistics systems." />
                             <Challenge isActive={showAnalysis} delay="0.4s" title="Complex Correlation" desc="Standard reports cannot perform real-time synthesis of multi-domain data." />
@@ -903,6 +1413,45 @@
             const [completedSteps, setCompletedSteps] = useState([]);
             const [statusMessage, setStatusMessage] = useState('');
 
+            // Generate AI narration using Cerebras (reusable from Slide2)
+            const generateAINarration = async (stepData) => {
+                const apiKey = (typeof window !== 'undefined' && window.CEREBRAS_API_KEY)
+                    ? String(window.CEREBRAS_API_KEY).trim()
+                    : '';
+
+                if (!apiKey) {
+                    return stepData.status;
+                }
+
+                try {
+                    const response = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: 'llama-4-scout-17b-16e-instruct',
+                            messages: [{
+                                role: 'user',
+                                content: `Generate a single short, dramatic technical sentence (max 12 words) explaining what happens when an AI agent executes: "${stepData.action}" using ${stepData.tool}. Make it sound technical and impressive. No quotes or punctuation at end.`
+                            }],
+                            temperature: 0.7,
+                            max_tokens: 50
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data.choices[0].message.content.trim();
+                    }
+                } catch (e) {
+                    console.error('AI narration failed:', e);
+                }
+
+                return stepData.status;
+            };
+
             useEffect(() => {
                 if (!isActive) {
                     setVisibleStep(-1);
@@ -922,9 +1471,14 @@
                         playSound('audio-click', 0.15);
                         await new Promise(resolve => setTimeout(resolve, 300));
 
-                        // Execute step
+                        // Execute step with AI narration
                         setExecutingStep(i);
                         setStatusMessage(planSteps[i].status);
+
+                        // Generate AI narration in background
+                        const aiMessage = await generateAINarration(planSteps[i]);
+                        setStatusMessage(aiMessage);
+
                         playSound('audio-transition', 0.1);
                         await new Promise(resolve => setTimeout(resolve, 800));
 
@@ -1080,6 +1634,7 @@
             const [processingStage, setProcessingStage] = useState(-1);
             const [showResult, setShowResult] = useState(false);
             const [dataPoints, setDataPoints] = useState(0);
+            const [aiRecommendation, setAiRecommendation] = useState('');
 
             const processingStages = [
                 { label: 'Connecting to SAP ERP...', duration: 600 },
@@ -1097,6 +1652,32 @@
                     setDataPoints(0);
                     return;
                 }
+
+                const generateAIRecommendation = async () => {
+                    const apiKey = window.CEREBRAS_API_KEY?.trim();
+                    if (!apiKey) {
+                        setAiRecommendation('Diversify sourcing for component #ABC-123 and review logistics partner SLA.');
+                        return;
+                    }
+                    try {
+                        const response = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                            body: JSON.stringify({
+                                model: 'llama-4-scout-17b-16e-instruct',
+                                messages: [{ role: 'user', content: 'Production Line B has 18hr downtime, 80% from Supplier X component shortages, 48hr avg logistics delay. Give ONE actionable recommendation (max 15 words). No quotes.' }],
+                                temperature: 0.7,
+                                max_tokens: 40
+                            })
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            setAiRecommendation(data.choices[0].message.content.trim());
+                        }
+                    } catch (e) {
+                        setAiRecommendation('Diversify sourcing for component #ABC-123 and review logistics partner SLA.');
+                    }
+                };
 
                 const runProcessing = async () => {
                     // Animate data points counter
@@ -1118,6 +1699,10 @@
                     clearInterval(pointsInterval);
                     setDataPoints(2847);
                     setProcessingStage(-1);
+
+                    // Generate AI recommendation
+                    await generateAIRecommendation();
+
                     setShowResult(true);
                     playSound('audio-complete', 0.4);
                 };
@@ -1213,7 +1798,7 @@
                                 </div>
                                 <div style={{ animation: showResult ? 'fadeInUp 0.5s ease-out 0.5s both' : 'none', opacity: showResult ? undefined : 0 }}>
                                     <p className="text-lg text-gray-800 mt-4">
-                                        <span className="font-bold text-black">Recommendation:</span> Diversify sourcing for component #ABC-123 and review logistics partner SLA.
+                                        <span className="font-bold text-black">AI Recommendation:</span> {aiRecommendation || 'Generating...'}
                                     </p>
                                 </div>
                             </div>
@@ -1268,6 +1853,48 @@
         );
 
         const Slide6 = ({ isActive }) => {
+            const [predictedROI, setPredictedROI] = useState(0);
+            const [confidenceScore, setConfidenceScore] = useState(0);
+
+            useEffect(() => {
+                if (!isActive) {
+                    setPredictedROI(0);
+                    setConfidenceScore(0);
+                    return;
+                }
+
+                const predictROI = async () => {
+                    const apiKey = window.CEREBRAS_API_KEY?.trim();
+                    if (!apiKey) {
+                        setTimeout(() => { setPredictedROI(379); setConfidenceScore(94); }, 1600);
+                        return;
+                    }
+                    try {
+                        const response = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                            body: JSON.stringify({
+                                model: 'llama-4-scout-17b-16e-instruct',
+                                messages: [{ role: 'user', content: 'Manual ops R15.1M/yr, Agentic R3.2M/yr over 5 years. Calculate ROI % and confidence 0-100. Reply: ROI:XXX CONF:YY' }],
+                                temperature: 0.3,
+                                max_tokens: 20
+                            })
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            const text = data.choices[0].message.content;
+                            const roi = parseInt(text.match(/ROI:(\d+)/)?.[1] || '379');
+                            const conf = parseInt(text.match(/CONF:(\d+)/)?.[1] || '94');
+                            setTimeout(() => { setPredictedROI(roi); setConfidenceScore(conf); }, 1600);
+                        }
+                    } catch (e) {
+                        setTimeout(() => { setPredictedROI(379); setConfidenceScore(94); }, 1600);
+                    }
+                };
+
+                predictROI();
+            }, [isActive]);
+
             return (
                 <div className="w-full max-w-5xl text-center">
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider">Return on Investment</h1>
@@ -1278,10 +1905,28 @@
                         <ROIBox isActive={isActive} delay="0.6s" label="Agentic Automation" value={3.2} desc="Platform license and strategic oversight." isNew prefix="R" suffix="M" decimals={1} />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                         <SavingsCard isActive={isActive} delay="1.0s" value="R11.9M" label="First Year Savings" />
                         <SavingsCard isActive={isActive} delay="1.2s" value="R57.6M" label="Five Year Value" />
                         <SavingsCard isActive={isActive} delay="1.4s" value="45" label="Days to Payback" />
+                    </div>
+
+                    {/* AI Predictive Analytics */}
+                    <div className={`bg-black text-white p-6 mt-8 ${isActive ? '[animation:fadeInUp_0.8s_ease-out_1.6s_forwards]' : 'opacity-0'}`}>
+                        <div className="flex items-center justify-center gap-3 mb-4">
+                            <div className="w-2 h-2 bg-green-400 rounded-full" style={{ animation: 'thinkingPulse 1.5s ease-in-out infinite' }} />
+                            <h3 className="text-xs uppercase tracking-widest">AI Predictive Analysis</h3>
+                        </div>
+                        <div className="grid grid-cols-2 gap-8">
+                            <div>
+                                <div className="text-xs uppercase tracking-wider mb-2 text-gray-400">Projected ROI</div>
+                                <div className="text-4xl font-bold">{predictedROI > 0 ? <AnimatedNumber value={predictedROI} suffix="%" /> : '...'}</div>
+                            </div>
+                            <div>
+                                <div className="text-xs uppercase tracking-wider mb-2 text-gray-400">Model Confidence</div>
+                                <div className="text-4xl font-bold">{confidenceScore > 0 ? <AnimatedNumber value={confidenceScore} suffix="%" /> : '...'}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             );
@@ -1534,6 +2179,50 @@
             const [plan, setPlan] = useState([]);
             const [isLoading, setIsLoading] = useState(false);
             const [error, setError] = useState('');
+            const [aiSuggestions, setAiSuggestions] = useState([]);
+            const [showSuggestions, setShowSuggestions] = useState(false);
+
+            // Generate AI query suggestions
+            const generateQuerySuggestions = async () => {
+                const apiKey = window.CEREBRAS_API_KEY?.trim();
+                const suggestions = [
+                    'Analyze top 10 customers by revenue and identify upsell opportunities',
+                    'Find all overdue invoices and draft payment reminder emails',
+                    'Identify dormant accounts and create re-engagement campaign'
+                ];
+
+                if (!apiKey) {
+                    setAiSuggestions(suggestions);
+                    return;
+                }
+
+                try {
+                    const response = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                        body: JSON.stringify({
+                            model: 'llama-4-scout-17b-16e-instruct',
+                            messages: [{ role: 'user', content: 'Generate 3 short business queries for agentic AI (each max 12 words). Format: 1. Query\n2. Query\n3. Query' }],
+                            temperature: 0.8,
+                            max_tokens: 80
+                        })
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        const text = data.choices[0].message.content;
+                        const parsed = text.split('\n').filter(l => l.match(/^\d\./)).map(l => l.replace(/^\d\.\s*/, '').trim()).slice(0, 3);
+                        setAiSuggestions(parsed.length === 3 ? parsed : suggestions);
+                    }
+                } catch (e) {
+                    setAiSuggestions(suggestions);
+                }
+            };
+
+            useEffect(() => {
+                if (isActive) {
+                    generateQuerySuggestions();
+                }
+            }, [isActive]);
 
             const generatePlan = async () => {
                 if (!userInput) return;
@@ -1655,7 +2344,7 @@ Return only the JSON array, no other text:`;
             };
 
             return (
-                <div className="w-full max-w-4xl flex flex-col items-center pt-4 pb-40 px-4">
+                <div className="w-full max-w-4xl flex flex-col items-center pt-40 pb-40 px-4">
                     <h1 className="text-5xl md:text-6xl font-bold tracking-wider text-center mb-2"
                         style={{
                             background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
@@ -1668,7 +2357,144 @@ Return only the JSON array, no other text:`;
                     </h1>
                     <h2 className="text-xl text-gray-500 font-medium mt-4 mb-12 text-center max-w-2xl mx-auto">INPUT A QUERY AND WATCH THE AI GENERATE AN EXECUTION PLAN.</h2>
 
+                    {/* AI Suggestions Panel - HIGH CONTRAST MONOCHROME - ALWAYS SHOW WHEN ON SLIDE 7 */}
+                    <div className="w-full mb-6 bg-black border-4 border-white p-8 shadow-2xl" style={{
+                        opacity: 1,
+                        display: 'block'
+                    }}>
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-14 h-14 bg-white border-4 border-black rounded-full flex items-center justify-center" style={{ animation: 'thinkingPulse 2s ease-in-out infinite' }}>
+                                    <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/>
+                                    </svg>
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="text-2xl font-bold text-white uppercase tracking-wider mb-2">🎯 AI-POWERED QUERY SUGGESTIONS</h3>
+                                    <p className="text-lg text-white font-medium">Click any suggestion → Auto-fill → 10-second AI melody + Red explosion!</p>
+                                </div>
+                            </div>
+                            <div className="grid gap-3">
+                                {(aiSuggestions.length > 0 ? aiSuggestions : [
+                                    'Analyze top 10 customers by revenue and identify upsell opportunities',
+                                    'Find all overdue invoices and draft payment reminder emails',
+                                    'Identify dormant accounts and create re-engagement campaign'
+                                ]).map((suggestion, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={async () => {
+                                            setUserInput(suggestion);
+                                            playSound('audio-click', 0.3);
+
+                                            // Generate AI-powered 10-second random tune
+                                            const generateAITune = async () => {
+                                                const apiKey = window.CEREBRAS_API_KEY?.trim();
+
+                                                // Fallback: Famous melody snippets if no API
+                                                const famousMelodies = {
+                                                    'Twinkle Star': [261.63, 261.63, 392.00, 392.00, 440.00, 440.00, 392.00, 349.23, 349.23, 329.63, 329.63, 293.66, 293.66, 261.63],
+                                                    'Happy Birthday': [261.63, 261.63, 293.66, 261.63, 349.23, 329.63, 261.63, 261.63, 293.66, 261.63, 392.00, 349.23],
+                                                    'Beethoven 5th': [329.63, 329.63, 329.63, 261.63, 293.66, 293.66, 293.66, 246.94, 329.63, 329.63, 329.63, 261.63],
+                                                    'Jingle Bells': [329.63, 329.63, 329.63, 329.63, 329.63, 329.63, 329.63, 392.00, 261.63, 293.66, 329.63]
+                                                };
+
+                                                let melody;
+                                                let tuneName = 'Random AI Melody';
+
+                                                if (!apiKey) {
+                                                    // Pick random famous tune
+                                                    const tunes = Object.keys(famousMelodies);
+                                                    tuneName = tunes[Math.floor(Math.random() * tunes.length)];
+                                                    melody = famousMelodies[tuneName];
+                                                } else {
+                                                    try {
+                                                        const response = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                                                            method: 'POST',
+                                                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                                                            body: JSON.stringify({
+                                                                model: 'llama-4-scout-17b-16e-instruct',
+                                                                messages: [{
+                                                                    role: 'user',
+                                                                    content: 'Generate a 20-note melody using frequencies (Hz). Return ONLY numbers separated by spaces. Use range 200-800Hz. Example: 261.63 293.66 329.63 349.23'
+                                                                }],
+                                                                temperature: 0.9,
+                                                                max_tokens: 100
+                                                            })
+                                                        });
+                                                        if (response.ok) {
+                                                            const data = await response.json();
+                                                            const text = data.choices[0].message.content;
+                                                            const freqs = text.match(/[\d.]+/g)?.map(f => parseFloat(f)).filter(f => f >= 200 && f <= 800).slice(0, 20);
+                                                            if (freqs && freqs.length >= 10) {
+                                                                melody = freqs;
+                                                                tuneName = 'AI-Generated Melody';
+                                                            } else {
+                                                                const tunes = Object.keys(famousMelodies);
+                                                                tuneName = tunes[Math.floor(Math.random() * tunes.length)];
+                                                                melody = famousMelodies[tuneName];
+                                                            }
+                                                        }
+                                                    } catch (e) {
+                                                        const tunes = Object.keys(famousMelodies);
+                                                        tuneName = tunes[Math.floor(Math.random() * tunes.length)];
+                                                        melody = famousMelodies[tuneName];
+                                                    }
+                                                }
+
+                                                // Play the melody over 10 seconds
+                                                console.log(`🎵 Playing: ${tuneName}`);
+                                                const totalDuration = 10000; // 10 seconds
+                                                const noteInterval = totalDuration / melody.length;
+
+                                                if (window.AIPaint) {
+                                                    window.AIPaint.initAudio?.();
+                                                }
+
+                                                melody.forEach((freq, i) => {
+                                                    setTimeout(() => {
+                                                        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                                                        const osc = audioCtx.createOscillator();
+                                                        const gain = audioCtx.createGain();
+                                                        osc.type = 'sine';
+                                                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                                                        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                                                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (noteInterval/1000) * 0.8);
+                                                        osc.connect(gain);
+                                                        gain.connect(audioCtx.destination);
+                                                        osc.start();
+                                                        osc.stop(audioCtx.currentTime + (noteInterval/1000));
+                                                    }, i * noteInterval);
+                                                });
+                                            };
+
+                                            // Start tune generation
+                                            generateAITune();
+
+                                            // Trigger massive RED explosion visual effect
+                                            if (window.AIPaint) {
+                                                setTimeout(() => {
+                                                    if (window.AIPaint.redExplosion) {
+                                                        window.AIPaint.redExplosion();
+                                                    }
+                                                }, 200);
+                                            }
+                                        }}
+                                        className="text-left p-6 bg-white hover:bg-gray-900 border-4 border-black hover:border-white text-xl font-bold text-black hover:text-white transition-all duration-300 transform hover:scale-105 shadow-2xl"
+                                        data-interactive
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-4xl">{['💡', '⚡', '🚀'][idx]}</span>
+                                            <span className="leading-tight">{suggestion}</span>
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                    </div>
+
                     <div className="w-full border border-gray-200 p-6 mb-6">
+                        <div className="flex items-center justify-between mb-2">
+                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium">Your Business Query</label>
+                        </div>
+
                         <textarea
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value.slice(0, 500))}
