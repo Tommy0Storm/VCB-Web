@@ -1107,13 +1107,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Three.js for WebGL Video Rendering -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-<!-- Import Map for React -->
+<!-- Import Map for React and Three.js -->
 <script type="importmap">
 {
   "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
     "react": "https://esm.sh/react@^18.2.0",
     "react-dom/client": "https://esm.sh/react-dom@^18.2.0/client"
   }
@@ -1485,8 +1483,12 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   <script>
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 
-  // Video Modal Logic with WebGL/Three.js
+  <!-- Video Modal Logic with WebGL/Three.js -->
+  <script type="module">
+  import * as THREE from 'three';
+
   (function() {
     const videoModal = document.getElementById('videoModal');
     const videoOverlay = document.getElementById('videoModalOverlay');
@@ -1666,8 +1668,10 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       }
     });
   })();
+  </script>
 
-  // Sophisticated 3D Wire Mesh Animation
+  <!-- Sophisticated 3D Wire Mesh Animation -->
+  <script>
   (() => {
     const canvas = document.getElementById('mesh-canvas');
     if(!canvas) return;
