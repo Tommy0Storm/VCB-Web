@@ -1542,7 +1542,10 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
       renderer.setSize(displayWidth, displayHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.domElement.style.display = 'block';
       webglContainer.appendChild(renderer.domElement);
+      
+      console.log('WebGL initialized:', { displayWidth, displayHeight, videoAspectRatio });
 
       // 4. Video Texture
       videoTexture = new THREE.VideoTexture(video);
@@ -1606,12 +1609,27 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     let isDragging = false;
     let offsetX, offsetY;
 
-    const openModal = () => {
-      initWebGL();
+    const openModal = async () => {
       videoModal.classList.add('active');
       videoOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
-      video.play().catch(err => console.error("Video play failed:", err));
+      
+      // Ensure video metadata is loaded
+      if (video.readyState < 1) {
+        await new Promise(resolve => {
+          video.addEventListener('loadedmetadata', resolve, { once: true });
+          video.load();
+        });
+      }
+      
+      initWebGL();
+      
+      try {
+        await video.play();
+      } catch(err) {
+        console.error("Video play failed:", err);
+      }
+      
       animate();
     };
 
