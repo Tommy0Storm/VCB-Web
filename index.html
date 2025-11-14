@@ -1535,26 +1535,16 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       const fragmentShader = `
         varying vec2 vUv;
         uniform sampler2D videoTexture;
-        uniform vec3 chromaColor;
-        uniform float tolerance;
-        uniform float smoothing;
 
         void main() {
           vec4 videoColor = texture2D(videoTexture, vUv);
-          
-          float distance = length(chromaColor - videoColor.rgb);
-          float alpha = smoothstep(tolerance, tolerance + smoothing, distance);
-          
-          gl_FragColor = vec4(videoColor.rgb, alpha * videoColor.a);
+          gl_FragColor = videoColor;
         }
       `;
 
       material = new THREE.ShaderMaterial({
         uniforms: {
-          videoTexture: { value: videoTexture },
-          chromaColor: { value: new THREE.Color(0.95, 0.95, 0.95) }, // Target near-white
-          tolerance: { value: 0.45 }, // How close to the color to be transparent
-          smoothing: { value: 0.2 }  // How soft the transition is
+          videoTexture: { value: videoTexture }
         },
         vertexShader,
         fragmentShader,
