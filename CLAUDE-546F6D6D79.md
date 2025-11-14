@@ -1,4 +1,0 @@
-Colour Scheme scheme of VCB is. Black, Dark or Middle or Light Grey and White. Always use Quicksand 300 font for body, Quicksand 500 for Headings in CAPS and Quicksand Bold for Main Headings in CAPS.  Any design that you do must take this into consideration; Company logo must be on a dark background, https://i.postimg.cc/xdJqP9br/logo-transparent-Black-Back.png. The "Cleaner Theme" is a minimalist design system prioritizing vast whitespace (80%+) and a strict monochromatic palette. It uses black text for high contrast, light grey for subtle borders, and completely eliminates shadows. The design relies on the airy Quicksand font and lightweight components, like transparent "ghost buttons" and shadowless cards, to create a sophisticated and uncluttered interface. I l
-
-Website is https://vcb-ai.online, in folder C:\Users\tommy\OneDrive\Dev-Projects\VCB-Web and published in GitHub Tommy0Storm\VCB-Web repository under the vcb-ai.online domain.
-
