@@ -1379,7 +1379,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     <button type="button" class="video-modal-close" id="closeVideoModal" aria-label="Close video">
       <svg><use href="#i-close"/></svg>
     </button>
-    <div id="webgl-container" style="width: 80vw; height: 60vh; cursor: pointer;"></div>
+    <div id="webgl-container" style="max-width: 80vw; max-height: 60vh; cursor: pointer;"></div>
     <video id="vcbVideo" autoplay muted playsinline webkit-playsinline x-webkit-airplay="allow" style="display:none;">
       <source id="vcbVideoSource" src="whoweare_transparent.webm" type="video/webm">
       <source src="vee01.mp4" type="video/mp4">
@@ -1508,17 +1508,39 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     function initWebGL() {
       if (isWebGLInitialized) return;
 
+      // Wait for video metadata to load
+      if (video.videoWidth === 0 || video.videoHeight === 0) {
+        video.addEventListener('loadedmetadata', initWebGL, { once: true });
+        return;
+      }
+
+      // Calculate dimensions maintaining aspect ratio
+      const videoAspectRatio = video.videoWidth / video.videoHeight;
+      const maxWidth = window.innerWidth * 0.8;
+      const maxHeight = window.innerHeight * 0.6;
+      
+      let displayWidth, displayHeight;
+      if (maxWidth / maxHeight > videoAspectRatio) {
+        displayHeight = maxHeight;
+        displayWidth = displayHeight * videoAspectRatio;
+      } else {
+        displayWidth = maxWidth;
+        displayHeight = displayWidth / videoAspectRatio;
+      }
+
+      webglContainer.style.width = displayWidth + 'px';
+      webglContainer.style.height = displayHeight + 'px';
+
       // 1. Scene
       scene = new THREE.Scene();
 
-      // 2. Camera
-      const aspectRatio = webglContainer.clientWidth / webglContainer.clientHeight;
-      camera = new THREE.OrthographicCamera(-aspectRatio / 2, aspectRatio / 2, 0.5, -0.5, 0.1, 100);
+      // 2. Camera - orthographic for pixel-perfect display
+      camera = new THREE.OrthographicCamera(-videoAspectRatio / 2, videoAspectRatio / 2, 0.5, -0.5, 0.1, 100);
       camera.position.z = 1;
 
       // 3. Renderer
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(webglContainer.clientWidth, webglContainer.clientHeight);
+      renderer.setSize(displayWidth, displayHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
       webglContainer.appendChild(renderer.domElement);
 
@@ -1528,7 +1550,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       videoTexture.magFilter = THREE.LinearFilter;
       videoTexture.format = THREE.RGBAFormat;
 
-      // 5. Shader Material for Chroma Key
+      // 5. Shader Material - passthrough with alpha
       const vertexShader = `
         varying vec2 vUv;
         void main() {
@@ -1556,15 +1578,14 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
         transparent: true,
       });
 
-      // 6. Plane Geometry
-      const videoAspectRatio = video.videoWidth / video.videoHeight;
+      // 6. Plane Geometry - match video aspect ratio
       const planeHeight = 1;
-      const planeWidth = planeHeight * videoAspectRatio;
+      const planeWidth = videoAspectRatio;
       const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
       plane = new THREE.Mesh(geometry, material);
       scene.add(plane);
       
-      // Adjust camera to fit the plane
+      // Adjust camera to fit the plane perfectly
       camera.left = -planeWidth / 2;
       camera.right = planeWidth / 2;
       camera.top = planeHeight / 2;
