@@ -29,12 +29,7 @@ jobs:
 
           git fetch origin master
           git checkout master
-          git merge origin/$BRANCH_NAME -m "deploy: auto-merge $BRANCH_NAME to master
-
-This merge was automatically created by GitHub Actions.
-All changes have been tested and are ready for deployment.
-
-🤖 Automated by GitHub Actions"
+          git merge origin/$BRANCH_NAME -m "deploy: auto-merge $BRANCH_NAME to master" -m "This merge was automatically created by GitHub Actions." -m "🤖 Automated by GitHub Actions"
 
           git push origin master
 
