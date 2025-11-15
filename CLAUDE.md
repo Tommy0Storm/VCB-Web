@@ -88,18 +88,40 @@ Always use the defined navy blue, black, silver, and white palette. Reference ex
 - All styles are inline — no separate CSS files needed
 - No build process or compilation required
 
+## Deployment
+
+**IMPORTANT:** This repository uses **fully automated deployments**. See `DEPLOYMENT.md` for complete details.
+
+### Quick Deployment Workflow
+1. Make changes on `claude/**` branch
+2. Commit and push: `git push -u origin claude/your-branch-name`
+3. Auto-merge workflow merges to `master` automatically
+4. Deploy workflow publishes to GitHub Pages
+5. Live in ~2-3 minutes at: https://tommy0storm.github.io/VCB-Web/
+
+### Key Points
+- ✅ **Always work on `claude/**` branches** - they auto-deploy
+- ❌ **Never push directly to `master` from WSL** - proxy gives 403 errors
+- ✅ **No manual merging needed** - GitHub Actions handles everything
+- 📊 **Monitor deployments:** https://github.com/Tommy0Storm/VCB-Web/actions
+
+See `DEPLOYMENT.md` for troubleshooting and detailed workflow information.
+
+---
+
 ## WSL Development Notes
 
 **Environment:** Windows 11 with WSL
 
 ### Local Development Server
 - Use `python3 -m http.server 8080` (instead of Windows `start python -m http.server`)
-- Open in browser: `explorer.exe http://localhost:8080` (from WSL)
-- Or navigate directly in Windows browser to `http://localhost:8080`
+- Access via WSL IP: `http://21.0.0.104:8080/index.html` (from Windows browser)
+- Or open file directly: `C:\Users\tommy\OneDrive\Dev-Projects\VCB-Web\index.html`
 
 ### File Paths
-- Project location in WSL: `/mnt/c/Users/tommy/OneDrive/Dev-Projects/VCB-Web/`
-- Use forward slashes `/` for all paths
+- Project location in WSL: `/home/user/VCB-Web/`
+- Windows path: `C:\Users\tommy\OneDrive\Dev-Projects\VCB-Web\`
+- Use forward slashes `/` for all paths in WSL
 - Files can be edited from both Windows and WSL
 
 ### Common Commands
