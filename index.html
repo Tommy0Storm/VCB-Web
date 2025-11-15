@@ -46,7 +46,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       background:linear-gradient(135deg, var(--black) 0%, var(--g-600) 100%);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text; text-align:center; }
-  h3{ font-size:clamp(20px,2.4vw,26px); color:var(--g-800); letter-spacing:-.005em; font-weight:700; }
+  h3{
+    font-size:clamp(20px,2.4vw,26px);
+    color:var(--g-800);
+    letter-spacing:-.005em;
+    font-weight:900;
+    font-synthesis:weight;
+    -webkit-text-stroke:0.3px currentColor;
+    text-shadow:0 0 0.5px currentColor;
+  }
   p{ margin:.45rem 0 1rem; color:var(--g-700); font-weight:400; }
   ul{ margin:.25rem 0 1rem 1.1rem; padding:0; }
   li{ margin:.25rem 0; color:var(--g-800); font-weight:400; }
@@ -509,7 +517,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .hero{ padding:60px 0 40px; }
     h1{ font-size:clamp(36px,6.75vw,54px); font-weight:800; }
     h2{ font-size:clamp(22px,5vw,32px); font-weight:700; }
-    h3{ font-size:clamp(18px,4vw,24px); font-weight:700; }
+    h3{
+      font-size:clamp(18px,4vw,24px);
+      font-weight:900;
+      font-synthesis:weight;
+      -webkit-text-stroke:0.3px currentColor;
+      text-shadow:0 0 0.5px currentColor;
+    }
 
     /* Reduce section padding */
     .section{ padding:48px 0; }
