@@ -664,13 +664,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     height:auto;
     max-width:none;
     max-height:80vh;
-    background:transparent;
-    border-radius:0;
+    background:rgba(255,255,255,0.95);
+    border:2px solid var(--g-200);
+    border-radius:12px;
     overflow:hidden;
     pointer-events:auto;
     cursor:-webkit-grab;
     cursor:grab;
-    touch-action:none; /* enable touch dragging without scrolling */
+    touch-action:none;
+    box-shadow:0 8px 32px rgba(0,0,0,0.2);
+    resize:both;
+    min-width:300px;
+    min-height:200px;
   }
   .video-modal-content.dragging{ cursor:-webkit-grabbing; cursor:grabbing; }
   .video-modal-close{
@@ -706,9 +711,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .video-modal video{
     display:block;
-    width:auto;
-    height:60vh;
-    max-width:90vw;
+    width:100%;
+    height:100%;
     object-fit:cover;
     cursor:pointer;
     background:transparent !important;
@@ -1522,8 +1526,10 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
         displayHeight = displayWidth / videoAspectRatio;
       }
 
-      webglContainer.style.width = displayWidth + 'px';
-      webglContainer.style.height = displayHeight + 'px';
+      webglContainer.style.width = '100%';
+      webglContainer.style.height = '100%';
+      webglContainer.style.minWidth = displayWidth + 'px';
+      webglContainer.style.minHeight = displayHeight + 'px';
 
       // 1. Scene
       scene = new THREE.Scene();
@@ -2079,6 +2085,10 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
         if (window.vcbAudioContext.state === 'suspended') {
           window.vcbAudioContext.resume();
         }
+        // Handle Tone.js AudioContext for Rapport
+        if (window.Tone && window.Tone.context && window.Tone.context.state === 'suspended') {
+          window.Tone.context.resume();
+        }
         audioContextInitialized = true;
       }
     } catch (e) {
@@ -2170,9 +2180,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', dragEnd);
 
-    // Touch events for mobile - use passive where possible
-    modalContent.addEventListener('touchstart', dragStart, { passive: true });
-    document.addEventListener('touchmove', drag, { passive: false }); // Need preventDefault for drag
+    // Touch events for mobile - fix passive listener violation
+    modalContent.addEventListener('touchstart', dragStart, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false });
     document.addEventListener('touchend', dragEnd, { passive: true });
 
     function dragStart(e) {
