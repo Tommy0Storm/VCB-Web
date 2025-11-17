@@ -198,6 +198,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     z-index:1001;
     transition:all .3s ease;
     animation:crawlOut 8s ease-in-out infinite;
+    background:none;
+    border:none;
+    padding:0;
+    font:inherit;
   }
   .coming-soon-text{
     font-size:1.4em;
@@ -1320,7 +1324,7 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
         </div>
       </div>
       <a href="Partnerships.html">Partnerships</a>
-      <a href="vee.mp4" target="_blank" class="gogga-coming-soon">
+      <button type="button" class="gogga-coming-soon" id="gogga-btn" aria-label="Watch VCB Gogga Video">
         <div class="coming-soon-text">Coming Soon</div>
         <svg xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 0 200 210" class="gogga-icon">
           <defs>
@@ -1374,7 +1378,7 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
           <path d="M 139 162.5 Q 159 167.5 169 157.5" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
           <path d="M 138 170 Q 158 175 168 165" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
         </svg>
-      </a>
+      </button>
       <button type="button" class="meet-vcb-seal" id="meetVCBBtn" aria-label="Watch VCB Introduction Video">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -1989,7 +1993,30 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       document.removeEventListener('touchend', stopDrag);
     };
 
-    meetVCBBtn.addEventListener('click', openModal);
+    meetVCBBtn.addEventListener('click', async () => {
+      // Reset video source to Dee.mp4
+      const videoSource = document.getElementById('vcbVideoSource');
+      if (videoSource) {
+        videoSource.src = 'Dee.mp4';
+        video.load();
+      }
+      await openModal();
+    });
+    
+    // Gogga button handler
+    const goggaBtn = document.getElementById('gogga-btn');
+    if (goggaBtn) {
+      goggaBtn.addEventListener('click', async () => {
+        // Change video source to vee.mp4
+        const videoSource = document.getElementById('vcbVideoSource');
+        if (videoSource) {
+          videoSource.src = 'vee.mp4';
+          video.load();
+        }
+        await openModal();
+      });
+    }
+    
     closeVideoModal.addEventListener('click', closeModal);
     videoOverlay.addEventListener('click', closeModal);
     videoContent.addEventListener('mousedown', startDrag);
