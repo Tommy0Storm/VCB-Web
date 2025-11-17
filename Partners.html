@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The VCB Sovereign Stack | Our Technology Ecosystem</title>
+    
+    <style>
+        /* 1. FONT IMPORT */
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
+
+        /* 2. GLOBAL & THEME RESET */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #FFFFFF;
+            color: #000000;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* 3. LAYOUT & WHITESPACE */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 70px 0;
+        }
+        
+        .section-header {
+            padding: 100px 0 70px 0;
+            position: relative;
+        }
+        
+        .section-shaded {
+            background-color: #F8F8F8; 
+            max-width: 100%; 
+            padding-left: 0; 
+            padding-right: 0;
+        }
+
+        .hr-light {
+            border: 0;
+            height: 1px;
+            background-color: #E0E0E0;
+            margin: 0 auto;
+            max-width: 1100px;
+        }
+
+        /* 4. TYPOGRAPHY */
+        h1, h2, h3, h4, .kicker, .btn-ghost {
+            text-transform: uppercase;
+        }
+
+        .kicker {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #888888;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 3rem;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        h2 {
+            font-weight: 500;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+        
+        h3 {
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .sub-heading {
+            font-weight: 300;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #333333;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.125rem;
+        }
+
+        .text-body {
+            max-width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        
+        .category-heading {
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #333333;
+            max-width: 80%;
+            margin: -20px auto 40px auto;
+        }
+
+        /* 5. ANIMATED BACKGROUND */
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.03;
+        }
+
+        .bg-line {
+            position: absolute;
+            background-color: #000000;
+            transform-origin: center;
+        }
+
+        /* 6. METRICS GRID */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin: 60px 0;
+            padding: 40px 0;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 2px solid #E0E0E0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .metric-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .metric-number {
+            font-weight: 700;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            color: #000000;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .metric-label {
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888888;
+        }
+
+        /* 7. ENHANCED CARDS */
+        a.card-link, a.card-link:hover {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .logo-grid {
+            display: grid;
+            gap: 30px;
+            margin-top: 40px;
+            align-items: stretch;
+        }
+        
+        .grid-3-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .grid-2-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .grid-1-col {
+            grid-template-columns: 1fr;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo-card {
+            border: 1px solid #E0E0E0;
+            box-shadow: none;
+            padding: 30px;
+            background-color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .logo-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .logo-card-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-card-image img,
+        .logo-card-image svg {
+            max-width: 100%;
+            max-height: 100px;
+            filter: grayscale(100%) opacity(0.7);
+            transition: all 0.4s ease;
+        }
+
+        .logo-card-image img.logo-large,
+        .logo-card-image svg.logo-large {
+            max-height: 200px;
+        }
+
+        a.card-link:hover .logo-card-image img,
+        .logo-card:hover .logo-card-image img,
+        a.card-link:hover .logo-card-image svg,
+        .logo-card:hover .logo-card-image svg {
+            opacity: 1.0;
+            filter: grayscale(0%) opacity(1.0);
+            transform: scale(1.05);
+        }
+
+        a.card-link:hover .logo-card,
+        .logo-card:hover {
+            border-color: #000000;
+        }
+        
+        .logo-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* 8. BADGE SYSTEM */
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border: 1px solid #E0E0E0;
+            color: #888888;
+            background-color: transparent;
+        }
+
+        /* 9. VALUE PROPOSITION SECTION */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            margin: 60px 0;
+        }
+
+        .value-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .value-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border: 2px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        .value-item:hover .value-icon {
+            border-color: #000000;
+            transform: rotate(45deg);
+        }
+
+        .value-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #000000;
+            transition: all 0.4s ease;
+        }
+
+        .value-item:hover .value-icon svg {
+            transform: rotate(-45deg);
+        }
+
+        .value-title {
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .value-description {
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* 10. GHOST BUTTON */
+        .btn-ghost {
+            display: inline-block;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: #000000;
+            background-color: transparent;
+            border: 1px solid #E0E0E0;
+            padding: 14px 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-ghost::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-ghost:hover::before {
+            left: 0;
+        }
+
+        .btn-ghost:hover {
+            color: #FFFFFF;
+            border-color: #000000;
+        }
+
+        /* 11. SECTION REVEAL */
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 12. ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes drawLine {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        /* 13. RESPONSIVENESS */
+        @media (max-width: 900px) {
+            .grid-3-col, .grid-2-col, .value-grid, .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .text-body {
+                max-width: 90%;
+            }
+            .metrics-grid {
+                gap: 30px;
+            }
+            .value-grid {
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .sub-heading {
+                font-size: 1.2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .text-body, .category-heading {
+                max-width: 100%;
+            }
+            .metric-number {
+                font-size: 2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="container text-center section-header">
+        <div class="animated-bg" id="animatedBg"></div>
+        <div class="kicker">ENGINEERED FOR SOVEREIGNTY</div>
+        <h1>THE VCB SOVEREIGN STACK</h1>
+        <p class="sub-heading">
+            VCB is more than an AI model. It's a complete, secure, and high-performance ecosystem. We provide the full, battle-tested stack required to run mission-critical Sovereign AI.
+        </p>
+    </header>
+
+    <main>
+        <!-- METRICS SECTION -->
+        <section class="container">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-number">100%</span>
+                    <span class="metric-label">South African Sovereignty</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number">ZERO</span>
+                    <span class="metric-label">Cloud Dependencies</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number">24/7</span>
+                    <span class="metric-label">Enterprise Support</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number">POPIA</span>
+                    <span class="metric-label">Compliant by Design</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container text-center section-reveal" style="padding-top: 0;">
+            <h2>FROM SILICON TO SOFTWARE</h2>
+            <p class="text-body">
+                Our enterprise clients require more than just an API. They demand a turnkey, on-premise, or private cloud solution. We have engineered the VCB Sovereign Stack—a pre-configured, pre-vetted platform that combines best-of-breed technology.
+            </p>
+            <p class="text-body" style="margin-top: 20px;">
+                This is the exact stack we use to run our own platform, now available for your private AI deployments.
+            </p>
+        </section>
+        
+        <section class="container" style="padding: 40px 0;">
+            <div class="hr-light"></div>
+        </section>
+
+        <!-- VALUE PROPOSITION -->
+        <section class="container section-reveal">
+            <h2 class="text-center">WHY THE VCB SOVEREIGN STACK</h2>
+            <div class="value-grid">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                        </svg>
+                    </div>
+                    <div class="value-title">Data Sovereignty</div>
+                    <div class="value-description">Your data never leaves South African soil. Full POPIA compliance with zero international data transfers.</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/>
+                        </svg>
+                    </div>
+                    <div class="value-title">Fully Integrated</div>
+                    <div class="value-description">Pre-configured, pre-tested, and ready to deploy. Eliminate months of integration work.</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <div class="value-title">Enterprise Performance</div>
+                    <div class="value-description">Battle-tested infrastructure delivering the speed and reliability your mission-critical operations demand.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="padding: 40px 0;">
+            <div class="hr-light"></div>
+        </section>
+
+        <section class="container section-reveal" style="padding-top: 0;">
+            <h2 class="text-center">OUR TECHNOLOGY ECOSYSTEM</h2>
+
+            <!-- Section 1: Sovereign Hosting -->
+            <h3 class="text-center" style="margin-top: 50px;">SOVEREIGN HOSTING & DATA CENTERS</h3>
+            <p class="text-center category-heading">
+                The physical foundation for our stack. Secure, local, and high-availability data centers on South African soil.
+            </p>
+            <div class="logo-grid grid-1-col">
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <img src="https://logo.clearbit.com/ultradc.co.za" alt="UltraDC" onerror="this.src='https://placehold.co/300x100/f8f8f8/e0e0e0?text=UltraDC'">
+                    </div>
+                    <p>Purpose-built AI infrastructure, not commodity rack space. While legacy colocation providers offer generic floor space designed for web hosting and email servers, UltraDC delivers power-dense AI configurations with high-amperage circuits, liquid cooling readiness, and GPU-optimized networking. Strategic partnership beats transactional colocation.</p>
+                    <div class="badge-container">
+                        <span class="badge">Tier III Certified</span>
+                        <span class="badge">AI Power Density</span>
+                        <span class="badge">99.982% Uptime</span>
+                        <span class="badge">Strategic Partner</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: AI & Compute -->
+            <h3 class="text-center" style="margin-top: 70px;">AI & COMPUTE INFRASTRUCTURE</h3>
+            <p class="text-center category-heading">
+                Performance at scale. Our stack is built on the world's leading AI-optimised hardware for maximum training and inference speed.
+            </p>
+            <div class="logo-grid grid-2-col">
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <img src="https://logo.clearbit.com/supermicro.com" alt="Supermicro">
+                    </div>
+                    <p>Purpose-built AI compute infrastructure engineered for maximum GPU density and thermal efficiency. While traditional enterprise servers struggle with power and cooling constraints, Supermicro delivers 8-10 GPU configurations with liquid cooling—purpose-built for training and inference at scale, not repurposed enterprise hardware.</p>
+                    <div class="badge-container">
+                        <span class="badge">10x GPU Density</span>
+                        <span class="badge">Liquid Cooled</span>
+                        <span class="badge">AI Optimised</span>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <img src="https://logo.clearbit.com/ddn.com" alt="DDN Storage">
+                    </div>
+                    <p>Parallel file storage purpose-built for AI. Where legacy block storage systems fail under extreme I/O pressure, DDN delivers sustained multi-GB/s throughput across thousands of concurrent GPU operations. The foundation of every serious AI deployment.</p>
+                    <div class="badge-container">
+                        <span class="badge">400GB/s+ Throughput</span>
+                        <span class="badge">Parallel FS</span>
+                        <span class="badge">AI Optimised</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Data & Security -->
+            <h3 class="text-center" style="margin-top: 70px;">DATA & SECURITY FABRIC</h3>
+            <p class="text-center category-heading">
+                A zero-trust, POPIA-compliant foundation. Security is not an add-on; it's architected into the core.
+            </p>
+            <div class="logo-grid grid-3-col">
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <img src="https://logo.clearbit.com/cohesity.com" alt="Cohesity">
+                    </div>
+                    <p>Next-generation data security and management platform. Moving beyond legacy backup architectures, Cohesity delivers AI-aware data protection with immutable snapshots, instant recovery, and ransomware detection. Modern enterprises demand modern data security.</p>
+                    <div class="badge-container">
+                        <span class="badge">Zero Trust</span>
+                        <span class="badge">Immutable Backups</span>
+                        <span class="badge">Ransomware Defense</span>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <img src="https://logo.clearbit.com/kaspersky.com" alt="Kaspersky" class="logo-large">
+                    </div>
+                    <p>Battle-tested endpoint security with 25+ years defending against nation-state APTs. Independent from US intelligence apparatus concerns, Kaspersky's threat intelligence network detects zero-days before they become headlines. When security theatre isn't enough, you need proven protection.</p>
+                    <div class="badge-container">
+                        <span class="badge">APT Protection</span>
+                        <span class="badge">400M+ Endpoints</span>
+                        <span class="badge">Zero-Day Detection</span>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <img src="https://logo.clearbit.com/actalis.com" alt="Actalis">
+                    </div>
+                    <p>European-based certificate authority operating outside US jurisdiction. While mega-CAs have suffered high-profile breaches and government backdoor pressures, Actalis provides enterprise PKI, qualified digital signatures, and SSL/TLS certificates from a sovereignty-first position. Trust should never route through foreign intelligence apparatus.</p>
+                    <div class="badge-container">
+                        <span class="badge">EU Qualified Trust</span>
+                        <span class="badge">PKI Infrastructure</span>
+                        <span class="badge">eIDAS Compliant</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 4: Application Layer -->
+            <h3 class="text-center" style="margin-top: 70px;">APPLICATION & INTEGRATION LAYER</h3>
+            <p class="text-center category-heading">
+                Extending the power of AI. Solutions that integrate seamlessly with the VCB core.
+            </p>
+            <div class="logo-grid grid-2-col">
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <img src="https://logo.clearbit.com/repsmate.com" alt="Repsmate" class="logo-large">
+                    </div>
+                    <p>AI-native quality assurance built for the sovereign AI era. Legacy call center platforms bolt AI onto decades-old architectures and route your voice data offshore. Repsmate analyzes 100% of conversations in real-time, on-premise, with instant compliance flagging—no sampling, no delays, no data leakage.</p>
+                    <div class="badge-container">
+                        <span class="badge">100% Coverage</span>
+                        <span class="badge">Real-Time Analysis</span>
+                        <span class="badge">On-Premise</span>
+                    </div>
+                </div>
+
+                <a href="https://tommy0storm.github.io/VCB--S-chat/" target="_blank" rel="noopener noreferrer" class="card-link">
+                    <div class="logo-card">
+                        <div class="logo-card-image">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 0 200 210" alt="VCB GOGGA Chatbot">
+                                <defs>
+                                    <pattern id="sa-flag-gogga" patternUnits="userSpaceOnUse" x="0" y="0" width="100" height="66.67" viewBox="0 0 900 600">
+                                        <rect width="900" height="600" fill="#fff"/>
+                                        <rect width="900" height="200" fill="#de3831"/>
+                                        <rect y="400" width="900" height="200" fill="#002395"/>
+                                        <path d="M0 200h900v200H0z" fill="#fff"/>
+                                        <path d="M0 240h900v120H0z" fill="#007a4d"/>
+                                        <path d="M0 0v600L300 300z" fill="#ffb612"/>
+                                        <path d="M0 40v520L260 300z" fill="#000"/>
+                                    </pattern>
+                                </defs>
+                                <!-- Body with SA Flag pattern -->
+                                <ellipse cx="100" cy="145" rx="43.75" ry="62.5" fill="url(#sa-flag-gogga)"/>
+                                <!-- Head -->
+                                <circle cx="100" cy="100" r="40" fill="#282828"/>
+                                <!-- Eyes -->
+                                <circle cx="85" cy="90" r="10" fill="white"/>
+                                <circle cx="85" cy="92" r="4" fill="black"/>
+                                <circle cx="115" cy="90" r="10" fill="white"/>
+                                <circle cx="115" cy="92" r="4" fill="black"/>
+                                <!-- Blinking animation -->
+                                <ellipse cx="85" cy="90" rx="10" ry="10" fill="#282828" opacity="0">
+                                    <animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.85;0.9;0.95;1" dur="3s" repeatCount="indefinite"/>
+                                </ellipse>
+                                <ellipse cx="115" cy="90" rx="10" ry="10" fill="#282828" opacity="0">
+                                    <animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.85;0.9;0.95;1" dur="3s" repeatCount="indefinite"/>
+                                </ellipse>
+                                <!-- Mouth -->
+                                <path d="M 77.5 112 C 85.5 126, 114.5 126, 122.5 112 Q 100 122 77.5 112 Z" fill="white"/>
+                                <path d="M 100 112 V 122" stroke="#282828" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M 87.5 112 V 119" stroke="#282828" stroke-width="1" stroke-linecap="round"/>
+                                <path d="M 112.5 112 V 119" stroke="#282828" stroke-width="1" stroke-linecap="round"/>
+                                <!-- Bow Tie -->
+                                <path d="M 100 140 L 80 130 L 80 150 Z" fill="#ffb612" stroke="#282828" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M 100 140 L 120 130 L 120 150 Z" fill="#ffb612" stroke="#282828" stroke-width="1.5" stroke-linejoin="round"/>
+                                <circle cx="100" cy="140" r="5" fill="#ffb612" stroke="#282828" stroke-width="1.5"/>
+                                <!-- Antennae -->
+                                <path d="M 85 65 C 90 55, 70 50, 75 40 C 80 30, 60 25, 65 15" stroke="#282828" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <path d="M 115 65 C 110 55, 130 50, 125 40 C 120 30, 140 25, 135 15" stroke="#282828" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <!-- Antenna bulbs with color animation -->
+                                <circle cx="65" cy="10" r="5" fill="#de3831">
+                                    <animate attributeName="fill" values="#de3831;#002395;#ffb612;#007a4d;#de3831" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="135" cy="10" r="5" fill="#002395">
+                                    <animate attributeName="fill" values="#002395;#ffb612;#007a4d;#de3831;#002395" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <!-- Legs (left side) -->
+                                <path d="M 60 180 Q 40 185 30 195" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 62.5 185 Q 42.5 190 32.5 200" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 65 190 Q 45 195 35 205" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <!-- Legs (right side) -->
+                                <path d="M 140 180 Q 160 185 170 195" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 137.5 185 Q 157.5 190 167.5 200" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 135 190 Q 155 195 165 205" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <!-- Arms (left side) -->
+                                <path d="M 60 155 Q 40 160 30 150" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 61 162.5 Q 41 167.5 31 157.5" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 62 170 Q 42 175 32 165" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <!-- Arms (right side) -->
+                                <path d="M 140 155 Q 160 160 170 150" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 139 162.5 Q 159 167.5 169 157.5" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                <path d="M 138 170 Q 158 175 168 165" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+                            </svg>
+                        </div>
+                        <p>Our sovereign AI chatbot, VCB GOGGA, for secure, intelligent conversations.</p>
+                        <div class="badge-container">
+                            <span class="badge">Live Demo</span>
+                            <span class="badge">Conversational AI</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 0 24 24" alt="LIANELA Disciplinary App" fill="currentColor">
+                             <path d="M12 2a1 1 0 0 0-1 1v1H5a1 1 0 0 0-1 1v2h16V5a1 1 0 0 0-1-1h-6V3a1 1 0 0 0-1-1Zm-8 7v10a1 1 0 0 0 1 1h3v-7.07c-.29.07-.59.1-.9.1A4.1 4.1 0 0 1 4 9.03V9Zm11 2.13a4.1 4.1 0 0 1-3.09-2.1c-.2-.3-.42-.58-.66-.83H10v7.07a5.1 5.1 0 0 1 4 5.04V20h3a1 1 0 0 0 1-1V9h-3v2.13Z"/>
+                             <path d="M4 10.97a4.1 4.1 0 0 1 3.1-2.07c.3-.1.6-.1.9-.1s.6.1.9.1a4.1 4.1 0 0 1 3.1 2.07A4.1 4.1 0 0 1 8.9 15c-.3 0-.6 0-.9-.1a4.1 4.1 0 0 1-4-3.93Z"/>
+                             <path d="M15.1 15c-.3 0-.6 0-.9-.1a4.1 4.1 0 0 1-4-3.93 4.1 4.1 0 0 1 3.1-2.07c.3-.1.6-.1.9-.1s.6.1.9.1a4.1 4.1 0 0 1 3.1 2.07 4.1 4.1 0 0 1-3.1 4.03Z"/>
+                        </svg>
+                    </div>
+                    <p>AI-powered legal process automation trained on South African labour law. Where generic HR software requires expensive consultants and manual processes create procedural errors, LIANELA guides compliant disciplinary hearings with AI that understands LRA requirements, precedent, and procedural fairness—reducing legal risk while accelerating resolution.</p>
+                    <div class="badge-container">
+                        <span class="badge">LRA Compliant</span>
+                        <span class="badge">Legal AI</span>
+                        <span class="badge">Process Automation</span>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-card-image">
+                         <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 0 24 24" alt="VCB AI Transcription Service" fill="currentColor">
+                             <path d="M12 2a4 4 0 0 0-4 4v8a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Zm-2 4a2 2 0 0 1 4 0v8a2 2 0 0 1-4 0V6Z"/>
+                             <path d="M12 18a5 5 0 0 0 5-5h2a7 7 0 0 1-14 0h2a5 5 0 0 0 5 5Z"/>
+                             <path d="M8 22h8v2H8v-2Z"/>
+                        </svg>
+                    </div>
+                    <p>On-premise AI transcription that never uploads your audio to the cloud. While SaaS transcription services expose sensitive conversations to offshore servers and unknown data retention policies, VCB processes everything locally with speaker diarization, technical terminology recognition, and multi-language support—your boardroom discussions stay in your infrastructure.</p>
+                    <div class="badge-container">
+                        <span class="badge">On-Premise Only</span>
+                        <span class="badge">Multi-Language</span>
+                        <span class="badge">Speaker ID</span>
+                        <span class="badge">Real-Time</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="container text-center section-shaded section-reveal" style="padding-bottom: 90px;">
+            <div class="container">
+                <h2>A TRUE TURNKEY SOLUTION</h2>
+                <p class="text-body" style="font-size: 1.2rem;">
+                    Stop the procurement guesswork. VCB delivers the entire, integrated Sovereign AI stack—from hardware to the LLM—as a single solution. Deploy in weeks, not months.
+                </p>
+                <p class="text-body" style="font-size: 1rem; color: #888888; margin-top: 30px;">
+                    Join leading South African enterprises who have chosen sovereignty, security, and performance.
+                </p>
+                <a href="mailto:tommy@vcb-ai.online?subject=Architecture%20Session%20Request" class="btn-ghost">SCHEDULE AN ARCHITECTURE SESSION</a>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        (function() {
+            'use strict';
+            
+            // Animated background lines
+            function createAnimatedBackground() {
+                var bg = document.getElementById('animatedBg');
+                if (!bg) return;
+                
+                var lineCount = 15;
+                for (var i = 0; i < lineCount; i++) {
+                    var line = document.createElement('div');
+                    line.className = 'bg-line';
+                    
+                    var isHorizontal = Math.random() > 0.5;
+                    if (isHorizontal) {
+                        line.style.width = Math.random() * 200 + 100 + 'px';
+                        line.style.height = '1px';
+                        line.style.top = Math.random() * 100 + '%';
+                        line.style.left = Math.random() * 100 + '%';
+                    } else {
+                        line.style.width = '1px';
+                        line.style.height = Math.random() * 200 + 100 + 'px';
+                        line.style.top = Math.random() * 100 + '%';
+                        line.style.left = Math.random() * 100 + '%';
+                    }
+                    
+                    bg.appendChild(line);
+                }
+            }
+
+            // Scroll reveal animations
+            function revealOnScroll() {
+                var reveals = document.querySelectorAll('.section-reveal, .logo-card, .metric-card, .value-item');
+                
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 150;
+                    
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add('visible');
+                    }
+                }
+            }
+
+            // Initialize
+            document.addEventListener('DOMContentLoaded', function() {
+                createAnimatedBackground();
+                revealOnScroll();
+                
+                window.addEventListener('scroll', revealOnScroll);
+            });
+        })();
+    </script>
+
+</body>
+</html>
