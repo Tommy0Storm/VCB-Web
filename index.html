@@ -187,6 +187,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transform:translateX(4px);
   }
 
+  /* Gogga Coming Soon */
+  .gogga-coming-soon{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    margin-left:16px;
+    cursor:pointer;
+    transition:all .3s ease;
+  }
+  .coming-soon-text{
+    font-size:0.7em;
+    font-weight:600;
+    color:var(--g-600);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:2px;
+    font-family:"Quicksand", sans-serif;
+  }
+  .gogga-icon{
+    width:32px;
+    height:auto;
+    transition:all .3s ease;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+  .gogga-coming-soon:hover .gogga-icon{
+    transform:scale(1.1) rotate(5deg);
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  }
+  .gogga-coming-soon:hover .coming-soon-text{
+    color:var(--black);
+  }
+
   /* Meet VCB Seal Button */
   .meet-vcb-seal{
     position:relative;
@@ -227,6 +259,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     z-index:1;
   }
   @media(max-width:1024px){
+    .gogga-coming-soon{
+      margin-left:12px;
+    }
+    .gogga-icon{
+      width:28px;
+    }
+    .coming-soon-text{
+      font-size:0.65em;
+    }
     .meet-vcb-seal{
       padding:8px 16px;
       font-size:0.85em;
@@ -238,6 +279,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   }
   @media(max-width:768px){
+    .gogga-coming-soon{
+      margin-left:8px;
+    }
+    .gogga-icon{
+      width:24px;
+    }
+    .coming-soon-text{
+      font-size:0.6em;
+    }
     .meet-vcb-seal{
       margin-left:12px;
       padding:6px 12px;
@@ -1234,6 +1284,61 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
         </div>
       </div>
       <a href="Partnerships.html">Partnerships</a>
+      <div class="gogga-coming-soon">
+        <div class="coming-soon-text">Coming Soon</div>
+        <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 200 210" class="gogga-icon">
+          <defs>
+            <pattern id="sa-flag-gogga" patternUnits="userSpaceOnUse" x="0" y="0" width="100" height="66.67" viewBox="0 0 900 600">
+              <rect width="900" height="600" fill="#fff"/>
+              <rect width="900" height="200" fill="#de3831"/>
+              <rect y="400" width="900" height="200" fill="#002395"/>
+              <path d="M0 200h900v200H0z" fill="#fff"/>
+              <path d="M0 240h900v120H0z" fill="#007a4d"/>
+              <path d="M0 0v600L300 300z" fill="#ffb612"/>
+              <path d="M0 40v520L260 300z" fill="#000"/>
+            </pattern>
+          </defs>
+          <ellipse cx="100" cy="145" rx="43.75" ry="62.5" fill="url(#sa-flag-gogga)"/>
+          <circle cx="100" cy="100" r="40" fill="#282828"/>
+          <circle cx="85" cy="90" r="10" fill="white"/>
+          <circle cx="85" cy="92" r="4" fill="black"/>
+          <circle cx="115" cy="90" r="10" fill="white"/>
+          <circle cx="115" cy="92" r="4" fill="black"/>
+          <ellipse cx="85" cy="90" rx="10" ry="10" fill="#282828" opacity="0">
+            <animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.85;0.9;0.95;1" dur="3s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="115" cy="90" rx="10" ry="10" fill="#282828" opacity="0">
+            <animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.85;0.9;0.95;1" dur="3s" repeatCount="indefinite"/>
+          </ellipse>
+          <path d="M 77.5 112 C 85.5 126, 114.5 126, 122.5 112 Q 100 122 77.5 112 Z" fill="white"/>
+          <path d="M 100 112 V 122" stroke="#282828" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M 87.5 112 V 119" stroke="#282828" stroke-width="1" stroke-linecap="round"/>
+          <path d="M 112.5 112 V 119" stroke="#282828" stroke-width="1" stroke-linecap="round"/>
+          <path d="M 100 140 L 80 130 L 80 150 Z" fill="#ffb612" stroke="#282828" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M 100 140 L 120 130 L 120 150 Z" fill="#ffb612" stroke="#282828" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="100" cy="140" r="5" fill="#ffb612" stroke="#282828" stroke-width="1.5"/>
+          <path d="M 85 65 C 90 55, 70 50, 75 40 C 80 30, 60 25, 65 15" stroke="#282828" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <path d="M 115 65 C 110 55, 130 50, 125 40 C 120 30, 140 25, 135 15" stroke="#282828" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <circle cx="65" cy="10" r="5" fill="#de3831">
+            <animate attributeName="fill" values="#de3831;#002395;#ffb612;#007a4d;#de3831" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="135" cy="10" r="5" fill="#002395">
+            <animate attributeName="fill" values="#002395;#ffb612;#007a4d;#de3831;#002395" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <path d="M 60 180 Q 40 185 30 195" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 62.5 185 Q 42.5 190 32.5 200" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 65 190 Q 45 195 35 205" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 140 180 Q 160 185 170 195" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 137.5 185 Q 157.5 190 167.5 200" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 135 190 Q 155 195 165 205" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 60 155 Q 40 160 30 150" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 61 162.5 Q 41 167.5 31 157.5" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 62 170 Q 42 175 32 165" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 140 155 Q 160 160 170 150" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 139 162.5 Q 159 167.5 169 157.5" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M 138 170 Q 158 175 168 165" stroke="#282828" stroke-width="3" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
       <button type="button" class="meet-vcb-seal" id="meetVCBBtn" aria-label="Watch VCB Introduction Video">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
