@@ -107,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
     width:100%; height:100%;
   }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:20px; }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:20px; position:relative; }
   .nav nav{ overflow:visible; }
   .brand{ display:flex; align-items:center; }
   .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
@@ -187,41 +187,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transform:translateX(4px);
   }
 
-  /* Gogga Coming Soon - Crawling Insect Effect */
+  /* Gogga Coming Soon - Right Corner with 45° Tilt */
   .gogga-coming-soon{
-    display:inline-flex;
+    position:absolute;
+    top:20px;
+    right:20px;
+    display:flex;
     flex-direction:column;
     align-items:center;
-    margin-left:16px;
     cursor:pointer;
-    position:relative;
-    z-index:1001;
+    z-index:1002;
     transition:all .3s ease;
-    animation:crawlOut 8s ease-in-out infinite;
     background:none;
     border:none;
-    padding:0;
+    padding:8px;
     font:inherit;
+    transform:rotate(45deg);
   }
   .coming-soon-text{
-    font-size:1.4em;
+    font-size:0.9em;
     font-weight:900;
     color:var(--g-600);
     text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin-bottom:2px;
+    letter-spacing:0.3px;
+    margin-bottom:4px;
     font-family:"Quicksand", sans-serif;
-    opacity:0;
-    transform:translateY(10px);
-    animation:textCrawl 8s ease-in-out infinite;
+    text-align:center;
+    line-height:1;
+    white-space:pre-line;
   }
   .gogga-icon{
-    width:64px;
+    width:48px;
     height:auto;
     transition:all .3s ease;
     filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    transform:translateY(0);
-    animation:goggaCrawl 8s ease-in-out infinite;
+    transform:rotate(-45deg);
   }
   .gogga-coming-soon:hover .gogga-icon{
     animation-play-state:paused;
@@ -239,25 +239,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     z-index:1002;
   }
   
-  @keyframes crawlOut{
-    0%, 20%{ z-index:-1; }
-    25%, 75%{ z-index:1001; }
-    80%, 100%{ z-index:-1; }
-  }
-  
-  @keyframes textCrawl{
-    0%, 20%{ opacity:0; transform:translateY(10px); }
-    25%, 75%{ opacity:1; transform:translateY(0); }
-    80%, 100%{ opacity:0; transform:translateY(10px); }
-  }
-  
-  @keyframes goggaCrawl{
-    0%, 20%{ transform:translateY(20px) scale(0.8); opacity:0.3; }
-    25%{ transform:translateY(0) scale(1); opacity:1; }
-    50%{ transform:translateY(-2px) scale(1.05); }
-    75%{ transform:translateY(0) scale(1); opacity:1; }
-    80%, 100%{ transform:translateY(20px) scale(0.8); opacity:0.3; }
-  }
+
 
   /* Meet VCB Seal Button */
   .meet-vcb-seal{
@@ -300,13 +282,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   @media(max-width:1024px){
     .gogga-coming-soon{
-      margin-left:12px;
+      top:15px;
+      right:15px;
     }
     .gogga-icon{
-      width:56px;
+      width:42px;
     }
     .coming-soon-text{
-      font-size:1.3em;
+      font-size:0.8em;
     }
     .meet-vcb-seal{
       padding:8px 16px;
@@ -320,13 +303,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   @media(max-width:768px){
     .gogga-coming-soon{
-      margin-left:8px;
+      top:10px;
+      right:10px;
     }
     .gogga-icon{
-      width:48px;
+      width:36px;
     }
     .coming-soon-text{
-      font-size:1.2em;
+      font-size:0.7em;
     }
     .meet-vcb-seal{
       margin-left:12px;
@@ -1325,7 +1309,7 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
       </div>
       <a href="Partners.html">Partners</a>
       <button type="button" class="gogga-coming-soon" id="gogga-btn" aria-label="Watch VCB Gogga Video">
-        <div class="coming-soon-text">Coming Soon</div>
+        <div class="coming-soon-text">Coming\nSoon</div>
         <svg xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 0 200 210" class="gogga-icon">
           <defs>
             <pattern id="sa-flag-gogga" patternUnits="userSpaceOnUse" x="0" y="0" width="100" height="66.67" viewBox="0 0 900 600">
