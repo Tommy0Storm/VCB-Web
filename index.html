@@ -1384,9 +1384,6 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       <source id="vcbVideoSource" src="Dee.mp4" type="video/mp4">
       Your browser does not support video playback.
     </video>
-    <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.9); padding:10px 20px; border-radius:8px; font-size:14px; display:none;" id="playHint">
-      Click video to play
-    </div>
   </div>
 </div>
 
@@ -1642,6 +1639,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     };
 
     const startDrag = (e) => {
+      // Don't drag if clicking on WebGL container (for play/pause)
+      if (e.target.closest('#webgl-container')) return;
+      
       isDragging = true;
       videoContent.classList.add('dragging');
       const rect = videoContent.getBoundingClientRect();
@@ -2020,13 +2020,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       
       try {
         await vcbVideo.play();
-        // Unmute after successful play
         setTimeout(() => { vcbVideo.muted = false; }, 100);
       } catch(err) {
-        console.warn('Video autoplay blocked, user must click to play');
-        // Show play hint
-        const playHint = document.getElementById('playHint');
-        if (playHint) playHint.style.display = 'block';
+        // Autoplay blocked - video will play on click
       }
     });
 
@@ -2041,10 +2037,10 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
     closeVideoBtn.addEventListener('click', closeVideoModal);
 
-    // Click video to pause/play
-    vcbVideo.addEventListener('click', (e) => {
+    // Click WebGL container to pause/play
+    const webglContainer = document.getElementById('webgl-container');
+    webglContainer.addEventListener('click', (e) => {
       e.stopPropagation();
-      if(playHint) playHint.style.display = 'none';
       if(vcbVideo.paused){
         vcbVideo.muted = false;
         vcbVideo.play().catch(err => console.warn('Play failed', err));
