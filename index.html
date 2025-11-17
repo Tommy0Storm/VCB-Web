@@ -659,7 +659,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display:flex;
   }
   .video-modal-content{
-    position:relative;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
     width:auto;
     height:auto;
     max-width:none;
@@ -1676,13 +1679,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       let newLeft = currentX - offsetX;
       let newTop = currentY - offsetY;
 
-      const parentRect = videoModal.getBoundingClientRect();
-      
-      newLeft = Math.max(0, Math.min(newLeft, parentRect.width - videoContent.offsetWidth));
-      newTop = Math.max(0, Math.min(newTop, parentRect.height - videoContent.offsetHeight));
-
       videoContent.style.left = `${newLeft}px`;
       videoContent.style.top = `${newTop}px`;
+      videoContent.style.transform = 'none';
     };
 
     const stopDrag = () => {
