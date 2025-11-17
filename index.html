@@ -663,22 +663,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     top:50%;
     left:50%;
     transform:translate(-50%, -50%);
-    width:auto;
-    height:auto;
-    max-width:none;
-    max-height:80vh;
+    width:60vw;
+    height:40vh;
     background:rgba(255,255,255,0.95);
     border:2px solid var(--g-200);
     border-radius:12px;
     overflow:hidden;
     pointer-events:auto;
-    cursor:-webkit-grab;
-    cursor:grab;
-    touch-action:none;
+    cursor:move;
     box-shadow:0 8px 32px rgba(0,0,0,0.2);
     resize:both;
     min-width:300px;
     min-height:200px;
+  }
+  .video-modal-content:hover{
+    cursor:move;
   }
   .video-modal-content.dragging{ cursor:-webkit-grabbing; cursor:grabbing; }
   .video-modal-close{
@@ -1641,26 +1640,36 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       video.currentTime = 0;
     };
 
+    let dragStartX, dragStartY, modalStartX, modalStartY;
+
     const startDrag = (e) => {
-      // Don't drag if clicking on WebGL container (for play/pause)
-      if (e.target.closest('#webgl-container')) return;
-      
-      isDragging = true;
-      videoContent.classList.add('dragging');
-      const rect = videoContent.getBoundingClientRect();
-      
-      if (e.type === 'touchstart') {
-        offsetX = e.touches[0].clientX - rect.left;
-        offsetY = e.touches[0].clientY - rect.top;
-      } else {
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
+      // Don't drag if clicking on WebGL container, close button, or resize handle
+      if (e.target.closest('#webgl-container') || 
+          e.target.closest('.video-modal-close') ||
+          (e.offsetX > videoContent.offsetWidth - 20 && e.offsetY > videoContent.offsetHeight - 20)) {
+        return;
       }
       
-      document.addEventListener('mousemove', onDrag, { capture: true, passive: false });
-      document.addEventListener('touchmove', onDrag, { capture: true, passive: false });
-      document.addEventListener('mouseup', stopDrag, { capture: true });
-      document.addEventListener('touchend', stopDrag, { capture: true });
+      isDragging = true;
+      videoContent.style.cursor = 'grabbing';
+      
+      const rect = videoContent.getBoundingClientRect();
+      modalStartX = rect.left;
+      modalStartY = rect.top;
+      
+      if (e.type === 'touchstart') {
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
+      } else {
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+      }
+      
+      document.addEventListener('mousemove', onDrag);
+      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchend', stopDrag);
+      e.preventDefault();
     };
 
     const onDrag = (e) => {
@@ -1676,8 +1685,11 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
         currentY = e.clientY;
       }
       
-      let newLeft = currentX - offsetX;
-      let newTop = currentY - offsetY;
+      const deltaX = currentX - dragStartX;
+      const deltaY = currentY - dragStartY;
+      
+      const newLeft = modalStartX + deltaX;
+      const newTop = modalStartY + deltaY;
 
       videoContent.style.left = `${newLeft}px`;
       videoContent.style.top = `${newTop}px`;
@@ -1687,11 +1699,11 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     const stopDrag = () => {
       if (!isDragging) return;
       isDragging = false;
-      videoContent.classList.remove('dragging');
-      document.removeEventListener('mousemove', onDrag, true);
-      document.removeEventListener('touchmove', onDrag, true);
-      document.removeEventListener('mouseup', stopDrag, true);
-      document.removeEventListener('touchend', stopDrag, true);
+      videoContent.style.cursor = 'move';
+      document.removeEventListener('mousemove', onDrag);
+      document.removeEventListener('touchmove', onDrag);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchend', stopDrag);
     };
 
     meetVCBBtn.addEventListener('click', openModal);
