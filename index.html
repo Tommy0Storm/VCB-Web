@@ -1107,6 +1107,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 
+<!-- Prevent multiple Three.js imports -->
+<script>
+  if (window.THREE) {
+    console.warn('Three.js already loaded, skipping duplicate import');
+  }
+</script>
+
 <!-- Babel Standalone -->
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
@@ -1457,8 +1464,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   <pre id="debugLog"></pre>
 </div>
 
-<!-- GSAP (not needed anymore) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Three.js loaded via import map above -->
 
 <script type="importmap">
   {
@@ -1988,6 +1994,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
     // Open video modal
     meetVCBBtn.addEventListener('click', async () => {
+      // Initialize AudioContext on user gesture
+      initAudioContext();
+      
       videoModal.classList.add('active');
       videoOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -1998,17 +2007,20 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       videoContent.style.backgroundColor = 'transparent';
       videoContent.style.background = 'none';
 
-      // Reset and play video
+      // Reset video and handle play properly
+      vcbVideo.pause();
       vcbVideo.currentTime = 0;
-      vcbVideo.muted = true;
+      vcbVideo.muted = true; // Start muted to avoid autoplay issues
+      
       try {
         await vcbVideo.play();
-        setTimeout(() => {
-          vcbVideo.muted = false;
-        }, 100);
+        // Unmute after successful play
+        setTimeout(() => { vcbVideo.muted = false; }, 100);
       } catch(err) {
-        console.error('Video play failed:', err);
-        playHint.style.display = 'block';
+        console.warn('Video autoplay blocked, user must click to play');
+        // Show play hint
+        const playHint = document.getElementById('playHint');
+        if (playHint) playHint.style.display = 'block';
       }
     });
 
@@ -2055,6 +2067,24 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   // Deployment: https://vcbmain.vercel.app
   // Status: Ready
   // ============================================================================
+
+  // Fix AudioContext initialization - must be after user gesture
+  let audioContextInitialized = false;
+  function initAudioContext() {
+    if (audioContextInitialized) return;
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext && !window.vcbAudioContext) {
+        window.vcbAudioContext = new AudioContext();
+        if (window.vcbAudioContext.state === 'suspended') {
+          window.vcbAudioContext.resume();
+        }
+        audioContextInitialized = true;
+      }
+    } catch (e) {
+      console.warn('AudioContext init failed:', e);
+    }
+  }
 
   (function(){
     const floatBtn = document.getElementById('sarahFloatBtn');
@@ -2140,10 +2170,10 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', dragEnd);
 
-    // Touch events for mobile (passive: false for preventDefault support)
-    modalContent.addEventListener('touchstart', dragStart, { passive: false });
-    document.addEventListener('touchmove', drag, { passive: false });
-    document.addEventListener('touchend', dragEnd);
+    // Touch events for mobile - use passive where possible
+    modalContent.addEventListener('touchstart', dragStart, { passive: true });
+    document.addEventListener('touchmove', drag, { passive: false }); // Need preventDefault for drag
+    document.addEventListener('touchend', dragEnd, { passive: true });
 
     function dragStart(e) {
       // Don't drag if clicking the close button or rapport-scene
@@ -2274,6 +2304,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
     if (floatBtn) {
       floatBtn.addEventListener('click', async () => {
+        // Initialize AudioContext on user gesture
+        initAudioContext();
+        
         // Open modal first to show loading spinner
         const modal = document.getElementById('voiceModal');
         if (modal) {
@@ -2284,16 +2317,12 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
         }
 
         if (!window.rapportInitialized) {
-          // Unlock WebAudio on mobile Safari/Chrome to allow the viewer to start audio in the same gesture
+          // Use the centralized AudioContext
           try {
-            const AC = window.AudioContext || window.webkitAudioContext;
-            if (AC) {
-              if (!window.__vcbAudioCtx) window.__vcbAudioCtx = new AC();
-              if (window.__vcbAudioCtx.state === 'suspended' && window.__vcbAudioCtx.resume) {
-                window.__vcbAudioCtx.resume();
-              }
+            if (window.vcbAudioContext && window.vcbAudioContext.state === 'suspended') {
+              await window.vcbAudioContext.resume();
             }
-          } catch(e) { console.warn('AudioContext unlock failed', e); }
+          } catch(e) { console.warn('AudioContext resume failed', e); }
           // global fallback to ensure spinner is cleared if connection callbacks never arrive (mobile)
           try { if (window.__vcbSpinnerFallback) clearTimeout(window.__vcbSpinnerFallback); } catch {}
           window.__vcbSpinnerFallback = setTimeout(() => {
