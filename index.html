@@ -727,11 +727,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .video-modal-content{
       width:90vw;
       height:50vh;
+      padding:0;
+      resize:none;
     }
     .video-modal video{
       object-fit:contain;
       width:100%;
       height:100%;
+    }
+    .video-modal canvas{
+      display:block;
+    }
+    #webgl-container{
+      width:100% !important;
+      height:100% !important;
+      max-width:none !important;
+      max-height:none !important;
     }
     .video-modal-close{
       top:5px;
