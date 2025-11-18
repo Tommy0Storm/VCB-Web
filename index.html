@@ -22,217 +22,75 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   :root{
     --black:#0B0B0B;
     --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
-    --g-500:#565656; --g-400:#777; --g-300:#9A9A9A; --g-200:#D5D5D5; --g-100:#EFEFEF;
-    --white:#fff;
-    --max:1200px; --radius:18px;
-    --shadow:0 4px 24px rgba(0,0,0,.06), 0 12px 48px rgba(0,0,0,.04);
-    --shadow-lg:0 8px 32px rgba(0,0,0,.08), 0 20px 64px rgba(0,0,0,.06);
-    --glow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.08);
-  }
-  *{box-sizing:border-box}
-  html{
-    background:var(--white);
-  }
-  body{
-    margin:0; background:transparent; color:var(--g-900);
-    font-family:"Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    font-weight:400; line-height:1.65; -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    text-rendering:optimizeLegibility;
-    scroll-behavior:smooth;
-  }
-  h1,h2,h3,h4{ font-weight:900; color:var(--black); margin:0 0 .6rem; letter-spacing:-.015em; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
-  h1{ font-size:clamp(42px,5.6vw,72px); line-height:1.05; letter-spacing:-.02em; font-weight:700; }
-  h2{ font-size:clamp(32px,4.2vw,52px); letter-spacing:-.01em; margin-bottom:1.5rem; font-weight:900 !important;
-      font-family:"Quicksand", sans-serif;
-      background:linear-gradient(135deg, var(--black) 0%, var(--g-600) 100%);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      background-clip:text; text-align:center; }
-  h3{
-    font-size:clamp(20px,2.4vw,26px);
-    color:var(--black);
-    letter-spacing:-.005em;
-    font-weight:600;
-    font-family:"Quicksand", sans-serif;
-  }
+    <!-- Video Modal Logic (HTML5 video only) -->
+    <script>
+    (() => {
+      const videoModal = document.getElementById('videoModal');
+      const videoOverlay = document.getElementById('videoModalOverlay');
+      const closeVideoModal = document.getElementById('closeVideoModal');
+      const meetVCBBtn = document.getElementById('meetVCBBtn');
+      const goggaBtn = document.getElementById('gogga-btn');
+      const video = document.getElementById('vcbVideo');
+      const videoContent = document.querySelector('.video-modal-content');
 
+      if (!videoModal || !closeVideoModal || !meetVCBBtn || !video || !videoContent || !videoOverlay) {
+        console.error('A required element for the video modal is missing.');
+        return;
+      }
 
+      const waitForMetadata = () => new Promise(resolve => {
+        if (video.readyState >= 1) {
+          resolve();
+        } else {
+          video.addEventListener('loadedmetadata', resolve, { once: true });
+        }
+      });
 
-  /* Ensure navigation links are bold */
-  .nav nav a, .nav a {
-    font-weight:900 !important;
-    font-family:"Quicksand", sans-serif !important;
-    font-synthesis:weight !important;
-    -webkit-text-stroke:0.3px currentColor !important;
-    text-shadow:0 0 0.5px currentColor !important;
-  }
+      const sizeModal = () => {
+        if (!videoModal.classList.contains('active')) return;
 
-  p{ margin:.45rem 0 1rem; color:var(--g-700); font-weight:400; }
-  ul{ margin:.25rem 0 1rem 1.1rem; padding:0; }
-  li{ margin:.25rem 0; color:var(--g-800); font-weight:400; }
-  .wrap{ max-width:var(--max); margin:0 auto; padding:0 20px; }
-  .section{ padding:96px 0; position:relative; }
-  .section:not(:last-child)::after{
-    content:""; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
-    width:80%; max-width:600px; height:1px;
-    background:linear-gradient(90deg, transparent, rgba(0,0,0,.08), transparent);
-  }
-  .divider{ height:1px; background:linear-gradient(90deg,transparent,rgba(0,0,0,.1),transparent); margin:32px 0; border:0; }
+        if (window.innerWidth <= 768) {
+          videoContent.style.width = '100vw';
+          videoContent.style.height = '100vh';
+          return;
+        }
 
-  /* Particle background iframe */
-  #particle-bg{
-    position:fixed; inset:0; z-index:-3; pointer-events:none;
-    width:100%; height:100%; border:0; background:transparent;
-  }
+        const aspect = (video.videoWidth && video.videoHeight)
+          ? video.videoWidth / video.videoHeight
+          : (16 / 9);
 
-  /* Subtle animated GRID background */
-  body::before{
-    content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
-    background:
-      repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px),
-      repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 48px);
-    transform:translateZ(0);
-    animation:gridFloat 32s linear infinite;
-  }
-  @keyframes gridFloat{ to{ transform:translate3d(-48px,-48px,0); } }
+        const maxWidth = Math.min(window.innerWidth * 0.8, 1200);
+        const maxHeight = Math.min(window.innerHeight * 0.8, 800);
 
-  /* Sticky glass NAV with wire mesh */
-  .top{
-    position:sticky; top:0; z-index:1000; overflow:visible;
-    background:rgba(255,255,255,0.95);
-    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(239,239,239,0.8);
-  }
-  #mesh-canvas{
-    position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
-    width:100%; height:100%;
-  }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:20px; position:relative; }
-  .nav nav{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    overflow:visible;
-    margin-right:160px;
-  }
-  .brand{ display:flex; align-items:center; }
-  .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
-  .nav nav a{
-    color:var(--g-700); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
-    font-size:2em; font-weight:900 !important;
-    font-synthesis:weight;
-    -webkit-text-stroke:0.3px currentColor;
-    text-shadow:0 0 0.5px currentColor;
-    font-family:"Quicksand", sans-serif;
-    transition:transform .2s ease, color .2s ease;
-    text-rendering:optimizeLegibility;
-  }
-  .nav nav a::after{
-    content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--g-200);
-    transform:scaleX(0); transform-origin:right; transition:transform .35s ease;
-  }
-  .nav nav a:hover{ color:var(--black); transform:scale(0.95); }
-  .nav nav a:hover::after{ transform:scaleX(1); transform-origin:left; }
+        let width = maxWidth;
+        let height = width / aspect;
 
-  /* Dropdown Menu Styles */
-  .nav nav .dropdown{
-    position:relative;
-    display:inline-block;
-    margin-left:16px;
-  }
-  .nav nav .dropdown > a{
-    margin-left:0;
-    cursor:pointer;
-  }
-  .nav nav .dropdown-content{
-    display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    min-width:220px;
-    background:rgba(255,255,255,0.98);
-    -webkit-backdrop-filter:blur(12px);
-    backdrop-filter:blur(12px);
-    border:1px solid rgba(0,0,0,.08);
-    border-radius:12px;
-    box-shadow:0 8px 32px rgba(0,0,0,.12), 0 16px 64px rgba(0,0,0,.08);
-    padding:8px 0;
-    margin-top:8px;
-    z-index:1001;
-  }
-  .nav nav .dropdown:hover .dropdown-content{
-    display:block;
-    animation:dropdownFadeIn 0.3s ease;
-  }
-  @keyframes dropdownFadeIn{
-    from{
-      opacity:0;
-      transform:translateY(-8px);
-    }
-    to{
-      opacity:1;
-      transform:translateY(0);
-    }
-  }
-  .nav nav .dropdown-content a{
-    display:block;
-    margin:0;
-    padding:12px 20px;
-    font-size:1em;
-    font-weight:600;
-    color:var(--g-700);
-    text-decoration:none;
-    transition:all .2s ease;
-  }
-  .nav nav .dropdown-content a::after{
-    display:none;
-  }
-  .nav nav .dropdown-content a:hover{
-    background:linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
-    color:var(--black);
-    transform:translateX(4px);
-  }
+        if (height > maxHeight) {
+          height = maxHeight;
+          width = height * aspect;
+        }
 
-  /* Gogga Coming Soon - Right Corner with 45° Tilt */
-  .gogga-coming-soon{
-    position:absolute;
-    top:20px;
-    right:20px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    cursor:pointer;
-    z-index:1002;
-    transition:all .3s ease;
-    background:none;
-    border:none;
-    padding:8px;
-    font:inherit;
-    transform:rotate(45deg);
-  }
-  .coming-soon-text{
-    font-size:0.9em;
-    font-weight:900;
-    color:var(--g-600);
-    text-transform:uppercase;
-    letter-spacing:0.3px;
-    margin-bottom:4px;
-    font-family:"Quicksand", sans-serif;
-    text-align:center;
-    line-height:1;
-    white-space:pre-line;
-  }
-  .gogga-icon{
-    width:48px;
-    height:auto;
-    transition:all .3s ease;
-    filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    transform:rotate(-45deg);
-  }
-  .gogga-coming-soon:hover .gogga-icon{
-    animation-play-state:paused;
-    transform:scale(1.1) rotate(5deg) translateY(-5px);
-    filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        videoContent.style.width = `${width}px`;
+        videoContent.style.height = `${height}px`;
+      };
+
+      const openModal = async () => {
+        initAudioContext();
+
+        videoModal.classList.add('active');
+        videoOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        video.load();
+        await waitForMetadata();
+        sizeModal();
+
+        try {
+          await video.play();
+        } catch (err) {
+          console.error('Video play failed:', err);
+        }
+      };
   }
   .gogga-coming-soon:hover .coming-soon-text{
     color:var(--black);
@@ -799,31 +657,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     stroke:var(--white);
   }
   .video-modal video{
-    display:none;
+    display:block;
     width:100%;
     height:100%;
     max-width:100%;
     max-height:100%;
     object-fit:contain;
     cursor:pointer;
-    background:transparent !important;
+    background:#000;
     pointer-events:auto;
-  }
-  #webgl-container{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    background:transparent;
-  }
-  #webgl-container canvas{
-    display:block;
-    max-width:100%;
-    max-height:100%;
-    object-fit:contain;
-  }
-  .video-modal canvas{
-    display:none;
+    border-radius:inherit;
   }
   @media(max-width:768px){
     .video-modal-content{
@@ -851,21 +694,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       max-width:100vw;
       max-height:100vh;
       flex:1;
-      background:#000;
-    }
-    .video-modal canvas{
-      display:block;
-    }
-    #webgl-container{
-      width:100% !important;
-      height:100% !important;
-      max-width:none !important;
-      max-height:none !important;
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#000;
     }
     .video-modal-close{
       top:20px;
@@ -892,10 +720,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .video-modal-content{
       width:100vw;
       height:100vh;
-    }
-    #webgl-container{
-      width:100% !important;
-      height:100% !important;
     }
   }
   @media(max-width:480px){
@@ -1269,22 +1093,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('config', 'AW-17625349992');
 </script>
 
-<!-- Import Map for React and Three.js -->
+<!-- Import Map for React (for inline components elsewhere on the page) -->
 <script type="importmap">
 {
   "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
     "react": "https://esm.sh/react@^18.2.0",
     "react-dom/client": "https://esm.sh/react-dom@^18.2.0/client"
   }
 }
-</script>
-
-<!-- Prevent multiple Three.js imports -->
-<script>
-  if (window.THREE) {
-    console.warn('Three.js already loaded, skipping duplicate import');
-  }
 </script>
 
 <!-- Babel Standalone -->
@@ -1603,8 +1419,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     <button type="button" class="video-modal-close" id="closeVideoModal" aria-label="Close video">
       <svg><use href="#i-close"/></svg>
     </button>
-    <div id="webgl-container" style="max-width: 80vw; max-height: 60vh; cursor: pointer;"></div>
-    <video id="vcbVideo" autoplay muted playsinline webkit-playsinline x-webkit-airplay="allow" style="display:none;">
+    <video id="vcbVideo" autoplay muted playsinline webkit-playsinline x-webkit-airplay="allow">
       <source id="vcbVideoSource" src="Dee.mp4" type="video/mp4">
       Your browser does not support video playback.
     </video>
@@ -1689,16 +1504,6 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   <pre id="debugLog"></pre>
 </div>
 
-<!-- Three.js loaded via import map above -->
-
-<script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@^18.2.0",
-      "react-dom/client": "https://esm.sh/react-dom@^18.2.0/client"
-    }
-  }
-  </script>
   <script>
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -1924,11 +1729,15 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       video.currentTime = 0;
     };
 
+    window.addEventListener('resize', sizeModal);
+    window.addEventListener('orientationchange', () => setTimeout(sizeModal, 100));
+
+    let isDragging = false;
     let dragStartX, dragStartY, modalStartX, modalStartY;
 
     const startDrag = (e) => {
-      // Don't drag if clicking on WebGL container, close button, or resize handle
-      if (e.target.closest('#webgl-container') || 
+      // Don't drag if clicking directly on the video, close button, or resize handle
+      if (e.target.tagName === 'VIDEO' ||
           e.target.closest('.video-modal-close') ||
           (e.offsetX > videoContent.offsetWidth - 20 && e.offsetY > videoContent.offsetHeight - 20)) {
         return;
@@ -1991,7 +1800,6 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     };
 
     meetVCBBtn.addEventListener('click', async () => {
-      // Reset video source to Dee.mp4
       const videoSource = document.getElementById('vcbVideoSource');
       if (videoSource) {
         videoSource.src = 'Dee.mp4';
@@ -1999,12 +1807,9 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       }
       await openModal();
     });
-    
-    // Gogga button handler
-    const goggaBtn = document.getElementById('gogga-btn');
+
     if (goggaBtn) {
       goggaBtn.addEventListener('click', async () => {
-        // Change video source to vee.mp4
         const videoSource = document.getElementById('vcbVideoSource');
         if (videoSource) {
           videoSource.src = 'vee.mp4';
