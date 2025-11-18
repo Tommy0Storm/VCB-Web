@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NR7C688Z');</script>
 <!-- End Google Tag Manager -->
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
 <title>VCB — Viable Core Business</title>
 <link rel="icon" type="image/jpeg" href="images/VCBWhite.jpg">
 <link rel="apple-touch-icon" href="images/VCBWhite.jpg">
@@ -995,10 +995,177 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     width: 0 !important;
     overflow: hidden !important;
   }
+  
+  /* CRITICAL MOBILE FIXES - Added to restore cgopt damage */
+  @media (max-width: 768px) {
+    * {
+      box-sizing: border-box !important;
+    }
+    
+    html, body {
+      overflow-x: hidden !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    .wrap {
+      padding: 0 16px !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+    
+    /* Fix broken navigation */
+    .nav {
+      flex-direction: column !important;
+      align-items: center !important;
+      padding: 12px 0 !important;
+    }
+    
+    .nav nav {
+      width: 100% !important;
+      justify-content: center !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+    
+    .nav nav a {
+      font-size: 0.85em !important;
+      margin: 4px 6px !important;
+      white-space: nowrap !important;
+    }
+    
+    /* Fix hero section */
+    .hero {
+      padding: 60px 0 40px !important;
+      text-align: center !important;
+    }
+    
+    .hero h1 {
+      font-size: clamp(28px, 8vw, 42px) !important;
+      line-height: 1.2 !important;
+      margin-bottom: 16px !important;
+    }
+    
+    .lede {
+      font-size: clamp(16px, 4vw, 18px) !important;
+      line-height: 1.5 !important;
+      margin-bottom: 20px !important;
+    }
+    
+    /* Fix grids */
+    .grid-2, .grid-3, .grid-4 {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    
+    /* Fix cards */
+    .card {
+      padding: 20px !important;
+      margin: 0 0 16px 0 !important;
+      border-radius: 12px !important;
+    }
+    
+    /* Fix stats */
+    .stats {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+      margin-top: 16px !important;
+    }
+    
+    .stat {
+      padding: 16px !important;
+    }
+    
+    .stat .n {
+      font-size: clamp(24px, 6vw, 32px) !important;
+    }
+    
+    /* Fix buttons */
+    .btn {
+      font-size: 14px !important;
+      padding: 12px 20px !important;
+      display: inline-block !important;
+      text-align: center !important;
+    }
+    
+    .cta-row {
+      justify-content: center !important;
+      flex-wrap: wrap !important;
+      gap: 12px !important;
+    }
+    
+    /* Fix badges */
+    .badges {
+      justify-content: center !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+    
+    .badge {
+      font-size: 12px !important;
+      padding: 8px 14px !important;
+    }
+    
+    /* Disable hover effects on mobile */
+    .card:hover,
+    .badge:hover,
+    .btn:hover {
+      transform: none !important;
+    }
+    
+    /* Fix compliance banner */
+    .compliance-banner {
+      padding: 20px 0 !important;
+    }
+    
+    .compliance-banner p {
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+    }
+    
+    /* Fix sections */
+    .section {
+      padding: 48px 0 !important;
+    }
+    
+    /* Fix brand logo */
+    .brand img {
+      height: 100px !important;
+      width: auto !important;
+    }
+  }
+  
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    .wrap {
+      padding: 0 12px !important;
+    }
+    
+    .hero h1 {
+      font-size: clamp(24px, 9vw, 36px) !important;
+    }
+    
+    .stats {
+      grid-template-columns: 1fr !important;
+    }
+    
+    .brand img {
+      height: 80px !important;
+    }
+    
+    .nav nav a {
+      font-size: 0.75em !important;
+      margin: 2px 4px !important;
+    }
+  }
 </style>
+<link rel="stylesheet" href="reset.css">
 <link rel="stylesheet" href="mobile.css">
 <script defer src="mesh-canvas.js"></script>
 <script defer src="mobile-nav.js"></script>
+<script defer src="fix-mobile.js"></script>
 
 <!-- Premium inline SVG icon sprite (monochrome) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
