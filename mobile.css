@@ -47,11 +47,17 @@
   .dropdown{
     width:100%;
     text-align:center;
+    position:relative;
   }
-  .dropdown > a{ display:inline-flex; justify-content:center; width:100%; }
+  .dropdown > a{
+    display:inline-flex;
+    justify-content:center;
+    width:100%;
+    padding:10px 0;
+  }
   .dropdown-content{
     position:static !important;
-    display:flex !important;
+    display:none;
     flex-direction:column;
     width:100% !important;
     margin-top:6px;
@@ -60,6 +66,10 @@
     box-shadow:none !important;
     background:rgba(255,255,255,0.96) !important;
     overflow:hidden;
+  }
+  .dropdown:focus-within .dropdown-content,
+  .dropdown.open .dropdown-content{
+    display:flex !important;
   }
   .dropdown-content a{
     margin:0;
