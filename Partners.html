@@ -33,9 +33,13 @@
         .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
         .nav nav a{
           color:#2A2A2A; text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
-          font-size:2em; font-weight:700;
+          font-size:2em; font-weight:900 !important;
+          font-synthesis:weight;
+          -webkit-text-stroke:0.3px currentColor;
+          text-shadow:0 0 0.5px currentColor;
           font-family:'Quicksand', sans-serif;
           transition:transform .2s ease, color .2s ease;
+          text-rendering:optimizeLegibility;
         }
         .nav nav a::after{
           content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:#D5D5D5;
@@ -89,7 +93,10 @@
           margin:0;
           padding:12px 20px;
           font-size:1em;
-          font-weight:600;
+          font-weight:900 !important;
+          font-synthesis:weight;
+          -webkit-text-stroke:0.3px currentColor;
+          text-shadow:0 0 0.5px currentColor;
           color:#2A2A2A;
           text-decoration:none;
           transition:all .2s ease;
@@ -590,8 +597,8 @@
                 font-size: 2rem;
             }
         }
-
     </style>
+<link rel="stylesheet" href="mobile.css">
 </head>
 <body>
 
