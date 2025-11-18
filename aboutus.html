@@ -90,12 +90,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.2;
       width:100%; height:100%;
     }
-    .nav{ display:flex; align-items:center; justify-content:space-between; padding:8px 0; }
-    .brand{ display:flex; align-items:center; }
-    .brand img{ height:240px; width:auto; mix-blend-mode:multiply; }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 0;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .brand{ display:flex; align-items:center; flex:0 0 auto; }
+    .brand img{
+      height:160px;
+      width:auto;
+      max-width:100%;
+      mix-blend-mode:multiply;
+      transition:height .2s ease;
+    }
+    .nav nav{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:18px;
+      margin-left:auto;
+    }
     .nav nav a{
-      color:var(--g-600); text-decoration:none; margin-left:16px; position:relative; padding:4px 2px;
-      font-size:2em; font-weight:700;
+      color:var(--g-600); text-decoration:none; position:relative; padding:6px 2px;
+      font-size:1.05rem; font-weight:600; letter-spacing:.02em;
       transition:transform .2s ease, color .2s ease;
     }
     .nav nav a::after{
@@ -247,6 +267,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   </style>
 <link rel="stylesheet" href="mobile.css">
+  <script defer src="mesh-canvas.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -506,207 +527,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Sophisticated 3D Wire Mesh Animation
-    (() => {
-      const canvas = document.getElementById('mesh-canvas');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
-
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      const gridSize = 15;
-      let cols = 0;
-      let rows = 0;
-      let time = 0;
-
-      function resize(){
-        const dpr = 2;
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        ctx.scale(dpr, dpr);
-        cols = Math.ceil(rect.width / gridSize) + 2;
-        rows = Math.ceil(rect.height / gridSize) + 2;
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      function complexNoise(x, y, t){
-        let n = 0;
-        n += Math.sin(x * 0.1 + t * 0.3) * Math.cos(y * 0.15 - t * 0.4) * 12;
-        n += Math.sin(x * 0.23 + y * 0.17 + t * 0.6) * 8;
-        n += Math.cos(x * 0.31 - y * 0.22 + t * 0.9) * 6;
-        n += Math.sin((x + y) * 0.08 + t * 1.2) * 10;
-        n += Math.cos((x - y) * 0.13 + t * 0.5) * 7;
-        n += Math.sin(x * 0.5 + Math.cos(y * 0.4 + t)) * 4;
-        return n;
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof window.initMeshCanvas === 'function') {
+        window.initMeshCanvas('mesh-canvas');
       }
 
-      function get3DPoint(col, row, t){
-        const x = col * gridSize - gridSize;
-        const y = row * gridSize - gridSize;
-
-        const displacement = complexNoise(col, row, t);
-
-        const angle = Math.atan2(row - rows/2, col - cols/2);
-        const radius = Math.hypot(col - cols/2, row - rows/2);
-        const spiral = Math.sin(angle * 3 + radius * 0.2 - t * 2) * 5;
-
-        const pulse = Math.sin(t * 3 + col * 0.3) * Math.cos(t * 2.5 + row * 0.25) * 8;
-
-        const depth1 = Math.sin(col * 0.2 + t) * Math.cos(row * 0.25 + t * 0.7) * 35;
-        const depth2 = Math.sin(radius * 0.1 + t * 1.5) * 15;
-        const depth = depth1 + depth2;
-
-        return {
-          x: x + displacement + spiral,
-          y: y + displacement + pulse,
-          z: depth,
-          col: col,
-          row: row,
-          energy: Math.abs(Math.sin(col * 0.3 + row * 0.2 + t * 2))
-        };
-      }
-
-      function animate(){
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        time += 0.010;
-
-        const points = [];
-        for(let row = 0; row < rows; row++){
-          points[row] = [];
-          for(let col = 0; col < cols; col++){
-            points[row][col] = get3DPoint(col, row, time);
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
           }
-        }
+        });
+      }, { threshold: 0.2 });
 
-        for(let row = 0; row < rows; row++){
-          ctx.beginPath();
-          for(let col = 0; col < cols; col++){
-            const p = points[row][col];
-
-            const depthFactor = (p.z + 35) / 70;
-            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
-            ctx.lineWidth = 0.3 + depthFactor * 0.4;
-
-            if(col === 0) ctx.moveTo(p.x, p.y);
-            else ctx.lineTo(p.x, p.y);
-          }
-          ctx.stroke();
-        }
-
-        const canvasHeight = canvas.height / 2;
-        for(let col = 0; col < cols; col++){
-          ctx.beginPath();
-          for(let row = 0; row < rows; row++){
-            const p = points[row][col];
-
-            const depthFactor = (p.z + 35) / 70;
-            ctx.strokeStyle = `rgba(86, 86, 86, ${0.2 + depthFactor * 0.5})`;
-            ctx.lineWidth = 0.3 + depthFactor * 0.4;
-
-            const yPos = (row === rows - 1) ? canvasHeight - 1 : p.y;
-
-            if(row === 0) ctx.moveTo(p.x, yPos);
-            else ctx.lineTo(p.x, yPos);
-          }
-          ctx.stroke();
-        }
-
-        ctx.lineWidth = 0.2;
-        for(let row = 0; row < rows - 1; row++){
-          for(let col = 0; col < cols - 1; col++){
-            const p1 = points[row][col];
-            const p2 = points[row + 1][col + 1];
-
-            if(Math.abs(p1.z - p2.z) > 10 || (p1.energy > 0.7 && p2.energy > 0.7)){
-              const avgDepth = (p1.z + p2.z) / 2;
-              const avgEnergy = (p1.energy + p2.energy) / 2;
-              const depthFactor = (avgDepth + 35) / 70;
-              const opacity = 0.1 + depthFactor * 0.3 + avgEnergy * 0.2;
-              ctx.strokeStyle = `rgba(86, 86, 86, ${opacity})`;
-              ctx.beginPath();
-              ctx.moveTo(p1.x, p1.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        ctx.lineWidth = 0.25;
-        for(let row = 1; row < rows - 1; row += 2){
-          for(let col = 1; col < cols - 1; col += 2){
-            const p = points[row][col];
-            if(p.energy > 0.6){
-              for(let dr = -2; dr <= 2; dr++){
-                for(let dc = -2; dc <= 2; dc++){
-                  if(dr === 0 && dc === 0) continue;
-                  const nr = row + dr;
-                  const nc = col + dc;
-                  if(nr >= 0 && nr < rows && nc >= 0 && nc < cols){
-                    const neighbor = points[nr][nc];
-                    if(neighbor.energy > 0.6){
-                      const distance = Math.hypot(dr, dc);
-                      const energyFlow = (p.energy + neighbor.energy) / 2;
-                      ctx.strokeStyle = `rgba(66, 66, 66, ${energyFlow * 0.15 / distance})`;
-                      ctx.beginPath();
-                      ctx.moveTo(p.x, p.y);
-                      ctx.lineTo(neighbor.x, neighbor.y);
-                      ctx.stroke();
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        for(let row = 0; row < rows; row++){
-          for(let col = 0; col < cols; col++){
-            const p = points[row][col];
-            const depthFactor = (p.z + 35) / 70;
-
-            const energyBoost = p.energy > 0.7 ? p.energy * 0.5 : 0;
-            const dotSize = 1 + depthFactor * 1.5 + energyBoost;
-
-            const gradient = ctx.createRadialGradient(
-              p.x - dotSize * 0.3, p.y - dotSize * 0.3, 0,
-              p.x, p.y, dotSize
-            );
-            const energyGlow = p.energy > 0.7 ? 0.15 : 0;
-            gradient.addColorStop(0, `rgba(42, 42, 42, ${0.7 + depthFactor * 0.3 + energyGlow})`);
-            gradient.addColorStop(0.6, `rgba(66, 66, 66, ${0.6 + depthFactor * 0.3})`);
-            gradient.addColorStop(1, `rgba(86, 86, 86, ${0.3 + depthFactor * 0.4})`);
-
-            ctx.fillStyle = gradient;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.strokeStyle = `rgba(42, 42, 42, ${0.2 + depthFactor * 0.3})`;
-            ctx.lineWidth = 0.4;
-            ctx.stroke();
-          }
-        }
-
-        requestAnimationFrame(animate);
-      }
-
-      animate();
-    })();
-
-    // Reveal on scroll
-    const io = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, {threshold:.2});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    });
   </script>
 </body>
 </html>
