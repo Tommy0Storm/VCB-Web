@@ -22,75 +22,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   :root{
     --black:#0B0B0B;
     --g-900:#111; --g-800:#1A1A1A; --g-700:#2A2A2A; --g-600:#3D3D3D;
-    <!-- Video Modal Logic (HTML5 video only) -->
-    <script>
-    (() => {
-      const videoModal = document.getElementById('videoModal');
-      const videoOverlay = document.getElementById('videoModalOverlay');
-      const closeVideoModal = document.getElementById('closeVideoModal');
-      const meetVCBBtn = document.getElementById('meetVCBBtn');
-      const goggaBtn = document.getElementById('gogga-btn');
-      const video = document.getElementById('vcbVideo');
-      const videoContent = document.querySelector('.video-modal-content');
-
-      if (!videoModal || !closeVideoModal || !meetVCBBtn || !video || !videoContent || !videoOverlay) {
-        console.error('A required element for the video modal is missing.');
-        return;
-      }
-
-      const waitForMetadata = () => new Promise(resolve => {
-        if (video.readyState >= 1) {
-          resolve();
-        } else {
-          video.addEventListener('loadedmetadata', resolve, { once: true });
-        }
-      });
-
-      const sizeModal = () => {
-        if (!videoModal.classList.contains('active')) return;
-
-        if (window.innerWidth <= 768) {
-          videoContent.style.width = '100vw';
-          videoContent.style.height = '100vh';
-          return;
-        }
-
-        const aspect = (video.videoWidth && video.videoHeight)
-          ? video.videoWidth / video.videoHeight
-          : (16 / 9);
-
-        const maxWidth = Math.min(window.innerWidth * 0.8, 1200);
-        const maxHeight = Math.min(window.innerHeight * 0.8, 800);
-
-        let width = maxWidth;
-        let height = width / aspect;
-
-        if (height > maxHeight) {
-          height = maxHeight;
-          width = height * aspect;
-        }
-
-        videoContent.style.width = `${width}px`;
-        videoContent.style.height = `${height}px`;
-      };
-
-      const openModal = async () => {
-        initAudioContext();
-
-        videoModal.classList.add('active');
-        videoOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-
-        video.load();
-        await waitForMetadata();
-        sizeModal();
-
-        try {
-          await video.play();
-        } catch (err) {
-          console.error('Video play failed:', err);
-        }
-      };
   }
   .gogga-coming-soon:hover .coming-soon-text{
     color:var(--black);
@@ -1510,216 +1441,89 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
-  <!-- Video Modal Logic with WebGL/Three.js -->
-  <script type="module">
-  import * as THREE from 'three';
-
-  (function() {
+  <!-- Video Modal Logic (HTML5 only) -->
+  <script>
+  (() => {
     const videoModal = document.getElementById('videoModal');
     const videoOverlay = document.getElementById('videoModalOverlay');
     const closeVideoModal = document.getElementById('closeVideoModal');
     const meetVCBBtn = document.getElementById('meetVCBBtn');
+    const goggaBtn = document.getElementById('gogga-btn');
     const video = document.getElementById('vcbVideo');
     const videoContent = document.querySelector('.video-modal-content');
-    const webglContainer = document.getElementById('webgl-container');
 
-    if (!videoModal || !closeVideoModal || !meetVCBBtn || !video || !videoContent || !videoOverlay || !webglContainer) {
+    if (!videoModal || !videoOverlay || !closeVideoModal || !meetVCBBtn || !video || !videoContent) {
       console.error('A required element for the video modal is missing.');
       return;
     }
 
-    let scene, camera, renderer, videoTexture, material, plane, isWebGLInitialized = false;
+    const waitForMetadata = () => new Promise((resolve) => {
+      if (video.readyState >= 1) {
+        resolve();
+      } else {
+        video.addEventListener('loadedmetadata', resolve, { once: true });
+      }
+    });
 
-    function initWebGL() {
-      if (isWebGLInitialized) return;
+    const sizeModal = () => {
+      if (!videoModal.classList.contains('active')) return;
 
-      // Wait for video metadata to load
-      if (video.videoWidth === 0 || video.videoHeight === 0) {
-        video.addEventListener('loadedmetadata', initWebGL, { once: true });
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        videoContent.style.width = '100vw';
+        videoContent.style.height = '100vh';
+        videoContent.style.maxWidth = '100vw';
+        videoContent.style.maxHeight = '100vh';
+        videoContent.style.top = '0';
+        videoContent.style.left = '0';
+        videoContent.style.transform = 'none';
         return;
       }
 
-      // Calculate dimensions maintaining aspect ratio
-      const videoAspectRatio = video.videoWidth / video.videoHeight;
-      const isMobile = window.innerWidth <= 768;
-      
-      let displayWidth, displayHeight;
-      if (isMobile) {
-        displayWidth = window.innerWidth;
-        displayHeight = window.innerHeight;
-      } else {
-        const maxWidth = Math.min(window.innerWidth * 0.8, 1200);
-        const maxHeight = Math.min(window.innerHeight * 0.8, 800);
-        
-        if (maxWidth / maxHeight > videoAspectRatio) {
-          displayHeight = maxHeight;
-          displayWidth = displayHeight * videoAspectRatio;
-        } else {
-          displayWidth = maxWidth;
-          displayHeight = displayWidth / videoAspectRatio;
-        }
+      const aspect = (video.videoWidth && video.videoHeight)
+        ? video.videoWidth / video.videoHeight
+        : (16 / 9);
+
+      const maxWidth = Math.min(window.innerWidth * 0.8, 1200);
+      const maxHeight = Math.min(window.innerHeight * 0.8, 800);
+
+      let width = maxWidth;
+      let height = width / aspect;
+
+      if (height > maxHeight) {
+        height = maxHeight;
+        width = height * aspect;
       }
 
-      webglContainer.style.width = displayWidth + 'px';
-      webglContainer.style.height = displayHeight + 'px';
-      webglContainer.style.minWidth = displayWidth + 'px';
-      webglContainer.style.minHeight = displayHeight + 'px';
-      
-      // Update modal content size for desktop
-      if (!isMobile) {
-        videoContent.style.width = displayWidth + 'px';
-        videoContent.style.height = displayHeight + 'px';
-      }
+      videoContent.style.width = `${width}px`;
+      videoContent.style.height = `${height}px`;
+      videoContent.style.top = '50%';
+      videoContent.style.left = '50%';
+      videoContent.style.transform = 'translate(-50%, -50%)';
+    };
 
-      // 1. Scene
-      scene = new THREE.Scene();
-
-      // 2. Camera - orthographic for pixel-perfect display
-      camera = new THREE.OrthographicCamera(-videoAspectRatio / 2, videoAspectRatio / 2, 0.5, -0.5, 0.1, 100);
-      camera.position.z = 1;
-
-      // 3. Renderer
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(displayWidth, displayHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.domElement.style.display = 'block';
-      webglContainer.appendChild(renderer.domElement);
-      
-      console.log('WebGL initialized:', { displayWidth, displayHeight, videoAspectRatio });
-
-      // 4. Video Texture
-      videoTexture = new THREE.VideoTexture(video);
-      videoTexture.minFilter = THREE.LinearFilter;
-      videoTexture.magFilter = THREE.LinearFilter;
-      videoTexture.format = THREE.RGBAFormat;
-
-      // 5. Shader Material - passthrough with alpha
-      const vertexShader = `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `;
-
-      const fragmentShader = `
-        varying vec2 vUv;
-        uniform sampler2D videoTexture;
-
-        void main() {
-          vec4 videoColor = texture2D(videoTexture, vUv);
-          gl_FragColor = videoColor;
-        }
-      `;
-
-      material = new THREE.ShaderMaterial({
-        uniforms: {
-          videoTexture: { value: videoTexture }
-        },
-        vertexShader,
-        fragmentShader,
-        transparent: true,
-      });
-
-      // 6. Plane Geometry - match video aspect ratio
-      const planeHeight = 1;
-      const planeWidth = videoAspectRatio;
-      const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
-      plane = new THREE.Mesh(geometry, material);
-      scene.add(plane);
-      
-      // Adjust camera to fit the plane perfectly
-      camera.left = -planeWidth / 2;
-      camera.right = planeWidth / 2;
-      camera.top = planeHeight / 2;
-      camera.bottom = -planeHeight / 2;
-      camera.updateProjectionMatrix();
-      
-      // Ensure renderer fills container
-      renderer.domElement.style.width = '100%';
-      renderer.domElement.style.height = '100%';
-      renderer.domElement.style.objectFit = 'contain';
-
-      isWebGLInitialized = true;
-    }
-
-    function animate() {
-      if (videoModal.classList.contains('active')) {
-        requestAnimationFrame(animate);
-        if (videoTexture) videoTexture.needsUpdate = true;
-        if (renderer && scene && camera) renderer.render(scene, camera);
-      }
-    }
-    
-    function handleResize() {
-      if (!isWebGLInitialized || !renderer || !camera) return;
-      
-      const isMobile = window.innerWidth <= 768;
-      let newWidth, newHeight;
-      
-      if (isMobile) {
-        newWidth = window.innerWidth;
-        newHeight = window.innerHeight;
-        webglContainer.style.width = '100%';
-        webglContainer.style.height = '100%';
-      } else {
-        const videoAspectRatio = video.videoWidth / video.videoHeight || 16/9;
-        const maxWidth = Math.min(window.innerWidth * 0.8, 1200);
-        const maxHeight = Math.min(window.innerHeight * 0.8, 800);
-        
-        if (maxWidth / maxHeight > videoAspectRatio) {
-          newHeight = maxHeight;
-          newWidth = newHeight * videoAspectRatio;
-        } else {
-          newWidth = maxWidth;
-          newHeight = newWidth / videoAspectRatio;
-        }
-        
-        webglContainer.style.width = newWidth + 'px';
-        webglContainer.style.height = newHeight + 'px';
-        videoContent.style.width = newWidth + 'px';
-        videoContent.style.height = newHeight + 'px';
-      }
-      
-      renderer.setSize(newWidth, newHeight);
-    }
-    
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', () => {
-      setTimeout(handleResize, 100);
-    });
-
-    let isDragging = false;
-    let offsetX, offsetY;
+    const setVideoSource = (src) => {
+      const source = document.getElementById('vcbVideoSource');
+      if (!source || source.getAttribute('src') === src) return;
+      source.setAttribute('src', src);
+      video.load();
+    };
 
     const openModal = async () => {
-      // Initialize AudioContext on user gesture
       initAudioContext();
-      
+
       videoModal.classList.add('active');
       videoOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
-      
-      // Force video load and wait for metadata
-      video.load();
-      await new Promise(resolve => {
-        if (video.readyState >= 1) {
-          resolve();
-        } else {
-          video.addEventListener('loadedmetadata', resolve, { once: true });
-        }
-      });
-      
-      initWebGL();
-      handleResize(); // Ensure proper sizing on open
-      
+
+      await waitForMetadata();
+      sizeModal();
+
       try {
         await video.play();
-      } catch(err) {
-        console.error("Video play failed:", err);
+      } catch (err) {
+        console.error('Video play failed:', err);
       }
-      
-      animate();
     };
 
     const closeModal = () => {
@@ -1728,71 +1532,77 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       document.body.style.overflow = '';
       video.pause();
       video.currentTime = 0;
+      // Reset modal transform for next open
+      if (window.innerWidth > 768) {
+        videoContent.style.top = '50%';
+        videoContent.style.left = '50%';
+        videoContent.style.transform = 'translate(-50%, -50%)';
+      }
     };
 
-    window.addEventListener('resize', sizeModal);
-    window.addEventListener('orientationchange', () => setTimeout(sizeModal, 100));
+    const handleResize = () => {
+      window.requestAnimationFrame(sizeModal);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', () => setTimeout(sizeModal, 120));
 
     let isDragging = false;
-    let dragStartX, dragStartY, modalStartX, modalStartY;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let modalStartX = 0;
+    let modalStartY = 0;
 
-    const startDrag = (e) => {
-      // Don't drag if clicking directly on the video, close button, or resize handle
-      if (e.target.tagName === 'VIDEO' ||
-          e.target.closest('.video-modal-close') ||
-          (e.offsetX > videoContent.offsetWidth - 20 && e.offsetY > videoContent.offsetHeight - 20)) {
-        return;
-      }
-      
+    const startDrag = (event) => {
+      if (window.innerWidth <= 768) return;
+      const target = event.target;
+      if (target.tagName === 'VIDEO' || target.closest('.video-modal-close')) return;
+
       isDragging = true;
+      videoContent.classList.add('dragging');
       videoContent.style.cursor = 'grabbing';
-      
+
       const rect = videoContent.getBoundingClientRect();
       modalStartX = rect.left;
       modalStartY = rect.top;
-      
-      if (e.type === 'touchstart') {
-        dragStartX = e.touches[0].clientX;
-        dragStartY = e.touches[0].clientY;
+
+      if (event.type === 'touchstart') {
+        dragStartX = event.touches[0].clientX;
+        dragStartY = event.touches[0].clientY;
       } else {
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
+        dragStartX = event.clientX;
+        dragStartY = event.clientY;
       }
-      
+
       document.addEventListener('mousemove', onDrag);
       document.addEventListener('touchmove', onDrag, { passive: false });
       document.addEventListener('mouseup', stopDrag);
       document.addEventListener('touchend', stopDrag);
-      e.preventDefault();
+      event.preventDefault();
     };
 
-    const onDrag = (e) => {
+    const onDrag = (event) => {
       if (!isDragging) return;
-      e.preventDefault();
-      
-      let currentX, currentY;
-      if (e.type === 'touchmove') {
-        currentX = e.touches[0].clientX;
-        currentY = e.touches[0].clientY;
-      } else {
-        currentX = e.clientX;
-        currentY = e.clientY;
-      }
-      
+      event.preventDefault();
+
+      const currentX = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
+      const currentY = event.type === 'touchmove' ? event.touches[0].clientY : event.clientY;
+
       const deltaX = currentX - dragStartX;
       const deltaY = currentY - dragStartY;
-      
-      const newLeft = modalStartX + deltaX;
-      const newTop = modalStartY + deltaY;
 
-      videoContent.style.left = `${newLeft}px`;
-      videoContent.style.top = `${newTop}px`;
+      const nextLeft = modalStartX + deltaX;
+      const nextTop = modalStartY + deltaY;
+
+      videoContent.style.left = `${nextLeft}px`;
+      videoContent.style.top = `${nextTop}px`;
       videoContent.style.transform = 'none';
     };
 
     const stopDrag = () => {
       if (!isDragging) return;
       isDragging = false;
+      videoContent.classList.remove('dragging');
       videoContent.style.cursor = 'move';
       document.removeEventListener('mousemove', onDrag);
       document.removeEventListener('touchmove', onDrag);
@@ -1800,33 +1610,32 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       document.removeEventListener('touchend', stopDrag);
     };
 
-    meetVCBBtn.addEventListener('click', async () => {
-      const videoSource = document.getElementById('vcbVideoSource');
-      if (videoSource) {
-        videoSource.src = 'Dee.mp4';
-        video.load();
+    const safeSizeModal = () => {
+      if (video.readyState >= 1) {
+        sizeModal();
       }
+    };
+
+    meetVCBBtn.addEventListener('click', async () => {
+      setVideoSource('Dee.mp4');
       await openModal();
     });
 
     if (goggaBtn) {
       goggaBtn.addEventListener('click', async () => {
-        const videoSource = document.getElementById('vcbVideoSource');
-        if (videoSource) {
-          videoSource.src = 'vee.mp4';
-          video.load();
-        }
+        setVideoSource('vee.mp4');
         await openModal();
       });
     }
-    
+
     closeVideoModal.addEventListener('click', closeModal);
     videoOverlay.addEventListener('click', closeModal);
     videoContent.addEventListener('mousedown', startDrag);
     videoContent.addEventListener('touchstart', startDrag);
+    video.addEventListener('loadedmetadata', safeSizeModal);
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && videoModal.classList.contains('active')) {
         closeModal();
       }
     });
@@ -2088,104 +1897,6 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 
     // Rotate every 6 seconds
     setInterval(rotateMission, 6000);
-  })();
-
-  // ============================================================================
-  // VIDEO MODAL - Meet VCB Introduction
-  // ============================================================================
-  (function(){
-    const videoModal = document.getElementById('videoModal');
-    const meetVCBBtn = document.getElementById('meetVCBBtn');
-    const closeVideoBtn = document.getElementById('closeVideoModal');
-    const vcbVideo = document.getElementById('vcbVideo');
-    const videoOverlay = document.getElementById('videoModalOverlay');
-    const videoContent = document.querySelector('.video-modal-content');
-
-    if(!videoModal || !meetVCBBtn || !closeVideoBtn || !vcbVideo || !videoOverlay) return;
-
-    // Force transparency on video and container
-    vcbVideo.style.backgroundColor = 'transparent';
-    vcbVideo.style.background = 'none';
-    videoContent.style.backgroundColor = 'transparent';
-    videoContent.style.background = 'none';
-
-    // Detect mobile Safari and apply blend mode to remove white background
-    const isMobileSafari = /iPhone|iPad|iPod/i.test(navigator.userAgent) &&
-                           /Safari/i.test(navigator.userAgent) &&
-                           !/CriOS|FxiOS|EdgiOS/i.test(navigator.userAgent);
-
-    if(isMobileSafari) {
-      // Use darken blend mode and aggressive filtering to remove white background
-      vcbVideo.style.mixBlendMode = 'darken';
-      vcbVideo.style.filter = 'brightness(1.15) contrast(1.4) saturate(1.2)';
-      // Set a slightly off-white background to help blend
-      videoContent.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-    }
-
-    // Open video modal
-    meetVCBBtn.addEventListener('click', async () => {
-      // Initialize AudioContext on user gesture
-      initAudioContext();
-      
-      videoModal.classList.add('active');
-      videoOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-
-      // Force transparency again on open
-      vcbVideo.style.backgroundColor = 'transparent';
-      vcbVideo.style.background = 'none';
-      videoContent.style.backgroundColor = 'transparent';
-      videoContent.style.background = 'none';
-
-      // Reset video and handle play properly
-      vcbVideo.pause();
-      vcbVideo.currentTime = 0;
-      vcbVideo.muted = true;
-      vcbVideo.playbackRate = 1.0;
-      vcbVideo.preload = 'auto';
-      
-      try {
-        await vcbVideo.play();
-        setTimeout(() => { vcbVideo.muted = false; }, 50);
-      } catch(err) {
-        // Autoplay blocked - video will play on click
-      }
-    });
-
-    // Close video modal
-    function closeVideoModal(){
-      videoModal.classList.remove('active');
-      videoOverlay.classList.remove('active');
-      vcbVideo.pause();
-      vcbVideo.currentTime = 0;
-      document.body.style.overflow = '';
-    }
-
-    closeVideoBtn.addEventListener('click', closeVideoModal);
-
-    // Click WebGL container to pause/play
-    const webglContainer = document.getElementById('webgl-container');
-    webglContainer.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if(vcbVideo.paused){
-        vcbVideo.muted = false;
-        vcbVideo.play().catch(err => console.warn('Play failed', err));
-      } else {
-        vcbVideo.pause();
-      }
-    });
-
-    // Close on background click
-    videoModal.addEventListener('click', (e) => {
-      if(e.target === videoModal) closeVideoModal();
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && videoModal.classList.contains('active')){
-        closeVideoModal();
-      }
-    });
   })();
 
   // ============================================================================
