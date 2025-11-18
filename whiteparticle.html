@@ -27,9 +27,9 @@ import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
 (() => {
   const canvas   = document.getElementById('c');
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:false, powerPreference:'high-performance', alpha:true});
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:false, powerPreference:'low-power', alpha:true});
   renderer.setClearColor(0xffffff, 1);
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.setSize(innerWidth, innerHeight);
 
   const scene  = new THREE.Scene();
@@ -49,16 +49,16 @@ import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
   const dotTex = makeDotTexture();
 
   // ============ TWEAKS WITH TRAILS ============
-  const COUNT        = 15000;   // total lights (increased for trails)
-  const STRANDS      = 8;      // more morphing paths
-  const SAMPLES      = 200;   // polyline samples per strand (higher = smoother)
-  const JITTER       = 0.15;  // more perpendicular jitter
+  const COUNT        = 9000;   // total lights (reduced for performance)
+  const STRANDS      = 6;      // fewer morphing paths
+  const SAMPLES      = 140;    // polyline samples per strand
+  const JITTER       = 0.12;   // perpendicular jitter
   const BASE_ALPHA   = 0.35;   // higher base visibility for white background
   const BLINK_WIDTH  = 0.15;   // wider blink window
   const SIZE_MIN     = 0.0021;  // smaller particles (30% reduction)
   const SIZE_MAX     = 0.0126;  // larger max size (30% reduction)
-  const TRAIL_LENGTH = 12;     // particle trail length
-  const TRAIL_FADE   = 0.85;   // trail fade factor
+  const TRAIL_LENGTH = 8;      // particle trail length
+  const TRAIL_FADE   = 0.8;    // trail fade factor
 
   // travelling wave heads with different speeds (cycles/second)
   const HEADS = [
@@ -295,12 +295,16 @@ import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
     trailIntensityAttr.needsUpdate = true;
   }
 
+  let lastRenderTime = 0;
   function render(tms){
+    requestAnimationFrame(render);
+    if (tms - lastRenderTime < 30) return; // throttle to ~33fps max workload
+    lastRenderTime = tms;
+
     const t = tms*0.001;
     updatePositions(t);
     mat.uniforms.uTime.value = t;
     renderer.render(scene, camera);
-    requestAnimationFrame(render);
   }
   requestAnimationFrame(render);
 

@@ -1929,6 +1929,11 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     }
   }
 
+  ['mousedown', 'touchstart', 'pointerdown'].forEach((evt) => {
+    window.addEventListener(evt, initAudioContext, { once: true, passive: true });
+  });
+  window.addEventListener('keydown', initAudioContext, { once: true });
+
   (function(){
     const floatBtn = document.getElementById('sarahFloatBtn');
     const modal = document.getElementById('voiceModal');

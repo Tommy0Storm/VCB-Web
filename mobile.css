@@ -87,6 +87,9 @@
   }
   .coming-soon-text{ font-size:0.8em; }
   .meet-vcb-seal{ margin-left:0; }
+}
+
+@media (max-width: 900px){
   .hero,
   header.hero{
     padding:72px 0 48px;
