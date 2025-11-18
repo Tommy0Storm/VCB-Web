@@ -2144,6 +2144,11 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   (function(){
     // Global flag to track Rapport initialization
     window.rapportInitialized = false;
+    window.__rapportConnecting = false;
+
+    const clearRapportConnectionState = () => {
+      window.__rapportConnecting = false;
+    };
 
     // Globally enforce iframe permission policy for microphone/camera/autoplay (helps Safari/iOS)
     (function enforceIframeAllow(){
@@ -2221,9 +2226,18 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
           }, 12000);
 
           const startRapportSession = () => {
+            if (window.__rapportConnecting) {
+              console.warn('Rapport session already in-flight; ignoring duplicate request.');
+              return;
+            }
+            window.__rapportConnecting = true;
             const scene = document.querySelector('rapport-scene');
-            if (scene && typeof scene.sessionRequest === 'function') {
-              try {
+            if (!(scene && typeof scene.sessionRequest === 'function')) {
+              clearRapportConnectionState();
+              console.error('Rapport scene is not ready to start a session.');
+              return;
+            }
+            try {
                 // Ensure underlying iframe (if any) is permitted to access microphone/autoplay (Safari/iOS)
                 (function allowRapportIframe(el){
                   try {
@@ -2253,10 +2267,11 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
                     }
                   } catch (e) { console.warn('allowRapportIframe failed', e); }
                 })(scene);
-                scene.sessionRequest({
+                const sessionPromise = scene.sessionRequest({
                   sessionConnected() {
                     // mark initialized on real connect
                     window.rapportInitialized = true;
+                    clearRapportConnectionState();
                     // clear any spinner fallback timer
                     try { if (window.__vcbSpinnerFallback) { clearTimeout(window.__vcbSpinnerFallback); window.__vcbSpinnerFallback = null; } } catch {}
                     if (typeof window.keepVoiceSpinnerActive === 'function') { window.keepVoiceSpinnerActive(); }
@@ -2285,6 +2300,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
                     console.error('Rapport session error', error);
                     try { if (window.__vcbSpinnerFallback) { clearTimeout(window.__vcbSpinnerFallback); window.__vcbSpinnerFallback = null; } } catch {}
                     window.rapportInitialized = false;
+                    clearRapportConnectionState();
                     if (typeof window.hideVoiceLoading === 'function') {
                       window.hideVoiceLoading();
                     }
@@ -2301,10 +2317,17 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
                     alert(message);
                   }
                 });
+                if (sessionPromise && typeof sessionPromise.catch === 'function') {
+                  sessionPromise.catch((promiseError) => {
+                    console.error('Rapport session promise rejected', promiseError);
+                    clearRapportConnectionState();
+                  });
+                }
               } catch (err) {
                 console.error('Rapport initialization failed', err);
                 try { if (window.__vcbSpinnerFallback) { clearTimeout(window.__vcbSpinnerFallback); window.__vcbSpinnerFallback = null; } } catch {}
                 window.rapportInitialized = false;
+                clearRapportConnectionState();
                 if (typeof window.hideVoiceLoading === 'function') {
                   window.hideVoiceLoading();
                 }
@@ -2317,7 +2340,6 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
                 }
                 alert('Voice chat failed to initialize. Please try again.');
               }
-            }
           };
 
           // Safari/iOS: preflight mic to stabilize RAPPORT permission handoff; others call directly
@@ -2342,6 +2364,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
   // Reset Rapport when modal closes
   window.resetRapport = function() {
     window.rapportInitialized = false;
+    window.__rapportConnecting = false;
   };
 
   // Rapport scene ready
