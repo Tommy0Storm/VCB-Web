@@ -19,6 +19,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@900&display=block" rel="stylesheet">
 
 <style>
+  /* Font fallbacks */
+  * {
+    font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  }
+</style>
+
+<style>
   :root{
     --black:#0B0B0B;
     --white:#FFFFFF;
@@ -1648,7 +1655,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     <button type="button" class="video-modal-close" id="closeVideoModal" aria-label="Close video">
       <svg><use href="#i-close"/></svg>
     </button>
-    <video id="vcbVideo" autoplay muted playsinline webkit-playsinline x-webkit-airplay="allow">
+    <video id="vcbVideo" autoplay playsinline webkit-playsinline x-webkit-airplay="allow" controls>
       <source id="vcbVideoSource" src="Dee.mp4" type="video/mp4">
       Your browser does not support video playback.
     </video>
