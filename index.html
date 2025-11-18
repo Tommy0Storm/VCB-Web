@@ -2113,7 +2113,32 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
 </script>
 
 <!-- Rapport Cloud SDK -->
-<script src="https://cdn.rapport.cloud/rapport-web-viewer/rapport.js"></script>
+<script>
+  const loadRapportSdk = (() => {
+    let loaderPromise = null;
+    const SDK_URL = 'https://cdn.rapport.cloud/rapport-web-viewer/rapport.js';
+    const isSdkReady = () => typeof customElements !== 'undefined' && !!customElements.get('rapport-scene');
+
+    return () => {
+      if (loaderPromise) return loaderPromise;
+      if (isSdkReady()) return Promise.resolve();
+
+      loaderPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = SDK_URL;
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => {
+          loaderPromise = null;
+          reject(new Error('Failed to load Rapport SDK'));
+        };
+        document.head.appendChild(script);
+      });
+
+      return loaderPromise;
+    };
+  })();
+</script>
 <script>
   // Initialize Rapport Scene when modal opens
   (function(){
@@ -2162,6 +2187,22 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
         }
         if (typeof window.showVoiceLoading === 'function') {
           window.showVoiceLoading();
+        }
+
+        try {
+          await loadRapportSdk();
+        } catch (sdkErr) {
+          console.error('Rapport SDK failed to load', sdkErr);
+          if (typeof window.hideVoiceLoading === 'function') {
+            window.hideVoiceLoading();
+          }
+          if (typeof window.closeVoiceModal === 'function') {
+            window.closeVoiceModal();
+          } else if (modal) {
+            modal.classList.remove('active');
+          }
+          alert('Voice chat tools are unavailable right now. Please try again in a moment.');
+          return;
         }
 
         if (!window.rapportInitialized) {
