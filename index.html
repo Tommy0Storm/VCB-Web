@@ -53,35 +53,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     position:relative;
     display:inline-flex;
     align-items:center;
-    gap:8px;
-    margin-left:20px;
-    padding:10px 20px;
+    gap:10px;
+    margin-left:24px;
+    padding:12px 24px;
     background:linear-gradient(135deg, var(--black) 0%, var(--g-700) 100%);
-    border:2px solid var(--g-200);
+    border:2px solid transparent;
     border-radius:999px;
     color:var(--white);
     font-family:"Quicksand", sans-serif;
-    font-size:0.95em;
-    font-weight:600;
+    font-size:14px;
+    font-weight:700;
     cursor:pointer;
     transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:0 4px 12px rgba(11,11,11,.2), 0 0 0 0 rgba(11,11,11,.1);
+    box-shadow:0 4px 16px rgba(11,11,11,.2), 0 8px 32px rgba(11,11,11,.1);
     overflow:hidden;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
   }
   .meet-vcb-seal:hover{
-    transform:translateY(-2px) scale(1.05);
-    box-shadow:0 8px 24px rgba(11,11,11,.3), 0 0 0 4px rgba(11,11,11,.08);
-    border-color:var(--white);
+    transform:translateY(-3px) scale(1.08);
+    box-shadow:0 12px 32px rgba(11,11,11,.4), 0 0 0 3px rgba(255,255,255,.3);
+    border-color:rgba(255,255,255,0.5);
   }
   .meet-vcb-seal svg{
-    width:18px;
-    height:18px;
+    width:16px;
+    height:16px;
     fill:var(--white);
     stroke:none;
     transition:transform .3s ease;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3));
   }
   .meet-vcb-seal:hover svg{
-    transform:rotate(20deg) scale(1.1);
+    transform:rotate(15deg) scale(1.15);
   }
   .meet-vcb-seal span{
     position:relative;
@@ -260,62 +263,117 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:16px 0;
+    padding:20px 0;
     position:relative;
+    gap:32px;
+  }
+  .brand{
+    flex-shrink:0;
   }
   .brand img{
-    height:160px;
+    height:120px;
     width:auto;
-    transition:height 0.3s ease;
+    transition:all 0.3s ease;
+    filter:drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+  }
+  .brand:hover img{
+    transform:scale(1.02);
+    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));
   }
   nav{
     display:flex;
     align-items:center;
-    gap:24px;
-    margin-right:auto;
-    margin-left:40px;
-    font-family:"Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    gap:28px;
+    margin:0 auto;
+    font-family:"Quicksand", sans-serif;
   }
   nav a{
-    color:var(--g-800);
+    color:var(--g-700);
     text-decoration:none;
-    font-weight:700;
-    font-size:16px;
-    transition:color 0.3s ease;
+    font-weight:600;
+    font-size:15px;
+    transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position:relative;
-    font-family:"Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family:"Quicksand", sans-serif;
     white-space:nowrap;
+    padding:10px 16px;
+    border-radius:8px;
+    letter-spacing:0.3px;
   }
   nav a:hover{
     color:var(--black);
+    background:rgba(0,0,0,0.04);
+    transform:translateY(-1px);
+  }
+  nav a::after{
+    content:'';
+    position:absolute;
+    bottom:4px;
+    left:50%;
+    width:0;
+    height:2px;
+    background:var(--black);
+    transition:all 0.3s ease;
+    transform:translateX(-50%);
+  }
+  nav a:hover::after{
+    width:calc(100% - 32px);
   }
   .dropdown{
     position:relative;
   }
+  .dropdown > a{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .dropdown > a::before{
+    content:'▼';
+    font-size:10px;
+    transition:transform 0.3s ease;
+    opacity:0.6;
+  }
+  .dropdown:hover > a::before{
+    transform:rotate(180deg);
+  }
   .dropdown-content{
     position:absolute;
-    top:100%;
+    top:calc(100% + 8px);
     left:0;
-    background:var(--white);
+    background:rgba(255,255,255,0.98);
+    backdrop-filter:blur(12px);
     border:1px solid var(--g-200);
     border-radius:12px;
-    box-shadow:var(--shadow);
-    padding:8px 0;
-    min-width:200px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.12), 0 16px 64px rgba(0,0,0,0.08);
+    padding:12px 0;
+    min-width:220px;
     display:none;
     z-index:1001;
+    opacity:0;
+    transform:translateY(-8px);
+    transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .dropdown:hover .dropdown-content{
     display:block;
+    opacity:1;
+    transform:translateY(0);
   }
   .dropdown-content a{
     display:block;
-    padding:8px 16px;
+    padding:12px 20px;
     margin:0;
     font-size:14px;
+    font-weight:500;
+    border-radius:0;
+    background:none;
+  }
+  .dropdown-content a::after{
+    display:none;
   }
   .dropdown-content a:hover{
-    background:var(--g-100);
+    background:linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    color:var(--black);
+    transform:translateX(4px);
   }
   
   /* SECTIONS */
@@ -506,24 +564,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .brand img{ height:120px; }
 
     /* Mobile nav - stack or reduce size */
-    .nav{ padding:12px 0; flex-wrap:wrap; gap:12px; }
+    .nav{ padding:16px 0; flex-direction:column; gap:16px; }
+    .brand img{ height:100px; }
     .nav nav{
       display:flex;
       flex-wrap:wrap;
       justify-content:center;
       width:100%;
-      margin-right:0;
-      gap:12px;
+      margin:0;
+      gap:8px;
     }
     .nav nav a{
-      font-size:14px;
-      font-weight:700 !important;
-      font-family:"Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      margin:4px 8px;
+      font-size:13px;
+      font-weight:600 !important;
+      font-family:"Quicksand", sans-serif;
+      margin:2px 4px;
       padding:8px 12px;
       border-radius:8px;
       background:rgba(255,255,255,0.9);
-      border:1px solid rgba(0,0,0,0.1);
+      border:1px solid rgba(0,0,0,0.08);
+    }
+    .gogga-coming-soon{
+      margin-left:8px;
+      padding:6px 8px;
+    }
+    .meet-vcb-seal{
+      margin-left:8px;
+      padding:8px 16px;
+      font-size:12px;
     }
 
     /* Compliance banner mobile */
@@ -1135,6 +1203,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     overflow: hidden !important;
   }
   
+  /* Stunning Gogga Styles */
+  .gogga-stunning{
+    padding:16px 20px !important;
+    border-radius:20px !important;
+    background:linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%) !important;
+    backdrop-filter:blur(16px) !important;
+    border:2px solid transparent !important;
+    box-shadow:0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8) !important;
+    position:relative;
+    overflow:hidden;
+  }
+  .gogga-stunning::before{
+    content:'';
+    position:absolute;
+    inset:-2px;
+    background:linear-gradient(135deg, #ffb612, #de3831, #002395, #007a4d);
+    border-radius:22px;
+    z-index:-1;
+    opacity:0;
+    transition:opacity 0.3s ease;
+  }
+  .gogga-stunning:hover::before{
+    opacity:1;
+  }
+  .gogga-stunning .coming-soon-text{
+    font-size:0.9em !important;
+    font-weight:900 !important;
+    color:transparent !important;
+    background:linear-gradient(135deg, #ffb612, #de3831, #002395, #007a4d) !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+    letter-spacing:2px !important;
+    margin-bottom:8px !important;
+  }
+  .gogga-stunning .gogga-icon{
+    width:64px !important;
+    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2)) drop-shadow(0 0 8px rgba(255,182,18,0.3)) !important;
+    transition:all .4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  .gogga-stunning:hover .gogga-icon{
+    transform:scale(1.2) rotate(12deg) !important;
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,0.3)) drop-shadow(0 0 12px rgba(255,182,18,0.5)) !important;
+  }
+  .gogga-stunning:hover{
+    transform:translateY(-4px) scale(1.05) !important;
+    box-shadow:0 16px 48px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.12) !important;
+  }
+  
   /* CRITICAL MOBILE FIXES - Added to restore cgopt damage */
   @media (max-width: 768px) {
     * {
@@ -1376,8 +1492,8 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
         </div>
       </div>
       <a href="Partners.html">Partners</a>
-      <button type="button" class="gogga-coming-soon" id="gogga-btn" aria-label="Watch VCB Gogga Video">
-        <div class="coming-soon-text">Coming\nSoon</div>
+      <button type="button" class="gogga-coming-soon gogga-stunning" id="gogga-btn" aria-label="Watch VCB Gogga Video">
+        <div class="coming-soon-text">Coming Soon</div>
         <svg xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 0 200 210" class="gogga-icon">
           <defs>
             <pattern id="sa-flag-gogga" patternUnits="userSpaceOnUse" x="0" y="0" width="100" height="66.67" viewBox="0 0 900 600">
@@ -1827,6 +1943,7 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
       sizeModal();
 
       try {
+        video.muted = false;
         await video.play();
       } catch (err) {
         console.error('Video play failed:', err);
