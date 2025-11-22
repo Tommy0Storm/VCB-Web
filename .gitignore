@@ -1,1 +1,15 @@
 .env
+
+# Cache files
+config/cache/
+
+# Log files
+*.log
+config/logs/
+
+# Database files
+config/*.sqlite3
+config/codex.sqlite3
+
+# Secret keys
+config/secret_key
