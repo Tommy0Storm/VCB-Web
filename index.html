@@ -1592,27 +1592,122 @@ height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Ma
 </div>
 </div>
 
-<!-- 11 Languages Banner -->
-<section style="background:linear-gradient(135deg, #e5e7eb 0%, #d1d5db 50%, #9ca3af 100%); padding:80px 0; border-top:1px solid rgba(0,0,0,0.1); border-bottom:1px solid rgba(0,0,0,0.1);">
-  <div class="wrap" style="text-align:center;">
-    <div style="display:inline-flex; align-items:center; gap:20px; margin-bottom:24px;">
-      <svg width="48" height="48" viewBox="0 0 900 600" style="border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-        <rect width="900" height="600" fill="#fff"/>
-        <rect width="900" height="200" fill="#de3831"/>
-        <rect y="400" width="900" height="200" fill="#002395"/>
-        <path d="M0 200h900v200H0z" fill="#fff"/>
-        <path d="M0 240h900v120H0z" fill="#007a4d"/>
-        <path d="M0 0v600L300 300z" fill="#ffb612"/>
-        <path d="M0 40v520L260 300z" fill="#000"/>
-      </svg>
-      <h2 style="font-family:'Quicksand',sans-serif; font-size:clamp(28px,4vw,42px); font-weight:700; color:#0B0B0B; margin:0; letter-spacing:-0.5px;">Bua XI™</h2>
+<!-- Rotating Banners Container -->
+<div style="position:relative; min-height:500px;">
+  <!-- 11 Languages Banner -->
+  <section id="buaBanner" class="rotating-banner" style="position:absolute; inset:0; background:linear-gradient(135deg, #e5e7eb 0%, #d1d5db 50%, #9ca3af 100%); padding:80px 0; border-top:1px solid rgba(0,0,0,0.1); border-bottom:1px solid rgba(0,0,0,0.1); opacity:1; transition:opacity 1s ease-in-out;">
+    <div class="wrap" style="text-align:center;">
+      <div style="display:inline-flex; align-items:center; gap:20px; margin-bottom:24px;">
+        <svg width="48" height="48" viewBox="0 0 900 600" style="border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+          <rect width="900" height="600" fill="#fff"/>
+          <rect width="900" height="200" fill="#de3831"/>
+          <rect y="400" width="900" height="200" fill="#002395"/>
+          <path d="M0 200h900v200H0z" fill="#fff"/>
+          <path d="M0 240h900v120H0z" fill="#007a4d"/>
+          <path d="M0 0v600L300 300z" fill="#ffb612"/>
+          <path d="M0 40v520L260 300z" fill="#000"/>
+        </svg>
+        <h2 style="font-family:'Quicksand',sans-serif; font-size:clamp(28px,4vw,42px); font-weight:700; color:#0B0B0B; margin:0; letter-spacing:-0.5px;">Bua XI™</h2>
+      </div>
+      <p style="font-family:'Quicksand',sans-serif; font-size:clamp(16px,2vw,20px); color:#1a1a1a; max-width:700px; margin:0 auto 32px; line-height:1.6; font-weight:500;">Voice AI engineered for South Africa. Communicate naturally in all 11 official languages with enterprise-grade accuracy and cultural understanding.</p>
+      <button type="button" id="languagesBtn" style="background:linear-gradient(135deg, #0B0B0B 0%, #2A2A2A 100%); border:2px solid transparent; border-radius:14px; padding:16px 40px; color:#fff; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:600; cursor:pointer; transition:all .4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow:0 4px 16px rgba(11,11,11,0.2), 0 8px 32px rgba(11,11,11,0.1); letter-spacing:0.5px;" onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 8px 28px rgba(11,11,11,0.3), 0 16px 56px rgba(11,11,11,0.15)';" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 16px rgba(11,11,11,0.2), 0 8px 32px rgba(11,11,11,0.1)';">
+        Explore Language Capabilities
+      </button>
     </div>
-    <p style="font-family:'Quicksand',sans-serif; font-size:clamp(16px,2vw,20px); color:#1a1a1a; max-width:700px; margin:0 auto 32px; line-height:1.6; font-weight:500;">Voice AI engineered for South Africa. Communicate naturally in all 11 official languages with enterprise-grade accuracy and cultural understanding.</p>
-    <button type="button" id="languagesBtn" style="background:linear-gradient(135deg, #0B0B0B 0%, #2A2A2A 100%); border:2px solid transparent; border-radius:14px; padding:16px 40px; color:#fff; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:600; cursor:pointer; transition:all .4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow:0 4px 16px rgba(11,11,11,0.2), 0 8px 32px rgba(11,11,11,0.1); letter-spacing:0.5px;" onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 8px 28px rgba(11,11,11,0.3), 0 16px 56px rgba(11,11,11,0.15)';" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 16px rgba(11,11,11,0.2), 0 8px 32px rgba(11,11,11,0.1)';">
-      Explore Language Capabilities
-    </button>
-  </div>
-</section>
+  </section>
+
+  <!-- Language Challenge Section -->
+  <section id="challengeBanner" class="rotating-banner" style="position:absolute; inset:0; background:linear-gradient(135deg, #de3831 0%, #002395 20%, #007a4d 40%, #ffb612 60%, #ff6b35 80%, #9b59b6 100%); background-size:200% 200%; animation:rainbowShift 8s ease infinite; padding:100px 0; overflow:hidden; border-top:3px solid #ffb612; border-bottom:3px solid #ffb612; opacity:0; transition:opacity 1s ease-in-out; pointer-events:none;">
+    <div style="position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(255,255,255,.1) 0%, transparent 70%); pointer-events:none; animation:pulse 3s ease-in-out infinite;"></div>
+    <div style="position:absolute; top:20%; left:10%; width:100px; height:100px; border-radius:50%; background:rgba(255,182,18,0.3); animation:float1 6s ease-in-out infinite;"></div>
+    <div style="position:absolute; top:60%; right:15%; width:80px; height:80px; border-radius:50%; background:rgba(222,56,49,0.3); animation:float2 7s ease-in-out infinite;"></div>
+    <div style="position:absolute; bottom:30%; left:20%; width:60px; height:60px; border-radius:50%; background:rgba(0,122,77,0.3); animation:float3 5s ease-in-out infinite;"></div>
+    <div class="wrap" style="position:relative; z-index:1; text-align:center;">
+      <div style="display:inline-block; padding:8px 20px; border-radius:999px; background:rgba(255,255,255,0.95); color:#0B0B0B; font-weight:800; font-size:12px; letter-spacing:2px; text-transform:uppercase; margin-bottom:24px; box-shadow:0 4px 20px rgba(0,0,0,.3); animation:challengePulse 2s ease-in-out infinite, wiggle 3s ease-in-out infinite;">
+        🇿🇦 Are You a True South African?
+      </div>
+      <h2 style="font-family:'Quicksand',sans-serif; font-size:clamp(36px,5vw,64px); font-weight:900; color:#fff; margin:0 0 20px; text-shadow:0 4px 20px rgba(0,0,0,.5); line-height:1.1; letter-spacing:-1px; animation:textGlow 2s ease-in-out infinite;">
+        Take the Language Challenge!
+      </h2>
+      <p style="font-family:'Quicksand',sans-serif; font-size:clamp(18px,2.2vw,24px); color:#fff; max-width:800px; margin:0 auto 40px; line-height:1.6; font-weight:600; text-shadow:0 2px 10px rgba(0,0,0,.4);">
+        Can you recognize all 12 official South African languages? Including Sign Language! Test your knowledge and prove you're a true rainbow nation citizen.
+      </p>
+      <button type="button" id="langChallengeBtn" style="background:linear-gradient(135deg, #fff 0%, #f0f0f0 100%); border:4px solid #ffb612; border-radius:20px; padding:24px 56px; color:#0B0B0B; font-family:'Quicksand',sans-serif; font-size:clamp(18px,2.5vw,24px); font-weight:900; cursor:pointer; transition:all .4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow:0 8px 32px rgba(0,0,0,0.4), 0 0 0 0 rgba(255,182,18,.8); letter-spacing:1px; text-transform:uppercase; position:relative; overflow:hidden; animation:buttonBounce 2s ease-in-out infinite;" onmouseover="this.style.transform='translateY(-6px) scale(1.05)'; this.style.boxShadow='0 16px 48px rgba(0,0,0,0.5), 0 0 0 8px rgba(255,182,18,.6)'; this.style.animationPlayState='paused';" onmouseout="this.style.transform=''; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.4), 0 0 0 0 rgba(255,182,18,.8)'; this.style.animationPlayState='running';">
+        🎯 Start Challenge Now!
+      </button>
+      <p style="font-family:'Quicksand',sans-serif; font-size:14px; color:#fff; margin-top:24px; font-weight:600; text-shadow:0 2px 8px rgba(0,0,0,.3);">
+        ⚡ Random order • 🏆 All 12 languages • 🎥 Video challenge
+      </p>
+    </div>
+  </section>
+</div>
+
+<style>
+@keyframes challengePulse{
+  0%, 100%{ transform:scale(1); box-shadow:0 4px 20px rgba(0,0,0,.3); }
+  50%{ transform:scale(1.05); box-shadow:0 6px 30px rgba(0,0,0,.5); }
+}
+@keyframes rainbowShift{
+  0%, 100%{ background-position:0% 50%; }
+  50%{ background-position:100% 50%; }
+}
+@keyframes pulse{
+  0%, 100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:0.8; transform:scale(1.05); }
+}
+@keyframes float1{
+  0%, 100%{ transform:translate(0, 0) rotate(0deg); }
+  33%{ transform:translate(30px, -30px) rotate(120deg); }
+  66%{ transform:translate(-20px, 20px) rotate(240deg); }
+}
+@keyframes float2{
+  0%, 100%{ transform:translate(0, 0) rotate(0deg); }
+  33%{ transform:translate(-40px, 30px) rotate(-120deg); }
+  66%{ transform:translate(25px, -25px) rotate(-240deg); }
+}
+@keyframes float3{
+  0%, 100%{ transform:translate(0, 0) scale(1); }
+  50%{ transform:translate(20px, -40px) scale(1.2); }
+}
+@keyframes wiggle{
+  0%, 100%{ transform:rotate(0deg); }
+  25%{ transform:rotate(-3deg); }
+  75%{ transform:rotate(3deg); }
+}
+@keyframes textGlow{
+  0%, 100%{ text-shadow:0 4px 20px rgba(0,0,0,.5); }
+  50%{ text-shadow:0 4px 20px rgba(0,0,0,.5), 0 0 30px rgba(255,255,255,.6); }
+}
+@keyframes buttonBounce{
+  0%, 100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+</style>
+
+<script>
+(function(){
+  const buaBanner = document.getElementById('buaBanner');
+  const challengeBanner = document.getElementById('challengeBanner');
+  let showingBua = true;
+
+  function rotateBanners(){
+    if(showingBua){
+      buaBanner.style.opacity = '0';
+      buaBanner.style.pointerEvents = 'none';
+      challengeBanner.style.opacity = '1';
+      challengeBanner.style.pointerEvents = 'auto';
+    } else {
+      challengeBanner.style.opacity = '0';
+      challengeBanner.style.pointerEvents = 'none';
+      buaBanner.style.opacity = '1';
+      buaBanner.style.pointerEvents = 'auto';
+    }
+    showingBua = !showingBua;
+  }
+
+  setInterval(rotateBanners, 10000);
+})();
+</script>
 
 <!-- Languages Modal -->
 <div id="languagesModalOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9998; backdrop-filter:blur(8px);"></div>
@@ -2145,6 +2240,14 @@ From brief to hand-over. We source, integrate, image, asset-tag, and support for
     if (goggaBtn) {
       goggaBtn.addEventListener('click', async () => {
         setVideoSource('vee.mp4');
+        await openModal();
+      });
+    }
+
+    const langChallengeBtn = document.getElementById('langChallengeBtn');
+    if (langChallengeBtn) {
+      langChallengeBtn.addEventListener('click', async () => {
+        setVideoSource('GOGGA-Lang-Chal.mp4');
         await openModal();
       });
     }
