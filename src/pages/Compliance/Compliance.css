@@ -1,0 +1,4 @@
+/* compliance-specific page CSS - minimal overrides */
+.compliance-section {
+  padding: 2rem; /* ensure good spacing around the card */
+}

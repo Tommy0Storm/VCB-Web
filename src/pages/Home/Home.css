@@ -1,0 +1,291 @@
+/* ============================================================
+   HOME PAGE STYLES - VCB TEMPLATE-BASED DESIGN
+   Uses Tailwind CSS utilities + custom overrides
+   ============================================================ */
+
+/* Root container */
+.home-root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Animation utilities (extend Tailwind) */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255,255,255,0.2);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom focus states */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   THEME OVERRIDES
+   ============================================================ */
+
+/* Dark theme adjustments */
+body.dark-theme .home-root {
+  background: #0a0a0a;
+}
+
+/* Light theme adjustments */
+body.light-theme .home-root {
+  background: #f5f5f5;
+}
+
+body.light-theme section.bg-vcb-900 {
+  background: #f5f5f5;
+}
+
+body.light-theme section.bg-vcb-900 > div > div > h1,
+body.light-theme section.bg-vcb-900 > div > div > p {
+  color: #0a0a0a;
+}
+
+/* Light theme: Change text-white in section backgrounds, BUT NOT in buttons */
+body.light-theme section.bg-vcb-900 > div > div > span.text-white,
+body.light-theme section.bg-vcb-900 > div > div > h1 .text-white {
+  color: #0a0a0a;
+}
+
+body.light-theme section.bg-vcb-900 .text-vcb-300,
+body.light-theme section.bg-vcb-900 .text-vcb-400 {
+  color: #4a4a4a;
+}
+
+body.light-theme section.bg-vcb-900 .border-vcb-600 {
+  border-color: #d0d0d0;
+}
+
+body.light-theme section.bg-vcb-900 .bg-gradient-to-br {
+  background: linear-gradient(to bottom right, #f5f5f5, #e8e8e8, #e0e0e0);
+}
+
+/* Light theme for vcb-800 sections */
+body.light-theme section.bg-vcb-800 {
+  background: #e8e8e8;
+}
+
+/* Light theme: section headings and descriptions, NOT button text */
+body.light-theme section.bg-vcb-800 > div > div > h2.text-white,
+body.light-theme section.bg-vcb-800 > div > div > span.text-white,
+body.light-theme section.bg-vcb-800 > div > p.text-white {
+  color: #0a0a0a;
+}
+
+body.light-theme section.bg-vcb-800 .text-vcb-300,
+body.light-theme section.bg-vcb-800 .text-vcb-400 {
+  color: #4a4a4a;
+}
+
+/* Light theme: Feature cards with dark backgrounds keep white text */
+body.light-theme section.bg-vcb-800 .bg-vcb-700 {
+  background: #2a2a2a; /* Keep dark for contrast */
+}
+
+body.light-theme section.bg-vcb-800 .bg-vcb-700:hover {
+  background: #3a3a3a;
+}
+
+/* Light theme for vcb-700 sections */
+body.light-theme section.bg-vcb-700 {
+  background: #d8d8d8;
+}
+
+/* Light theme: section titles only, NOT button text */
+body.light-theme section.bg-vcb-700 > div > div > h2.text-white,
+body.light-theme section.bg-vcb-700 > div > div > span.text-white {
+  color: #0a0a0a;
+}
+
+/* === BUTTONS: Always preserve intended contrast === */
+/* Buttons with dark backgrounds ALWAYS get white text */
+body.light-theme button.bg-vcb-700,
+body.light-theme button.bg-vcb-800,
+body.light-theme a.bg-vcb-700,
+body.light-theme a.bg-vcb-800 {
+  background: #2a2a2a;
+  color: #ffffff !important;
+}
+
+body.light-theme button.bg-vcb-700:hover,
+body.light-theme button.bg-vcb-800:hover,
+body.light-theme a.bg-vcb-700:hover,
+body.light-theme a.bg-vcb-800:hover {
+  background: #3a3a3a;
+}
+
+/* Buttons with light backgrounds get dark text */
+body.light-theme button.bg-white,
+body.light-theme button.bg-vcb-100,
+body.light-theme a.bg-white,
+body.light-theme a.bg-vcb-100 {
+  color: #0a0a0a !important;
+}
+
+/* Icon colors inside buttons should match button text */
+body.light-theme button.bg-vcb-700 svg,
+body.light-theme button.bg-vcb-800 svg,
+body.light-theme a.bg-vcb-700 svg,
+body.light-theme a.bg-vcb-800 svg {
+  color: #ffffff !important;
+}
+
+body.light-theme footer.bg-vcb-900 {
+  background: #1a1a1a;
+}
+
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .home-root h1 {
+    font-size: 2.5rem;
+  }
+  
+  .home-root h2 {
+    font-size: 2rem;
+  }
+  
+  .home-root h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================================================
+   LEGACY CSS VARIABLES (for backward compat)
+   ============================================================ */
+
+:root {
+  /* 8 Locked Levels */
+  --level-1: #0a0a0a;
+  --level-2: #1a1a1a;
+  --level-3: #f5f5f5;
+  --level-4: #2a2a2a;
+  --level-5: #3a3a3a;
+  --level-6: #f0f0f0;
+  --level-7: #ffffff;
+  --level-8: #e0e0e0;
+}
+
+/* ============================================================
+   ENHANCED COMPONENT STYLES
+   ============================================================ */
+
+/* Smooth hover transitions for all interactive elements */
+.home-root a,
+.home-root button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card hover lift effect */
+.home-root [class*="rounded-2xl"]:hover {
+  transform: translateY(-2px);
+}
+
+/* Text gradient utility */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect for CTAs */
+.home-root .shadow-glow {
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+}
+
+/* Better backdrop blur support */
+@supports (backdrop-filter: blur(10px)) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* Statistics counter animation placeholder */
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Footer social icons hover */
+.home-root footer a[href="#"]:hover svg {
+  transform: scale(1.1);
+}
+
+/* Selection styling */
+.home-root ::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Scrollbar styling for webkit browsers */
+.home-root::-webkit-scrollbar {
+  width: 8px;
+}
+
+.home-root::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.home-root::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 4px;
+}
+
+.home-root::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
