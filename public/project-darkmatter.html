@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#ProjectDarkMatter | AI-Powered Legal Chatbot</title>
+    <link rel="icon" type="image/png" href="/logoWtext-transparent-BlackBack.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            800: '#262626',
+                            900: '#171717',
+                        },
+                        gold: {
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                        },
+                        silver: {
+                            100: '#F3F4F6',
+                            200: '#E5E7EB',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 400;
+            scroll-behavior: smooth;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #525252, #737373);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Premium card hover effect */
+        .premium-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .premium-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        /* Subtle fade-in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .hero-pattern {
+            background-color: #171717;
+            background-image: radial-gradient(#262626 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        /* Innovative #ProjectDarkMatter text effect */
+        .darkmatter-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* Stacked text layers with improved spacing */
+        .text-stack {
+            position: relative;
+            display: inline-block;
+            letter-spacing: 0.02em;
+        }
+        .text-layer-back {
+            color: #000000;
+            position: relative;
+            word-spacing: 0.1em;
+        }
+        .text-layer-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #ffffff;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            word-spacing: 0.1em;
+        }
+        
+        /* Split hero text - white on dark side, black on light side */
+        .hero-split-text {
+            position: relative;
+            padding-left: 1mm;
+        }
+        .hero-split-text .text-white-half {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            color: #ffffff;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            padding-left: 1mm;
+        }
+        .hero-split-text .text-black-half {
+            color: #000000;
+        }
+        
+        /* Split title with spacing between parts */
+        .darkmatter-split {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0;
+        }
+        .darkmatter-split .hash {
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .darkmatter-split .project {
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .darkmatter-split .dark-d {
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .darkmatter-split .dark-ark {
+            color: #000000;
+            font-weight: 700;
+        }
+        .darkmatter-split .matter {
+            color: #000000;
+            font-weight: 700;
+        }
+        .darkmatter-split .tm {
+            color: #000000;
+            font-weight: 400;
+            font-size: 0.4em;
+            vertical-align: super;
+        }
+        
+        /* Split version for white background */
+        .darkmatter-split-light .dark {
+            color: #171717;
+        }
+        .darkmatter-split-light .matter {
+            color: #737373;
+        }
+        
+        /* Split version for dark background */
+        .darkmatter-split-dark .hash {
+            color: #ffffff;
+        }
+        .darkmatter-split-dark .project {
+            color: #ffffff;
+        }
+        .darkmatter-split-dark .dark-d {
+            color: #ffffff;
+        }
+        .darkmatter-split-dark .dark-ark {
+            color: #525252;
+        }
+        .darkmatter-split-dark .matter {
+            color: #525252;
+        }
+        .darkmatter-split-dark .tm {
+            color: #525252;
+        }
+        
+        /* Diagonal split effect */
+        .diagonal-split {
+            position: relative;
+            display: inline-block;
+        }
+        .diagonal-split .text-black {
+            color: #171717;
+        }
+        .diagonal-split .text-white {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #ffffff;
+            clip-path: polygon(0 0, 60% 0, 40% 100%, 0 100%);
+        }
+        
+        /* Glitch/shift effect on hover */
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch-text::before {
+            color: #171717;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            z-index: 1;
+        }
+        .glitch-text::after {
+            color: #ffffff;
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+            z-index: 1;
+        }
+        
+        /* Animated reveal */
+        @keyframes revealWhite {
+            0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+            100% { clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); }
+        }
+        .animate-reveal .text-layer-front {
+            animation: revealWhite 1.5s ease-out forwards;
+        }
+        
+        /* Subtle glow effect */
+        .glow-subtle {
+            box-shadow: 0 0 60px rgba(255,255,255,0.1);
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a3a3a3; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #737373; 
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="bg-neutral-50 text-neutral-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-navy-900/95 backdrop-blur-sm border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <div class="flex items-center gap-3">
+                    <img src="/darkmatter-logo.svg" alt="#ProjectDarkMatter Logo" class="h-10 sm:h-12 w-auto">
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="/index-new.html" class="text-gray-300 hover:text-white hover:border-b-2 border-neutral-500 px-3 py-2 text-sm font-medium transition-all">Home</a>
+                        <a href="/lianela-v3.html" class="text-gray-300 hover:text-white hover:border-b-2 border-neutral-500 px-3 py-2 text-sm font-medium transition-all">LIANELA</a>
+                        <a href="/project-darkmatter.html" class="text-white border-b-2 border-neutral-500 px-3 py-2 text-sm font-bold transition-all">DarkMatter</a>
+                        <a href="/infrastructure.html" class="text-gray-300 hover:text-white hover:border-b-2 border-neutral-500 px-3 py-2 text-sm font-medium transition-all">Infrastructure</a>
+                        <a href="/LEGAL.html" class="text-gray-300 hover:text-white hover:border-b-2 border-neutral-500 px-3 py-2 text-sm font-medium transition-all">Legal AI</a>
+                        <a href="https://projectdarkmatter-app-136969034568.africa-south1.run.app/" class="bg-white hover:bg-neutral-100 text-navy-900 px-5 py-2 rounded-md text-sm font-bold transition-colors shadow-lg">Subscribe</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" id="mobile-menu-btn" class="bg-navy-800 text-gray-400 hover:text-white p-2 rounded-md">
+                        <span class="material-symbols-outlined" id="menu-icon">menu</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Drawer -->
+            <div id="mobile-menu" class="mobile-menu md:hidden bg-navy-900 border-t border-white/10">
+                <div class="px-4 py-4 space-y-2">
+                    <a href="/index-new.html" class="block text-gray-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">Home</a>
+                    <a href="/lianela-v3.html" class="block text-gray-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">LIANELA</a>
+                    <a href="/project-darkmatter.html" class="block text-white bg-white/20 px-4 py-3 rounded-lg text-base font-bold transition-all">DarkMatter</a>
+                    <a href="/infrastructure.html" class="block text-gray-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">Infrastructure</a>
+                    <a href="/LEGAL.html" class="block text-gray-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">Legal AI</a>
+                    <a href="https://projectdarkmatter-app-136969034568.africa-south1.run.app/" class="block bg-white hover:bg-neutral-100 text-navy-900 px-4 py-3 rounded-lg text-base font-bold text-center transition-all">Subscribe</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('open');
+            icon.textContent = menu.classList.contains('open') ? 'close' : 'menu';
+        }
+    </script>
+
+    <!-- Hero Section with Split Background -->
+    <header class="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Split background - left dark with image, right light (hidden on mobile) -->
+        <div class="absolute inset-0 flex">
+            <div class="w-full sm:w-1/2 bg-navy-900 hero-pattern relative">
+                <img src="/images/darkmatter/site3-2-futuristicblackandwhiteserverroomdatacen.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity">
+            </div>
+            <div class="hidden sm:block w-1/2 bg-neutral-100 relative">
+                <img src="/images/darkmatter/site5-1-whitearchitecturalabstractminimalistbrig.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30">
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute top-20 right-1/4 w-96 h-96 bg-neutral-300/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-neutral-600/10 rounded-full blur-3xl"></div>
+
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Split badges - stacked on mobile, side by side on desktop -->
+            <div class="flex flex-col sm:flex-row sm:justify-between items-center sm:items-start gap-3 sm:gap-0 mb-6 sm:mb-8">
+                <!-- Left badge - on dark side -->
+                <div class="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-white border-2 border-black text-black text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest">
+                    <span class="w-2 h-2 bg-black rounded-full mr-2 animate-pulse"></span>
+                    ZA Sovereign Legal AI
+                </div>
+                <!-- Right badge - on light side -->
+                <div class="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-black border-2 border-white text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest">
+                    Exclusive Access • Invite Only
+                </div>
+            </div>
+            
+            <div class="text-center mb-8 sm:mb-12">
+                
+                <!-- Innovative Split Color Title -->
+                <h1 class="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight mb-2" style="padding-left: 0;">
+                    <span class="darkmatter-split">
+                        <span class="hash">#</span><span class="project">Project</span><span class="dark-d">D</span><span class="dark-ark">ark</span><span class="matter">Matter</span><span class="tm">™</span>
+                    </span>
+                </h1>
+                <p class="text-xs sm:text-sm font-bold uppercase tracking-widest mb-4 sm:mb-6 text-white sm:hero-split-text">
+                    <span class="hidden sm:inline text-black-half">The Nr 1 SA Legal Intelligence</span>
+                    <span class="hidden sm:inline text-white-half">The Nr 1 SA Legal Intelligence</span>
+                    <span class="sm:hidden">The Nr 1 SA Legal Intelligence</span>
+                </p>
+                
+                <p class="text-base sm:text-xl mb-4 max-w-2xl mx-auto font-medium text-white sm:hero-split-text px-2" style="padding-left: 0;">
+                    <span class="hidden sm:inline text-black-half">Trained with Oversight of Counsel with 30+ years of combined experience. Six core legal skills. 11 Official languages supported. Zero knowledge architecture. 100% South African data sovereignty.</span>
+                    <span class="hidden sm:inline text-white-half">Trained with Oversight of Counsel with 30+ years of combined experience. Six core legal skills. 11 Official languages supported. Zero knowledge architecture. 100% South African data sovereignty.</span>
+                    <span class="sm:hidden">Trained with Oversight of Counsel with 30+ years of combined experience. Six core legal skills. 11 Official languages supported.</span>
+                </p>
+                <p class="text-sm sm:text-lg mb-4 sm:mb-6 max-w-xl mx-auto text-white sm:hero-split-text px-2">
+                    <span class="hidden sm:inline text-black-half">Hosted exclusively in <strong>Gauteng, South Africa</strong>. Your data stored within SA borders.</span>
+                    <span class="hidden sm:inline text-white-half">Hosted exclusively in <strong>Gauteng, South Africa</strong>. Your data stored within SA borders.</span>
+                    <span class="sm:hidden">Hosted exclusively in <strong>Gauteng, South Africa</strong>.</span>
+                </p>
+                
+                <p class="text-sm sm:text-base mb-8 sm:mb-10 max-w-xl mx-auto font-semibold text-white sm:hero-split-text">
+                    <span class="hidden sm:inline text-black-half">3+3 questions & research free per week</span>
+                    <span class="hidden sm:inline text-white-half">3+3 questions & research free per week</span>
+                    <span class="sm:hidden">3+3 questions & research free per week</span>
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                    <a href="https://projectdarkmatter-app-136969034568.africa-south1.run.app/" class="bg-navy-900 hover:bg-navy-800 text-white px-10 py-5 rounded-lg text-lg font-bold shadow-xl transition-all flex items-center justify-center gap-3 group">
+                        <span class="material-symbols-outlined group-hover:scale-110 transition-transform">rocket_launch</span>
+                        Subscribe Now
+                    </a>
+                    <a href="#enterprise" class="bg-white hover:bg-neutral-100 text-navy-900 border-2 border-neutral-300 px-10 py-5 rounded-lg text-lg font-semibold transition-all" style="margin-left: 9mm;">
+                        Enterprise & Law Firms
+                    </a>
+                </div>
+                
+                <!-- Access Tiers -->
+                <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+                    <!-- Individual Free Access -->
+                    <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-neutral-200 shadow-xl hover:shadow-2xl transition-all group">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-neutral-100 rounded-xl flex items-center justify-center group-hover:bg-navy-900 transition-colors">
+                                <span class="material-symbols-outlined text-navy-900 text-2xl group-hover:text-white transition-colors">person</span>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-black bg-neutral-100 border border-neutral-300 px-3 py-1 rounded-full">Free Weekly</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-navy-900 mb-2">Individuals</h4>
+                        <div class="flex items-baseline gap-2 mb-4">
+                            <span class="text-3xl font-bold text-navy-900">3+3</span>
+                            <span class="text-sm font-medium text-neutral-500">questions & research / week</span>
+                        </div>
+                        <p class="text-neutral-600 mb-6 font-medium">Legal guidance until professional referral is recommended.</p>
+                        <ul class="space-y-3 text-sm text-neutral-600 mb-6">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-black text-lg">check</span> 3 legal questions weekly</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-black text-lg">check</span> 3 case law / legal theory research</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-black text-lg">check</span> Any legal topic guidance</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-black text-lg">check</span> Professional referral when needed</li>
+                        </ul>
+                        <div class="border-t border-neutral-200 pt-4 mb-6">
+                            <div class="text-xs text-neutral-500 uppercase tracking-wide mb-2">Need more?</div>
+                            <div class="text-sm text-navy-900 font-medium">Purchase token packs for unlimited access</div>
+                        </div>
+                        <a href="https://projectdarkmatter-app-136969034568.africa-south1.run.app/" class="block w-full text-center bg-navy-900 hover:bg-navy-800 text-white py-3 rounded-lg font-bold transition-colors">Start Free</a>
+                    </div>
+                    
+                    <!-- Enterprise -->
+                    <div id="enterprise" class="bg-navy-900 rounded-2xl p-8 border border-neutral-700 shadow-xl hover:shadow-2xl transition-all relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/3 rounded-full blur-2xl"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-white transition-colors">
+                                    <span class="material-symbols-outlined text-white text-2xl group-hover:text-navy-900 transition-colors">domain</span>
+                                </div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 bg-white/10 px-3 py-1 rounded-full">On Request</span>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white mb-2">Enterprises</h4>
+                            <div class="text-lg font-medium text-neutral-400 mb-4">Custom intelligence deployment</div>
+                            <p class="text-neutral-400 mb-6 font-medium">Exclusive RAG content and Custom RAG intelligence tailored to your organization.</p>
+                            <ul class="space-y-3 text-sm text-neutral-300 mb-8">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-white text-lg">check</span> Exclusive RAG content library</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-white text-lg">check</span> Custom RAG intelligence</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-white text-lg">check</span> Private data sovereignty</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-white text-lg">check</span> Dedicated legal workspaces</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-white text-lg">check</span> Enterprise SLA & support</li>
+                            </ul>
+                            <a href="mailto:hello@vcb-ai.online" class="block w-full text-center bg-white hover:bg-neutral-100 text-navy-900 py-3 rounded-lg font-bold transition-colors">Request Access</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <div class="bg-white border-y border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-navy-900 mb-1">6</div>
+                    <div class="text-sm font-medium text-neutral-500 uppercase tracking-wider">Core Legal Skills</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-navy-900 mb-1">15K+</div>
+                    <div class="text-sm font-medium text-neutral-500 uppercase tracking-wider">Case Citations</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-navy-900 mb-1"><span class="material-symbols-outlined text-4xl">shield</span></div>
+                    <div class="text-sm font-medium text-neutral-500 uppercase tracking-wider">100% SA Hosted</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-navy-900 mb-1">11</div>
+                    <div class="text-sm font-medium text-neutral-500 uppercase tracking-wider">Languages Supported</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6 Core Legal Skills Section -->
+    <section id="features" class="py-24 bg-neutral-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header with Library Image Card -->
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                <!-- Text Content -->
+                <div class="text-center lg:text-left">
+                    <h2 class="text-neutral-600 font-semibold tracking-wide uppercase text-sm mb-2">Trained with Oversight of Counsel</h2>
+                    <h3 class="text-3xl font-bold text-navy-900 sm:text-4xl mb-4">
+                        6 Core Legal Skills
+                    </h3>
+                    <p class="text-lg text-neutral-600 font-medium mb-6">Proprietary legal skill frameworks developed by Senior Counsel with 30+ years of experience at the South African Bar.</p>
+                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-navy-900/5 rounded-full border border-navy-900/10">
+                        <span class="material-symbols-outlined text-navy-900 text-xl">auto_stories</span>
+                        <span class="text-sm font-bold text-navy-900">Grounded in Decades of Legal Literature</span>
+                    </div>
+                </div>
+                
+                <!-- Library Image Card -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-navy-900/20 to-neutral-900/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all"></div>
+                    <div class="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-neutral-200 group-hover:shadow-2xl transition-all">
+                        <div class="aspect-[4/3] relative overflow-hidden">
+                            <img src="/images/Library.png" alt="Legal Library - Volumes of Case Law and Statutory References" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy-900/80 via-navy-900/20 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-navy-900 text-lg">local_library</span>
+                                    </div>
+                                    <span class="text-white font-bold text-sm">Legal Scholarship Foundation</span>
+                                </div>
+                                <p class="text-white/90 text-sm leading-relaxed">
+                                    Built on comprehensive analysis of South African case law, statutes, and legal principles spanning decades of jurisprudence.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Skill 1 - Issue Spotting -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-neutral-200 group relative">
+                    <span class="absolute top-4 right-4 text-5xl font-bold text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">01</span>
+                    <div class="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-navy-900 transition-colors">
+                        <span class="material-symbols-outlined text-navy-900 text-3xl group-hover:text-white transition-colors">target</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-900 mb-3">Issue Spotting</h4>
+                    <p class="text-neutral-600 leading-relaxed font-medium">
+                        Identifies the core legal questions and disputes before the court. Frames cases and identifies elements to prove.
+                    </p>
+                </div>
+
+                <!-- Skill 2 - Principle Extraction -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-neutral-200 group relative">
+                    <span class="absolute top-4 right-4 text-5xl font-bold text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">02</span>
+                    <div class="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-navy-900 transition-colors">
+                        <span class="material-symbols-outlined text-navy-900 text-3xl group-hover:text-white transition-colors">auto_fix_high</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-900 mb-3">Principle Extraction</h4>
+                    <p class="text-neutral-600 leading-relaxed font-medium">
+                        Distils the ratio decidendi and binding rules from judgments. Understands what precedent actually stands for.
+                    </p>
+                </div>
+
+                <!-- Skill 3 - Precedent Analysis -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-neutral-200 group relative">
+                    <span class="absolute top-4 right-4 text-5xl font-bold text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">03</span>
+                    <div class="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-navy-900 transition-colors">
+                        <span class="material-symbols-outlined text-navy-900 text-3xl group-hover:text-white transition-colors">account_tree</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-900 mb-3">Precedent Analysis</h4>
+                    <p class="text-neutral-600 leading-relaxed font-medium">
+                        Understands whether authority is followed, distinguished, or overruled. Builds case strategy and anticipates arguments.
+                    </p>
+                </div>
+
+                <!-- Skill 4 - Judgment Structuring -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-neutral-200 group relative">
+                    <span class="absolute top-4 right-4 text-5xl font-bold text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">04</span>
+                    <div class="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-navy-900 transition-colors">
+                        <span class="material-symbols-outlined text-navy-900 text-3xl group-hover:text-white transition-colors">format_list_numbered</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-900 mb-3">Judgment Structuring</h4>
+                    <p class="text-neutral-600 leading-relaxed font-medium">
+                        Produces structured outlines: facts, issues, analysis, order. Drafts heads of argument and prepares legal opinions.
+                    </p>
+                </div>
+
+                <!-- Skill 5 - Outcome Reasoning -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-neutral-200 group relative">
+                    <span class="absolute top-4 right-4 text-5xl font-bold text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">05</span>
+                    <div class="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-navy-900 transition-colors">
+                        <span class="material-symbols-outlined text-navy-900 text-3xl group-hover:text-white transition-colors">trending_up</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-900 mb-3">Outcome Reasoning</h4>
+                    <p class="text-neutral-600 leading-relaxed font-medium">
+                        Captures probable orders and underlying reasoning steps. Supports risk assessment and settlement negotiations.
+                    </p>
+                </div>
+
+                <!-- Skill 6 - Legal Summarisation -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-neutral-200 group relative">
+                    <span class="absolute top-4 right-4 text-5xl font-bold text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">06</span>
+                    <div class="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-navy-900 transition-colors">
+                        <span class="material-symbols-outlined text-navy-900 text-3xl group-hover:text-white transition-colors">summarize</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-900 mb-3">Legal Summarisation</h4>
+                    <p class="text-neutral-600 leading-relaxed font-medium">
+                        Generates comprehensive, court-aware summaries and synthesis. Research memoranda and client advice ready.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Jurisdiction Sovereignty -->
+            <div class="mt-16 bg-navy-900 rounded-2xl p-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 mb-2">Jurisdiction</h4>
+                        <h3 class="text-3xl font-bold text-white mb-4">Sovereignty is Non-Negotiable.</h3>
+                        <p class="text-lg text-neutral-300 font-medium">
+                            ProjectDarkMatter™ is engineered for the strict compliance requirements of South African law. All data processed is stored within the country, protecting attorney-client privilege from foreign interference and US CLOUD Act subpoenas.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl">
+                            <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white">gavel</span>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-white">POPIA Compliant</h5>
+                                <p class="text-sm text-neutral-300">Strict adherence to Act 4 of 2013. Your client's data rights are paramount.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-white/10 rounded-xl">
+                            <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white">lock</span>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-white">Privilege Secured</h5>
+                                <p class="text-sm text-neutral-300">Data residency ensures legal professional privilege remains intact.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SA Sovereignty Section -->
+    <section class="py-24 bg-white border-y border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-black border border-neutral-700 text-white text-xs font-bold uppercase tracking-widest mb-6">
+                        ZA Sovereign South African Hosting
+                    </div>
+                    <h3 class="text-3xl font-bold text-navy-900 mb-6">100% South African Data Sovereignty</h3>
+                    <p class="text-lg text-neutral-600 font-medium mb-8">
+                        #ProjectDarkMatter™ is hosted exclusively in a <strong>Gauteng data centre</strong>, South Africa. All infrastructure — frontend, backend, database, and storage — resides within SA jurisdiction. Zero retention architecture ensures queries are processed and immediately discarded, never stored or logged.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 bg-neutral-50 rounded-xl border border-neutral-200">
+                            <span class="material-symbols-outlined text-black text-2xl">verified</span>
+                            <div>
+                                <h5 class="font-bold text-navy-900">POPIA Compliant</h5>
+                                <p class="text-sm text-neutral-600">Full compliance with Protection of Personal Information Act 4 of 2013</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-neutral-50 rounded-xl border border-neutral-200">
+                            <span class="material-symbols-outlined text-black text-2xl">shield</span>
+                            <div>
+                                <h5 class="font-bold text-navy-900">No Foreign Subpoena Risk</h5>
+                                <p class="text-sm text-neutral-600">Data cannot be subject to US CLOUD Act, EU orders, or foreign government access</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-neutral-50 rounded-xl border border-neutral-200">
+                            <span class="material-symbols-outlined text-black text-2xl">gavel</span>
+                            <div>
+                                <h5 class="font-bold text-navy-900">Constitutional Protection</h5>
+                                <p class="text-sm text-neutral-600">Section 14 of the Constitution guarantees your right to privacy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-navy-900 rounded-2xl p-8 text-white">
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 mb-6">Data Residency Guarantee</h4>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="flex items-center gap-3 py-2">
+                            <span class="material-symbols-outlined text-white/60 text-lg">check_circle</span>
+                            <span class="text-neutral-300">Frontend Application</span>
+                        </div>
+                        <div class="flex items-center gap-3 py-2">
+                            <span class="material-symbols-outlined text-white/60 text-lg">check_circle</span>
+                            <span class="text-neutral-300">Backend API Services</span>
+                        </div>
+                        <div class="flex items-center gap-3 py-2">
+                            <span class="material-symbols-outlined text-white/60 text-lg">check_circle</span>
+                            <span class="text-neutral-300">Database (Firestore)</span>
+                        </div>
+                        <div class="flex items-center gap-3 py-2">
+                            <span class="material-symbols-outlined text-white/60 text-lg">check_circle</span>
+                            <span class="text-neutral-300">Cloud Storage</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white/10">
+                        <img src="/images/darkmatter/gauteng-hosting.png" alt="South Africa map with Gauteng data centre highlighted" class="w-full h-auto rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zero Log Policy Section -->
+    <section class="py-24 bg-neutral-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-neutral-100 border border-neutral-300 text-neutral-700 text-xs font-bold uppercase tracking-wider mb-4">
+                    🚫 Zero Log File Policy
+                </div>
+                <h3 class="text-3xl font-bold text-navy-900 mb-4">We Cannot Hand Over What We Do Not Collect</h3>
+                <p class="text-lg text-neutral-600 font-medium mb-4">Privacy by architecture. No subpoena-able logs. No evidence to produce. Period.</p>
+                <p class="text-base text-neutral-500 font-medium mb-4">For RAG intelligence or custom Enterprise functionality, all stored documents are encrypted end-to-end. Even if compelled to hand over data, it remains in encrypted format — unreadable without client-held keys.</p>
+                <p class="text-sm text-black font-bold uppercase tracking-wide">Security architecture designed by CISSP since 2006</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- NOT Stored -->
+                <div class="bg-white rounded-2xl p-8 border border-neutral-300">
+                    <h4 class="text-lg font-bold text-black uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined">block</span> Never Stored
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">close</span>
+                            <div>
+                                <div class="font-bold text-navy-900">Prompt text</div>
+                                <div class="text-sm text-neutral-600">Your legal questions disappear after processing</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">close</span>
+                            <div>
+                                <div class="font-bold text-navy-900">Response text</div>
+                                <div class="text-sm text-neutral-600">AI responses are not retained anywhere</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">close</span>
+                            <div>
+                                <div class="font-bold text-navy-900">Case-specific facts</div>
+                                <div class="text-sm text-neutral-600">Your matter details never touch our databases</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">close</span>
+                            <div>
+                                <div class="font-bold text-navy-900">IP address</div>
+                                <div class="text-sm text-neutral-600">No IP logging or geo-tracking</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">close</span>
+                            <div>
+                                <div class="font-bold text-navy-900">Device fingerprint</div>
+                                <div class="text-sm text-neutral-600">No browser or device identification</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Minimally Stored -->
+                <div class="bg-white rounded-2xl p-8 border border-neutral-300">
+                    <h4 class="text-lg font-bold text-black uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined">lock</span> Minimal & Encrypted
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">check</span>
+                            <div>
+                                <div class="font-bold text-navy-900">Token balance</div>
+                                <div class="text-sm text-neutral-600">Encrypted, keyed to private user key</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">check</span>
+                            <div>
+                                <div class="font-bold text-navy-900">Session ID</div>
+                                <div class="text-sm text-neutral-600">Ephemeral, rotated, no personal link</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
+                            <span class="material-symbols-outlined text-black">check</span>
+                            <div>
+                                <div class="font-bold text-navy-900">Rate-limit counter</div>
+                                <div class="text-sm text-neutral-600">For free tier weekly allowance only</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-navy-900 rounded-xl text-white">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined text-white">key</span>
+                            <span class="font-bold">Private Key Architecture</span>
+                        </div>
+                        <p class="text-sm text-neutral-300">Your private key is generated client-side and never transmitted. We cannot decrypt your data even if compelled.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Specializations Section -->
+    <section class="py-24 bg-white border-y border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-neutral-600 font-semibold tracking-wide uppercase text-sm mb-2">Legal Coverage</h2>
+                <h3 class="text-3xl font-bold text-navy-900 mb-4">Comprehensive South African Law</h3>
+                <p class="text-lg text-neutral-600 font-medium">Trained on the complete corpus of SA legislation, case law, and legal practice.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="bg-neutral-50 rounded-xl p-6 text-center border border-neutral-200 hover:border-navy-900 transition-colors">
+                    <span class="material-symbols-outlined text-3xl text-navy-900 mb-3">gavel</span>
+                    <h4 class="font-bold text-navy-900 mb-2">Litigation</h4>
+                    <p class="text-xs text-neutral-600">Civil procedure, evidence, court practice</p>
+                </div>
+                <div class="bg-neutral-50 rounded-xl p-6 text-center border border-neutral-200 hover:border-navy-900 transition-colors">
+                    <span class="material-symbols-outlined text-3xl text-navy-900 mb-3">business</span>
+                    <h4 class="font-bold text-navy-900 mb-2">Corporate</h4>
+                    <p class="text-xs text-neutral-600">Companies Act, M&A, governance</p>
+                </div>
+                <div class="bg-neutral-50 rounded-xl p-6 text-center border border-neutral-200 hover:border-navy-900 transition-colors">
+                    <span class="material-symbols-outlined text-3xl text-navy-900 mb-3">work</span>
+                    <h4 class="font-bold text-navy-900 mb-2">Labour</h4>
+                    <p class="text-xs text-neutral-600">LRA, BCEA, CCMA, unfair dismissal</p>
+                </div>
+                <div class="bg-neutral-50 rounded-xl p-6 text-center border border-neutral-200 hover:border-navy-900 transition-colors">
+                    <span class="material-symbols-outlined text-3xl text-navy-900 mb-3">home</span>
+                    <h4 class="font-bold text-navy-900 mb-2">Property</h4>
+                    <p class="text-xs text-neutral-600">Conveyancing, sectional title, rental</p>
+                </div>
+                <div class="bg-neutral-50 rounded-xl p-6 text-center border border-neutral-200 hover:border-navy-900 transition-colors">
+                    <span class="material-symbols-outlined text-3xl text-navy-900 mb-3">family_restroom</span>
+                    <h4 class="font-bold text-navy-900 mb-2">Family</h4>
+                    <p class="text-xs text-neutral-600">Divorce, maintenance, children's rights</p>
+                </div>
+                <div class="bg-neutral-50 rounded-xl p-6 text-center border border-neutral-200 hover:border-navy-900 transition-colors">
+                    <span class="material-symbols-outlined text-3xl text-navy-900 mb-3">shield</span>
+                    <h4 class="font-bold text-navy-900 mb-2">Specialized</h4>
+                    <p class="text-xs text-neutral-600">Tax, IP, environmental, constitutional</p>
+                </div>
+            </div>
+
+            <!-- Stare Decisis Tree View -->
+            <div class="mt-16 bg-navy-900 rounded-2xl p-8 text-white">
+                <h4 class="text-center text-sm font-bold uppercase tracking-widest text-neutral-400 mb-8">Stare Decisis Tree View</h4>
+                
+                <!-- Tree Visualization -->
+                <div class="flex flex-col items-center">
+                    <!-- Apex: Constitutional Court -->
+                    <div class="bg-white/20 border-2 border-white/40 px-6 py-3 rounded-lg text-center">
+                        <div class="font-bold text-lg">Constitutional Court</div>
+                        <div class="text-xs text-neutral-300">Apex • Binding on All Courts</div>
+                    </div>
+                    
+                    <!-- Connector Line -->
+                    <div class="w-px h-6 bg-white/30"></div>
+                    
+                    <!-- SCA Level -->
+                    <div class="bg-white/15 border border-white/30 px-5 py-2.5 rounded-lg text-center">
+                        <div class="font-bold">Supreme Court of Appeal</div>
+                        <div class="text-xs text-neutral-400">Binding on High Courts & Below</div>
+                    </div>
+                    
+                    <!-- Branching Connector -->
+                    <div class="w-px h-4 bg-white/30"></div>
+                    <div class="w-96 h-px bg-white/30"></div>
+                    <div class="flex gap-48">
+                        <div class="w-px h-4 bg-white/30"></div>
+                        <div class="w-px h-4 bg-white/30"></div>
+                    </div>
+                    
+                    <!-- High Courts & LAC Level -->
+                    <div class="flex gap-12 mt-0">
+                        <div class="flex flex-col items-center">
+                            <div class="bg-white/10 border border-white/20 px-4 py-2 rounded-lg text-center">
+                                <div class="font-bold text-sm">High Courts</div>
+                                <div class="text-xs text-neutral-400">Provincial Divisions</div>
+                            </div>
+                            <div class="w-px h-4 bg-white/30"></div>
+                            <div class="bg-white/5 border border-white/10 px-3 py-1.5 rounded text-center">
+                                <div class="text-sm font-medium">Magistrates' Courts</div>
+                                <div class="text-xs text-neutral-500">District & Regional</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="bg-white/10 border border-white/20 px-4 py-2 rounded-lg text-center">
+                                <div class="font-bold text-sm">Labour Appeal Court</div>
+                                <div class="text-xs text-neutral-400">Specialist Appellate</div>
+                            </div>
+                            <div class="w-px h-4 bg-white/30"></div>
+                            <div class="bg-white/5 border border-white/10 px-3 py-1.5 rounded text-center">
+                                <div class="text-sm font-medium">Labour Court</div>
+                                <div class="text-xs text-neutral-500">First Instance</div>
+                            </div>
+                            <div class="w-px h-4 bg-white/30"></div>
+                            <div class="bg-white/5 border border-white/10 px-3 py-1.5 rounded text-center">
+                                <div class="text-sm font-medium">CCMA</div>
+                                <div class="text-xs text-neutral-500">Conciliation & Arbitration</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-center text-neutral-400 text-sm mt-8">DarkMatter™ understands binding precedent hierarchy: <span class="text-white font-medium">higher court decisions bind lower courts</span> in the South African judicial system.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anti-Hallucination Protocol -->
+    <section class="py-24 bg-neutral-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-black border border-neutral-700 text-white text-xs font-bold uppercase tracking-widest mb-6">
+                        Anti-Hallucination Protocol
+                    </div>
+                    <h3 class="text-3xl font-bold text-navy-900 mb-6">Legal Accuracy is Non-Negotiable</h3>
+                    <p class="text-lg text-neutral-600 font-medium mb-8">
+                        DarkMatter™ is engineered to never fabricate case citations, section numbers, or legal authorities. When uncertain, it says so.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center flex-shrink-0 border border-neutral-300">
+                                <span class="material-symbols-outlined text-black">dangerous</span>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-navy-900">NEVER Fabricates</h5>
+                                <p class="text-sm text-neutral-600">No made-up case names, fake citations, or invented legal principles</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center flex-shrink-0 border border-neutral-300">
+                                <span class="material-symbols-outlined text-black">verified</span>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-navy-900">ALWAYS Qualifies Uncertainty</h5>
+                                <p class="text-sm text-neutral-600">"I am not certain about..." when confidence is low</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center flex-shrink-0 border border-neutral-300">
+                                <span class="material-symbols-outlined text-black">link</span>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-navy-900">Case Law Verification</h5>
+                                <p class="text-sm text-neutral-600">Provides links for independent verification of citations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 border border-neutral-200 shadow-lg">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white">smart_toy</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-navy-900">DarkMatter™ Response</div>
+                            <div class="text-xs text-neutral-500">Anti-hallucination in action</div>
+                        </div>
+                    </div>
+                    <div class="bg-neutral-50 rounded-xl p-6 text-sm text-neutral-700 leading-relaxed">
+                        <p class="mb-4">"The principle of <em>audi alteram partem</em> is well established in South African administrative law, notably in <strong>Administrator, Transvaal v Traub 1989 (4) SA 731 (A)</strong>."</p>
+                        <p class="mb-4">"However, I am <strong>not certain</strong> whether this extends to preliminary investigation phases. I recommend verifying on SAFLII and consulting a practitioner for your specific matter."</p>
+                        <div class="flex items-center gap-2 text-xs text-black font-bold">
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                            <a href="https://www.saflii.org" target="_blank" class="underline">Verify on SAFLII →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intelligence Section -->
+    <section id="demo" class="py-24 bg-navy-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="text-neutral-500 font-bold tracking-widest text-sm uppercase mb-4">The Intelligence</h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="text-white">Legal precision.</span><br>
+                    <span class="text-neutral-500">Instant clarity.</span>
+                </h3>
+                <p class="text-xl text-neutral-400 font-medium leading-relaxed">
+                    DarkMatter doesn't guess. It's trained on the complete corpus of South African labour legislation, CCMA case law, and Code of Good Practice.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- Metric 1 -->
+                <div class="text-center p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm">
+                    <div class="text-5xl font-bold text-white mb-2">98.7%</div>
+                    <div class="text-neutral-400 font-medium">Accuracy Rate</div>
+                    <div class="text-xs text-neutral-500 mt-2">Validated against legal experts</div>
+                </div>
+                
+                <!-- Metric 2 -->
+                <div class="text-center p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm">
+                    <div class="text-5xl font-bold text-white mb-2">2.1s</div>
+                    <div class="text-neutral-400 font-medium">Average Response</div>
+                    <div class="text-xs text-neutral-500 mt-2">Complex legal analysis</div>
+                </div>
+                
+                <!-- Metric 3 -->
+                <div class="text-center p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm">
+                    <div class="text-5xl font-bold text-white mb-2">15K+</div>
+                    <div class="text-neutral-400 font-medium">Case Law Citations</div>
+                    <div class="text-xs text-neutral-500 mt-2">CCMA, Labour Court, LAC</div>
+                </div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-5 p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-white/20 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white text-2xl">neurology</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-lg mb-2">Contextual Understanding</h4>
+                                <p class="text-neutral-400 font-medium">Maintains conversation context across complex multi-part legal scenarios.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5 p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-white/20 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white text-2xl">menu_book</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-lg mb-2">Source Attribution</h4>
+                                <p class="text-neutral-400 font-medium">Every response cites specific sections, cases, and precedents.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5 p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-white/20 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white text-2xl">security</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-lg mb-2">Professional Boundaries</h4>
+                                <p class="text-neutral-400 font-medium">Knows when to recommend consulting a qualified legal practitioner.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <!-- AI Legal Interface Image -->
+                    <div class="relative rounded-2xl overflow-hidden border border-white/10 glow-subtle">
+                        <img src="/images/darkmatter/site4-3-abstractgenerativeaineuralnetworknodesco.jpg" alt="AI Neural Network" class="w-full h-auto object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent"></div>
+                        
+                        <div class="absolute bottom-0 left-0 right-0 p-8">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-3 h-3 rounded-full bg-white animate-pulse"></div>
+                                <span class="text-neutral-300 font-medium">Live AI Processing</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-neutral-300">Zero Knowledge</span>
+                                <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-neutral-300">Data Sovereignty</span>
+                                <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-neutral-300">End-to-End Encrypted</span>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute top-6 right-6">
+                            <span class="text-xs font-bold uppercase tracking-widest text-neutral-500 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">Live System</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Promise Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-neutral-600 font-semibold tracking-wide uppercase text-sm mb-2">The Privacy Promise</h2>
+                <h3 class="text-3xl font-bold text-navy-900 sm:text-4xl mb-4">We cannot hand over what we do not collect.</h3>
+                <p class="text-lg text-neutral-600 font-medium max-w-2xl mx-auto">Zero knowledge architecture means your legal questions remain yours alone.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- No Logs -->
+                <div class="text-center p-8 border border-neutral-200 rounded-2xl bg-neutral-50 relative overflow-hidden">
+                    <img src="/images/darkmatter/site3-1-abstractmonochromegeometricnetworkstruct.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-5">
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 mx-auto bg-navy-900 rounded-2xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-white text-4xl">delete_forever</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-navy-900 mb-3">No Conversation Logs</h4>
+                        <p class="text-neutral-600 font-medium">Conversations are processed and forgotten. We don't store your queries or our responses.</p>
+                    </div>
+                </div>
+                
+                <!-- No Personal Data -->
+                <div class="text-center p-8 border border-neutral-200 rounded-2xl bg-neutral-50 relative overflow-hidden">
+                    <img src="/images/darkmatter/site2-1-abstractminimalistmodernconcretearchitec.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-5">
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 mx-auto bg-navy-900 rounded-2xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-white text-4xl">person_off</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-navy-900 mb-3">No Personal Data</h4>
+                        <p class="text-neutral-600 font-medium">We don't collect names, emails, or identifiable information beyond what's needed to serve you.</p>
+                    </div>
+                </div>
+                
+                <!-- Data Location -->
+                <div class="text-center p-8 border border-neutral-200 rounded-2xl bg-neutral-50 relative overflow-hidden">
+                    <img src="/images/darkmatter/site4-1-abstractmonochromearchitecturalstructure.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-5">
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 mx-auto bg-navy-900 rounded-2xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-white text-4xl">public</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-navy-900 mb-3">Data Sovereignty</h4>
+                        <p class="text-neutral-600 font-medium">Processing happens where you need it. Enterprise clients choose their data jurisdiction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section id="integrations" class="py-16 bg-neutral-100 border-y border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h4 class="text-neutral-500 uppercase tracking-widest text-xs font-bold mb-8">Built on Trust</h4>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                <div class="flex items-center gap-2 font-bold text-xl text-neutral-700">
+                    <span class="material-symbols-outlined">visibility_off</span> Zero Knowledge
+                </div>
+                <div class="flex items-center gap-2 font-bold text-xl text-neutral-700">
+                    <span class="material-symbols-outlined">lock</span> End-to-End Encryption
+                </div>
+                <div class="flex items-center gap-2 font-bold text-xl text-neutral-700">
+                    <span class="material-symbols-outlined">location_on</span> Data Sovereignty
+                </div>
+                <div class="flex items-center gap-2 font-bold text-xl text-neutral-700">
+                    <span class="material-symbols-outlined">verified_user</span> No Data Collection
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-navy-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-white border border-white text-black text-sm font-bold uppercase tracking-widest mb-8">
+                Invite Only • Exclusive Access
+            </div>
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
+                <span class="darkmatter-split darkmatter-split-dark">
+                    <span class="hash">#</span><span class="project">Project</span><span class="dark-d">D</span><span class="dark-ark">ark</span><span class="matter">Matter</span><span class="tm">™</span>
+                </span>
+            </h2>
+            <p class="text-neutral-300 text-xl mb-4 font-bold">The Nr 1 SA Legal Intelligence</p>
+            <p class="text-neutral-400 text-lg mb-10 font-medium">3 questions + 3 research free weekly. Token packs for more. Enterprises on request.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <a href="https://projectdarkmatter-app-136969034568.africa-south1.run.app/" class="bg-white text-navy-900 hover:bg-neutral-100 px-8 py-4 rounded-lg text-lg font-bold shadow-xl transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">rocket_launch</span>
+                    Request Access
+                </a>
+                <a href="mailto:hello@vcb-ai.online" class="bg-transparent text-white border-2 border-neutral-600 hover:border-neutral-400 px-8 py-4 rounded-lg text-lg font-bold transition-all">
+                    Enterprise Inquiry
+                </a>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-neutral-400">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-white">verified</span>
+                    POPIA Compliant
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-white">shield</span>
+                    Zero Log Policy
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-white">location_on</span>
+                    100% SA Hosted
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 text-neutral-400 py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="mb-4">
+                        <img src="/darkmatter-logo.svg" alt="#ProjectDarkMatter Logo" class="h-10 w-auto">
+                    </div>
+                    <p class="text-sm max-w-xs font-medium mb-4">The Nr 1 SA Legal Intelligence. Sovereign South African hosting. Zero log file policy. We cannot hand over what we do not collect.</p>
+                    <div class="flex items-center gap-2 text-xs text-white">
+                        <span class="material-symbols-outlined text-sm">verified</span>
+                        100% Hosted in Gauteng, South Africa
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm font-medium">
+                        <li><a href="#features" class="hover:text-white transition-colors">6 Core Legal Skills</a></li>
+                        <li><a href="#demo" class="hover:text-white transition-colors">Intelligence</a></li>
+                        <li><a href="https://projectdarkmatter-app-136969034568.africa-south1.run.app/" class="hover:text-white transition-colors">Request Access</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Compliance</h4>
+                    <ul class="space-y-2 text-sm font-medium">
+                        <li><a href="mailto:privacy@projectdarkmatter.co.za" class="hover:text-white transition-colors">privacy@projectdarkmatter.co.za</a></li>
+                        <li><a href="mailto:compliance@projectdarkmatter.co.za" class="hover:text-white transition-colors">compliance@projectdarkmatter.co.za</a></li>
+                        <li><a href="mailto:security@projectdarkmatter.co.za" class="hover:text-white transition-colors">security@projectdarkmatter.co.za</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
+                    <p>© 2026 #ProjectDarkMatter™. All rights reserved. A product of VCB Technologies.</p>
+                    <div class="flex items-center gap-4">
+                        <span class="text-neutral-500">POPIA Compliant</span>
+                        <span class="text-neutral-600">•</span>
+                        <span class="text-neutral-500">Constitution s14 Protected</span>
+                        <span class="text-neutral-600">•</span>
+                        <span class="text-neutral-500">Zero Log Policy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

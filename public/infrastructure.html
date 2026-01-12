@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCB-AI | Sovereign AI Infrastructure - Cerebras + DDN</title>
+    <meta name="description" content="Only reseller in South Africa & SSA for on-premise Cerebras CS-3 and DDN AI400X2. Configure your sovereign AI cluster.">
+    <link rel="icon" type="image/png" href="/logoWtext-transparent-BlackBack.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/infrastructure-base.css">
+    <link rel="stylesheet" href="css/infrastructure-components.css">
+    <link rel="stylesheet" href="css/infrastructure-animations.css">
+</head>
+<body class="bg-slate-950 text-white antialiased">
+
+    <!-- Skip Navigation Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="fixed w-full z-50 transition-all duration-300 bg-slate-950/90 backdrop-blur-md border-b border-white/5" role="navigation" aria-label="Main navigation">
+        <div class="container-modern py-0">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="index-new.html" class="flex items-center gap-3 group" aria-label="VCB-AI Home">
+                    <img src="/logoWtext-transparent-BlackBack.png" alt="VCB Logo" class="h-12 sm:h-16 w-auto">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/index-new.html" class="nav-link">Home</a>
+                    <a href="/lianela-v3.html" class="nav-link">LIANELA</a>
+                    <a href="/project-darkmatter.html" class="nav-link">DarkMatter</a>
+                    <a href="/infrastructure.html" class="nav-link text-amber-400 font-bold">Infrastructure</a>
+                    <a href="/LEGAL.html" class="nav-link">Legal AI</a>
+                    <button onclick="scrollToSection('contact')" class="btn-primary">
+                        <span class="material-symbols-sharp text-sm">mail</span>
+                        Contact Sales
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 transition-colors" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <span class="material-symbols-sharp text-2xl text-white" id="mobile-menu-icon">menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="md:hidden hidden absolute top-full left-0 right-0 bg-slate-950/98 backdrop-blur-lg border-b border-slate-800 shadow-2xl" role="menu">
+            <div class="container-modern py-6 flex flex-col gap-4">
+                <a href="/index-new.html" class="mobile-nav-link" role="menuitem">
+                    <span class="material-symbols-sharp text-amber-400">home</span>
+                    Home
+                </a>
+                <a href="/lianela-v3.html" class="mobile-nav-link" role="menuitem">
+                    <span class="material-symbols-sharp text-amber-400">description</span>
+                    LIANELA
+                </a>
+                <a href="/project-darkmatter.html" class="mobile-nav-link" role="menuitem">
+                    <span class="material-symbols-sharp text-amber-400">gavel</span>
+                    DarkMatter
+                </a>
+                <a href="/infrastructure.html" class="mobile-nav-link bg-slate-800/50" role="menuitem">
+                    <span class="material-symbols-sharp text-amber-400">hub</span>
+                    Infrastructure
+                </a>
+                <a href="/LEGAL.html" class="mobile-nav-link" role="menuitem">
+                    <span class="material-symbols-sharp text-amber-400">balance</span>
+                    Legal AI
+                </a>
+                <div class="pt-4 border-t border-slate-800">
+                    <button onclick="scrollToSection('contact'); toggleMobileMenu();" class="btn-primary w-full justify-center">
+                        <span class="material-symbols-sharp text-sm">mail</span>
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section" aria-label="Sovereign AI Infrastructure hero">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0" aria-hidden="true">
+            <img src="images/site3-2-futuristicblackandwhiteserverroomdatacen.jpg" alt="" 
+                 class="w-full h-full object-cover opacity-60" loading="eager" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-slate-950/50 to-slate-950"></div>
+        </div>
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-grid"></div>
+        
+        <div class="relative z-20 container-modern text-center pt-32 pb-20">
+            <!-- Exclusive Badge -->
+            <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 backdrop-blur-md mb-8 animate-fade-in">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+                </span>
+                <span class="font-mono text-xs text-amber-200 font-bold tracking-widest uppercase">Only Reseller in SA & SSA</span>
+            </div>
+
+            <h1 class="text-fluid-hero font-bold mb-6 tracking-tight">
+                Sovereign AI.<br>
+                <span class="text-gradient-amber">On Your Premises.</span>
+            </h1>
+            
+            <p class="text-fluid-body text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Deploy the world's fastest AI infrastructure with 
+                <span class="text-amber-400 font-bold">Cerebras CS-3</span> compute and 
+                <span class="text-red-400 font-bold">DDN AI400X2</span> storage.
+                <br>Full data sovereignty. Zero cloud dependency. Total control.
+            </p>
+
+            <!-- Hero Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
+                <div class="stat-card">
+                    <div class="stat-value text-amber-400">125</div>
+                    <div class="stat-label">PetaFLOPS per WSE-3</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-red-400">90</div>
+                    <div class="stat-label">GB/s Storage Throughput</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-white">2,100</div>
+                    <div class="stat-label">Tokens/sec (Llama 70B)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-white">100%</div>
+                    <div class="stat-label">Data Sovereignty</div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-20">
+                <button onclick="scrollToSection('cluster-builder')" class="btn-hero-primary">
+                    <span class="material-symbols-sharp">tune</span>
+                    Configure Your Cluster
+                </button>
+                <button onclick="scrollToSection('architecture')" class="btn-hero-secondary">
+                    <span class="material-symbols-sharp">hub</span>
+                    View Architecture
+                </button>
+            </div>
+        </div>
+
+        <!-- Vendor Logos -->
+        <div class="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-16 z-20">
+            <!-- Cerebras Logo -->
+            <div class="flex flex-col items-center gap-2 group">
+                <div class="h-16 flex items-center">
+                    <svg viewBox="0 0 200 50" class="h-10 text-amber-400 group-hover:text-amber-300 transition-colors">
+                        <defs>
+                            <linearGradient id="cerebras-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#f59e0b"/>
+                                <stop offset="100%" stop-color="#fbbf24"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Stylized wafer chip icon -->
+                        <rect x="5" y="10" width="30" height="30" rx="4" fill="url(#cerebras-grad)" opacity="0.3"/>
+                        <rect x="10" y="15" width="20" height="20" rx="2" fill="url(#cerebras-grad)"/>
+                        <rect x="13" y="18" width="4" height="4" fill="#0f172a"/>
+                        <rect x="19" y="18" width="4" height="4" fill="#0f172a"/>
+                        <rect x="25" y="18" width="4" height="4" fill="#0f172a"/>
+                        <rect x="13" y="24" width="4" height="4" fill="#0f172a"/>
+                        <rect x="19" y="24" width="4" height="4" fill="#0f172a"/>
+                        <rect x="25" y="24" width="4" height="4" fill="#0f172a"/>
+                        <rect x="13" y="30" width="4" height="4" fill="#0f172a"/>
+                        <rect x="19" y="30" width="4" height="4" fill="#0f172a"/>
+                        <rect x="25" y="30" width="4" height="4" fill="#0f172a"/>
+                        <!-- Text -->
+                        <text x="45" y="32" font-family="Inter, sans-serif" font-weight="700" font-size="18" fill="currentColor">CEREBRAS</text>
+                    </svg>
+                </div>
+                <span class="text-[10px] text-slate-500 font-mono">WSE-3 | CS-3</span>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-12 w-px bg-gradient-to-b from-transparent via-slate-600 to-transparent"></div>
+
+            <!-- DDN Logo -->
+            <div class="flex flex-col items-center gap-2 group">
+                <div class="h-16 flex items-center">
+                    <svg viewBox="0 0 150 50" class="h-10 text-red-400 group-hover:text-red-300 transition-colors">
+                        <defs>
+                            <linearGradient id="ddn-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ef4444"/>
+                                <stop offset="100%" stop-color="#f87171"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Stylized storage icon -->
+                        <rect x="5" y="8" width="30" height="8" rx="2" fill="url(#ddn-grad)" opacity="0.9"/>
+                        <circle cx="10" cy="12" r="1.5" fill="#0f172a"/>
+                        <circle cx="14" cy="12" r="1.5" fill="#0f172a"/>
+                        <rect x="5" y="18" width="30" height="8" rx="2" fill="url(#ddn-grad)" opacity="0.7"/>
+                        <circle cx="10" cy="22" r="1.5" fill="#0f172a"/>
+                        <circle cx="14" cy="22" r="1.5" fill="#0f172a"/>
+                        <rect x="5" y="28" width="30" height="8" rx="2" fill="url(#ddn-grad)" opacity="0.5"/>
+                        <circle cx="10" cy="32" r="1.5" fill="#0f172a"/>
+                        <circle cx="14" cy="32" r="1.5" fill="#0f172a"/>
+                        <rect x="5" y="38" width="30" height="8" rx="2" fill="url(#ddn-grad)" opacity="0.3"/>
+                        <!-- Text -->
+                        <text x="45" y="32" font-family="Inter, sans-serif" font-weight="700" font-size="22" fill="currentColor">DDN</text>
+                    </svg>
+                </div>
+                <span class="text-[10px] text-slate-500 font-mono">AI400X2</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-24 bg-slate-900 relative overflow-hidden isolate">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="images/genai-network.jpg" alt="AI Network" 
+                 class="w-full h-full object-cover opacity-5" loading="lazy" decoding="async">
+        </div>
+        
+        <div class="relative z-10 container-modern">
+            <div class="section-header">
+                <h2 class="section-title">Reference Architecture</h2>
+                <p class="section-subtitle">Click components to explore the VCB Sovereign Stack</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-start">
+                <!-- Architecture Diagram -->
+                <div class="lg:col-span-8 arch-diagram">
+                    <div class="arch-grid-bg"></div>
+                    
+                    <div class="relative z-10 flex flex-col items-center gap-6 min-h-[550px] justify-between py-8" role="region" aria-label="Infrastructure Architecture Diagram">
+                        <!-- Application Layer -->
+                        <div onclick="showComponentInfo('app')" class="arch-node arch-node-sky w-full max-w-md" role="button" tabindex="0" aria-label="Application Layer - Click for details" onkeypress="if(event.key==='Enter')showComponentInfo('app')">
+                            <div class="arch-node-icon bg-slate-800/50 text-slate-300">
+                                <span class="material-symbols-sharp text-3xl" aria-hidden="true">terminal</span>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Application Layer</h4>
+                                <p class="text-sm text-slate-300">Inference API • RAG • Fine-Tuning</p>
+                            </div>
+                        </div>
+
+                        <!-- Connection Line -->
+                        <div class="arch-connection h-12">
+                            <div class="arch-line bg-slate-500/50"></div>
+                        </div>
+
+                        <!-- Cerebras CS-3 -->
+                        <div onclick="showComponentInfo('cerebras')" class="arch-node arch-node-amber w-full max-w-xl relative" role="button" tabindex="0" aria-label="Cerebras CS-3 Compute - Click for specifications" onkeypress="if(event.key==='Enter')showComponentInfo('cerebras')">
+                            <div class="arch-glow-amber" aria-hidden="true"></div>
+                            <!-- Cerebras Chip Icon -->
+                            <div class="w-20 h-20 rounded-lg bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center shadow-lg relative overflow-hidden">
+                                <svg viewBox="0 0 40 40" class="w-12 h-12 text-white/90">
+                                    <rect x="4" y="4" width="32" height="32" rx="4" fill="currentColor" opacity="0.3"/>
+                                    <rect x="8" y="8" width="24" height="24" rx="2" fill="currentColor"/>
+                                    <rect x="11" y="11" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="18" y="11" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="25" y="11" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="11" y="18" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="18" y="18" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="25" y="18" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="11" y="25" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="18" y="25" width="4" height="4" fill="#0f172a"/>
+                                    <rect x="25" y="25" width="4" height="4" fill="#0f172a"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="text-xl font-bold text-white">Cerebras CS-3</h4>
+                                    <span class="badge-amber">COMPUTE CORE</span>
+                                </div>
+                                <p class="text-sm text-amber-100/80">Wafer Scale Engine 3 (WSE-3)</p>
+                                <div class="mt-2 flex flex-wrap gap-3 text-xs font-mono text-slate-400">
+                                    <span>4T Transistors</span>
+                                    <span>125 PetaFLOPS</span>
+                                    <span>44 GB On-Chip</span>
+                                </div>
+                                <div class="mt-2 flex items-center gap-2 text-xs text-amber-400">
+                                    <span class="material-symbols-sharp text-sm">trending_up</span>
+                                    <span class="font-semibold">20x faster than GPU clusters • 50% lower TCO</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Connection Line -->
+                        <div class="arch-connection h-12">
+                            <div class="arch-line bg-red-500/50"></div>
+                        </div>
+
+                        <!-- DDN Storage -->
+                        <div onclick="showComponentInfo('ddn')" class="arch-node arch-node-red w-full max-w-md" role="button" tabindex="0" aria-label="DDN AI400X2 Storage - Click for specifications" onkeypress="if(event.key==='Enter')showComponentInfo('ddn')">
+                            <!-- DDN Storage Icon -->
+                            <div class="arch-node-icon bg-red-900/50 text-red-400 p-3">
+                                <svg viewBox="0 0 32 32" class="w-8 h-8" aria-hidden="true">
+                                    <rect x="2" y="4" width="28" height="6" rx="1.5" fill="currentColor"/>
+                                    <circle cx="6" cy="7" r="1.5" fill="#0f172a"/>
+                                    <circle cx="10" cy="7" r="1.5" fill="#0f172a"/>
+                                    <rect x="2" y="12" width="28" height="6" rx="1.5" fill="currentColor" opacity="0.7"/>
+                                    <circle cx="6" cy="15" r="1.5" fill="#0f172a"/>
+                                    <circle cx="10" cy="15" r="1.5" fill="#0f172a"/>
+                                    <rect x="2" y="20" width="28" height="6" rx="1.5" fill="currentColor" opacity="0.4"/>
+                                    <circle cx="6" cy="23" r="1.5" fill="#0f172a"/>
+                                    <circle cx="10" cy="23" r="1.5" fill="#0f172a"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-white">DDN AI400X2</h4>
+                                <p class="text-sm text-red-200">Parallel File Storage (Lustre)</p>
+                                <div class="mt-2 flex justify-between text-xs text-slate-400">
+                                    <span>Read: 90 GB/s</span>
+                                    <span>IOPS: 3 Million</span>
+                                </div>
+                                <div class="mt-2 flex items-center gap-2 text-xs text-red-400">
+                                    <span class="material-symbols-sharp text-sm" aria-hidden="true">bolt</span>
+                                    <span class="font-semibold">15x faster checkpoints • 60% lower storage TCO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <aside class="lg:col-span-4 info-panel" aria-label="Component specifications panel">
+                    <div id="component-info" class="info-panel-content" aria-live="polite">
+                        <!-- Default state -->
+                        <div class="info-default">
+                            <span class="material-symbols-sharp text-6xl text-slate-500 mb-4">touch_app</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Interactive Specs</h3>
+                            <p class="text-slate-400 text-sm">Select a component to view detailed specifications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Use Cases Section (Moved to top) -->
+    <section id="use-cases" class="py-24 bg-slate-900 border-t border-slate-800 isolate">
+        <div class="container-modern">
+            <div class="section-header">
+                <h2 class="section-title">Enterprise Use Cases</h2>
+                <p class="section-subtitle">Proven deployments across regulated industries</p>
+            </div>
+
+            <!-- Key Metrics Banner -->
+            <div class="mb-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                    <div class="text-3xl font-bold text-amber-400 font-mono">20x</div>
+                    <div class="text-xs text-slate-400">Faster Inference</div>
+                </div>
+                <div class="text-center p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                    <div class="text-3xl font-bold text-emerald-400 font-mono">60%</div>
+                    <div class="text-xs text-slate-400">Lower Latency</div>
+                </div>
+                <div class="text-center p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                    <div class="text-3xl font-bold text-sky-400 font-mono">100%</div>
+                    <div class="text-xs text-slate-400">Data Sovereignty</div>
+                </div>
+                <div class="text-center p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                    <div class="text-3xl font-bold text-red-400 font-mono">15x</div>
+                    <div class="text-xs text-slate-400">Faster Checkpoints</div>
+                </div>
+            </div>
+
+            <div class="use-case-grid" id="use-cases-grid">
+                <!-- FinTech -->
+                <div class="use-case-card group overflow-hidden" data-case="fintech">
+                    <div class="absolute inset-0 z-0">
+                        <img src="images/site2-3-abstractmonochromegeometricshapesofficeb.jpg" alt="Finance" 
+                             class="w-full h-full object-cover opacity-20 group-hover:opacity-35 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="use-case-header bg-gradient-to-r from-emerald-500/20 to-transparent relative z-10">
+                        <div class="use-case-icon bg-emerald-500/20 text-emerald-400">
+                            <span class="material-symbols-sharp text-3xl">account_balance</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white">Financial Services</h3>
+                            <p class="text-sm text-slate-300">Trading • Fraud Detection • Forecasting</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[9px] font-bold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">60% FASTER</span>
+                    </div>
+                    <div class="use-case-body relative z-10">
+                        <ul class="space-y-2 text-sm text-slate-200">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-emerald-400 text-base mt-0.5">check</span>
+                                NLP models for transaction analysis & fraud detection
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-emerald-400 text-base mt-0.5">check</span>
+                                Algorithmic trading with sub-millisecond inference
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-emerald-400 text-base mt-0.5">check</span>
+                                60% lower latency than cloud alternatives
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-600 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Typical: 2x CS-3 + 4x DDN</span>
+                            <button onclick="selectUseCaseAndScroll('fintech')" class="text-sm text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+                                Configure <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insurance -->
+                <div class="use-case-card group overflow-hidden" data-case="insurance">
+                    <div class="absolute inset-0 z-0">
+                        <img src="images/site1-3-blackandwhiteabstractdatavisualizationli.jpg" alt="Insurance" 
+                             class="w-full h-full object-cover opacity-20 group-hover:opacity-35 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="use-case-header bg-gradient-to-r from-blue-500/20 to-transparent relative z-10">
+                        <div class="use-case-icon bg-blue-500/20 text-blue-400">
+                            <span class="material-symbols-sharp text-3xl">shield</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white">Insurance</h3>
+                            <p class="text-sm text-slate-300">Claims • Risk Assessment • Document AI</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[9px] font-bold bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">10x FASTER</span>
+                    </div>
+                    <div class="use-case-body relative z-10">
+                        <ul class="space-y-2 text-sm text-slate-200">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-blue-400 text-base mt-0.5">check</span>
+                                Automated claims processing & fraud management
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-blue-400 text-base mt-0.5">check</span>
+                                Document analysis of policy records
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-blue-400 text-base mt-0.5">check</span>
+                                Risk assessment with domain-specific NLP
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-600 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Typical: 1x CS-3 + 2x DDN</span>
+                            <button onclick="selectUseCaseAndScroll('insurance')" class="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                                Configure <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Government -->
+                <div class="use-case-card group overflow-hidden" data-case="government">
+                    <div class="absolute inset-0 z-0">
+                        <img src="images/site5-2-modernglassbridgearchitecturelowanglebla.jpg" alt="Government" 
+                             class="w-full h-full object-cover opacity-20 group-hover:opacity-35 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="use-case-header bg-gradient-to-r from-slate-500/20 to-transparent relative z-10">
+                        <div class="use-case-icon bg-slate-500/20 text-slate-300">
+                            <span class="material-symbols-sharp text-3xl">assured_workload</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white">Government & Defence</h3>
+                            <p class="text-sm text-slate-300">Sovereign • Secure • POPIA Compliant</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[9px] font-bold bg-slate-500/20 text-slate-300 rounded-full border border-slate-500/30">AIR-GAP</span>
+                    </div>
+                    <div class="use-case-body relative z-10">
+                        <ul class="space-y-2 text-sm text-slate-200">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-slate-400 text-base mt-0.5">check</span>
+                                100% data sovereignty — no cloud exposure
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-slate-400 text-base mt-0.5">check</span>
+                                Secure document processing & intelligence
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-slate-400 text-base mt-0.5">check</span>
+                                Air-gapped deployment options available
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-600 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Typical: 4x CS-3 + 8x DDN</span>
+                            <button onclick="selectUseCaseAndScroll('government')" class="text-sm text-slate-300 hover:text-white flex items-center gap-1">
+                                Configure <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Healthcare -->
+                <div class="use-case-card group overflow-hidden" data-case="healthcare">
+                    <div class="absolute inset-0 z-0">
+                        <img src="images/genai-network.jpg" alt="Healthcare" 
+                             class="w-full h-full object-cover opacity-20 group-hover:opacity-35 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="use-case-header bg-gradient-to-r from-teal-500/20 to-transparent relative z-10">
+                        <div class="use-case-icon bg-teal-500/20 text-teal-400">
+                            <span class="material-symbols-sharp text-3xl">medical_services</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white">Healthcare & Pharma</h3>
+                            <p class="text-sm text-slate-300">Diagnostics • Drug Discovery • Records</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[9px] font-bold bg-teal-500/20 text-teal-300 rounded-full border border-teal-500/30">HPCSA</span>
+                    </div>
+                    <div class="use-case-body relative z-10">
+                        <ul class="space-y-2 text-sm text-slate-200">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-teal-400 text-base mt-0.5">check</span>
+                                Medical imaging analysis at scale
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-teal-400 text-base mt-0.5">check</span>
+                                Drug interaction & compound screening
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-teal-400 text-base mt-0.5">check</span>
+                                HPCSA-compliant patient data processing
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-600 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Typical: 2x CS-3 + 4x DDN</span>
+                            <button onclick="selectUseCaseAndScroll('healthcare')" class="text-sm text-teal-400 hover:text-teal-300 flex items-center gap-1">
+                                Configure <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Telco -->
+                <div class="use-case-card group overflow-hidden" data-case="telco">
+                    <div class="absolute inset-0 z-0">
+                        <img src="images/site4-3-abstractgenerativeaineuralnetworknodesco.jpg" alt="Telecommunications" 
+                             class="w-full h-full object-cover opacity-20 group-hover:opacity-35 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="use-case-header bg-gradient-to-r from-purple-500/20 to-transparent relative z-10">
+                        <div class="use-case-icon bg-purple-500/20 text-purple-400">
+                            <span class="material-symbols-sharp text-3xl">cell_tower</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white">Telecommunications</h3>
+                            <p class="text-sm text-slate-300">Network Optimization • GPUaaS</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[9px] font-bold bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">GPUaaS</span>
+                    </div>
+                    <div class="use-case-body relative z-10">
+                        <ul class="space-y-2 text-sm text-slate-200">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-purple-400 text-base mt-0.5">check</span>
+                                Real-time network optimization & predictive maintenance
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-purple-400 text-base mt-0.5">check</span>
+                                24/7 AI customer service automation
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-purple-400 text-base mt-0.5">check</span>
+                                GPU-as-a-Service for enterprise customers
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-600 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Typical: 4x CS-3 + 8x DDN</span>
+                            <button onclick="selectUseCaseAndScroll('telco')" class="text-sm text-purple-400 hover:text-purple-300 flex items-center gap-1">
+                                Configure <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Energy & Mining -->
+                <div class="use-case-card group overflow-hidden" data-case="energy">
+                    <div class="absolute inset-0 z-0">
+                        <img src="images/site3-1-abstractmonochromegeometricnetworkstruct.jpg" alt="Energy" 
+                             class="w-full h-full object-cover opacity-20 group-hover:opacity-35 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="use-case-header bg-gradient-to-r from-yellow-500/20 to-transparent relative z-10">
+                        <div class="use-case-icon bg-yellow-500/20 text-yellow-400">
+                            <span class="material-symbols-sharp text-3xl">bolt</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white">Energy & Mining</h3>
+                            <p class="text-sm text-slate-300">Exploration • Optimization • Safety</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[9px] font-bold bg-yellow-500/20 text-yellow-300 rounded-full border border-yellow-500/30">PETABYTE</span>
+                    </div>
+                    <div class="use-case-body relative z-10">
+                        <ul class="space-y-2 text-sm text-slate-200">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-yellow-400 text-base mt-0.5">check</span>
+                                Seismic data processing & geological modeling
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-yellow-400 text-base mt-0.5">check</span>
+                                Predictive maintenance for critical assets
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-sharp text-yellow-400 text-base mt-0.5">check</span>
+                                Safety monitoring & anomaly detection
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-600 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Typical: 8x CS-3 + 16x DDN</span>
+                            <button onclick="selectUseCaseAndScroll('energy')" class="text-sm text-yellow-400 hover:text-yellow-300 flex items-center gap-1">
+                                Configure <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cluster Builder Section -->
+    <section id="cluster-builder" class="py-24 bg-slate-950 border-t border-slate-800 isolate">
+        <div class="container-modern">
+            <div class="section-header">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <span class="material-symbols-sharp text-amber-400 text-3xl">construction</span>
+                    <h2 class="section-title mb-0">Cluster Builder</h2>
+                </div>
+                <p class="section-subtitle">Configure your sovereign AI infrastructure</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Configuration Panel -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <!-- Use Case Selector -->
+                    <div class="config-card">
+                        <h3 class="config-title">
+                            <span class="material-symbols-sharp text-amber-400">category</span>
+                            1. Select Use Case
+                        </h3>
+                        <div class="grid grid-cols-2 gap-2" id="use-case-selector">
+                            <button onclick="selectUseCase('fintech')" class="use-case-btn active" data-case="fintech">
+                                <span class="material-symbols-sharp text-xl mb-1">account_balance</span>
+                                <span class="font-bold text-sm">FinTech</span>
+                                <span class="text-[9px] text-slate-400">Trading & Fraud</span>
+                            </button>
+                            <button onclick="selectUseCase('banking')" class="use-case-btn" data-case="banking">
+                                <span class="material-symbols-sharp text-xl mb-1">account_balance_wallet</span>
+                                <span class="font-bold text-sm">Banking</span>
+                                <span class="text-[9px] text-slate-400">Customer AI</span>
+                            </button>
+                            <button onclick="selectUseCase('insurance')" class="use-case-btn" data-case="insurance">
+                                <span class="material-symbols-sharp text-xl mb-1">shield</span>
+                                <span class="font-bold text-sm">Insurance</span>
+                                <span class="text-[9px] text-slate-400">Claims & Risk</span>
+                            </button>
+                            <button onclick="selectUseCase('telco')" class="use-case-btn" data-case="telco">
+                                <span class="material-symbols-sharp text-xl mb-1">cell_tower</span>
+                                <span class="font-bold text-sm">Telco</span>
+                                <span class="text-[9px] text-slate-400">Network & GPUaaS</span>
+                            </button>
+                            <button onclick="selectUseCase('healthcare')" class="use-case-btn" data-case="healthcare">
+                                <span class="material-symbols-sharp text-xl mb-1">medical_services</span>
+                                <span class="font-bold text-sm">Healthcare</span>
+                                <span class="text-[9px] text-slate-400">Pharma & Medical AI</span>
+                            </button>
+                            <button onclick="selectUseCase('government')" class="use-case-btn" data-case="government">
+                                <span class="material-symbols-sharp text-xl mb-1">assured_workload</span>
+                                <span class="font-bold text-sm">Government</span>
+                                <span class="text-[9px] text-slate-400">Sovereign & Defence</span>
+                            </button>
+                            <button onclick="selectUseCase('research')" class="use-case-btn" data-case="research">
+                                <span class="material-symbols-sharp text-xl mb-1">science</span>
+                                <span class="font-bold text-sm">Research</span>
+                                <span class="text-[9px] text-slate-400">HPC & Training</span>
+                            </button>
+                            <button onclick="selectUseCase('energy')" class="use-case-btn" data-case="energy">
+                                <span class="material-symbols-sharp text-xl mb-1">bolt</span>
+                                <span class="font-bold text-sm">Energy</span>
+                                <span class="text-[9px] text-slate-400">Mining & Utilities</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Model Scale Selector -->
+                    <div class="config-card">
+                        <h3 class="config-title">
+                            <span class="material-symbols-sharp text-amber-400">psychology</span>
+                            2. Model Scale
+                        </h3>
+                        <div class="space-y-2" id="model-selector">
+                            <button onclick="selectModel(8)" class="model-btn" data-model="8">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white">8 Billion</span>
+                                    <span class="model-check material-symbols-sharp text-green-400">check_circle</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400">Llama 3.1 8B • 2,200 tok/s • Fast inference</p>
+                            </button>
+                            <button onclick="selectModel(12)" class="model-btn" data-model="12">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white">12 Billion</span>
+                                    <span class="model-check material-symbols-sharp text-green-400">check_circle</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400">Mistral NeMO 12B • 1,900 tok/s • Balanced</p>
+                            </button>
+                            <button onclick="selectModel(70)" class="model-btn active" data-model="70">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white">70 Billion</span>
+                                    <span class="model-check material-symbols-sharp text-green-400">check_circle</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400">Llama 3.3 70B / DeepSeek • 2,100 tok/s</p>
+                            </button>
+                            <button onclick="selectModel(120)" class="model-btn" data-model="120">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white">120 Billion</span>
+                                    <span class="model-check material-symbols-sharp text-green-400">check_circle</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400">GPT OSS 120B • 3,045 tok/s • 15x faster</p>
+                            </button>
+                            <button onclick="selectModel(405)" class="model-btn" data-model="405">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white">405 Billion</span>
+                                    <span class="model-check material-symbols-sharp text-green-400">check_circle</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400">Llama 3.1 405B • Frontier reasoning</p>
+                            </button>
+                            <button onclick="selectModel(1000)" class="model-btn" data-model="1000">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white">1 Trillion+</span>
+                                    <span class="model-check material-symbols-sharp text-green-400">check_circle</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400">Custom MoE • Up to 24T parameters</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scale Slider -->
+                    <div class="config-card">
+                        <h3 class="config-title" id="cluster-scale-label">
+                            <span class="material-symbols-sharp text-red-400">tune</span>
+                            3. Cluster Scale
+                        </h3>
+                        <div class="mb-4 slider-container" id="slider-container">
+                            <input type="range" id="cluster-scale" min="1" max="8" value="1" 
+                                   class="slider-input" oninput="updateClusterScale()" 
+                                   aria-labelledby="cluster-scale-label" 
+                                   aria-valuemin="1" aria-valuemax="8" aria-valuenow="1"
+                                   aria-valuetext="1 CS-3 system">
+                            <div class="slider-fill" id="slider-fill" style="width: 0%;"></div>
+                            <div class="slider-tooltip" id="slider-tooltip">Tier 1</div>
+                            <div class="flex justify-between text-xs text-slate-500 mt-4">
+                                <span>Minimum</span>
+                                <span>Enterprise</span>
+                                <span>National</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="p-3 rounded-lg bg-slate-800 border border-slate-700">
+                                <div class="text-2xl font-bold text-amber-400" id="cs3-count">1</div>
+                                <div class="text-[10px] text-slate-400 uppercase">CS-3 Systems</div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-800 border border-slate-700">
+                                <div class="text-2xl font-bold text-red-400" id="ddn-count">2</div>
+                                <div class="text-[10px] text-slate-400 uppercase">DDN Appliances</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pretoria Datacenter Option -->
+                    <div class="config-card border-green-500/30 bg-gradient-to-br from-green-500/5 to-transparent">
+                        <label class="flex items-start gap-4 cursor-pointer">
+                            <input type="checkbox" id="pretoria-dc" class="mt-1 w-5 h-5 rounded border-green-500 text-green-500 focus:ring-green-500" onchange="togglePretoriaDC()">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-sharp text-green-400">location_on</span>
+                                    <span class="font-bold text-white">VCB-AI Pretoria Datacenter</span>
+                                </div>
+                                <p class="text-sm text-slate-400 mt-1">Deploy in our sovereign Tier 3+ facility with liquid cooling, redundant power, and 24/7 support.</p>
+                                <div class="flex gap-4 mt-2 text-xs text-green-400">
+                                    <span>✓ POPIA Compliant</span>
+                                    <span>✓ 99.99% SLA</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Cluster Visualization -->
+                <div class="lg:col-span-7">
+                    <div class="cluster-viz">
+                        <!-- Tier Label -->
+                        <div class="mb-4 text-center">
+                            <span class="px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 font-bold text-sm" id="tier-label">Starter</span>
+                            <p class="mt-2 text-sm text-slate-400" id="tier-description">Entry-level sovereign AI for small teams</p>
+                        </div>
+                        
+                        <!-- Live Metrics Bar -->
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">👥 User Capacity</div>
+                                <div class="text-xl font-mono font-bold text-emerald-400"><span id="metric-users">50</span></div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">⚡ Tokens/sec</div>
+                                <div class="text-xl font-mono font-bold text-sky-400"><span id="metric-tokens">2.1K</span></div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">🔌 Est. Power</div>
+                                <div class="text-xl font-mono font-bold text-white"><span id="metric-power">23</span> kW</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">❄️ Cooling</div>
+                                <div class="text-xl font-mono font-bold text-white"><span id="metric-cooling">100</span> L/min</div>
+                            </div>
+                            <div class="col-span-2 md:col-span-1">
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">🚀 Performance</div>
+                                <div class="text-xl font-mono font-bold text-amber-400"><span id="metric-pflops">125</span> PFLOPS</div>
+                            </div>
+                        </div>
+                        <div id="pretoria-badge" class="hidden items-center justify-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/30">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <span class="text-xs font-bold text-green-300">Deployed at PTA-DC1 • Pretoria, South Africa</span>
+                        </div>
+
+                        <!-- Rack Visualization -->
+                        <div class="rack-container">
+                            <div class="rack-bg-grid"></div>
+                            
+                            <div id="rack-visual" class="rack-cabinet">
+                                <!-- Rack header -->
+                                <div class="rack-header">
+                                    <span class="text-[10px] text-slate-300 font-mono">VCB-SOV-RACK-01</span>
+                                </div>
+                                
+                                <!-- Dynamic rack units -->
+                                <div id="rack-units" class="rack-units-container">
+                                    <!-- Populated by JS -->
+                                </div>
+
+                                <!-- Rack footer -->
+                                <div class="rack-footer">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                        <span class="text-[10px] text-slate-400 font-mono">PWR OK</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                                        <span class="text-[10px] text-slate-400 font-mono">COOL OK</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quote CTA -->
+                        <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-amber-500/10 to-red-500/10 border border-amber-500/20">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="text-lg font-bold text-white">Ready to build?</div>
+                                    <div class="text-sm text-slate-400">Get a custom quote for your sovereign cluster</div>
+                                </div>
+                                <button onclick="requestQuote()" class="btn-primary">
+                                    <span class="material-symbols-sharp">send</span>
+                                    Request Quote
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sizing Calculator -->
+                        <div class="mt-4 p-4 rounded-xl bg-slate-800/60 border border-slate-700">
+                            <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                                <span class="material-symbols-sharp text-emerald-400">calculate</span>
+                                Quick Sizing Calculator
+                            </h4>
+                            
+                            <!-- Popular Configurations Quick Select -->
+                            <div class="mb-4">
+                                <div class="text-[10px] text-slate-400 uppercase mb-2">Popular Configurations</div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="applyPreset(100, 70)" class="preset-btn">
+                                        <span class="text-xs font-bold text-white">Startup</span>
+                                        <span class="text-[9px] text-slate-400">100 users • 70B</span>
+                                    </button>
+                                    <button onclick="applyPreset(500, 70)" class="preset-btn">
+                                        <span class="text-xs font-bold text-white">Team</span>
+                                        <span class="text-[9px] text-slate-400">500 users • 70B</span>
+                                    </button>
+                                    <button onclick="applyPreset(1000, 70)" class="preset-btn preset-popular">
+                                        <span class="text-xs font-bold text-emerald-300">Enterprise</span>
+                                        <span class="text-[9px] text-slate-400">1K users • 70B</span>
+                                    </button>
+                                    <button onclick="applyPreset(2000, 405)" class="preset-btn">
+                                        <span class="text-xs font-bold text-white">Large Org</span>
+                                        <span class="text-[9px] text-slate-400">2K users • 405B</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="text-[10px] text-slate-400 uppercase block mb-1">Target Users</label>
+                                    <input type="number" id="calc-users" value="1000" min="10" max="100000" step="50"
+                                           class="w-full px-3 py-2 rounded-lg bg-slate-700 border border-slate-600 text-white text-sm font-mono focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-colors"
+                                           oninput="calculateSizing()">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-slate-400 uppercase block mb-1">Model Size</label>
+                                    <select id="calc-model" class="w-full px-3 py-2 rounded-lg bg-slate-700 border border-slate-600 text-white text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-colors"
+                                            onchange="calculateSizing()">
+                                        <option value="8">8B (Llama 3.1 8B)</option>
+                                        <option value="12">12B (Mistral NeMO)</option>
+                                        <option value="70" selected>70B (Llama 3.3)</option>
+                                        <option value="120">120B (GPT OSS)</option>
+                                        <option value="405">405B (Llama 3.1)</option>
+                                        <option value="1000">1T+ (Custom)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="sizing-result" class="p-3 rounded-lg bg-gradient-to-br from-emerald-500/10 to-sky-500/10 border border-emerald-500/20">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm text-slate-300">Recommended Configuration:</span>
+                                    <span id="sizing-tier" class="px-2.5 py-1 rounded-full bg-gradient-to-r from-emerald-500/30 to-sky-500/30 text-emerald-300 font-bold text-xs border border-emerald-500/30">Enterprise</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2 text-center">
+                                    <div class="p-2 rounded-lg bg-slate-800/50">
+                                        <div id="sizing-cs3" class="text-lg font-mono font-bold text-amber-400">8</div>
+                                        <div class="text-[8px] text-slate-400 uppercase">CS-3</div>
+                                    </div>
+                                    <div class="p-2 rounded-lg bg-slate-800/50">
+                                        <div id="sizing-ddn" class="text-lg font-mono font-bold text-red-400">12</div>
+                                        <div class="text-[8px] text-slate-400 uppercase">DDN</div>
+                                    </div>
+                                    <div class="p-2 rounded-lg bg-slate-800/50">
+                                        <div id="sizing-power" class="text-lg font-mono font-bold text-white">210</div>
+                                        <div class="text-[8px] text-slate-400 uppercase">kW</div>
+                                    </div>
+                                    <div class="p-2 rounded-lg bg-slate-800/50">
+                                        <div id="sizing-tokens" class="text-lg font-mono font-bold text-sky-400">16.8K</div>
+                                        <div class="text-[8px] text-slate-400 uppercase">tok/s</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Architecture Diagram Section -->
+            <div class="mt-16 relative">
+                <div class="section-header">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <span class="material-symbols-sharp text-amber-400 text-3xl">schema</span>
+                        <h2 class="section-title mb-0">Cluster Architecture</h2>
+                    </div>
+                    <p class="section-subtitle">Interactive visualization of your selected infrastructure</p>
+                </div>
+
+                <!-- Visio-style Diagram Container -->
+                <div id="visio-diagram" class="visio-container">
+                    <div class="visio-grid"></div>
+                    <div class="visio-glow-orb visio-glow-orb-amber"></div>
+                    <div class="visio-glow-orb visio-glow-orb-red"></div>
+                    
+                    <!-- SVG Layer for connections -->
+                    <svg id="connection-layer" class="visio-connections"></svg>
+                    
+                    <!-- Diagram Content -->
+                    <div class="visio-content" id="visio-content">
+                        
+                        <!-- Application Layer - Detailed Premium Design -->
+                        <div class="visio-row visio-row-top">
+                            <div class="visio-node visio-node-app visio-node-detailed visio-node-wide" id="vnode-app" role="button" tabindex="0" aria-label="Application Layer">
+                                <div class="visio-node-glow visio-glow-sky"></div>
+                                <div class="visio-node-ring"></div>
+                                
+                                <!-- Premium Cloud Icon -->
+                                <div class="visio-node-icon-wrapper">
+                                    <div class="visio-node-icon visio-icon-gradient-sky">
+                                        <svg viewBox="0 0 48 48" class="visio-svg-icon" aria-hidden="true">
+                                            <defs>
+                                                <linearGradient id="grad-sky" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" style="stop-color:#0ea5e9"/>
+                                                    <stop offset="100%" style="stop-color:#38bdf8"/>
+                                                </linearGradient>
+                                                <filter id="glow-sky" x="-50%" y="-50%" width="200%" height="200%">
+                                                    <feGaussianBlur stdDeviation="2" result="blur"/>
+                                                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                                </filter>
+                                            </defs>
+                                            <path fill="url(#grad-sky)" filter="url(#glow-sky)" d="M38 32H14c-4.42 0-8-3.58-8-8s3.58-8 8-8c.34 0 .68.02 1.01.06C16.76 11.24 21 8 26 8c6.08 0 11.09 4.54 11.85 10.42C41.77 19.32 44 22.38 44 26c0 3.31-2.69 6-6 6z"/>
+                                            <circle cx="20" cy="24" r="2" fill="#fff" opacity="0.6"/>
+                                            <circle cx="28" cy="22" r="1.5" fill="#fff" opacity="0.4"/>
+                                            <circle cx="34" cy="26" r="1" fill="#fff" opacity="0.3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="visio-node-pulse"></div>
+                                </div>
+                                
+                                <!-- Detailed App Info -->
+                                <div class="visio-node-details">
+                                    <div class="visio-node-header">
+                                        <span class="visio-node-title">AI Application Layer</span>
+                                        <span class="visio-node-chip">Sovereign Cloud</span>
+                                    </div>
+                                    
+                                    <!-- Workload Types -->
+                                    <div class="visio-workload-grid">
+                                        <div class="visio-workload-item visio-workload-sky">
+                                            <svg class="visio-workload-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z"/><path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
+                                            <span>Real-Time Inference</span>
+                                        </div>
+                                        <div class="visio-workload-item visio-workload-sky">
+                                            <svg class="visio-workload-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7z"/></svg>
+                                            <span>RAG Pipelines</span>
+                                        </div>
+                                        <div class="visio-workload-item visio-workload-sky">
+                                            <svg class="visio-workload-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5z"/></svg>
+                                            <span>Fine-Tuning</span>
+                                        </div>
+                                        <div class="visio-workload-item visio-workload-sky">
+                                            <svg class="visio-workload-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327z"/></svg>
+                                            <span>Batch Processing</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- API Endpoints -->
+                                    <div class="visio-api-row">
+                                        <div class="visio-api-item">
+                                            <span class="visio-api-protocol">REST</span>
+                                            <span class="visio-api-endpoint">/v1/completions</span>
+                                        </div>
+                                        <div class="visio-api-item">
+                                            <span class="visio-api-protocol">gRPC</span>
+                                            <span class="visio-api-endpoint">Streaming</span>
+                                        </div>
+                                        <div class="visio-api-item">
+                                            <span class="visio-api-protocol">WS</span>
+                                            <span class="visio-api-endpoint">Real-time</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="visio-status-led">
+                                    <span class="visio-led visio-led-green"></span>
+                                    <span class="visio-status-text" style="color: #38bdf8;">Active</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SVG Gradients for Data Flow -->
+                        <svg class="visio-svg-defs" style="position: absolute; width: 0; height: 0;">
+                            <defs>
+                                <linearGradient id="beam-gradient-amber" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0"/>
+                                    <stop offset="50%" style="stop-color:#fbbf24;stop-opacity:1"/>
+                                    <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0"/>
+                                </linearGradient>
+                                <linearGradient id="beam-gradient-red" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0"/>
+                                    <stop offset="50%" style="stop-color:#f87171;stop-opacity:1"/>
+                                    <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0"/>
+                                </linearGradient>
+                                <linearGradient id="beam-gradient-sky" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:0"/>
+                                    <stop offset="50%" style="stop-color:#38bdf8;stop-opacity:1"/>
+                                    <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:0"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <!-- Enhanced Multi-Layer Data Flow System -->
+                        <div class="visio-data-flow" id="data-flow-layer">
+                            <!-- Sky particles: App → Network (requests) -->
+                            <div class="visio-data-particle visio-particle-sky visio-particle-1" style="top: 5%;"></div>
+                            <div class="visio-data-particle visio-particle-sky visio-particle-2" style="top: 5%;"></div>
+                            <div class="visio-data-particle visio-particle-sky visio-particle-3" style="top: 5%;"></div>
+                            
+                            <!-- Amber particles: Network ↔ Compute -->
+                            <div class="visio-data-particle visio-particle-amber visio-particle-1" style="top: 20%;"></div>
+                            <div class="visio-data-particle visio-particle-amber visio-particle-4" style="top: 20%;"></div>
+                            <div class="visio-data-particle visio-particle-amber visio-particle-5" style="top: 20%;"></div>
+                            
+                            <!-- Red particles: Compute ↔ Storage -->
+                            <div class="visio-data-particle visio-particle-red visio-particle-2" style="top: 50%;"></div>
+                            <div class="visio-data-particle visio-particle-red visio-particle-3" style="top: 50%;"></div>
+                            <div class="visio-data-particle visio-particle-red visio-particle-4" style="top: 50%;"></div>
+                            
+                            <!-- Response particles (going up) -->
+                            <div class="visio-data-particle visio-particle-amber visio-particle-up visio-particle-2" style="top: 30%; animation-delay: -5s;"></div>
+                            <div class="visio-data-particle visio-particle-sky visio-particle-up visio-particle-4" style="top: 10%; animation-delay: -4s;"></div>
+                        </div>
+
+                        <!-- Network Fabric Layer - Detailed Premium Design -->
+                        <div class="visio-row visio-row-network">
+                            <div class="visio-fabric visio-fabric-premium visio-fabric-detailed" id="vnode-fabric">
+                                <div class="visio-fabric-glow"></div>
+                                <div class="visio-fabric-inner">
+                                    <div class="visio-fabric-main">
+                                        <div class="flex items-center gap-3">
+                                            <div class="visio-fabric-icon">
+                                                <svg viewBox="0 0 24 24" class="w-6 h-6" aria-hidden="true">
+                                                    <defs>
+                                                        <linearGradient id="grad-network" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                            <stop offset="0%" style="stop-color:#94a3b8"/>
+                                                            <stop offset="100%" style="stop-color:#64748b"/>
+                                                        </linearGradient>
+                                                    </defs>
+                                                    <circle cx="12" cy="12" r="3" fill="url(#grad-network)"/>
+                                                    <circle cx="4" cy="6" r="2" fill="url(#grad-network)" opacity="0.7"/>
+                                                    <circle cx="20" cy="6" r="2" fill="url(#grad-network)" opacity="0.7"/>
+                                                    <circle cx="4" cy="18" r="2" fill="url(#grad-network)" opacity="0.7"/>
+                                                    <circle cx="20" cy="18" r="2" fill="url(#grad-network)" opacity="0.7"/>
+                                                    <line x1="12" y1="12" x2="4" y2="6" stroke="#64748b" stroke-width="1"/>
+                                                    <line x1="12" y1="12" x2="20" y2="6" stroke="#64748b" stroke-width="1"/>
+                                                    <line x1="12" y1="12" x2="4" y2="18" stroke="#64748b" stroke-width="1"/>
+                                                    <line x1="12" y1="12" x2="20" y2="18" stroke="#64748b" stroke-width="1"/>
+                                                </svg>
+                                            </div>
+                                            <div class="visio-fabric-title-block">
+                                                <span class="text-sm font-bold text-white">Cerebras SwarmX™ Interconnect</span>
+                                                <span class="text-xs text-slate-400">High-Speed Wafer-to-Wafer Communication</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Fabric Metrics -->
+                                        <div class="visio-fabric-metrics">
+                                            <div class="visio-fabric-stat">
+                                                <span class="visio-fabric-stat-value">400</span>
+                                                <span class="visio-fabric-stat-unit">GbE</span>
+                                            </div>
+                                            <div class="visio-fabric-stat">
+                                                <span class="visio-fabric-stat-value" id="fabric-latency">&lt;1</span>
+                                                <span class="visio-fabric-stat-unit">μs</span>
+                                            </div>
+                                            <div class="visio-fabric-stat">
+                                                <span class="visio-fabric-stat-value">214</span>
+                                                <span class="visio-fabric-stat-unit">PB/s BW</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Fabric Features -->
+                                    <div class="visio-fabric-features">
+                                        <span class="visio-fabric-feature">RDMA</span>
+                                        <span class="visio-fabric-feature">RoCE v2</span>
+                                        <span class="visio-fabric-feature">Zero-Copy</span>
+                                        <span class="visio-fabric-feature">NCCL</span>
+                                    </div>
+                                </div>
+                                <div class="visio-fabric-flow"></div>
+                                <div class="visio-fabric-flow visio-flow-delay"></div>
+                            </div>
+                        </div>
+
+                        <!-- Compute Layer - CS-3 Systems with Premium Icons -->
+                        <div class="visio-row visio-row-compute" id="visio-compute-row">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+
+                        <!-- Storage Fabric Layer - Detailed Premium Design -->
+                        <div class="visio-row visio-row-network">
+                            <div class="visio-fabric visio-fabric-storage visio-fabric-premium visio-fabric-detailed" id="vnode-storage-fabric">
+                                <div class="visio-fabric-glow visio-glow-red-fabric"></div>
+                                <div class="visio-fabric-inner">
+                                    <div class="visio-fabric-main">
+                                        <div class="flex items-center gap-3">
+                                            <div class="visio-fabric-icon visio-fabric-icon-red">
+                                                <svg viewBox="0 0 24 24" class="w-6 h-6" aria-hidden="true">
+                                                    <defs>
+                                                        <linearGradient id="grad-lustre" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                            <stop offset="0%" style="stop-color:#ef4444"/>
+                                                            <stop offset="100%" style="stop-color:#f87171"/>
+                                                        </linearGradient>
+                                                    </defs>
+                                                    <path d="M4 8h16M4 12h16M4 16h16" stroke="url(#grad-lustre)" stroke-width="2" stroke-linecap="round" fill="none"/>
+                                                    <circle cx="8" cy="8" r="1.5" fill="#ef4444"/>
+                                                    <circle cx="16" cy="12" r="1.5" fill="#ef4444"/>
+                                                    <circle cx="12" cy="16" r="1.5" fill="#ef4444"/>
+                                                </svg>
+                                            </div>
+                                            <div class="visio-fabric-title-block">
+                                                <span class="text-sm font-bold text-white">DDN EXAScaler / Lustre Parallel FS</span>
+                                                <span class="text-xs text-slate-400">High-Throughput AI Training Storage</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Storage Fabric Metrics -->
+                                        <div class="visio-fabric-metrics">
+                                            <div class="visio-fabric-stat visio-stat-red">
+                                                <span class="visio-fabric-stat-value" id="fabric-read-throughput">90</span>
+                                                <span class="visio-fabric-stat-unit">GB/s Read</span>
+                                            </div>
+                                            <div class="visio-fabric-stat visio-stat-red">
+                                                <span class="visio-fabric-stat-value" id="fabric-write-throughput">65</span>
+                                                <span class="visio-fabric-stat-unit">GB/s Write</span>
+                                            </div>
+                                            <div class="visio-fabric-stat visio-stat-red">
+                                                <span class="visio-fabric-stat-value" id="fabric-iops">3M</span>
+                                                <span class="visio-fabric-stat-unit">IOPS</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Storage Fabric Features -->
+                                    <div class="visio-fabric-features">
+                                        <span class="visio-fabric-feature visio-feature-red">GPUDirect Storage</span>
+                                        <span class="visio-fabric-feature visio-feature-red">RDMA</span>
+                                        <span class="visio-fabric-feature visio-feature-red">Checkpoint 15x</span>
+                                        <span class="visio-fabric-feature visio-feature-red">128 Tenants</span>
+                                    </div>
+                                </div>
+                                <div class="visio-fabric-flow visio-flow-red"></div>
+                                <div class="visio-fabric-flow visio-flow-red visio-flow-delay"></div>
+                            </div>
+                        </div>
+
+                        <!-- Storage Layer - DDN Systems -->
+                        <div class="visio-row visio-row-storage" id="visio-storage-row">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+
+                        <!-- Datacenter Layer (shown when Pretoria DC is selected) -->
+                        <div class="visio-row visio-row-dc hidden" id="visio-dc-row">
+                            <div class="visio-dc-wrapper">
+                                <div class="visio-dc-box" id="vnode-dc">
+                                    <div class="visio-dc-glow"></div>
+                                    <div class="visio-dc-header">
+                                        <div class="visio-dc-icon">
+                                            <svg viewBox="0 0 32 32" class="w-8 h-8" aria-hidden="true">
+                                                <defs>
+                                                    <linearGradient id="grad-dc" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                        <stop offset="0%" style="stop-color:#f59e0b"/>
+                                                        <stop offset="100%" style="stop-color:#fbbf24"/>
+                                                    </linearGradient>
+                                                </defs>
+                                                <rect x="4" y="8" width="24" height="18" rx="2" fill="none" stroke="url(#grad-dc)" stroke-width="2"/>
+                                                <rect x="8" y="12" width="4" height="4" rx="0.5" fill="#f59e0b"/>
+                                                <rect x="14" y="12" width="4" height="4" rx="0.5" fill="#f59e0b"/>
+                                                <rect x="20" y="12" width="4" height="4" rx="0.5" fill="#f59e0b"/>
+                                                <rect x="8" y="18" width="4" height="4" rx="0.5" fill="#f59e0b" opacity="0.6"/>
+                                                <rect x="14" y="18" width="4" height="4" rx="0.5" fill="#f59e0b" opacity="0.6"/>
+                                                <rect x="20" y="18" width="4" height="4" rx="0.5" fill="#f59e0b" opacity="0.6"/>
+                                                <circle cx="16" cy="6" r="2" fill="#22c55e">
+                                                    <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+                                                </circle>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <span class="text-base font-bold text-white">VCB-AI Pretoria Datacenter</span>
+                                            <span class="text-xs text-slate-400 block">Sovereign AI Infrastructure • South Africa</span>
+                                        </div>
+                                        <span class="visio-dc-badge">PTA-DC1</span>
+                                    </div>
+                                    <div class="visio-dc-features">
+                                        <div class="visio-dc-feature">
+                                            <svg viewBox="0 0 20 20" class="w-4 h-4 text-amber-400" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>POPIA Compliant</span>
+                                        </div>
+                                        <div class="visio-dc-feature">
+                                            <svg viewBox="0 0 20 20" class="w-4 h-4 text-amber-400" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Tier 3+ SLA</span>
+                                        </div>
+                                        <div class="visio-dc-feature">
+                                            <svg viewBox="0 0 20 20" class="w-4 h-4 text-sky-400" fill="currentColor">
+                                                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+                                            </svg>
+                                            <span>Liquid Cooling</span>
+                                        </div>
+                                        <div class="visio-dc-feature">
+                                            <svg viewBox="0 0 20 20" class="w-4 h-4 text-emerald-400" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>2N Redundant Power</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Component Visibility Controls -->
+                    <div class="visio-controls">
+                        <div class="visio-controls-title">
+                            <span class="material-symbols-sharp text-slate-400 text-sm">visibility</span>
+                            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Show Components</span>
+                        </div>
+                        <div class="visio-control-group">
+                            <label class="visio-checkbox">
+                                <input type="checkbox" id="show-cs3" checked onchange="toggleVisioComponent('cs3')">
+                                <span class="visio-checkbox-mark bg-amber-500"></span>
+                                <span class="visio-checkbox-label">Cerebras WSE-3 | CS-3</span>
+                            </label>
+                            <label class="visio-checkbox">
+                                <input type="checkbox" id="show-ddn" checked onchange="toggleVisioComponent('ddn')">
+                                <span class="visio-checkbox-mark bg-red-500"></span>
+                                <span class="visio-checkbox-label">DDN AI400X2</span>
+                            </label>
+                            <label class="visio-checkbox">
+                                <input type="checkbox" id="show-ddn1" checked onchange="toggleVisioComponent('ddn1')">
+                                <span class="visio-checkbox-mark bg-red-400"></span>
+                                <span class="visio-checkbox-label">DDN Appliance #1</span>
+                            </label>
+                            <label class="visio-checkbox">
+                                <input type="checkbox" id="show-ddn2" checked onchange="toggleVisioComponent('ddn2')">
+                                <span class="visio-checkbox-mark bg-red-300"></span>
+                                <span class="visio-checkbox-label">DDN Appliance #2</span>
+                            </label>
+                        </div>
+                        <div class="visio-controls-divider"></div>
+                        <div class="visio-legend-mini">
+                            <div class="visio-legend-item">
+                                <span class="visio-legend-line bg-slate-400"></span>
+                                <span>400GbE</span>
+                            </div>
+                            <div class="visio-legend-item">
+                                <span class="visio-legend-line bg-red-500"></span>
+                                <span>Lustre</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cluster Summary -->
+                    <div class="visio-summary" id="visio-summary">
+                        <div class="visio-summary-stat">
+                            <span class="visio-summary-value text-amber-400" id="vs-cs3">1</span>
+                            <span class="visio-summary-label">CS-3</span>
+                        </div>
+                        <div class="visio-summary-divider"></div>
+                        <div class="visio-summary-stat">
+                            <span class="visio-summary-value text-red-400" id="vs-ddn">2</span>
+                            <span class="visio-summary-label">DDN</span>
+                        </div>
+                        <div class="visio-summary-divider"></div>
+                        <div class="visio-summary-stat">
+                            <span class="visio-summary-value text-white" id="vs-pflops">125</span>
+                            <span class="visio-summary-label">PFLOPS</span>
+                        </div>
+                        <div class="visio-summary-divider"></div>
+                        <div class="visio-summary-stat">
+                            <span class="visio-summary-value text-slate-300" id="vs-links">3</span>
+                            <span class="visio-summary-label">Links</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-slate-950 border-t border-slate-800 relative overflow-hidden isolate">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="images/site5-2-modernglassbridgearchitecturelowanglebla.jpg" alt="Modern Architecture" 
+                 class="w-full h-full object-cover opacity-25" loading="lazy" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/60 to-slate-950/90"></div>
+        </div>
+        
+        <div class="relative z-10 container-modern">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-fluid-heading text-white mb-4">Ready to Deploy Sovereign AI?</h2>
+                    <p class="text-fluid-body text-slate-400">Contact our infrastructure team for a custom solution</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
+                    <!-- Lead Capture Form -->
+                    <div class="p-8 rounded-2xl bg-slate-800/80 backdrop-blur border border-slate-700">
+                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="material-symbols-sharp text-amber-400">send</span>
+                            Request a Quote
+                        </h3>
+                        <form id="lead-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="lead-name" class="block text-sm font-medium text-slate-300 mb-1.5">Full Name *</label>
+                                    <input type="text" id="lead-name" name="name" required 
+                                           class="form-input" placeholder="Your name">
+                                </div>
+                                <div>
+                                    <label for="lead-company" class="block text-sm font-medium text-slate-300 mb-1.5">Company *</label>
+                                    <input type="text" id="lead-company" name="company" required 
+                                           class="form-input" placeholder="Company name">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="lead-email" class="block text-sm font-medium text-slate-300 mb-1.5">Work Email *</label>
+                                    <input type="email" id="lead-email" name="email" required 
+                                           class="form-input" placeholder="you@company.com">
+                                </div>
+                                <div>
+                                    <label for="lead-phone" class="block text-sm font-medium text-slate-300 mb-1.5">Phone</label>
+                                    <input type="tel" id="lead-phone" name="phone" 
+                                           class="form-input" placeholder="+27 (0) xx xxx xxxx">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="lead-usecase" class="block text-sm font-medium text-slate-300 mb-1.5">Primary Use Case</label>
+                                <select id="lead-usecase" name="usecase" class="form-input">
+                                    <option value="">Select a use case...</option>
+                                    <option value="fintech">Financial Services / Trading</option>
+                                    <option value="insurance">Insurance / Claims</option>
+                                    <option value="government">Government / Defence</option>
+                                    <option value="healthcare">Healthcare / Pharma</option>
+                                    <option value="telco">Telecommunications</option>
+                                    <option value="energy">Energy / Mining</option>
+                                    <option value="research">Research / Training</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="lead-message" class="block text-sm font-medium text-slate-300 mb-1.5">Tell us about your needs</label>
+                                <textarea id="lead-message" name="message" rows="3" 
+                                          class="form-input resize-none" placeholder="Describe your AI infrastructure requirements..."></textarea>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <input type="checkbox" id="lead-consent" name="consent" required 
+                                       class="mt-1 w-4 h-4 rounded border-slate-600 text-amber-500 focus:ring-amber-500 bg-slate-700">
+                                <label for="lead-consent" class="text-xs text-slate-400">
+                                    I agree to receive communications from VCB-AI. Your data will be processed according to our privacy policy and will never be shared with third parties.
+                                </label>
+                            </div>
+                            <button type="submit" class="btn-primary w-full justify-center text-lg py-4">
+                                <span class="material-symbols-sharp">send</span>
+                                Request Custom Quote
+                            </button>
+                        </form>
+                        <div id="form-success" class="hidden text-center py-8">
+                            <span class="material-symbols-sharp text-6xl text-green-400 mb-4">check_circle</span>
+                            <h4 class="text-xl font-bold text-white mb-2">Thank You!</h4>
+                            <p class="text-slate-400">Our infrastructure team will contact you within 24 hours.</p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info Cards -->
+                    <div class="space-y-6">
+                        <div class="p-6 rounded-xl bg-slate-800/80 backdrop-blur border border-slate-700 hover:border-amber-500/30 transition-colors flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-sharp text-2xl text-amber-400">mail</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Email Us</h4>
+                                <a href="mailto:infrastructure@vcb-ai.online" class="text-amber-400 hover:underline">infrastructure@vcb-ai.online</a>
+                                <p class="text-sm text-slate-400 mt-1">Response within 24 hours</p>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-slate-800/80 backdrop-blur border border-slate-700 hover:border-amber-500/30 transition-colors flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-sharp text-2xl text-amber-400">call</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Call Us</h4>
+                                <a href="tel:+27105550123" class="text-amber-400 hover:underline">+27 (0) 10 555 0123</a>
+                                <p class="text-sm text-slate-400 mt-1">Mon-Fri, 8am-6pm SAST</p>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-slate-800/80 backdrop-blur border border-slate-700 hover:border-amber-500/30 transition-colors flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-sharp text-2xl text-amber-400">location_on</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Visit Our Datacenter</h4>
+                                <span class="text-slate-300">Pretoria, Gauteng</span>
+                                <p class="text-sm text-slate-400 mt-1">Schedule a tour of our Tier 3+ facility</p>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-gradient-to-br from-amber-500/10 to-red-500/10 border border-amber-500/30 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-amber-500/30 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-sharp text-2xl text-amber-300">verified</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Exclusive SA & SSA Partner</h4>
+                                <p class="text-sm text-slate-300">Only authorized reseller for Cerebras and DDN in South Africa and Sub-Saharan Africa.</p>
+                            </div>
+                        </div>
+                        <div class="text-center pt-4">
+                            <a href="index-new.html" class="btn-hero-secondary inline-flex">
+                                <span class="material-symbols-sharp">arrow_back</span>
+                                Back to VCB-AI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities - Cerebras & DDN Hexagon of Value -->
+    <section id="capabilities" class="py-24 bg-slate-900 border-t border-slate-800 relative overflow-hidden isolate">
+        <!-- Background image -->
+        <div class="absolute inset-0 z-0">
+            <img src="images/site4-4-minimalistarchitecturalfacadeconcreteand.jpg" alt="" class="w-full h-full object-cover opacity-5" loading="lazy" decoding="async">
+        </div>
+        
+        <div class="relative z-10 container-modern">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div class="max-w-xl">
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-amber-400 mb-4 block">Cerebras + DDN</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight">
+                        The Hexagon of Value.
+                    </h2>
+                    <p class="mt-4 text-slate-400">Six pillars powering the world's fastest AI infrastructure. Cerebras silicon meets DDN storage.</p>
+                </div>
+                <div class="hidden md:block">
+                    <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="#f59e0b" stroke-width="1" opacity="0.3"/>
+                        <path d="M50 20L75.9808 35V65L50 80L24.0192 65V35L50 20Z" stroke="#f59e0b" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Wafer-Scale Speed -->
+                <div class="group bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-amber-500/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="material-symbols-sharp text-8xl text-amber-500">bolt</span>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 bg-slate-700/50 border border-slate-600 rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-sharp text-2xl text-amber-400">speed</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">01</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Wafer-Scale Speed</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            Cerebras CS-3 delivers 125 PetaFLOPS on a single wafer. Train models in hours, not weeks. The fastest AI chip ever built.
+                        </p>
+                        <div class="border-t border-slate-700 pt-4 flex gap-3 flex-wrap">
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">900,000 Cores</span>
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">44GB SRAM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Exascale Storage -->
+                <div class="group bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-amber-500/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="material-symbols-sharp text-8xl text-amber-500">database</span>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 bg-slate-700/50 border border-slate-600 rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-sharp text-2xl text-amber-400">storage</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">02</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Exascale Storage</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            DDN AI400X2 and EXAScaler deliver multi-TB/s throughput. Purpose-built for AI workloads with zero bottlenecks.
+                        </p>
+                        <div class="border-t border-slate-700 pt-4 flex gap-3 flex-wrap">
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">Parallel File System</span>
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">NVMe Flash</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Memory Bandwidth -->
+                <div class="group bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-amber-500/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="material-symbols-sharp text-8xl text-amber-500">memory</span>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 bg-slate-700/50 border border-slate-600 rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-sharp text-2xl text-amber-400">hub</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">03</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Memory Bandwidth</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            21 PB/s on-chip memory bandwidth eliminates GPU memory walls. Train 100B+ parameter models without compromise.
+                        </p>
+                        <div class="border-t border-slate-700 pt-4 flex gap-3 flex-wrap">
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">No HBM Limits</span>
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">Linear Scaling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Data Pipeline -->
+                <div class="group bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-amber-500/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="material-symbols-sharp text-8xl text-amber-500">sync_alt</span>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 bg-slate-700/50 border border-slate-600 rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-sharp text-2xl text-amber-400">route</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">04</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Zero-Stall Pipeline</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            DDN's intelligent data orchestration keeps Cerebras fed. Real-time checkpoint saves without training interruption.
+                        </p>
+                        <div class="border-t border-slate-700 pt-4 flex gap-3 flex-wrap">
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">Auto-Tiering</span>
+                            <span class="px-3 py-1.5 bg-slate-700/50 rounded-lg text-[10px] font-bold uppercase tracking-wide text-slate-300">Burst Buffer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 & 6: Combined Value - Featured Double Width -->
+                <div class="group bg-gradient-to-br from-amber-900/30 via-slate-800/80 to-slate-900 backdrop-blur-sm rounded-2xl p-8 border border-amber-500/30 hover:border-amber-400/50 transition-all duration-300 relative overflow-hidden md:col-span-2">
+                    <div class="absolute inset-0 z-0">
+                        <img src="images/site4-3-abstractgenerativeaineuralnetworknodesco.jpg" alt="Gen AI" class="w-full h-full object-cover opacity-20 mix-blend-overlay" loading="lazy" decoding="async">
+                    </div>
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl"></div>
+                    
+                    <div class="relative z-10 flex flex-col md:flex-row gap-8 items-start">
+                        <div class="w-16 h-16 bg-amber-500/20 border border-amber-500/40 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/10">
+                            <span class="material-symbols-sharp text-3xl text-amber-400">deployed_code</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-3">
+                                <h3 class="text-2xl font-bold text-white">Energy Efficiency & South African Sovereignty</h3>
+                                <span class="px-2 py-1 bg-amber-500/20 border border-amber-500/30 rounded text-[10px] font-bold text-amber-300 uppercase">05 & 06</span>
+                            </div>
+                            <p class="text-slate-300 leading-relaxed mb-6 max-w-lg">
+                                20x more energy efficient than GPU clusters. Deploy locally for data sovereignty, POPIA compliance, and reduced latency. Your data never leaves South African soil.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-4 py-2 bg-amber-500/10 text-xs font-bold uppercase tracking-widest border border-amber-500/20 rounded-lg text-amber-200">Green Compute</span>
+                                <span class="px-4 py-2 bg-amber-500/10 text-xs font-bold uppercase tracking-widest border border-amber-500/20 rounded-lg text-amber-200">On-Prem Ready</span>
+                                <span class="px-4 py-2 bg-amber-500/10 text-xs font-bold uppercase tracking-widest border border-amber-500/20 rounded-lg text-amber-200">Data Sovereignty</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission Section -->
+    <section class="relative bg-slate-950">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+            <!-- Image Side -->
+            <div class="h-[50vh] lg:h-auto relative bg-black overflow-hidden group">
+                <img src="images/site1-2-blackandwhitechesspieceminimalistphotogr.jpg" alt="Strategic Vision" class="w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-105 opacity-60" loading="lazy" decoding="async">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                <div class="absolute bottom-12 inset-inline-12">
+                    <h3 class="text-fluid-subhead text-white mb-4">Proof, Not Promises.</h3>
+                    <p class="text-white/70 border-s-2 border-amber-500 ps-4">
+                        We ship the plumbing so the outcomes stick. From racks to routers to headsets.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Text Side -->
+            <div class="bg-slate-900 p-12 lg:p-20 flex flex-col justify-center border-l border-slate-800">
+                <div class="space-y-12">
+                    <div>
+                        <span class="text-xs font-bold tracking-[0.3em] uppercase text-amber-400 mb-4 block">Our Vision</span>
+                        <p class="text-2xl md:text-3xl text-white font-medium leading-tight">
+                            To be the essential, integrated partner for businesses in South Africa, driving the future of data-driven innovation.
+                        </p>
+                    </div>
+                    
+                    <div class="h-px bg-gradient-to-r from-amber-500/50 via-slate-600 to-transparent"></div>
+                    
+                    <div>
+                        <span class="text-xs font-bold tracking-[0.3em] uppercase text-amber-400 mb-4 block">The Mission</span>
+                        <p class="text-xl text-slate-300 leading-relaxed">
+                            Turn AI into measurable outcomes without compromising trust. Encryption everywhere, zero-trust access, and immutable storage.
+                        </p>
+                    </div>
+
+                    <div class="h-px bg-gradient-to-r from-amber-500/50 via-slate-600 to-transparent"></div>
+                    
+                    <div>
+                        <span class="text-xs font-bold tracking-[0.3em] uppercase text-amber-400 mb-4 block">The VCB Promise</span>
+                        <p class="text-xl text-slate-300 leading-relaxed">
+                            AI when smart, non-AI when smarter. We deliver solutions that work—backed by experience and precision.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main><!-- End main content -->
+
+    <!-- =============================================
+         INFRASTRUCTURE AI ASSISTANT
+         Focused on architecture, sizing, and apps
+         ============================================= -->
+    
+    <!-- AI Chat Toggle Button -->
+    <button id="ai-chat-toggle" class="ai-chat-toggle" aria-label="Open Infrastructure AI Assistant" aria-expanded="false">
+        <div class="ai-toggle-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                <circle cx="15" cy="10" r="1" fill="currentColor"/>
+            </svg>
+        </div>
+        <span class="ai-toggle-badge">AI</span>
+        <span class="ai-toggle-pulse"></span>
+    </button>
+    
+    <!-- AI Chat Panel -->
+    <div id="ai-chat-panel" class="ai-chat-panel" role="dialog" aria-labelledby="ai-chat-title" aria-hidden="true">
+        <div class="ai-chat-container">
+            <!-- Header -->
+            <div class="ai-chat-header">
+                <div class="ai-chat-avatar">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="url(#ai-grad)" opacity="0.2"/>
+                        <circle cx="16" cy="16" r="10" fill="url(#ai-grad)"/>
+                        <path d="M12 14h1v4h-1zM19 14h1v4h-1zM14 20c1 1 3 1 4 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="ai-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#f59e0b"/>
+                                <stop offset="100%" style="stop-color:#ef4444"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="ai-chat-title-block">
+                    <h3 id="ai-chat-title" class="ai-chat-title">Infrastructure AI</h3>
+                    <span class="ai-chat-status">
+                        <span class="ai-status-dot"></span>
+                        Ready to help
+                    </span>
+                </div>
+                <button id="ai-chat-close" class="ai-chat-close" aria-label="Close chat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Messages -->
+            <div id="ai-chat-messages" class="ai-chat-messages">
+                <!-- Welcome message -->
+                <div class="ai-message ai-message-assistant">
+                    <div class="ai-message-bubble">
+                        <p>👋 Hi! I'm your <strong>Infrastructure AI Assistant</strong>.</p>
+                        <p>I can help you with:</p>
+                        <ul>
+                            <li>🏗️ <strong>Architecture</strong> – Understanding the Cerebras & DDN stack</li>
+                            <li>📊 <strong>Sizing</strong> – Recommending cluster configurations</li>
+                            <li>💼 <strong>Use Cases</strong> – Matching workloads to infrastructure</li>
+                        </ul>
+                        <p>What would you like to know?</p>
+                    </div>
+                </div>
+                
+                <!-- Quick action buttons -->
+                <div class="ai-quick-actions">
+                    <button class="ai-quick-btn" data-question="What is the CS-3 Wafer-Scale Engine?">
+                        <span>🔥</span> What is CS-3?
+                    </button>
+                    <button class="ai-quick-btn" data-question="How do I size a cluster for 1000 concurrent users?">
+                        <span>📏</span> Sizing guide
+                    </button>
+                    <button class="ai-quick-btn" data-question="What models can run on this infrastructure?">
+                        <span>🤖</span> Supported models
+                    </button>
+                    <button class="ai-quick-btn" data-question="Compare Tier 1, 2, and 3 configurations">
+                        <span>⚖️</span> Compare tiers
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Input -->
+            <div class="ai-chat-input-container">
+                <div class="ai-chat-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="ai-chat-input" 
+                        class="ai-chat-input" 
+                        placeholder="Ask about architecture, sizing, or use cases..."
+                        aria-label="Type your question"
+                    />
+                    <button id="ai-chat-send" class="ai-chat-send" aria-label="Send message">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </button>
+                </div>
+                <p class="ai-chat-disclaimer">
+                    Powered by VCB Infrastructure Knowledge Base
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-12" role="contentinfo">
+        <div class="container-modern">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-6">
+                    <span class="text-slate-500 text-sm">Exclusive SA & SSA Reseller for:</span>
+                    <div class="flex gap-6 items-center">
+                        <!-- Cerebras Mini Logo -->
+                        <div class="flex items-center gap-2 text-amber-400/80 hover:text-amber-400 transition-colors">
+                            <svg viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor">
+                                <rect x="2" y="2" width="20" height="20" rx="3" opacity="0.3"/>
+                                <rect x="5" y="5" width="14" height="14" rx="2"/>
+                                <rect x="8" y="8" width="2" height="2" fill="#0f172a"/>
+                                <rect x="11" y="8" width="2" height="2" fill="#0f172a"/>
+                                <rect x="14" y="8" width="2" height="2" fill="#0f172a"/>
+                                <rect x="8" y="11" width="2" height="2" fill="#0f172a"/>
+                                <rect x="11" y="11" width="2" height="2" fill="#0f172a"/>
+                                <rect x="14" y="11" width="2" height="2" fill="#0f172a"/>
+                                <rect x="8" y="14" width="2" height="2" fill="#0f172a"/>
+                                <rect x="11" y="14" width="2" height="2" fill="#0f172a"/>
+                                <rect x="14" y="14" width="2" height="2" fill="#0f172a"/>
+                            </svg>
+                            <span class="font-bold text-sm tracking-wider">CEREBRAS</span>
+                        </div>
+                        
+                        <div class="w-px h-6 bg-slate-700"></div>
+                        
+                        <!-- DDN Mini Logo -->
+                        <div class="flex items-center gap-2 text-red-400/80 hover:text-red-400 transition-colors">
+                            <svg viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor">
+                                <rect x="3" y="4" width="18" height="4" rx="1"/>
+                                <circle cx="6" cy="6" r="1" fill="#0f172a"/>
+                                <rect x="3" y="10" width="18" height="4" rx="1" opacity="0.7"/>
+                                <circle cx="6" cy="12" r="1" fill="#0f172a"/>
+                                <rect x="3" y="16" width="18" height="4" rx="1" opacity="0.4"/>
+                                <circle cx="6" cy="18" r="1" fill="#0f172a"/>
+                            </svg>
+                            <span class="font-bold text-sm tracking-wider">DDN</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-slate-500 text-sm">
+                    © 2026 VCB-AI Solutions. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modular JavaScript -->
+    <script src="js/infrastructure-config.js"></script>
+    <script src="js/infrastructure-cluster.js"></script>
+    <script src="js/infrastructure-ui.js"></script>
+    <script src="js/infrastructure-ai-chat.js"></script>
+</body>
+</html>

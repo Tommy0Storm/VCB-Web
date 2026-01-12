@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- South Africa simplified outline -->
+  <path 
+    d="M50 250 L80 180 L100 160 L130 150 L180 140 L220 145 L260 160 L300 180 L340 220 L350 260 L340 300 L300 330 L250 350 L200 360 L150 350 L100 320 L60 290 L50 250 Z" 
+    fill="#404040" 
+    stroke="#666666" 
+    stroke-width="2"
+  />
+  
+  <!-- Lesotho (enclave) -->
+  <ellipse cx="260" cy="280" rx="20" ry="15" fill="#333333" stroke="#666666" stroke-width="1"/>
+  
+  <!-- Gauteng Province highlighted -->
+  <path 
+    d="M195 185 L220 180 L240 190 L245 210 L235 230 L215 235 L195 225 L190 205 L195 185 Z" 
+    fill="#ffffff" 
+    stroke="#ffffff" 
+    stroke-width="2"
+  />
+  
+  <!-- Gauteng label -->
+  <text x="215" y="212" font-family="Quicksand, sans-serif" font-size="10" font-weight="700" fill="#000000" text-anchor="middle">GP</text>
+  
+  <!-- South Africa label -->
+  <text x="200" y="380" font-family="Quicksand, sans-serif" font-size="14" font-weight="600" fill="#888888" text-anchor="middle">SOUTH AFRICA</text>
+  
+  <!-- Data centre indicator -->
+  <circle cx="217" cy="208" r="4" fill="#000000"/>
+  <circle cx="217" cy="208" r="8" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Legend -->
+  <rect x="280" y="140" width="12" height="12" fill="#ffffff" stroke="#666666"/>
+  <text x="298" y="150" font-family="Quicksand, sans-serif" font-size="9" fill="#888888">Gauteng</text>
+  <text x="298" y="162" font-family="Quicksand, sans-serif" font-size="8" fill="#666666">Data Centre</text>
+</svg>

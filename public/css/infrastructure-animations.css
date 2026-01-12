@@ -1,0 +1,494 @@
+/* Infrastructure Animations */
+
+/* =============================================
+   MODERN ANIMATION BEST PRACTICES
+   - Uses CSS custom properties for timing
+   - Respects prefers-reduced-motion
+   - GPU-accelerated transforms
+   ============================================= */
+
+:root {
+    /* Animation timing tokens */
+    --duration-fast: 0.15s;
+    --duration-normal: 0.3s;
+    --duration-slow: 0.5s;
+    --duration-slower: 0.8s;
+    
+    /* Easing functions */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes flow {
+    0% {
+        stroke-dashoffset: 20;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(245, 158, 11, 0.4);
+    }
+}
+
+@keyframes pulseHighlight {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+    }
+    25% {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+    }
+    50% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px rgba(245, 158, 11, 0);
+    }
+    75% {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+    }
+}
+
+@keyframes rackSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scaleY(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.6s ease forwards;
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.5s ease forwards;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.5s ease forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Staggered Animations */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Rack Unit Animations */
+.rack-unit {
+    animation: rackSlideIn 0.4s ease forwards;
+    opacity: 0;
+}
+
+.rack-unit:nth-child(1) { animation-delay: 0ms; }
+.rack-unit:nth-child(2) { animation-delay: 100ms; }
+.rack-unit:nth-child(3) { animation-delay: 200ms; }
+.rack-unit:nth-child(4) { animation-delay: 300ms; }
+.rack-unit:nth-child(5) { animation-delay: 400ms; }
+.rack-unit:nth-child(6) { animation-delay: 500ms; }
+.rack-unit:nth-child(7) { animation-delay: 600ms; }
+.rack-unit:nth-child(8) { animation-delay: 700ms; }
+
+/* Flow Lines */
+.flow-line {
+    stroke-dasharray: 10 10;
+    animation: flow 1s linear infinite;
+}
+
+/* Hover Transitions */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+/* Scroll Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Loading States */
+.skeleton {
+    background: linear-gradient(90deg, var(--slate-700) 25%, var(--slate-600) 50%, var(--slate-700) 75%);
+    background-size: 200% 100%;
+    animation: skeleton 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Button Press Effect */
+.btn-press {
+    transition: transform 0.1s ease;
+}
+
+.btn-press:active {
+    transform: scale(0.97);
+}
+
+/* Card Hover Effects */
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Data Flow Animation for Architecture */
+.data-flow {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #0ea5e9;
+    border-radius: 50%;
+    animation: dataFlow 2s ease-in-out infinite;
+}
+
+@keyframes dataFlow {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+/* Gradient Animation for Hero */
+.animated-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ========================================
+   VISIO DIAGRAM PREMIUM ANIMATIONS
+   ======================================== */
+
+/* Connection Line Pulse */
+@keyframes connectionPulse {
+    0%, 100% { 
+        stroke-opacity: 0.3;
+        stroke-width: 2;
+    }
+    50% { 
+        stroke-opacity: 0.8;
+        stroke-width: 3.5;
+    }
+}
+
+/* Enhanced Node Glow */
+@keyframes nodeGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px currentColor);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px currentColor);
+    }
+}
+
+/* Status LED Pulse */
+@keyframes statusPulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    50% { 
+        opacity: 0.8;
+        transform: scale(1.2);
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+    }
+}
+
+/* Data Flowing Through Lines */
+@keyframes dataFlow {
+    0% { stroke-dashoffset: 30; }
+    100% { stroke-dashoffset: 0; }
+}
+
+/* Connection Beam Effect */
+@keyframes beamGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);
+    }
+    50% {
+        filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 15px currentColor);
+    }
+}
+
+.visio-node {
+    animation: visioNodeEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes visioNodeEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.visio-node:nth-child(1) { animation-delay: 0.1s; }
+.visio-node:nth-child(2) { animation-delay: 0.15s; }
+.visio-node:nth-child(3) { animation-delay: 0.2s; }
+.visio-node:nth-child(4) { animation-delay: 0.25s; }
+.visio-node:nth-child(5) { animation-delay: 0.3s; }
+.visio-node:nth-child(6) { animation-delay: 0.35s; }
+.visio-node:nth-child(7) { animation-delay: 0.4s; }
+.visio-node:nth-child(8) { animation-delay: 0.45s; }
+
+.visio-fabric {
+    animation: fabricSlide 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes fabricSlide {
+    0% {
+        opacity: 0;
+        transform: scaleX(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+.visio-dc-box {
+    animation: dcBoxReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+@keyframes dcBoxReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        border-color: rgba(245, 158, 11, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        border-color: rgba(245, 158, 11, 0.4);
+    }
+}
+
+.visio-dc-box.visible {
+    opacity: 1;
+}
+
+/* Connection Lines - Premium Styling */
+.visio-connection-line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: connectionPulse 2.5s ease-in-out infinite;
+}
+
+.visio-connection-line:nth-child(odd) {
+    animation-delay: 0.75s;
+}
+
+.visio-connection-animated {
+    stroke-dasharray: 8 4;
+    animation: dataFlow 1s linear infinite, connectionPulse 2.5s ease-in-out infinite;
+}
+
+/* Particle effect for active data transfer */
+@keyframes particleFlow {
+    0% {
+        offset-distance: 0%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        offset-distance: 100%;
+        opacity: 0;
+    }
+}
+
+/* Focus States */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    background: #f59e0b;
+    color: #000;
+    font-weight: 700;
+    z-index: 9999;
+    transition: top var(--duration-fast) ease;
+}
+
+.skip-link:focus {
+    top: 0.5rem;
+}
+
+/* Reduced Motion - respects user preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+    
+    .rack-unit {
+        opacity: 1;
+    }
+}
+
+/* Print styles - hide animations */
+@media print {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

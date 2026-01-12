@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="400" fill="url(#bg-grad)"/>
+  
+  <!-- Decorative grid -->
+  <g opacity="0.1">
+    <line x1="0" y1="100" x2="600" y2="100" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="600" y2="200" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="600" y2="300" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="400" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="400" stroke="#ffffff" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="300" y="50" font-family="Quicksand, sans-serif" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle">METHODOLOGY</text>
+  <text x="300" y="75" font-family="Quicksand, sans-serif" font-size="12" font-weight="400" fill="#888888" text-anchor="middle">Trained with Oversight of Counsel • 30+ Years Combined Experience</text>
+  
+  <!-- 6 Core Frameworks - arranged in 2 rows of 3 -->
+  <!-- Row 1 -->
+  <g transform="translate(100, 120)">
+    <rect x="-40" y="-10" width="80" height="90" rx="4" fill="#1f1f1f" stroke="#333333"/>
+    <text x="0" y="20" font-family="Quicksand, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">01</text>
+    <text x="0" y="45" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">ISSUE</text>
+    <text x="0" y="58" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">SPOTTING</text>
+    <text x="0" y="75" font-family="Quicksand, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Core Questions</text>
+  </g>
+  
+  <g transform="translate(300, 120)">
+    <rect x="-40" y="-10" width="80" height="90" rx="4" fill="#1f1f1f" stroke="#333333"/>
+    <text x="0" y="20" font-family="Quicksand, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">02</text>
+    <text x="0" y="45" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">PRINCIPLE</text>
+    <text x="0" y="58" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">EXTRACTION</text>
+    <text x="0" y="75" font-family="Quicksand, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Ratio Decidendi</text>
+  </g>
+  
+  <g transform="translate(500, 120)">
+    <rect x="-40" y="-10" width="80" height="90" rx="4" fill="#1f1f1f" stroke="#333333"/>
+    <text x="0" y="20" font-family="Quicksand, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">03</text>
+    <text x="0" y="45" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">PRECEDENT</text>
+    <text x="0" y="58" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">ANALYSIS</text>
+    <text x="0" y="75" font-family="Quicksand, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Stare Decisis</text>
+  </g>
+  
+  <!-- Row 2 -->
+  <g transform="translate(100, 270)">
+    <rect x="-40" y="-10" width="80" height="90" rx="4" fill="#1f1f1f" stroke="#333333"/>
+    <text x="0" y="20" font-family="Quicksand, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">04</text>
+    <text x="0" y="45" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">JUDGMENT</text>
+    <text x="0" y="58" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">STRUCTURING</text>
+    <text x="0" y="75" font-family="Quicksand, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Legal Drafting</text>
+  </g>
+  
+  <g transform="translate(300, 270)">
+    <rect x="-40" y="-10" width="80" height="90" rx="4" fill="#1f1f1f" stroke="#333333"/>
+    <text x="0" y="20" font-family="Quicksand, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">05</text>
+    <text x="0" y="45" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">OUTCOME</text>
+    <text x="0" y="58" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">REASONING</text>
+    <text x="0" y="75" font-family="Quicksand, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Risk Assessment</text>
+  </g>
+  
+  <g transform="translate(500, 270)">
+    <rect x="-40" y="-10" width="80" height="90" rx="4" fill="#1f1f1f" stroke="#333333"/>
+    <text x="0" y="20" font-family="Quicksand, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">06</text>
+    <text x="0" y="45" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">LEGAL</text>
+    <text x="0" y="58" font-family="Quicksand, sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">SUMMARISATION</text>
+    <text x="0" y="75" font-family="Quicksand, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Court-Ready</text>
+  </g>
+  
+  <!-- Connecting lines between frameworks -->
+  <g stroke="#333333" stroke-width="1" opacity="0.5">
+    <line x1="140" y1="155" x2="260" y2="155"/>
+    <line x1="340" y1="155" x2="460" y2="155"/>
+    <line x1="140" y1="305" x2="260" y2="305"/>
+    <line x1="340" y1="305" x2="460" y2="305"/>
+  </g>
+  
+  <!-- Bottom text -->
+  <text x="300" y="385" font-family="Quicksand, sans-serif" font-size="10" fill="#444444" text-anchor="middle">6 Core Legal Frameworks • South African Bar Excellence</text>
+</svg>

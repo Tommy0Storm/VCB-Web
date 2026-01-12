@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ╔═══════════════════════════════════════════════════════════════════════════╗
+  ║  GOGGA CHAT APP - IMAGE CREATION SPINNER                                  ║
+  ║  For quick image generation (~5 seconds)                                  ║
+  ╠═══════════════════════════════════════════════════════════════════════════╣
+  ║                                                                           ║
+  ║  🎨 CONCEPT: "Light Painting" - Creative energy bursting into existence   ║
+  ║                                                                           ║
+  ║  SA FLAG COLORS: Green #007A4D, Yellow #FFB612, Red #DE3831,              ║
+  ║                  Blue #002395, Black #000000, White #FFFFFF               ║
+  ║                                                                           ║
+  ╚═══════════════════════════════════════════════════════════════════════════╝
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="120" height="120" viewBox="0 0 120 120"
+     style="display:block; background:transparent;"
+     role="img" aria-label="Gogga is creating your image">
+  <defs>
+    <!-- Glow filters -->
+    <filter id="imgGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="paintGlow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Animated rainbow gradient -->
+    <linearGradient id="creativePulse" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%">
+        <animate attributeName="stop-color" dur="2.5s" repeatCount="indefinite"
+                 values="#007A4D;#FFB612;#DE3831;#002395;#007A4D"/>
+      </stop>
+      <stop offset="100%">
+        <animate attributeName="stop-color" dur="2.5s" repeatCount="indefinite"
+                 values="#FFB612;#DE3831;#002395;#007A4D;#FFB612"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Radial burst gradient -->
+    <radialGradient id="burstGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#FFB612" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#DE3831" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 1: PAINT SPLASH BURSTS - Dynamic color explosions                 -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(60,60)">
+    <!-- Green splash - organic blob shape -->
+    <path d="M0,0 Q8,-25 0,-35 Q-8,-25 0,0" fill="#007A4D" filter="url(#paintGlow)" opacity="0">
+      <animate attributeName="opacity" dur="1.25s" repeatCount="indefinite" 
+               values="0;0;0.9;0.7;0" keyTimes="0;0.1;0.3;0.6;1"/>
+      <animateTransform attributeName="transform" type="scale" dur="1.25s" repeatCount="indefinite"
+                        values="0.3;0.3;1.2;1.4;1.5" keyTimes="0;0.1;0.3;0.6;1"/>
+    </path>
+    
+    <!-- Yellow splash - rotated 72° -->
+    <path d="M0,0 Q8,-25 0,-35 Q-8,-25 0,0" fill="#FFB612" filter="url(#paintGlow)" opacity="0"
+          transform="rotate(72)">
+      <animate attributeName="opacity" dur="1.25s" repeatCount="indefinite" 
+               values="0;0;0.9;0.7;0" keyTimes="0;0.1;0.3;0.6;1" begin="0.15s"/>
+      <animateTransform attributeName="transform" type="scale" dur="1.25s" repeatCount="indefinite"
+                        values="0.3;0.3;1.2;1.4;1.5" keyTimes="0;0.1;0.3;0.6;1" begin="0.15s"/>
+    </path>
+    
+    <!-- Red splash - rotated 144° -->
+    <path d="M0,0 Q8,-25 0,-35 Q-8,-25 0,0" fill="#DE3831" filter="url(#paintGlow)" opacity="0"
+          transform="rotate(144)">
+      <animate attributeName="opacity" dur="1.25s" repeatCount="indefinite" 
+               values="0;0;0.9;0.7;0" keyTimes="0;0.1;0.3;0.6;1" begin="0.3s"/>
+      <animateTransform attributeName="transform" type="scale" dur="1.25s" repeatCount="indefinite"
+                        values="0.3;0.3;1.2;1.4;1.5" keyTimes="0;0.1;0.3;0.6;1" begin="0.3s"/>
+    </path>
+    
+    <!-- Blue splash - rotated 216° -->
+    <path d="M0,0 Q8,-25 0,-35 Q-8,-25 0,0" fill="#002395" filter="url(#paintGlow)" opacity="0"
+          transform="rotate(216)">
+      <animate attributeName="opacity" dur="1.25s" repeatCount="indefinite" 
+               values="0;0;0.9;0.7;0" keyTimes="0;0.1;0.3;0.6;1" begin="0.45s"/>
+      <animateTransform attributeName="transform" type="scale" dur="1.25s" repeatCount="indefinite"
+                        values="0.3;0.3;1.2;1.4;1.5" keyTimes="0;0.1;0.3;0.6;1" begin="0.45s"/>
+    </path>
+    
+    <!-- White splash - rotated 288° -->
+    <path d="M0,0 Q8,-25 0,-35 Q-8,-25 0,0" fill="#ffffff" filter="url(#paintGlow)" opacity="0"
+          transform="rotate(288)">
+      <animate attributeName="opacity" dur="1.25s" repeatCount="indefinite" 
+               values="0;0;0.8;0.6;0" keyTimes="0;0.1;0.3;0.6;1" begin="0.6s"/>
+      <animateTransform attributeName="transform" type="scale" dur="1.25s" repeatCount="indefinite"
+                        values="0.3;0.3;1.2;1.4;1.5" keyTimes="0;0.1;0.3;0.6;1" begin="0.6s"/>
+    </path>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 2: SPINNING BRUSH STROKES - Artist's brush creating               -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(60,60)">
+    <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2.5s" 
+                      repeatCount="indefinite" additive="sum"/>
+    
+    <!-- Brush stroke 1 - curved paint trail -->
+    <path d="M12,0 Q18,-8 28,-6 Q38,-2 42,0 Q38,2 28,4 Q18,4 12,0" 
+          fill="#007A4D" opacity="0.85" filter="url(#imgGlow)">
+      <animate attributeName="opacity" dur="0.625s" repeatCount="indefinite" values="0.5;0.9;0.5"/>
+    </path>
+    
+    <!-- Brush stroke 2 -->
+    <path d="M12,0 Q18,-8 28,-6 Q38,-2 42,0 Q38,2 28,4 Q18,4 12,0" 
+          fill="#FFB612" opacity="0.85" transform="rotate(120)" filter="url(#imgGlow)">
+      <animate attributeName="opacity" dur="0.625s" repeatCount="indefinite" values="0.5;0.9;0.5" begin="0.21s"/>
+    </path>
+    
+    <!-- Brush stroke 3 -->
+    <path d="M12,0 Q18,-8 28,-6 Q38,-2 42,0 Q38,2 28,4 Q18,4 12,0" 
+          fill="#DE3831" opacity="0.85" transform="rotate(240)" filter="url(#imgGlow)">
+      <animate attributeName="opacity" dur="0.625s" repeatCount="indefinite" values="0.5;0.9;0.5" begin="0.42s"/>
+    </path>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 3: PIXEL ASSEMBLY RING - Digital creation effect                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(60,60)">
+    <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="3s" 
+                      repeatCount="indefinite" additive="sum"/>
+    
+    <!-- 12 pixels orbiting and pulsing -->
+    <rect x="24" y="-2" width="4" height="4" fill="#007A4D" rx="0.5">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#FFB612" rx="0.5" transform="rotate(30)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.083s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#DE3831" rx="0.5" transform="rotate(60)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.167s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#002395" rx="0.5" transform="rotate(90)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.25s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#ffffff" rx="0.5" transform="rotate(120)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.333s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#007A4D" rx="0.5" transform="rotate(150)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.417s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#FFB612" rx="0.5" transform="rotate(180)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.5s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#DE3831" rx="0.5" transform="rotate(210)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.583s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#002395" rx="0.5" transform="rotate(240)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.667s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#ffffff" rx="0.5" transform="rotate(270)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.75s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#007A4D" rx="0.5" transform="rotate(300)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.833s"/>
+    </rect>
+    <rect x="24" y="-2" width="4" height="4" fill="#FFB612" rx="0.5" transform="rotate(330)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0.3;1;0.3" begin="0.917s"/>
+    </rect>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 4: CREATIVE CORE - Camera lens / eye capturing the moment         -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(60,60)">
+    <!-- Outer lens ring -->
+    <circle cx="0" cy="0" r="16" fill="none" stroke="url(#creativePulse)" stroke-width="3" opacity="0.9">
+      <animate attributeName="r" dur="1.25s" repeatCount="indefinite" values="14;18;14"
+               calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+    </circle>
+    
+    <!-- Inner aperture simulation - 6 small arcs -->
+    <g opacity="0.7">
+      <animateTransform attributeName="transform" type="rotate" dur="2.5s" repeatCount="indefinite"
+                        values="0;30;0" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+      <path d="M0,-10 A10,10 0 0,1 8.66,-5" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M0,-10 A10,10 0 0,1 8.66,-5" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(60)"/>
+      <path d="M0,-10 A10,10 0 0,1 8.66,-5" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(120)"/>
+      <path d="M0,-10 A10,10 0 0,1 8.66,-5" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(180)"/>
+      <path d="M0,-10 A10,10 0 0,1 8.66,-5" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(240)"/>
+      <path d="M0,-10 A10,10 0 0,1 8.66,-5" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(300)"/>
+    </g>
+    
+    <!-- Core "eye" / lens center -->
+    <circle cx="0" cy="0" r="6" fill="#1a1a1a" filter="url(#imgGlow)">
+      <animate attributeName="r" dur="1.25s" repeatCount="indefinite" values="5;7;5"
+               calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+    </circle>
+    
+    <!-- Bright flash/capture point -->
+    <circle cx="0" cy="0" r="3" fill="#ffffff">
+      <animate attributeName="r" dur="0.625s" repeatCount="indefinite" values="2;4;2"/>
+      <animate attributeName="opacity" dur="0.625s" repeatCount="indefinite" values="0.6;1;0.6"/>
+    </circle>
+    
+    <!-- Catchlight reflection -->
+    <circle cx="-2" cy="-2" r="1" fill="#ffffff" opacity="0.8"/>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 5: MAGIC DUST TRAIL - Sparkles following the brush                -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(60,60)">
+    <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2.5s" 
+                      repeatCount="indefinite" additive="sum"/>
+    
+    <!-- Trailing sparkles at different distances -->
+    <circle cx="35" cy="5" r="1.5" fill="#ffffff" opacity="0">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0;0.9;0"/>
+      <animate attributeName="r" dur="0.5s" repeatCount="indefinite" values="0.5;2;0.5"/>
+    </circle>
+    
+    <circle cx="38" cy="-3" r="1" fill="#FFB612" opacity="0">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0;0.8;0" begin="0.1s"/>
+      <animate attributeName="r" dur="0.5s" repeatCount="indefinite" values="0.5;1.5;0.5" begin="0.1s"/>
+    </circle>
+    
+    <circle cx="32" cy="10" r="1" fill="#007A4D" opacity="0">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0;0.8;0" begin="0.2s"/>
+      <animate attributeName="r" dur="0.5s" repeatCount="indefinite" values="0.5;1.5;0.5" begin="0.2s"/>
+    </circle>
+    
+    <!-- More sparkle trails at 120° -->
+    <circle cx="35" cy="5" r="1.5" fill="#ffffff" opacity="0" transform="rotate(120)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0;0.9;0" begin="0.167s"/>
+    </circle>
+    
+    <circle cx="38" cy="-3" r="1" fill="#DE3831" opacity="0" transform="rotate(120)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0;0.8;0" begin="0.267s"/>
+    </circle>
+    
+    <!-- More sparkle trails at 240° -->
+    <circle cx="35" cy="5" r="1.5" fill="#ffffff" opacity="0" transform="rotate(240)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0;0.9;0" begin="0.333s"/>
+    </circle>
+    
+    <circle cx="38" cy="-3" r="1" fill="#002395" opacity="0" transform="rotate(240)">
+      <animate attributeName="opacity" dur="0.5s" repeatCount="indefinite" values="0;0.8;0" begin="0.433s"/>
+    </circle>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 6: FLASH BURST - Periodic camera flash effect                     -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(60,60)">
+    <circle cx="0" cy="0" r="50" fill="url(#burstGrad)" opacity="0">
+      <animate attributeName="opacity" dur="2.5s" repeatCount="indefinite" 
+               values="0;0;0;0.4;0" keyTimes="0;0.7;0.75;0.85;1"/>
+      <animate attributeName="r" dur="2.5s" repeatCount="indefinite"
+               values="20;20;20;55;60" keyTimes="0;0.7;0.75;0.85;1"/>
+    </circle>
+  </g>
+
+</svg>

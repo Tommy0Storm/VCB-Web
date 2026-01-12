@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>VCB — Viable Core Business | Enterprise AI Solutions South Africa</title>
+    <meta name="description" content="Human-first AI agents for enterprise. Production-ready solutions built with security, compliance, and African languages at their core.">
+    <link rel="icon" type="image/png" href="/logoWtext-transparent-BlackBack.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Quicksand & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet">
+
+    <style>
+        /* Modern CSS Custom Properties */
+        :root {
+            --nav-height: 5rem;
+            --container-max: 80rem;
+            --container-padding: 1.5rem;
+            --gap-sm: 1rem;
+            --gap-md: 1.5rem;
+            --gap-lg: 2rem;
+            --gap-xl: 3rem;
+            --radius-sm: 0.5rem;
+            --radius-md: 1rem;
+            --radius-lg: 1.5rem;
+            --radius-xl: 2rem;
+        }
+
+        /* Modern scroll-margin for fixed nav */
+        [id] {
+            scroll-margin-top: var(--nav-height);
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Quicksand', sans-serif; font-weight: 400; }
+        .font-brand-bold { font-family: 'Quicksand', sans-serif; font-weight: 700; }
+        .font-brand-medium { font-family: 'Quicksand', sans-serif; font-weight: 500; }
+
+        /* Fluid typography with clamp() */
+        .text-fluid-hero { font-size: clamp(3rem, 8vw, 8rem); }
+        .text-fluid-heading { font-size: clamp(2rem, 5vw, 3.5rem); }
+        .text-fluid-subheading { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+        .text-fluid-body { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+
+        /* Modern container with min() */
+        .container-modern {
+            width: min(var(--container-max), 100% - var(--container-padding) * 2);
+            margin-inline: auto;
+        }
+
+        /* Logical properties for RTL support */
+        .ps-6 { padding-inline-start: 1.5rem; }
+        .pe-6 { padding-inline-end: 1.5rem; }
+        .ms-auto { margin-inline-start: auto; }
+        .me-auto { margin-inline-end: auto; }
+
+        /* Dynamic viewport height for mobile */
+        .min-h-dvh { min-height: 100dvh; }
+        .h-dvh { height: 100dvh; }
+
+        /* Isolation for z-index stacking contexts */
+        .isolate { isolation: isolate; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f9fafb; }
+        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+        .icon-box-premium {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f3f4f6;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .group:hover .icon-box-premium {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-hover-effect {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(249,250,251,1) 100%);
+        }
+        
+        .card-hover-effect:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            border-color: #000;
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+        .bar {
+            width: 4px;
+            background: #111;
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+        @keyframes wave {
+            0%, 100% { height: 10%; opacity: 0.3; }
+            50% { height: 100%; opacity: 1; }
+        }
+        .bar:nth-child(odd) { animation-duration: 0.8s; }
+        .bar:nth-child(even) { animation-duration: 1.1s; }
+
+        /* Custom Range Sliders - Modern Minimal */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            width: 100%;
+        }
+        input[type="range"]::-webkit-slider-track {
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            margin-top: -6px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        input[type="range"]::-moz-range-track {
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .slider-red::-webkit-slider-thumb { background: #f43f5e; }
+        .slider-green::-webkit-slider-thumb { background: #10b981; }
+        .slider-white::-webkit-slider-thumb { background: #ffffff; }
+        .slider-amber::-webkit-slider-thumb { background: #f59e0b; }
+        .slider-red::-moz-range-thumb { background: #f43f5e; }
+        .slider-green::-moz-range-thumb { background: #10b981; }
+        .slider-white::-moz-range-thumb { background: #ffffff; }
+        .slider-amber::-moz-range-thumb { background: #f59e0b; }
+
+        /* Wave animation for Polyglot AI Engine */
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+    </style>
+</head>
+<body class="bg-[#fafafa] text-slate-800 antialiased selection:bg-black selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black/70 backdrop-blur-md border-b border-white/10"></div>
+        <div class="relative container-modern py-0">
+            <div class="flex justify-between items-center h-20 sm:h-28">
+                <a href="/" class="flex items-center group">
+                    <img src="/logoWtext-transparent-BlackBack.png" alt="VCB Logo" class="h-24 sm:h-36 md:h-48 w-auto">
+                </a>
+
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="/index-new.html" class="px-5 py-2.5 text-base font-bold uppercase tracking-widest text-white bg-white/20 rounded-full transition-all">Home</a>
+                    <a href="/lianela-v3.html" class="px-5 py-2.5 text-base font-bold uppercase tracking-widest text-white hover:bg-white/10 rounded-full transition-all">LIANELA</a>
+                    <a href="/project-darkmatter.html" class="px-5 py-2.5 text-base font-bold uppercase tracking-widest text-white hover:bg-white/10 rounded-full transition-all">DarkMatter</a>
+                    <a href="/infrastructure.html" class="px-5 py-2.5 text-base font-bold uppercase tracking-widest text-white hover:bg-white/10 rounded-full transition-all">Infrastructure</a>
+                    <a href="/LEGAL.html" class="px-5 py-2.5 text-base font-bold uppercase tracking-widest text-white hover:bg-white/10 rounded-full transition-all">Legal AI</a>
+                    <button onclick="openVee()" class="px-4 py-2 text-base font-bold uppercase tracking-widest text-white hover:bg-white/10 rounded-full transition-all flex items-center gap-3 bg-transparent">
+                        <img src="/images/GoggaIcon.png" alt="Gogga" class="w-12 h-12 hover:scale-110 transition-transform rounded-full">
+                        Gogga AI
+                    </button>
+                    <div class="w-px h-6 bg-white/20 mx-4"></div>
+                    <a href="#contact" class="group flex items-center gap-2 px-6 py-3 bg-white text-black text-base font-bold uppercase tracking-widest rounded-full hover:bg-slate-100 transition-all shadow-xl">
+                        <span>Contact</span>
+                        <span class="material-symbols-sharp text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-sharp text-3xl" id="mobile-menu-icon">menu</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Drawer -->
+            <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-lg border-b border-white/10 shadow-2xl">
+                <div class="container-modern py-6 flex flex-col gap-2">
+                    <a href="/index-new.html" class="text-white bg-white/20 px-4 py-3 rounded-lg text-base font-bold transition-all">Home</a>
+                    <a href="/lianela-v3.html" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">LIANELA</a>
+                    <a href="/project-darkmatter.html" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">DarkMatter</a>
+                    <a href="/infrastructure.html" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">Infrastructure</a>
+                    <a href="/LEGAL.html" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all">Legal AI</a>
+                    <button onclick="openVee()" class="text-left text-white hover:bg-white/10 px-4 py-3 rounded-lg text-base font-medium transition-all flex items-center gap-3">
+                        <img src="/images/GoggaIcon.png" alt="Gogga" class="w-8 h-8 rounded-full">
+                        Gogga AI
+                    </button>
+                    <div class="border-t border-white/10 my-2"></div>
+                    <a href="#contact" class="bg-white text-black px-4 py-3 rounded-lg text-base font-bold text-center transition-all hover:bg-slate-100">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: The Architecture of Certainty -->
+    <header class="relative min-h-[200vh] flex items-start pt-32 pb-16 overflow-hidden bg-black isolate">
+        <!-- Background Imagery -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="/images/site5-2-modernglassbridgearchitecturelowanglebla.jpg" alt="Architectural Structure" class="w-full h-full object-cover object-center opacity-80" loading="eager" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 container-modern w-full">
+            <div class="max-w-5xl reveal-up active">
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="h-[2px] w-16 bg-white"></span>
+                    <span class="text-sm font-bold tracking-[0.4em] uppercase text-white/90">The Architecture of Certainty</span>
+                </div>
+                
+                <h1 class="font-brand-bold text-white mb-10 tracking-tight" style="font-size: clamp(4rem, 10vw, 9rem); line-height: 1;">
+                    Strategy That Ships.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">Governance That Holds.</span>
+                </h1>
+
+                <p class="text-slate-200 mb-16 leading-relaxed font-light max-w-3xl" style="font-size: clamp(1.25rem, 2.5vw, 1.75rem);">
+                    Sovereign AI agents. Ultra-low-latency infrastructure. Strategic software supply. We are the backbone for the data-driven enterprise.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="#capabilities" class="group inline-flex items-center gap-4 px-12 py-6 bg-white text-black hover:bg-slate-100 transition-all rounded-2xl shadow-2xl font-bold uppercase tracking-widest text-sm">
+                        Explore Capabilities
+                        <span class="material-symbols-sharp text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                    <a href="#about" class="group inline-flex items-center gap-4 px-12 py-6 border-2 border-white text-white hover:bg-white hover:text-black transition-all rounded-2xl font-bold uppercase tracking-widest text-sm">
+                        About VCB
+                        <span class="material-symbols-sharp text-xl group-hover:translate-x-1 transition-transform">grid_view</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Stats Glass Card -->
+        <div class="hidden lg:block absolute bottom-24 right-16 z-20 reveal-up">
+            <div class="bg-white/90 backdrop-blur-xl p-10 max-w-md rounded-3xl shadow-2xl border border-white/50">
+                <!-- Fastest + Confidential Badge -->
+                <div class="flex items-center gap-2 mb-5 pb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 bg-black text-white rounded-full">
+                        <span class="material-symbols-sharp text-sm">bolt</span>
+                        <span class="text-[9px] font-bold uppercase tracking-widest">Fastest</span>
+                    </div>
+                    <span class="text-slate-300">+</span>
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 bg-black text-white rounded-full">
+                        <span class="material-symbols-sharp text-sm">lock</span>
+                        <span class="text-[9px] font-bold uppercase tracking-widest">Most Confidential</span>
+                    </div>
+                </div>
+                <div class="flex items-start justify-between mb-6">
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Enterprise AI</div>
+                        <div class="text-4xl font-brand-bold">99.7%</div>
+                    </div>
+                    <span class="material-symbols-sharp text-4xl text-slate-200">verified</span>
+                </div>
+                <div class="h-[1px] w-full bg-slate-100 mb-6"></div>
+                <div class="space-y-4">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-500">Languages Supported</span>
+                        <span class="font-bold">11 Official</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-500">Response Latency</span>
+                        <span class="font-bold">50ms</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-500">Compliance</span>
+                        <span class="font-bold text-green-600">SOC 2 · POPIA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 bg-white isolate">
+        <div class="container-modern">
+            <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+                <!-- Chess Knight Image -->
+                <div class="relative group">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="/images/site5-4-whitemarblechesspieceknightmacrominimali.jpg" alt="Strategic Focus" class="w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-105" loading="lazy" decoding="async">
+                    </div>
+                    <!-- Meet VCB Video Trigger -->
+                    <div id="video-trigger" class="absolute -bottom-6 -right-6 bg-black text-white p-8 rounded-2xl shadow-xl cursor-pointer hover:bg-slate-800 transition-all hover:scale-105 group/play">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-sharp text-3xl group-hover/play:scale-110 transition-transform">play_circle</span>
+                            <div>
+                                <div class="text-3xl font-brand-bold">MEET VCB</div>
+                                <div class="text-sm text-slate-300 mt-1">Click to watch</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-gray-50 border border-gray-200 rounded-full">
+                        <span class="material-symbols-sharp text-sm">verified</span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600">Human-First AI</span>
+                    </div>
+                    
+                    <h2 class="text-fluid-heading font-brand-bold text-black leading-tight">
+                        AI That Understands Africa
+                    </h2>
+                    
+                    <p class="text-fluid-body text-slate-600 leading-relaxed">
+                        Viable Core Business was founded on a simple but radical premise: AI should speak your language—literally. We build production-ready conversational agents that understand the nuances of African languages and cultures.
+                    </p>
+                    
+                    <p class="text-fluid-body text-slate-600 leading-relaxed">
+                        Our AI-first venture builder focuses on making artificial intelligence useful, secure, and compliant—not just shiny. By pioneering multi-skill fine-tuning on premier foundation models, VCB creates uniquely powerful tools for enterprise.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 pt-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-box-premium w-12 h-12">
+                                <span class="material-symbols-sharp text-xl">record_voice_over</span>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">Voice Intelligence</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="icon-box-premium w-12 h-12">
+                                <span class="material-symbols-sharp text-xl">visibility</span>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">Vision AI</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="icon-box-premium w-12 h-12">
+                                <span class="material-symbols-sharp text-xl">translate</span>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">11 Languages</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="icon-box-premium w-12 h-12">
+                                <span class="material-symbols-sharp text-xl">support_agent</span>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">Call Center Ready</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openPageModal('https://vcb-ai.online/aboutus.html')" class="inline-flex items-center gap-2 text-black font-bold text-sm uppercase tracking-widest mt-4 hover:gap-4 transition-all">
+                        Meet Our Team <span class="material-symbols-sharp">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voice Technology Section -->
+    <section id="bua" class="py-32 bg-black text-white relative overflow-hidden isolate">
+        <!-- Anchor for buasay compatibility -->
+        <div id="buasay" class="absolute -top-24"></div>
+        <div class="absolute inset-0 opacity-20">
+            <img src="/images/site5-3-digitalsoundwaveabstractblacklinesonwhit.jpg" alt="Sound Waves" class="w-full h-full object-cover invert" loading="lazy" decoding="async">
+        </div>
+        
+        <div class="relative container-modern">
+            <div class="grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
+                <!-- Left: Content -->
+                <div>
+                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/10 border border-white/20 rounded-full mb-8 cursor-pointer hover:bg-white/20 transition-all" onclick="openGoggaIntro()">
+                        <img src="/images/GoggaIcon.png" alt="Gogga" class="w-12 h-12" style="background: transparent;">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Powered by Gogga AI</span>
+                        <span class="material-symbols-sharp text-sm">play_circle</span>
+                    </div>
+                    
+                    <h2 class="text-fluid-heading font-brand-bold leading-tight mb-4">
+                        Voice Technology
+                    </h2>
+                    <p class="text-fluid-subheading text-slate-500 font-brand-medium mb-8">Test Your Cultural Hearing.</p>
+                    
+                    <p class="text-fluid-body text-slate-400 mb-10 leading-relaxed">
+                        Can you identify all 11 official South African languages? Try our Language Challenge and discover the power of <span class="text-white font-medium border-b border-white/30">Gogga AI</span>—the first AI that talks, hears, and sees in every official language.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 mb-10">
+                        <div class="border-s-2 border-white/20 ps-6">
+                            <div class="text-xl font-brand-bold mb-1">11 Languages</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-wider">Full Coverage</div>
+                        </div>
+                        <div class="border-s-2 border-white/20 ps-6">
+                            <div class="text-xl font-brand-bold mb-1">Sovereign</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-wider">Data Resident</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="openGogga()" class="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-gray-100 transition-all">
+                            <img src="/images/GoggaIcon.png" alt="Gogga" class="w-5 h-5 rounded-full">
+                            Meet Gogga AI
+                            <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                        </button>
+                        <button onclick="openPageModal('https://tommy0storm.github.io/BUA-XI')" class="inline-flex items-center gap-3 px-8 py-4 bg-white/10 border border-white/20 text-white rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-all">
+                            <span class="material-symbols-sharp text-sm">open_in_new</span>
+                            Try Live Demo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Language Challenge Game -->
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-white/10 to-transparent blur-xl opacity-30"></div>
+                    <div class="relative bg-[#0a0a0a] border border-white/10 rounded-2xl overflow-hidden">
+                        <!-- Header -->
+                        <div class="flex justify-between items-center p-6 border-b border-white/10">
+                            <div>
+                                <h3 class="text-xl font-brand-bold text-white">Language Challenge</h3>
+                                <p class="text-xs text-slate-500 uppercase tracking-widest mt-1">Test your cultural hearing</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-4xl font-mono font-bold text-white" id="bua-score">0</span>
+                                <div class="text-[10px] text-slate-600 uppercase tracking-wider">Streak</div>
+                            </div>
+                        </div>
+
+                        <!-- Game Area -->
+                        <div id="bua-game-ui" class="text-center p-8 relative min-h-[320px]">
+                            <!-- Challenge Word -->
+                            <div id="bua-challenge-word" class="text-5xl md:text-6xl font-brand-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-500 mb-8 transition-all duration-300">
+                                Sawubona
+                            </div>
+                            
+                            <!-- Visual Wave -->
+                            <div class="flex justify-center gap-1.5 h-10 mb-8">
+                                <div class="w-1 bg-white/60 rounded-full" style="animation: wave 1s ease-in-out infinite;"></div>
+                                <div class="w-1 bg-white/60 rounded-full" style="animation: wave 1.2s ease-in-out infinite; animation-delay: 0.1s;"></div>
+                                <div class="w-1 bg-white/60 rounded-full" style="animation: wave 0.8s ease-in-out infinite; animation-delay: 0.2s;"></div>
+                                <div class="w-1 bg-white/60 rounded-full" style="animation: wave 1.1s ease-in-out infinite; animation-delay: 0.3s;"></div>
+                                <div class="w-1 bg-white/60 rounded-full" style="animation: wave 0.9s ease-in-out infinite; animation-delay: 0.4s;"></div>
+                                <div class="w-1 bg-white/60 rounded-full" style="animation: wave 1s ease-in-out infinite; animation-delay: 0.5s;"></div>
+                                <div class="w-1 bg-white/60 rounded-full" style="animation: wave 0.85s ease-in-out infinite; animation-delay: 0.6s;"></div>
+                            </div>
+
+                            <!-- Options -->
+                            <div id="bua-options-container" class="grid grid-cols-2 gap-3">
+                                <!-- Options injected by JS -->
+                            </div>
+                            
+                            <!-- Feedback -->
+                            <div id="bua-feedback" class="h-6 mt-6 text-xs font-bold uppercase tracking-widest text-white/80"></div>
+
+                            <!-- Start Screen Overlay -->
+                            <div id="bua-start-screen" class="absolute inset-0 bg-[#0a0a0a]/98 flex flex-col items-center justify-center text-center p-8 z-20">
+                                <span class="material-symbols-sharp text-7xl text-white/20 mb-6">graphic_eq</span>
+                                <h4 class="text-2xl font-brand-bold mb-2">Prove Your Ear</h4>
+                                <p class="text-slate-500 text-sm mb-8">Can you identify all 11 official languages?</p>
+                                <button onclick="startBuaGame()" class="px-10 py-4 bg-white text-black font-bold uppercase text-xs tracking-widest hover:bg-slate-200 transition-all rounded-xl">
+                                    Start Challenge
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Gogga Video Button -->
+                        <div class="p-4 border-t border-white/10 text-center">
+                            <button onclick="openLangChalVideo()" class="inline-flex items-center gap-3 px-6 py-3 bg-white/10 border border-white/20 text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-all">
+                                <span class="material-symbols-sharp text-lg">play_circle</span>
+                                Watch Language Challenge Video
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Six Tracks Section -->
+    <section id="capabilities" class="py-32 bg-gray-50 isolate">
+        <div class="container-modern">
+            <div class="text-center mb-20">
+                <h2 class="text-fluid-heading font-brand-bold text-black mb-4">Six Tracks. One Backbone.</h2>
+                <div class="flex flex-wrap justify-center items-center gap-3 mb-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-full">
+                        <span class="material-symbols-sharp text-sm">bolt</span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.15em]">Fastest AI in SA</span>
+                    </div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-full">
+                        <span class="material-symbols-sharp text-sm">lock</span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.15em]">Most Confidential</span>
+                    </div>
+                </div>
+                <p class="text-fluid-body text-slate-600 max-w-2xl mx-auto">End-to-end solutions from voice agents to infrastructure, all with enterprise-grade security.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+                <!-- Voice Agents -->
+                <div class="card-hover-effect p-8 rounded-3xl border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute inset-0 z-0">
+                        <img src="/images/site4-2-abstractsoundwavesvoicerecognitiondigita.jpg" alt="" class="w-full h-full object-cover opacity-5 group-hover:opacity-10 group-hover:scale-105 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="relative z-10">
+                    <div class="icon-box-premium w-16 h-16 mb-6">
+                        <span class="material-symbols-sharp text-2xl">call</span>
+                    </div>
+                    <h3 class="text-xl font-brand-bold text-black mb-4">Voice Agents</h3>
+                    <p class="text-slate-600 mb-4">Production phone agents with omnichannel continuation and live human assist.</p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li>• Inbound/Outbound, natural turn-taking</li>
+                        <li>• WhatsApp, SMS, Email, Web chat</li>
+                        <li>• Whisper · Barge-in · Warm transfer</li>
+                    </ul>
+                    </div>
+                </div>
+
+                <!-- Sovereign AI Infrastructure - Clean Card -->
+                <a href="infrastructure.html" class="card-hover-effect p-8 rounded-3xl border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute inset-0 z-0">
+                        <img src="/images/site2-3-abstractmonochromegeometricshapesofficeb.jpg" alt="" class="w-full h-full object-cover opacity-5 group-hover:opacity-10 group-hover:scale-105 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="relative z-10">
+                        <div class="icon-box-premium w-16 h-16 mb-6">
+                            <span class="material-symbols-sharp text-2xl">memory</span>
+                        </div>
+                        <h3 class="text-xl font-brand-bold text-black mb-4">GPU Compute</h3>
+                        <p class="text-slate-600 mb-4">On-premise GPU infrastructure for sovereign AI workloads. Ultra-fast, ultra-private.</p>
+                        <ul class="text-sm text-slate-500 space-y-2">
+                            <li>• High-performance GPU clusters</li>
+                            <li>• Ultra-low latency inference</li>
+                            <li>• Enterprise-grade storage</li>
+                        </ul>
+                        <div class="flex items-center gap-2 text-black font-semibold text-sm mt-6 group-hover:gap-3 transition-all">
+                            Configure Cluster <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Trusted Advisor -->
+                <div class="card-hover-effect p-8 rounded-3xl border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute inset-0 z-0">
+                        <img src="/images/site1-2-blackandwhitechesspieceminimalistphotogr.jpg" alt="" class="w-full h-full object-cover opacity-5 group-hover:opacity-10 group-hover:scale-105 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="relative z-10">
+                    <div class="icon-box-premium w-16 h-16 mb-6">
+                        <span class="material-symbols-sharp text-2xl">handshake</span>
+                    </div>
+                    <h3 class="text-xl font-brand-bold text-black mb-4">Trusted Advisor</h3>
+                    <p class="text-slate-600 mb-4">Architecture, delivery, and operations — AI when smart, non-AI when smarter.</p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li>• RFP/RFQ support, cost optimisation</li>
+                        <li>• Deploy · Migrate · Integrate</li>
+                        <li>• Operate with observability & runbooks</li>
+                    </ul>
+                    </div>
+                </div>
+
+                <!-- Intelligent Compliance -->
+                <div class="card-hover-effect p-8 rounded-3xl border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute inset-0 z-0">
+                        <img src="/images/site1-4-monochromeindustrialgearabstractmacropho.jpg" alt="" class="w-full h-full object-cover opacity-5 group-hover:opacity-10 group-hover:scale-105 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="relative z-10">
+                    <div class="icon-box-premium w-16 h-16 mb-6">
+                        <span class="material-symbols-sharp text-2xl">gavel</span>
+                    </div>
+                    <h3 class="text-xl font-brand-bold text-black mb-4">Intelligent Compliance</h3>
+                    <p class="text-slate-600 mb-4">Proactive dispute prediction, SA-aware docs, and B-BBEE planning.</p>
+                    <button onclick="openPageModal('https://vcb-ai.online/Compliance.html')" class="inline-flex items-center gap-2 text-black font-semibold text-sm mt-4 hover:gap-3 transition-all">
+                        View Details <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                    </button>
+                    </div>
+                </div>
+
+                <!-- Consulting -->
+                <div class="card-hover-effect p-8 rounded-3xl border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute inset-0 z-0">
+                        <img src="/images/site2-3-abstractmonochromegeometricshapesofficeb.jpg" alt="" class="w-full h-full object-cover opacity-5 group-hover:opacity-10 group-hover:scale-105 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="relative z-10">
+                    <div class="icon-box-premium w-16 h-16 mb-6">
+                        <span class="material-symbols-sharp text-2xl">psychology</span>
+                    </div>
+                    <h3 class="text-xl font-brand-bold text-black mb-4">Consulting</h3>
+                    <p class="text-slate-600 mb-4">Independent, expert guidance from idea to outcome.</p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li>• Discovery & strategy · TCO/ROI</li>
+                        <li>• POPIA/GDPR · risk & policy frameworks</li>
+                        <li>• Change management · executive advisory</li>
+                    </ul>
+                    </div>
+                </div>
+
+                <!-- Gen AI -->
+                <div class="card-hover-effect p-8 rounded-3xl border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute inset-0 z-0">
+                        <img src="/images/site4-3-abstractgenerativeaineuralnetworknodesco.jpg" alt="" class="w-full h-full object-cover opacity-5 group-hover:opacity-10 group-hover:scale-105 transition-all duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="relative z-10">
+                    <div class="icon-box-premium w-16 h-16 mb-6">
+                        <span class="material-symbols-sharp text-2xl">auto_awesome</span>
+                    </div>
+                    <h3 class="text-xl font-brand-bold text-black mb-4">Gen AI</h3>
+                    <p class="text-slate-600 mb-4">Secure, SA-ready generative AI—from prototype to production.</p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li>• RAG & fine-tuning · evals & guardrails</li>
+                        <li>• MLOps · pipelines · vector DBs</li>
+                        <li>• Multilingual: English/Afrikaans/isiZulu</li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Power of Reduction Philosophy -->
+    <section class="py-24 bg-white isolate">
+        <div class="container-modern">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 items-center">
+                <!-- Image Side -->
+                <div class="relative group">
+                    <div class="aspect-[4/3] bg-slate-100 overflow-hidden relative">
+                        <img src="/images/site2-2-minimalistchessboardoverheadviewblackand.jpg" alt="Strategic Chessboard" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                    </div>
+                    <!-- Decorative corner element -->
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-black z-[-1]"></div>
+                    <div class="absolute -top-4 -left-4 w-16 h-16 border-2 border-black z-[-1]"></div>
+                </div>
+                
+                <!-- Text Side -->
+                <div>
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-slate-400 mb-4 block">Our Philosophy</span>
+                    <h2 class="text-4xl md:text-5xl font-brand-bold mb-6 text-black">The Power of Reduction</h2>
+                    <p class="text-slate-600 mb-6 text-lg leading-relaxed">
+                        Complexity is the enemy of execution. At VCB, we believe that a viable business is one that has mastered its core competencies and shed the superfluous.
+                    </p>
+                    <p class="text-slate-500 mb-8 leading-relaxed">
+                        Our methodology focuses on "Grey-Area Elimination." We turn ambiguous operational challenges into black-and-white strategic decisions. By hardening the core, we create a foundation that can withstand market volatility.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 group/item">
+                            <span class="w-12 h-[2px] bg-slate-200 group-hover/item:bg-black group-hover/item:w-16 transition-all duration-300"></span>
+                            <span class="text-black font-semibold">Strategic Simplification</span>
+                        </li>
+                        <li class="flex items-center gap-4 group/item">
+                            <span class="w-12 h-[2px] bg-slate-200 group-hover/item:bg-black group-hover/item:w-16 transition-all duration-300"></span>
+                            <span class="text-black font-semibold">Operational Rigor</span>
+                        </li>
+                        <li class="flex items-center gap-4 group/item">
+                            <span class="w-12 h-[2px] bg-slate-200 group-hover/item:bg-black group-hover/item:w-16 transition-all duration-300"></span>
+                            <span class="text-black font-semibold">Financial Clarity</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VCB-Core Viability Calculator -->
+    <section id="calculator" class="py-24 md:py-32 bg-[#0a0a0a] text-white relative overflow-hidden isolate">
+        <!-- Subtle Grid Pattern -->
+        <div class="absolute inset-0 opacity-[0.03]">
+            <div class="absolute inset-0" style="background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px); background-size: 60px 60px;"></div>
+        </div>
+        
+        <!-- Ambient Light -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-white/[0.02] to-transparent rounded-full blur-3xl"></div>
+
+        <div class="container-modern relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="inline-block text-[11px] font-semibold uppercase tracking-[0.3em] text-white/60 mb-6">Interactive Assessment</span>
+                <h2 class="text-fluid-heading font-brand-bold mb-5 text-white tracking-tight">VCB-Core Viability Index</h2>
+                <p class="text-fluid-body text-white/70 max-w-xl mx-auto leading-relaxed font-light">Measure your business health across four critical pillars. Adjust the sliders to calculate your real-time viability score.</p>
+            </div>
+
+            <!-- Main Calculator Card -->
+            <div class="relative bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-3xl overflow-hidden">
+                <!-- Top accent line -->
+                <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                
+                <div class="grid lg:grid-cols-5 gap-0">
+                    <!-- Image Column -->
+                    <div class="hidden lg:block lg:col-span-1 relative">
+                        <img src="images/site3-2-futuristicblackandwhiteserverroomdatacen.jpg" alt="Data Center" class="absolute inset-0 w-full h-full object-cover opacity-90" loading="lazy" decoding="async">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0a]"></div>
+                    </div>
+                    
+                    <!-- Controls Column -->
+                    <div class="lg:col-span-2 p-8 md:p-10 lg:border-r border-white/[0.08]">
+                        <div class="space-y-6">
+                            <!-- Pillar 1: Operational Efficiency -->
+                            <div class="group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-rose-500/15 flex items-center justify-center">
+                                            <span class="material-symbols-sharp text-rose-400 text-base">speed</span>
+                                        </div>
+                                        <span class="text-sm font-medium text-white">Operational Drag</span>
+                                    </div>
+                                    <span class="text-2xl font-brand-bold text-rose-400 tabular-nums" id="val-drag">25<span class="text-base font-normal text-white/50">%</span></span>
+                                </div>
+                                <div class="relative">
+                                    <input type="range" min="0" max="100" value="25" id="input-drag" 
+                                        class="w-full h-1.5 bg-white/15 rounded-full appearance-none cursor-pointer slider-red">
+                                    <div class="flex justify-between text-[10px] text-white/50 mt-2 font-medium">
+                                        <span>Lean</span>
+                                        <span>Bloated</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="h-px bg-white/[0.06]"></div>
+
+                            <!-- Pillar 2: Revenue Stability -->
+                            <div class="group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                                            <span class="material-symbols-sharp text-emerald-400 text-base">trending_up</span>
+                                        </div>
+                                        <span class="text-sm font-medium text-white">Revenue Stability</span>
+                                    </div>
+                                    <span class="text-2xl font-brand-bold text-emerald-400 tabular-nums" id="val-revenue">65<span class="text-base font-normal text-white/50">%</span></span>
+                                </div>
+                                <div class="relative">
+                                    <input type="range" min="0" max="100" value="65" id="input-revenue" 
+                                        class="w-full h-1.5 bg-white/15 rounded-full appearance-none cursor-pointer slider-green">
+                                    <div class="flex justify-between text-[10px] text-white/50 mt-2 font-medium">
+                                        <span>Volatile</span>
+                                        <span>Predictable</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="h-px bg-white/[0.06]"></div>
+
+                            <!-- Pillar 3: Market Differentiation -->
+                            <div class="group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
+                                            <span class="material-symbols-sharp text-white/80 text-base">diamond</span>
+                                        </div>
+                                        <span class="text-sm font-medium text-white">Market Differentiation</span>
+                                    </div>
+                                    <span class="text-2xl font-brand-bold text-white tabular-nums" id="val-market">50<span class="text-base font-normal text-white/50">%</span></span>
+                                </div>
+                                <div class="relative">
+                                    <input type="range" min="0" max="100" value="50" id="input-market" 
+                                        class="w-full h-1.5 bg-white/15 rounded-full appearance-none cursor-pointer">
+                                    <div class="flex justify-between text-[10px] text-white/50 mt-2 font-medium">
+                                        <span>Commodity</span>
+                                        <span>Unique</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="h-px bg-white/[0.06]"></div>
+
+                            <!-- Pillar 4: AI Readiness -->
+                            <div class="group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center">
+                                            <span class="material-symbols-sharp text-amber-400 text-base">auto_awesome</span>
+                                        </div>
+                                        <span class="text-sm font-medium text-white">AI Readiness</span>
+                                    </div>
+                                    <span class="text-2xl font-brand-bold text-amber-400 tabular-nums" id="val-ai">40<span class="text-base font-normal text-white/50">%</span></span>
+                                </div>
+                                <div class="relative">
+                                    <input type="range" min="0" max="100" value="40" id="input-ai" 
+                                        class="w-full h-1.5 bg-white/15 rounded-full appearance-none cursor-pointer slider-amber">
+                                    <div class="flex justify-between text-[10px] text-white/50 mt-2 font-medium">
+                                        <span>Legacy</span>
+                                        <span>AI-Native</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Score Display Column -->
+                    <div class="lg:col-span-2 flex flex-col items-center justify-center p-8 md:p-10 bg-gradient-to-br from-white/[0.02] to-transparent">
+                        <!-- Score Display -->
+                        <div class="relative mb-8">
+                            <!-- Glow effect -->
+                            <div class="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl scale-75 opacity-60"></div>
+                            
+                            <!-- Ring -->
+                            <div class="relative w-48 h-48 md:w-56 md:h-56">
+                                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
+                                    <circle id="score-ring" cx="100" cy="100" r="88" fill="none" stroke="url(#scoreGradient)" stroke-width="8" 
+                                        stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="200" 
+                                        class="transition-all duration-700 ease-out"/>
+                                    <defs>
+                                        <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" id="grad-stop-1" style="stop-color:#10b981"/>
+                                            <stop offset="100%" id="grad-stop-2" style="stop-color:#34d399"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                
+                                <!-- Score Number -->
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-6xl md:text-7xl font-brand-bold text-white tabular-nums tracking-tight" id="final-score">63</span>
+                                    <span class="text-[10px] uppercase tracking-[0.25em] text-white/60 mt-1">Viability Score</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Badge -->
+                        <div id="score-status" class="text-center mb-8">
+                            <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/15 border border-emerald-500/30 rounded-full mb-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider" id="status-label">Viable</span>
+                            </div>
+                            <p class="text-sm text-white/60" id="status-desc">Strong core detected. Ready for growth.</p>
+                        </div>
+
+                        <!-- Breakdown -->
+                        <div class="grid grid-cols-4 gap-2 mb-8 w-full max-w-xs">
+                            <div class="text-center p-3 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+                                <span class="block text-lg font-brand-bold text-rose-400 tabular-nums" id="pill-ops">-12</span>
+                                <span class="text-[9px] text-white/50 uppercase tracking-wider">Ops</span>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+                                <span class="block text-lg font-brand-bold text-emerald-400 tabular-nums" id="pill-rev">+33</span>
+                                <span class="text-[9px] text-white/50 uppercase tracking-wider">Rev</span>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+                                <span class="block text-lg font-brand-bold text-white tabular-nums" id="pill-mkt">+25</span>
+                                <span class="text-[9px] text-white/50 uppercase tracking-wider">Mkt</span>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+                                <span class="block text-lg font-brand-bold text-amber-400 tabular-nums" id="pill-ai">+20</span>
+                                <span class="text-[9px] text-white/50 uppercase tracking-wider">AI</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <a href="#contact" class="group inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full text-xs font-semibold uppercase tracking-widest hover:bg-white/90 transition-all">
+                            <span>Get Full Report</span>
+                            <span class="material-symbols-sharp text-sm group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Insights Section -->
+                <div class="border-t border-white/[0.08]">
+                    <div class="p-8 md:p-10">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="material-symbols-sharp text-white/60 text-sm">auto_awesome</span>
+                            <span class="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60">AI-Powered Insights</span>
+                        </div>
+                        <div id="recommendations" class="grid md:grid-cols-3 gap-4">
+                            <div class="group p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/15 transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                                        <span class="material-symbols-sharp text-white/70 text-base">lightbulb</span>
+                                    </div>
+                                    <p class="text-sm text-white/70 leading-relaxed" id="rec-1">Reduce operational overhead by automating manual processes with AI agents.</p>
+                                </div>
+                            </div>
+                            <div class="group p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/15 transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                                        <span class="material-symbols-sharp text-white/70 text-base">insights</span>
+                                    </div>
+                                    <p class="text-sm text-white/70 leading-relaxed" id="rec-2">Strengthen revenue predictability with subscription or retainer models.</p>
+                                </div>
+                            </div>
+                            <div class="group p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/15 transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                                        <span class="material-symbols-sharp text-white/70 text-base">rocket_launch</span>
+                                    </div>
+                                    <p class="text-sm text-white/70 leading-relaxed" id="rec-3">Invest in data infrastructure to unlock AI-driven competitive advantages.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission -->
+    <section class="py-32 bg-gradient-to-b from-white to-slate-50 isolate">
+        <div class="container-modern">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-black/5 border border-black/10 rounded-full mb-6">
+                    <span class="material-symbols-sharp text-black text-sm">auto_awesome</span>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-black/70">Our Mantra</span>
+                </div>
+                <h2 class="text-fluid-heading font-brand-bold text-black">Where Vision Becomes Viable</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6 xl:gap-8">
+                <!-- Vision Card -->
+                <div class="group relative bg-black rounded-[2rem] p-10 md:p-12 overflow-hidden hover:scale-[1.02] transition-all duration-500 isolate">
+                    <!-- Decorative gradient -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
+                                <span class="material-symbols-sharp text-white text-2xl">visibility</span>
+                            </div>
+                            <h3 class="text-sm font-bold uppercase tracking-[0.2em] text-white/60">Our Vision</h3>
+                        </div>
+                        <p class="text-fluid-subheading font-brand-medium text-white leading-relaxed">
+                            To be the essential, integrated partner for businesses in South Africa—driving data-driven innovation through cohesive AI software, enterprise storage, and datacentre hardware solutions.
+                        </p>
+                        <!-- Decorative element -->
+                        <div class="mt-10 flex items-center gap-4">
+                            <div class="h-px flex-1 bg-gradient-to-r from-white/30 to-transparent"></div>
+                            <span class="material-symbols-sharp text-white/30 text-xl">auto_awesome</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission Card -->
+                <div class="group relative bg-gradient-to-br from-slate-100 to-slate-50 rounded-[2rem] p-10 md:p-12 overflow-hidden border border-slate-200 hover:scale-[1.02] transition-all duration-500 hover:shadow-2xl isolate">
+                    <!-- Decorative gradient -->
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-black/5 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center shadow-xl">
+                                <span class="material-symbols-sharp text-white text-2xl">rocket_launch</span>
+                            </div>
+                            <h3 class="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Our Mission</h3>
+                        </div>
+                        <p class="text-fluid-subheading font-brand-medium text-black leading-relaxed">
+                            To turn AI into measurable outcomes without compromising trust—encryption everywhere, zero-trust access, model governance, data sovereignty, and immutable enterprise-grade storage.
+                        </p>
+                        <!-- Trust Pillars -->
+                        <div class="mt-10 flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-black/5 rounded-xl text-xs font-semibold text-black/70 border border-black/10">End-to-End Encryption</span>
+                            <span class="px-4 py-2 bg-black/5 rounded-xl text-xs font-semibold text-black/70 border border-black/10">Zero-Trust Architecture</span>
+                            <span class="px-4 py-2 bg-black/5 rounded-xl text-xs font-semibold text-black/70 border border-black/10">Data Sovereignty</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 bg-black text-white isolate">
+        <div class="container-modern text-center">
+            <h2 class="text-fluid-heading font-brand-bold mb-8">You're in Capable Hands</h2>
+            <p class="text-fluid-body text-slate-300 mb-12">
+                With decades of combined expertise in AI, legal compliance, and infrastructure, VCB is your trusted partner for transforming vision into viable outcomes.
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <button onclick="openPageModal('https://vcb-ai.online/aboutus.html')" class="px-10 py-5 bg-white text-black rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-gray-100 transition-all">
+                    Meet Our Team
+                </button>
+                <a href="mailto:info@vcb-ai.online" class="px-10 py-5 border border-white text-white rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-50 border-t border-gray-100">
+        <div class="container-modern">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <img src="/logoWtext-transparent-BlackBack.png" alt="VCB Logo" class="h-10 w-auto">
+                    <div class="flex flex-col">
+                        <span class="text-sm text-slate-600">© 2026 Viable Core Business. All rights reserved.</span>
+                        <span class="text-xs text-slate-400">Built in South Africa 🇿🇦</span>
+                    </div>
+                </div>
+                <div class="flex gap-6">
+                    <button onclick="openPageModal('https://vcb-ai.online/privacy.html')" class="text-sm text-slate-500 hover:text-black transition-colors">Privacy</button>
+                    <button onclick="openPageModal('https://vcb-ai.online/aboutus.html')" class="text-sm text-slate-500 hover:text-black transition-colors">About</button>
+                    <button onclick="openPageModal('https://vcb-ai.online/Partners.html')" class="text-sm text-slate-500 hover:text-black transition-colors">Partners</button>
+                    <button onclick="openPageModal('https://vcb-ai.online/Compliance.html')" class="text-sm text-slate-500 hover:text-black transition-colors">Compliance</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video Modal Overlay -->
+    <div id="video-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm">
+        <button id="video-close" class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10">
+            <span class="material-symbols-sharp text-4xl">close</span>
+        </button>
+        <div class="relative w-full max-w-5xl mx-6">
+            <video id="meet-video" controls class="w-full rounded-2xl shadow-2xl" poster="/images/site5-4-whitemarblechesspieceknightmacrominimali.jpg">
+                <source src="/Dee.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Gogga Coming Soon Floating Widget - BOTTOM LEFT -->
+    <div id="gogga-widget" class="fixed bottom-8 left-8 z-50 group cursor-pointer" onclick="openGogga()">
+        <div class="relative">
+            <!-- Gogga Icon -->
+            <div class="w-20 h-20 rounded-full bg-transparent overflow-hidden shadow-2xl border-2 border-white/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-black/30">
+                <img src="/images/GoggaIcon.png" alt="Gogga AI" class="w-full h-full object-contain">
+            </div>
+            <!-- Subtle Glow Animation -->
+            <div class="absolute inset-0 rounded-full bg-black/20 animate-pulse"></div>
+            <!-- Coming Soon Badge -->
+            <div class="absolute -top-2 -right-2 px-2 py-1 bg-gradient-to-r from-slate-700 to-slate-900 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg">
+                Soon
+            </div>
+        </div>
+        <!-- Tooltip -->
+        <div class="absolute bottom-full left-0 mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div class="bg-black text-white px-4 py-2 rounded-xl text-sm whitespace-nowrap shadow-xl">
+                <span class="font-brand-bold">Gogga AI</span> — Coming Soon
+                <div class="absolute bottom-0 left-6 translate-y-1/2 rotate-45 w-2 h-2 bg-black"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sarah Bot Widget - BOTTOM RIGHT -->
+    <div id="sarah-widget" class="fixed bottom-8 right-8 z-50 group cursor-pointer" onclick="openSarahBot()">
+        <div class="relative">
+            <!-- Bot Icon -->
+            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden shadow-2xl border-2 border-white/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-black/30 flex items-center justify-center">
+                <span class="material-symbols-sharp text-white text-4xl">smart_toy</span>
+            </div>
+            <!-- Subtle Glow Animation -->
+            <div class="absolute inset-0 rounded-full bg-black/20 animate-pulse"></div>
+            <!-- Live Badge -->
+            <div class="absolute -top-2 -right-2 px-2 py-1 bg-gradient-to-r from-green-600 to-green-700 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                Live
+            </div>
+        </div>
+        <!-- Tooltip -->
+        <div class="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div class="bg-black text-white px-4 py-2 rounded-xl text-sm whitespace-nowrap shadow-xl">
+                <span class="font-brand-bold">Sarah AI</span> — Chat Now
+                <div class="absolute bottom-0 right-6 translate-y-1/2 rotate-45 w-2 h-2 bg-black"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gogga Video Modal -->
+    <div id="gogga-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm overflow-y-auto">
+        <button id="gogga-close" class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10">
+            <span class="material-symbols-sharp text-4xl">close</span>
+        </button>
+        <div class="relative w-full max-w-5xl mx-6 my-12 py-8">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/10 border border-white/20 rounded-full mb-6">
+                    <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white">Live Neural Network</span>
+                </div>
+                <h2 class="text-5xl md:text-6xl font-brand-bold text-white mb-4">Gogga AI</h2>
+                <p class="text-2xl text-slate-400 font-brand-medium mb-2">The First AI That Talks, Hears & Sees</p>
+                <p class="text-xl text-white">in All <span class="font-bold border-b border-white/30">11 Official South African Languages</span></p>
+            </div>
+
+            <!-- Video -->
+            <div class="mb-12">
+                <video id="gogga-video" controls class="w-full rounded-2xl shadow-2xl" poster="/images/GoggaIcon.png">
+                    <source src="/Gogga-intro.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Compact Language Display -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">Afrikaans</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">English</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">isiZulu</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">isiXhosa</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">Sepedi</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">Setswana</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">Sesotho</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">Xitsonga</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">siSwati</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">Tshivenda</span>
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">isiNdebele</span>
+            </div>
+
+            <!-- Features -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="border-l-2 border-white/20 pl-6">
+                    <div class="text-2xl font-brand-bold text-white mb-2">Omnichannel</div>
+                    <div class="text-sm text-slate-400">Seamless continuity across voice, chat, and messaging platforms.</div>
+                </div>
+                <div class="border-l-2 border-white/20 pl-6">
+                    <div class="text-2xl font-brand-bold text-white mb-2">Enterprise-Grade</div>
+                    <div class="text-sm text-slate-400">SOC 2 compliant, POPIA ready, end-to-end encrypted.</div>
+                </div>
+                <div class="border-l-2 border-white/20 pl-6">
+                    <div class="text-2xl font-brand-bold text-white mb-2">Cultural Context</div>
+                    <div class="text-sm text-slate-400">Deep understanding of local idioms, accents, and expressions.</div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="openPageModal('https://tommy0storm.github.io/BUA-XI')" class="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-gray-100 transition-all">
+                    Try Gogga Live
+                    <span class="material-symbols-sharp text-sm">arrow_forward</span>
+                </button>
+                <button onclick="openLangChalVideo(); closeGoggaModal();" class="inline-flex items-center gap-3 px-8 py-4 bg-white/10 border border-white/20 text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-all">
+                    <span class="material-symbols-sharp text-sm">play_circle</span>
+                    Language Challenge
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Challenge Video Modal -->
+    <div id="langchal-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm">
+        <button id="langchal-close" class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10">
+            <span class="material-symbols-sharp text-4xl">close</span>
+        </button>
+        <div class="relative w-full max-w-4xl mx-6 text-center">
+            <div class="mb-8">
+                <h2 class="text-4xl font-brand-bold text-white mb-4">🇿🇦 Language Challenge</h2>
+                <p class="text-xl text-slate-300 mb-8">Can you identify all 11 official South African languages?</p>
+            </div>
+            <video id="langchal-video" controls class="w-full rounded-2xl shadow-2xl" poster="/images/site5-3-digitalsoundwaveabstractblacklinesonwhit.jpg">
+                <source src="/GOGGA-Lang-Chal.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Vee Video Modal (Header Gogga) -->
+    <div id="vee-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm">
+        <button id="vee-close" class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10">
+            <span class="material-symbols-sharp text-4xl">close</span>
+        </button>
+        <div class="relative w-full max-w-4xl mx-6 text-center">
+            <video id="vee-video" controls class="w-full rounded-2xl shadow-2xl" poster="/images/GoggaIcon.png">
+                <source src="/vee.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Sarah Bot Chat Modal -->
+    <div id="sarah-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm">
+        <button id="sarah-close" class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10">
+            <span class="material-symbols-sharp text-4xl">close</span>
+        </button>
+        <div class="relative w-full max-w-2xl mx-6 h-[80vh]">
+            <div class="bg-slate-900 rounded-2xl overflow-hidden h-full flex flex-col border border-white/10">
+                <!-- Chat Header -->
+                <div class="flex items-center gap-4 p-6 border-b border-white/10">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
+                        <span class="material-symbols-sharp text-white text-2xl">smart_toy</span>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-brand-bold text-white">Sarah AI</h2>
+                        <p class="text-sm text-slate-400">VCB Assistant • Online</p>
+                    </div>
+                    <div class="ml-auto flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="text-xs text-green-400 uppercase tracking-wider">Live</span>
+                    </div>
+                </div>
+                <!-- Chat Messages -->
+                <div id="sarah-messages" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-sharp text-white text-sm">smart_toy</span>
+                        </div>
+                        <div class="bg-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[80%]">
+                            <p class="text-white text-sm">Hello! I'm Sarah, your VCB AI assistant. How can I help you today? I can tell you about our products, services, or answer any questions about Viable Core Business.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Chat Input -->
+                <div class="p-4 border-t border-white/10">
+                    <div class="flex gap-3">
+                        <input type="text" id="sarah-input" placeholder="Type your message..." class="flex-1 bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-white/30 transition-colors">
+                        <button onclick="sendSarahMessage()" class="px-6 py-3 bg-white text-black rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-gray-100 transition-all flex items-center gap-2">
+                            <span class="material-symbols-sharp text-sm">send</span>
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Iframe Modal -->
+    <div id="page-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm">
+        <button id="page-close" class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10">
+            <span class="material-symbols-sharp text-4xl">close</span>
+        </button>
+        <div class="relative w-full h-full max-w-6xl max-h-[90vh] mx-6 my-6">
+            <iframe id="page-iframe" src="" class="w-full h-full rounded-2xl bg-white" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Reveal animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => observer.observe(el));
+        });
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu?.classList.toggle('hidden');
+            if (icon) {
+                icon.textContent = menu?.classList.contains('hidden') ? 'menu' : 'close';
+            }
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                const icon = document.getElementById('mobile-menu-icon');
+                menu?.classList.add('hidden');
+                if (icon) icon.textContent = 'menu';
+            });
+        });
+
+        // ========================
+        // VCB-Core Viability Calculator
+        // ========================
+        const inputDrag = document.getElementById('input-drag');
+        const inputRevenue = document.getElementById('input-revenue');
+        const inputMarket = document.getElementById('input-market');
+        const inputAI = document.getElementById('input-ai');
+
+        const valDrag = document.getElementById('val-drag');
+        const valRevenue = document.getElementById('val-revenue');
+        const valMarket = document.getElementById('val-market');
+        const valAI = document.getElementById('val-ai');
+
+        const finalScoreEl = document.getElementById('final-score');
+        const scoreRing = document.getElementById('score-ring');
+        const statusLabel = document.getElementById('status-label');
+        const statusDesc = document.getElementById('status-desc');
+
+        const pillOps = document.getElementById('pill-ops');
+        const pillRev = document.getElementById('pill-rev');
+        const pillMkt = document.getElementById('pill-mkt');
+        const pillAI = document.getElementById('pill-ai');
+
+        const rec1 = document.getElementById('rec-1');
+        const rec2 = document.getElementById('rec-2');
+        const rec3 = document.getElementById('rec-3');
+
+        const gradStop1 = document.getElementById('grad-stop-1');
+        const gradStop2 = document.getElementById('grad-stop-2');
+
+        const circumference = 2 * Math.PI * 88; // Updated for r=88
+        scoreRing.style.strokeDasharray = circumference;
+
+        const recommendations = {
+            drag: {
+                low: "Operational efficiency is excellent. Focus on maintaining current processes.",
+                mid: "Consider process automation to reduce operational friction by 20-30%.",
+                high: "Critical: Operational drag is severely impacting viability. Immediate restructuring recommended."
+            },
+            revenue: {
+                low: "Diversify revenue streams and explore subscription models for stability.",
+                mid: "Strengthen revenue predictability with retainer or multi-year contracts.",
+                high: "Revenue stability is strong. Consider expanding into adjacent markets."
+            },
+            market: {
+                low: "Develop unique value propositions to differentiate from competitors.",
+                mid: "Invest in IP, proprietary technology, or exclusive partnerships.",
+                high: "Strong market position. Protect moat with continuous innovation."
+            },
+            ai: {
+                low: "Begin AI journey: clean data pipelines, staff training, pilot projects.",
+                mid: "Scale AI adoption: integrate AI agents, automate workflows, enable insights.",
+                high: "AI-native advantage achieved. Focus on novel AI applications."
+            }
+        };
+
+        function updateCalculator() {
+            const drag = parseInt(inputDrag.value);
+            const revenue = parseInt(inputRevenue.value);
+            const market = parseInt(inputMarket.value);
+            const ai = parseInt(inputAI.value);
+
+            // Update value displays (with % in separate span)
+            valDrag.innerHTML = drag + '<span class="text-base font-normal text-white/50">%</span>';
+            valRevenue.innerHTML = revenue + '<span class="text-base font-normal text-white/50">%</span>';
+            valMarket.innerHTML = market + '<span class="text-base font-normal text-white/50">%</span>';
+            valAI.innerHTML = ai + '<span class="text-base font-normal text-white/50">%</span>';
+
+            // Calculate component scores
+            const dragScore = Math.round((100 - drag) * 0.5); // Inverted, weighted 50%
+            const revenueScore = Math.round(revenue * 0.5); // Weighted 50%
+            const marketScore = Math.round(market * 0.5); // Weighted 50%
+            const aiScore = Math.round(ai * 0.4); // Weighted 40%
+
+            // Final score (weighted average, max ~95)
+            const rawScore = (dragScore + revenueScore + marketScore + aiScore) / 1.9;
+            const finalScore = Math.min(100, Math.max(0, Math.round(rawScore)));
+
+            // Animate score number
+            finalScoreEl.textContent = finalScore;
+
+            // Animate ring
+            const offset = circumference - (finalScore / 100) * circumference;
+            scoreRing.style.strokeDashoffset = offset;
+
+            // Update pills (simplified format)
+            pillOps.textContent = (dragScore > 25 ? '+' : '') + (dragScore - 25);
+            pillRev.textContent = '+' + revenueScore;
+            pillMkt.textContent = '+' + marketScore;
+            pillAI.textContent = '+' + aiScore;
+
+            // Update status based on score
+            if (finalScore < 35) {
+                statusLabel.textContent = 'Critical';
+                statusLabel.className = 'text-xs font-semibold text-rose-400 uppercase tracking-wider';
+                statusLabel.parentElement.className = 'inline-flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-full mb-3';
+                statusLabel.previousElementSibling.className = 'w-1.5 h-1.5 rounded-full bg-rose-400';
+                statusDesc.textContent = 'Immediate intervention required. Core viability at risk.';
+                gradStop1.style.stopColor = '#f43f5e';
+                gradStop2.style.stopColor = '#fb7185';
+            } else if (finalScore < 55) {
+                statusLabel.textContent = 'At Risk';
+                statusLabel.className = 'text-xs font-semibold text-amber-400 uppercase tracking-wider';
+                statusLabel.parentElement.className = 'inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full mb-3';
+                statusLabel.previousElementSibling.className = 'w-1.5 h-1.5 rounded-full bg-amber-400';
+                statusDesc.textContent = 'Optimization needed. Focus on weakest pillars.';
+                gradStop1.style.stopColor = '#f59e0b';
+                gradStop2.style.stopColor = '#fbbf24';
+            } else if (finalScore < 75) {
+                statusLabel.textContent = 'Viable';
+                statusLabel.className = 'text-xs font-semibold text-emerald-400 uppercase tracking-wider';
+                statusLabel.parentElement.className = 'inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-3';
+                statusLabel.previousElementSibling.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
+                statusDesc.textContent = 'Strong core detected. Ready for growth.';
+                gradStop1.style.stopColor = '#10b981';
+                gradStop2.style.stopColor = '#34d399';
+            } else {
+                statusLabel.textContent = 'Exceptional';
+                statusLabel.className = 'text-xs font-semibold text-white uppercase tracking-wider';
+                statusLabel.parentElement.className = 'inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full mb-3';
+                statusLabel.previousElementSibling.className = 'w-1.5 h-1.5 rounded-full bg-white';
+                statusDesc.textContent = 'Elite viability. Scale aggressively with confidence.';
+                gradStop1.style.stopColor = '#ffffff';
+                gradStop2.style.stopColor = '#e2e8f0';
+            }
+
+            // Update recommendations based on weakest areas
+            const areas = [
+                { name: 'drag', val: 100 - drag, recs: recommendations.drag },
+                { name: 'revenue', val: revenue, recs: recommendations.revenue },
+                { name: 'market', val: market, recs: recommendations.market },
+                { name: 'ai', val: ai, recs: recommendations.ai }
+            ].sort((a, b) => a.val - b.val);
+
+            // Show recommendations for the 3 weakest/most impactful areas
+            const getRec = (area) => {
+                if (area.val < 35) return area.recs.low;
+                if (area.val < 65) return area.recs.mid;
+                return area.recs.high;
+            };
+
+            rec1.textContent = getRec(areas[0]);
+            rec2.textContent = getRec(areas[1]);
+            rec3.textContent = getRec(areas[2]);
+        }
+
+        // Attach listeners
+        [inputDrag, inputRevenue, inputMarket, inputAI].forEach(input => {
+            input.addEventListener('input', updateCalculator);
+        });
+
+        // Initialize
+        updateCalculator();
+
+        // ========================
+        // Video Modal Logic
+        // ========================
+        const videoTrigger = document.getElementById('video-trigger');
+        const videoModal = document.getElementById('video-modal');
+        const videoClose = document.getElementById('video-close');
+        const meetVideo = document.getElementById('meet-video');
+
+        videoTrigger?.addEventListener('click', () => {
+            videoModal.classList.remove('hidden');
+            videoModal.classList.add('flex');
+            meetVideo.play();
+            document.body.style.overflow = 'hidden';
+        });
+
+        videoClose?.addEventListener('click', () => {
+            closeVideoModal();
+        });
+
+        videoModal?.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+
+        function closeVideoModal() {
+            videoModal.classList.add('hidden');
+            videoModal.classList.remove('flex');
+            meetVideo.pause();
+            meetVideo.currentTime = 0;
+            document.body.style.overflow = '';
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!videoModal.classList.contains('hidden')) {
+                    closeVideoModal();
+                }
+                if (!goggaModal.classList.contains('hidden')) {
+                    closeGoggaModal();
+                }
+                if (!veeModal.classList.contains('hidden')) {
+                    closeVeeModal();
+                }
+                if (!sarahModal.classList.contains('hidden')) {
+                    closeSarahModal();
+                }
+            }
+        });
+
+        // ========================
+        // Vee Modal Logic (Header Gogga)
+        // ========================
+        const veeModal = document.getElementById('vee-modal');
+        const veeClose = document.getElementById('vee-close');
+        const veeVideo = document.getElementById('vee-video');
+
+        function openVee() {
+            veeModal.classList.remove('hidden');
+            veeModal.classList.add('flex');
+            veeVideo.play();
+            document.body.style.overflow = 'hidden';
+        }
+
+        veeClose?.addEventListener('click', () => {
+            closeVeeModal();
+        });
+
+        veeModal?.addEventListener('click', (e) => {
+            if (e.target === veeModal) {
+                closeVeeModal();
+            }
+        });
+
+        function closeVeeModal() {
+            veeModal.classList.add('hidden');
+            veeModal.classList.remove('flex');
+            veeVideo.pause();
+            veeVideo.currentTime = 0;
+            document.body.style.overflow = '';
+        }
+
+        // ========================
+        // Sarah Bot Modal Logic
+        // ========================
+        const sarahModal = document.getElementById('sarah-modal');
+        const sarahClose = document.getElementById('sarah-close');
+        const sarahInput = document.getElementById('sarah-input');
+        const sarahMessages = document.getElementById('sarah-messages');
+
+        function openSarahBot() {
+            sarahModal.classList.remove('hidden');
+            sarahModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            sarahInput?.focus();
+        }
+
+        sarahClose?.addEventListener('click', () => {
+            closeSarahModal();
+        });
+
+        sarahModal?.addEventListener('click', (e) => {
+            if (e.target === sarahModal) {
+                closeSarahModal();
+            }
+        });
+
+        function closeSarahModal() {
+            sarahModal.classList.add('hidden');
+            sarahModal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Sarah chat functionality
+        sarahInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendSarahMessage();
+            }
+        });
+
+        function sendSarahMessage() {
+            const message = sarahInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addSarahMessage(message, 'user');
+            sarahInput.value = '';
+
+            // Simulate bot response (replace with actual API call)
+            setTimeout(() => {
+                const response = getSarahResponse(message);
+                addSarahMessage(response, 'bot');
+            }, 500);
+        }
+
+        function addSarahMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3' + (sender === 'user' ? ' justify-end' : '');
+            
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-sharp text-white text-sm">smart_toy</span>
+                    </div>
+                    <div class="bg-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[80%]">
+                        <p class="text-white text-sm">${text}</p>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-white rounded-2xl rounded-tr-none p-4 max-w-[80%]">
+                        <p class="text-black text-sm">${text}</p>
+                    </div>
+                `;
+            }
+            
+            sarahMessages.appendChild(messageDiv);
+            sarahMessages.scrollTop = sarahMessages.scrollHeight;
+        }
+
+        function getSarahResponse(message) {
+            const msg = message.toLowerCase();
+            
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                return "Hello! Welcome to VCB. I'm here to help you learn about our AI solutions. What would you like to know?";
+            }
+            if (msg.includes('product') || msg.includes('service')) {
+                return "VCB offers three main products: 1) Sales Agent - AI-powered sales automation, 2) Agentic AI - Autonomous AI agents for enterprise, 3) LLM Enterprise - Custom language models. Which interests you?";
+            }
+            if (msg.includes('gogga') || msg.includes('language')) {
+                return "Gogga AI is our flagship voice technology that supports all 11 official South African languages. It's the first AI that can talk, hear, and see in languages like isiZulu, Afrikaans, Setswana, and more!";
+            }
+            if (msg.includes('price') || msg.includes('cost') || msg.includes('pricing')) {
+                return "Our pricing is customized based on your needs. I'd recommend scheduling a demo with our team to discuss your requirements. Would you like me to help arrange that?";
+            }
+            if (msg.includes('demo') || msg.includes('try') || msg.includes('test')) {
+                return "You can try our Sales Agent demo right now! Click on 'Sales Agent' in the menu, or visit https://vcb-ai.online/SalesAgent.html";
+            }
+            if (msg.includes('contact') || msg.includes('email') || msg.includes('reach')) {
+                return "You can reach us at info@vcb-ai.online or use the contact form on our website. Our team typically responds within 24 hours.";
+            }
+            if (msg.includes('tommy') || msg.includes('founder') || msg.includes('who made')) {
+                return "VCB was founded by Tommy Storm, a visionary in AI technology focused on bringing sovereign, localized AI solutions to Africa.";
+            }
+            return "That's a great question! For detailed information, I'd recommend speaking with our team directly. Is there anything specific about VCB's AI solutions I can help clarify?";
+        }
+
+        // ========================
+        // Gogga Modal Logic
+        // ========================
+        const goggaModal = document.getElementById('gogga-modal');
+        const goggaClose = document.getElementById('gogga-close');
+        const goggaVideo = document.getElementById('gogga-video');
+
+        function openGogga() {
+            goggaModal.classList.remove('hidden');
+            goggaModal.classList.add('flex');
+            goggaVideo.play();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openGoggaIntro() {
+            goggaModal.classList.remove('hidden');
+            goggaModal.classList.add('flex');
+            goggaVideo.play();
+            document.body.style.overflow = 'hidden';
+        }
+
+        goggaClose?.addEventListener('click', () => {
+            closeGoggaModal();
+        });
+
+        goggaModal?.addEventListener('click', (e) => {
+            if (e.target === goggaModal) {
+                closeGoggaModal();
+            }
+        });
+
+        function closeGoggaModal() {
+            goggaModal.classList.add('hidden');
+            goggaModal.classList.remove('flex');
+            goggaVideo.pause();
+            goggaVideo.currentTime = 0;
+            document.body.style.overflow = '';
+        }
+
+        // ========================
+        // Language Challenge Video Modal
+        // ========================
+        const langchalModal = document.getElementById('langchal-modal');
+        const langchalClose = document.getElementById('langchal-close');
+        const langchalVideo = document.getElementById('langchal-video');
+
+        function openLangChalVideo() {
+            langchalModal.classList.remove('hidden');
+            langchalModal.classList.add('flex');
+            langchalVideo.play();
+            document.body.style.overflow = 'hidden';
+        }
+
+        langchalClose?.addEventListener('click', () => {
+            closeLangChalModal();
+        });
+
+        langchalModal?.addEventListener('click', (e) => {
+            if (e.target === langchalModal) {
+                closeLangChalModal();
+            }
+        });
+
+        function closeLangChalModal() {
+            langchalModal.classList.add('hidden');
+            langchalModal.classList.remove('flex');
+            langchalVideo.pause();
+            langchalVideo.currentTime = 0;
+            document.body.style.overflow = '';
+        }
+
+        // Generic Page Modal
+        const pageModal = document.getElementById('page-modal');
+        const pageClose = document.getElementById('page-close');
+        const pageIframe = document.getElementById('page-iframe');
+
+        function openPageModal(url) {
+            pageIframe.src = url;
+            pageModal.classList.remove('hidden');
+            pageModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        pageClose?.addEventListener('click', () => {
+            closePageModal();
+        });
+
+        pageModal?.addEventListener('click', (e) => {
+            if (e.target === pageModal) {
+                closePageModal();
+            }
+        });
+
+        function closePageModal() {
+            pageModal.classList.add('hidden');
+            pageModal.classList.remove('flex');
+            pageIframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        // =============================================
+        // Bua XI Language Challenge Game
+        // =============================================
+        const buaLanguages = [
+            { word: "Sawubona", lang: "isiZulu" },
+            { word: "Molo", lang: "isiXhosa" },
+            { word: "Dumelang", lang: "Sesotho" },
+            { word: "Thobela", lang: "Sepedi" },
+            { word: "Ndaa", lang: "Tshivenda" },
+            { word: "Avuxeni", lang: "Xitsonga" },
+            { word: "Lotjhani", lang: "isiNdebele" },
+            { word: "Sanibonani", lang: "siSwati" },
+            { word: "Hallo", lang: "Afrikaans" },
+            { word: "Hello", lang: "English" },
+            { word: "Dumela", lang: "Setswana" },
+        ];
+
+        let buaStreak = 0;
+
+        function startBuaGame() {
+            document.getElementById('bua-start-screen').style.display = 'none';
+            buaStreak = 0;
+            updateBuaStreak();
+            nextBuaRound();
+        }
+
+        function nextBuaRound() {
+            // Pick random language
+            const target = buaLanguages[Math.floor(Math.random() * buaLanguages.length)];
+            const wordEl = document.getElementById('bua-challenge-word');
+            wordEl.innerText = target.word;
+            wordEl.style.opacity = 0;
+            setTimeout(() => wordEl.style.opacity = 1, 50);
+
+            // Generate options (1 correct, 3 wrong)
+            const options = [target.lang];
+            while(options.length < 4) {
+                const r = buaLanguages[Math.floor(Math.random() * buaLanguages.length)].lang;
+                if(!options.includes(r)) options.push(r);
+            }
+            // Shuffle
+            options.sort(() => Math.random() - 0.5);
+
+            // Render
+            const container = document.getElementById('bua-options-container');
+            container.innerHTML = '';
+            document.getElementById('bua-feedback').innerText = '';
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "py-3 px-4 bg-white/5 border border-white/10 rounded-xl text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-200";
+                btn.innerText = opt;
+                btn.onclick = () => checkBuaAnswer(opt, target.lang);
+                container.appendChild(btn);
+            });
+        }
+
+        function checkBuaAnswer(selected, correct) {
+            const feedback = document.getElementById('bua-feedback');
+            if(selected === correct) {
+                buaStreak++;
+                feedback.innerText = "✓ Correct!";
+                feedback.className = "h-6 mt-6 text-xs font-bold uppercase tracking-widest text-green-400";
+                setTimeout(nextBuaRound, 800);
+            } else {
+                buaStreak = 0;
+                feedback.innerText = "✗ It was " + correct;
+                feedback.className = "h-6 mt-6 text-xs font-bold uppercase tracking-widest text-red-400";
+                setTimeout(nextBuaRound, 1500);
+            }
+            updateBuaStreak();
+        }
+
+        function updateBuaStreak() {
+            document.getElementById('bua-score').innerText = buaStreak;
+        }
+    </script>
+</body>
+</html>

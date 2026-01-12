@@ -1,0 +1,2678 @@
+/* Infrastructure Component Styles */
+
+/* Modern container utility */
+.container-modern {
+    width: min(var(--container-max, 80rem), 100% - var(--container-padding, 1.5rem) * 2);
+    margin-inline: auto;
+}
+
+/* Architecture Diagram */
+.arch-diagram {
+    background: var(--slate-800);
+    border: 1px solid var(--slate-700);
+    border-radius: var(--radius-lg, 1rem);
+    padding: var(--gap-lg, 2rem);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    isolation: isolate;
+}
+
+.arch-grid-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+.arch-node {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(51, 65, 85, 0.8);
+    border: 2px solid var(--slate-600);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.arch-node:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.arch-node-sky:hover {
+    border-color: #0ea5e9;
+    box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.3);
+}
+
+.arch-node-amber:hover {
+    border-color: #f59e0b;
+    box-shadow: 0 20px 40px -10px rgba(245, 158, 11, 0.3);
+}
+
+.arch-node-red:hover {
+    border-color: #ef4444;
+    box-shadow: 0 20px 40px -10px rgba(239, 68, 68, 0.3);
+}
+
+.arch-node-icon {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+}
+
+.arch-glow-amber {
+    position: absolute;
+    top: -1.5rem;
+    right: -1.5rem;
+    width: 6rem;
+    height: 6rem;
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: 50%;
+    filter: blur(30px);
+    pointer-events: none;
+}
+
+.arch-connection {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.arch-line {
+    width: 3px;
+    height: 100%;
+    border-radius: 2px;
+}
+
+/* Info Panel */
+.info-panel {
+    background: var(--slate-800);
+    border: 1px solid var(--slate-700);
+    border-radius: 1rem;
+    min-height: 550px;
+    max-height: 700px;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+}
+
+.info-panel-content {
+    padding: 2rem;
+    height: 100%;
+    max-height: 650px;
+    overflow-y: auto;
+}
+
+.info-default {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0.6;
+}
+
+.info-active {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Configuration Cards */
+.config-card {
+    background: var(--slate-800);
+    border: 1px solid var(--slate-700);
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+.config-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+/* Use Case Buttons */
+.use-case-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 0.5rem;
+    background: var(--slate-700);
+    border: 2px solid var(--slate-600);
+    border-radius: 0.625rem;
+    color: var(--slate-300);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    min-height: 70px;
+}
+
+.use-case-btn:hover {
+    background: var(--slate-600);
+    border-color: var(--slate-500);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.use-case-btn:focus-visible {
+    outline: 2px solid #0ea5e9;
+    outline-offset: 2px;
+}
+
+.use-case-btn.active {
+    background: rgba(14, 165, 233, 0.15);
+    border-color: #0ea5e9;
+    color: white;
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+}
+
+.use-case-btn.active .material-symbols-sharp {
+    color: #0ea5e9;
+}
+
+/* Use case button color variants based on data-case */
+.use-case-btn[data-case="fintech"]:hover,
+.use-case-btn[data-case="fintech"].active {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.15);
+}
+.use-case-btn[data-case="fintech"].active .material-symbols-sharp,
+.use-case-btn[data-case="fintech"]:hover .material-symbols-sharp {
+    color: #10b981;
+}
+
+.use-case-btn[data-case="banking"]:hover,
+.use-case-btn[data-case="banking"].active {
+    border-color: #6366f1;
+    background: rgba(99, 102, 241, 0.15);
+}
+.use-case-btn[data-case="banking"].active .material-symbols-sharp,
+.use-case-btn[data-case="banking"]:hover .material-symbols-sharp {
+    color: #6366f1;
+}
+
+.use-case-btn[data-case="insurance"]:hover,
+.use-case-btn[data-case="insurance"].active {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
+}
+.use-case-btn[data-case="insurance"].active .material-symbols-sharp,
+.use-case-btn[data-case="insurance"]:hover .material-symbols-sharp {
+    color: #3b82f6;
+}
+
+.use-case-btn[data-case="telco"]:hover,
+.use-case-btn[data-case="telco"].active {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.15);
+}
+.use-case-btn[data-case="telco"].active .material-symbols-sharp,
+.use-case-btn[data-case="telco"]:hover .material-symbols-sharp {
+    color: #a855f7;
+}
+
+.use-case-btn[data-case="healthcare"]:hover,
+.use-case-btn[data-case="healthcare"].active {
+    border-color: #14b8a6;
+    background: rgba(20, 184, 166, 0.15);
+}
+.use-case-btn[data-case="healthcare"].active .material-symbols-sharp,
+.use-case-btn[data-case="healthcare"]:hover .material-symbols-sharp {
+    color: #14b8a6;
+}
+
+.use-case-btn[data-case="government"]:hover,
+.use-case-btn[data-case="government"].active {
+    border-color: #64748b;
+    background: rgba(100, 116, 139, 0.15);
+}
+.use-case-btn[data-case="government"].active .material-symbols-sharp,
+.use-case-btn[data-case="government"]:hover .material-symbols-sharp {
+    color: #94a3b8;
+}
+
+.use-case-btn[data-case="research"]:hover,
+.use-case-btn[data-case="research"].active {
+    border-color: #f97316;
+    background: rgba(249, 115, 22, 0.15);
+}
+.use-case-btn[data-case="research"].active .material-symbols-sharp,
+.use-case-btn[data-case="research"]:hover .material-symbols-sharp {
+    color: #f97316;
+}
+
+.use-case-btn[data-case="energy"]:hover,
+.use-case-btn[data-case="energy"].active {
+    border-color: #eab308;
+    background: rgba(234, 179, 8, 0.15);
+}
+.use-case-btn[data-case="energy"].active .material-symbols-sharp,
+.use-case-btn[data-case="energy"]:hover .material-symbols-sharp {
+    color: #eab308;
+}
+
+/* Model Buttons */
+.model-btn {
+    width: 100%;
+    text-align: left;
+    padding: 0.625rem 0.875rem;
+    background: rgba(51, 65, 85, 0.5);
+    border: 2px solid var(--slate-600);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.model-btn:hover {
+    background: var(--slate-700);
+    border-color: var(--slate-500);
+    transform: translateX(4px);
+}
+
+.model-btn:focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+}
+
+.model-btn.active {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: #f59e0b;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.model-btn .model-check {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 1rem;
+}
+
+.model-btn.active .model-check {
+    opacity: 1;
+}
+
+/* Model size indicator badge */
+.model-btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(to bottom, #f59e0b, #ef4444);
+    border-radius: 0 2px 2px 0;
+    transition: height 0.3s ease;
+}
+
+.model-btn.active::after {
+    height: 60%;
+}
+
+/* Cluster Visualization */
+.cluster-viz {
+    background: var(--slate-800);
+    border: 1px solid var(--slate-700);
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+.rack-container {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--slate-600);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    overflow: hidden;
+}
+
+.rack-bg-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+
+.rack-cabinet {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 3px solid var(--slate-600);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    position: relative;
+    z-index: 10;
+}
+
+.rack-header {
+    height: 2rem;
+    background: var(--slate-600);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rack-units-container {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0.5rem;
+    gap: 0.25rem;
+    min-height: 300px;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.rack-footer {
+    height: 2.5rem;
+    background: var(--slate-700);
+    border-top: 2px solid var(--slate-600);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+/* Rack Units */
+.rack-unit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.rack-unit-cs3 {
+    height: 5rem;
+    background: var(--slate-800);
+    border-left: 4px solid #f59e0b;
+    padding: 0 1rem;
+    gap: 0.75rem;
+}
+
+.rack-unit-ddn {
+    height: 3rem;
+    background: var(--slate-800);
+    border-left: 4px solid #ef4444;
+    padding: 0 1rem;
+    justify-content: space-between;
+}
+
+.rack-unit-network {
+    height: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+}
+
+/* Use Case Cards */
+.use-case-card {
+    background: linear-gradient(180deg, var(--slate-800) 0%, rgba(30, 41, 59, 0.95) 100%);
+    border: 1px solid var(--slate-600);
+    border-radius: var(--radius-lg, 1rem);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+    isolation: isolate;
+    /* CSS Grid with subgrid support for aligned card sections */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+/* Cards grid with subgrid for alignment */
+.use-case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: var(--gap-md, 1.5rem);
+}
+
+/* Subgrid support for aligned card internals */
+@supports (grid-template-rows: subgrid) {
+    .use-case-card {
+        grid-row: span 3;
+    }
+}
+
+.use-case-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+    border-color: var(--slate-500);
+}
+
+.use-case-card .absolute img {
+    transition: all 0.5s ease;
+}
+
+.use-case-card:hover .absolute img {
+    opacity: 0.4 !important;
+    transform: scale(1.05);
+}
+
+.use-case-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.use-case-icon {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+}
+
+.use-case-body {
+    padding: 0 1.5rem 1.5rem;
+}
+
+/* LED indicators */
+.led-active {
+    animation: ledBlink 2s infinite;
+}
+
+@keyframes ledBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* ============================================
+   VISIO-STYLE ARCHITECTURE DIAGRAM
+   Premium interactive cluster visualization
+   ============================================ */
+
+.visio-container {
+    position: relative;
+    background: 
+        radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(239, 68, 68, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse at 20% 90%, rgba(14, 165, 233, 0.04) 0%, transparent 40%),
+        linear-gradient(180deg, #0c0f1a 0%, #070a12 100%);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: var(--radius-xl, 1.5rem);
+    padding: var(--gap-xl, 4rem) var(--gap-lg, 2rem);
+    min-height: 750px;
+    overflow: visible;
+    isolation: isolate;
+    box-shadow: 
+        0 0 80px -20px rgba(245, 158, 11, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Ambient Glow Orbs */
+.visio-glow-orb {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    opacity: 0.4;
+    animation: orbFloat 20s ease-in-out infinite;
+}
+
+.visio-glow-orb-amber {
+    top: 30%;
+    left: 10%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%);
+    animation-delay: 0s;
+}
+
+.visio-glow-orb-red {
+    bottom: 10%;
+    right: 10%;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.25) 0%, transparent 70%);
+    animation-delay: -10s;
+}
+
+@keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.1); }
+    66% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+.visio-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px),
+        radial-gradient(rgba(245, 158, 11, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 25px 25px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+}
+
+.visio-connections {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.visio-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0;
+    padding-top: 280px;
+}
+
+/* ========================================
+   ADVANCED DATA FLOW SYSTEM
+   Multi-layer particle animation between all components
+   ======================================== */
+
+/* Primary Data Flow Container */
+.visio-data-flow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+/* Data Particle Base */
+.visio-data-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: particleTravel 6s ease-in-out infinite;
+}
+
+/* Sky-colored particles (App → Network) */
+.visio-particle-sky {
+    background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+    box-shadow: 
+        0 0 8px #0ea5e9,
+        0 0 20px rgba(14, 165, 233, 0.6),
+        0 0 40px rgba(14, 165, 233, 0.3);
+}
+
+/* Amber particles (Network ↔ Compute) */
+.visio-particle-amber {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    box-shadow: 
+        0 0 8px #f59e0b,
+        0 0 20px rgba(245, 158, 11, 0.6),
+        0 0 40px rgba(245, 158, 11, 0.3);
+}
+
+/* Red particles (Compute ↔ Storage) */
+.visio-particle-red {
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+    box-shadow: 
+        0 0 8px #ef4444,
+        0 0 20px rgba(239, 68, 68, 0.6),
+        0 0 40px rgba(239, 68, 68, 0.3);
+}
+
+/* Particle positioning and timing */
+.visio-particle-1 { left: 15%; animation-delay: 0s; }
+.visio-particle-2 { left: 30%; animation-delay: -1s; }
+.visio-particle-3 { left: 50%; animation-delay: -2s; }
+.visio-particle-4 { left: 70%; animation-delay: -3s; }
+.visio-particle-5 { left: 85%; animation-delay: -4s; }
+
+/* Downward flow (request) */
+@keyframes particleTravel {
+    0% { 
+        transform: translateY(-20px) scale(0.5); 
+        opacity: 0;
+        filter: blur(2px);
+    }
+    15% { 
+        transform: translateY(0) scale(1); 
+        opacity: 1;
+        filter: blur(0);
+    }
+    85% { 
+        transform: translateY(calc(100vh - 200px)) scale(1); 
+        opacity: 1;
+        filter: blur(0);
+    }
+    100% { 
+        transform: translateY(calc(100vh - 180px)) scale(0.5); 
+        opacity: 0;
+        filter: blur(2px);
+    }
+}
+
+/* Upward flow (response) */
+@keyframes particleTravelUp {
+    0% { 
+        transform: translateY(calc(100vh - 180px)) scale(0.5); 
+        opacity: 0;
+        filter: blur(2px);
+    }
+    15% { 
+        transform: translateY(calc(100vh - 200px)) scale(1); 
+        opacity: 1;
+        filter: blur(0);
+    }
+    85% { 
+        transform: translateY(0) scale(1); 
+        opacity: 1;
+        filter: blur(0);
+    }
+    100% { 
+        transform: translateY(-20px) scale(0.5); 
+        opacity: 0;
+        filter: blur(2px);
+    }
+}
+
+.visio-particle-up {
+    animation-name: particleTravelUp;
+}
+
+/* Horizontal data streams */
+.visio-stream-horizontal {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    animation: streamPulse 3s ease-in-out infinite;
+}
+
+@keyframes streamPulse {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scaleX(0.8);
+    }
+    50% { 
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+/* Connection beams between nodes */
+.visio-beam {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.visio-beam-line {
+    stroke-width: 2;
+    stroke-linecap: round;
+    fill: none;
+    animation: beamFlow 2s linear infinite;
+}
+
+.visio-beam-amber {
+    stroke: url(#beam-gradient-amber);
+    filter: drop-shadow(0 0 4px #f59e0b);
+}
+
+.visio-beam-red {
+    stroke: url(#beam-gradient-red);
+    filter: drop-shadow(0 0 4px #ef4444);
+}
+
+@keyframes beamFlow {
+    0% { stroke-dashoffset: 20; }
+    100% { stroke-dashoffset: 0; }
+}
+
+/* Pulse rings on data transfer */
+.visio-pulse-ring {
+    position: absolute;
+    border: 2px solid;
+    border-radius: 50%;
+    animation: pulseRing 2s ease-out infinite;
+    pointer-events: none;
+}
+
+.visio-pulse-ring-amber {
+    border-color: rgba(245, 158, 11, 0.6);
+}
+
+.visio-pulse-ring-red {
+    border-color: rgba(239, 68, 68, 0.6);
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+/* Enhanced flow trails */
+.visio-flow-trail {
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.visio-flow-trail::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    animation: trailMove 2s linear infinite;
+}
+
+@keyframes trailMove {
+    0% { left: -60px; }
+    100% { left: 100%; }
+}
+
+/* Legacy particle support */
+.visio-data-particle:not(.visio-particle-sky):not(.visio-particle-amber):not(.visio-particle-red) {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    box-shadow: 0 0 10px #f59e0b, 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+/* Rows */
+.visio-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.visio-row-top {
+    padding-bottom: 1rem;
+}
+
+.visio-row-network {
+    padding: 0.75rem 0;
+}
+
+.visio-row-compute,
+.visio-row-storage {
+    min-height: 140px;
+    align-items: center;
+}
+
+.visio-row-dc {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed rgba(245, 158, 11, 0.3);
+}
+
+/* ========================================
+   PREMIUM NODE STYLING
+   ======================================== */
+
+.visio-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.75rem;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+    border: 2px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.visio-node-premium {
+    border-color: rgba(14, 165, 233, 0.4);
+    background: 
+        linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+}
+
+.visio-node:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+        0 20px 40px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.visio-node:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.4);
+}
+
+/* Node Glow Effects */
+.visio-node-glow {
+    position: absolute;
+    inset: -3px;
+    border-radius: 1.1rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.visio-node:hover .visio-node-glow {
+    opacity: 1;
+}
+
+.visio-glow-sky {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.3) 0%, rgba(56, 189, 248, 0.2) 100%);
+    box-shadow: 
+        0 0 30px rgba(14, 165, 233, 0.4),
+        0 0 60px rgba(14, 165, 233, 0.2);
+}
+
+.visio-glow-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(251, 191, 36, 0.2) 100%);
+    box-shadow: 
+        0 0 30px rgba(245, 158, 11, 0.4),
+        0 0 60px rgba(245, 158, 11, 0.2);
+}
+
+.visio-glow-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(248, 113, 113, 0.2) 100%);
+    box-shadow: 
+        0 0 30px rgba(239, 68, 68, 0.4),
+        0 0 60px rgba(239, 68, 68, 0.2);
+}
+
+/* Animated Ring */
+.visio-node-ring {
+    position: absolute;
+    inset: -8px;
+    border: 2px solid transparent;
+    border-radius: 1.2rem;
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, transparent 50%) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    animation: ringPulse 3s ease-in-out infinite;
+}
+
+.visio-node:hover .visio-node-ring {
+    opacity: 1;
+}
+
+@keyframes ringPulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.02); opacity: 0.7; }
+}
+
+/* Premium Icon Wrapper */
+.visio-node-icon-wrapper {
+    position: relative;
+}
+
+.visio-node-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.visio-svg-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.visio-icon-gradient-sky {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(14, 165, 233, 0.05) 100%);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.visio-icon-gradient-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.visio-icon-gradient-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.05) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Pulse Animation for Icons */
+.visio-node-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    animation: iconPulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes iconPulse {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+        opacity: 1;
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgba(14, 165, 233, 0);
+        opacity: 0;
+    }
+}
+
+.visio-node-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* ========================================
+   DETAILED NODE STYLES
+   ======================================== */
+
+.visio-node-detailed {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    min-width: 280px;
+    max-width: 320px;
+    gap: 0.75rem;
+}
+
+.visio-node-detailed .visio-node-icon-wrapper {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+
+.visio-node-detailed .visio-node-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.5);
+}
+
+.visio-node-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 2rem;
+}
+
+.visio-node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.visio-node-header .visio-node-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+}
+
+.visio-node-chip {
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    background: rgba(148, 163, 184, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 0.25rem;
+    color: var(--slate-400);
+    font-family: ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Metrics Row */
+.visio-metrics-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.visio-metric {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0.25rem;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.visio-metric-red {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.visio-metric-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fbbf24;
+    font-family: ui-monospace, monospace;
+    line-height: 1.2;
+}
+
+.visio-metric-red .visio-metric-value {
+    color: #f87171;
+}
+
+.visio-metric-label {
+    font-size: 0.6rem;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.15rem;
+}
+
+/* Specs Grid */
+.visio-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+}
+
+.visio-spec-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.5rem;
+    background: rgba(148, 163, 184, 0.08);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 0.35rem;
+    font-size: 0.7rem;
+    color: var(--slate-300);
+    font-weight: 500;
+}
+
+.visio-spec-item.visio-spec-red {
+    background: rgba(239, 68, 68, 0.05);
+    border-color: rgba(239, 68, 68, 0.15);
+}
+
+.visio-spec-highlight {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #fbbf24;
+    font-weight: 600;
+}
+
+.visio-spec-highlight-red {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #f87171;
+    font-weight: 600;
+}
+
+.visio-spec-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+/* Bandwidth Bar */
+.visio-bandwidth-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0.6rem;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 0.35rem;
+}
+
+.visio-bandwidth-label {
+    font-size: 0.65rem;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.visio-bandwidth-value {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fbbf24;
+    font-family: ui-monospace, monospace;
+}
+
+/* Capacity Bar */
+.visio-capacity-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.4rem 0.5rem;
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.03) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 0.35rem;
+}
+
+.visio-capacity-label {
+    font-size: 0.6rem;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.visio-capacity-options {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.visio-cap-chip {
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.15rem 0.4rem;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 0.25rem;
+    color: #f87171;
+    font-family: ui-monospace, monospace;
+}
+
+/* Status LED */
+.visio-status-led {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.visio-led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: ledPulse 2s infinite;
+}
+
+.visio-led-green {
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e, 0 0 16px rgba(34, 197, 94, 0.5);
+}
+
+.visio-led-amber {
+    background: #f59e0b;
+    box-shadow: 0 0 8px #f59e0b, 0 0 16px rgba(245, 158, 11, 0.5);
+}
+
+.visio-led-red {
+    background: #ef4444;
+    box-shadow: 0 0 8px #ef4444, 0 0 16px rgba(239, 68, 68, 0.5);
+}
+
+@keyframes ledPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.visio-status-text {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #22c55e;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ========================================
+   APPLICATION LAYER NODE - DETAILED
+   ======================================== */
+
+.visio-node-wide {
+    width: 100%;
+    max-width: 520px;
+    min-height: auto;
+    padding: 1.25rem;
+}
+
+.visio-node-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.visio-node-chip {
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.25) 0%, rgba(14, 165, 233, 0.1) 100%);
+    border: 1px solid rgba(14, 165, 233, 0.4);
+    border-radius: 9999px;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.visio-node-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+/* Workload Grid */
+.visio-workload-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.visio-workload-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.6rem 0.4rem;
+    background: rgba(14, 165, 233, 0.08);
+    border: 1px solid rgba(14, 165, 233, 0.15);
+    border-radius: 0.5rem;
+    font-size: 0.6rem;
+    color: var(--slate-300);
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.visio-workload-item:hover {
+    background: rgba(14, 165, 233, 0.15);
+    border-color: rgba(14, 165, 233, 0.3);
+    transform: translateY(-2px);
+}
+
+.visio-workload-icon {
+    width: 16px;
+    height: 16px;
+    color: #38bdf8;
+}
+
+.visio-workload-sky {
+    background: rgba(14, 165, 233, 0.06);
+    border-color: rgba(14, 165, 233, 0.12);
+}
+
+/* API Row */
+.visio-api-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.visio-api-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.6rem;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 0.35rem;
+}
+
+.visio-api-protocol {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #22c55e;
+    padding: 0.15rem 0.35rem;
+    background: rgba(34, 197, 94, 0.15);
+    border-radius: 0.25rem;
+    font-family: ui-monospace, monospace;
+}
+
+.visio-api-endpoint {
+    font-size: 0.65rem;
+    color: var(--slate-300);
+    font-family: ui-monospace, monospace;
+}
+
+/* ========================================
+   FABRIC BARS - DETAILED PREMIUM
+   ======================================== */
+
+.visio-fabric-detailed {
+    min-height: 85px;
+    padding: 1rem 1.25rem;
+}
+
+.visio-fabric-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.visio-fabric-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.visio-fabric-metrics {
+    display: flex;
+    gap: 1rem;
+}
+
+.visio-fabric-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.4rem 0.75rem;
+    background: rgba(148, 163, 184, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 0.4rem;
+}
+
+.visio-fabric-stat-value {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: white;
+    font-family: ui-monospace, monospace;
+    line-height: 1;
+}
+
+.visio-fabric-stat-unit {
+    font-size: 0.55rem;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.15rem;
+}
+
+.visio-stat-red .visio-fabric-stat-value {
+    color: #f87171;
+}
+
+.visio-stat-red {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.25);
+}
+
+.visio-fabric-features {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.visio-fabric-feature {
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    background: rgba(148, 163, 184, 0.12);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 0.3rem;
+    color: var(--slate-300);
+    font-family: ui-monospace, monospace;
+}
+
+.visio-feature-red {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+}
+
+.visio-node-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    letter-spacing: -0.01em;
+}
+
+.visio-node-subtitle {
+    font-size: 0.75rem;
+    color: var(--slate-400);
+    font-weight: 500;
+}
+
+/* Node Badge */
+.visio-node-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 0.25rem 0.6rem;
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 9999px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    font-family: ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.visio-badge-sky {
+    color: #38bdf8;
+    border: 1px solid rgba(14, 165, 233, 0.5);
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+/* ========================================
+   CS-3 COMPUTE NODES - PREMIUM AMBER
+   ======================================== */
+
+.visio-node-cs3 {
+    border-color: rgba(245, 158, 11, 0.5);
+    background: 
+        linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+    box-shadow: 
+        0 0 0 1px rgba(245, 158, 11, 0.1),
+        0 4px 20px -5px rgba(0, 0, 0, 0.4);
+}
+
+.visio-node-cs3 .visio-node-icon {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.1) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 20px rgba(245, 158, 11, 0.2);
+}
+
+.visio-node-cs3 .visio-node-glow {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+}
+
+.visio-node-cs3:hover {
+    border-color: #fbbf24;
+    box-shadow: 
+        0 0 40px -10px rgba(245, 158, 11, 0.5),
+        0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.visio-node-cs3 .visio-node-badge {
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+/* CS-3 Chip SVG Icon */
+.visio-cs3-icon {
+    width: 48px;
+    height: 48px;
+}
+
+/* ========================================
+   DDN STORAGE NODES - PREMIUM RED
+   ======================================== */
+
+.visio-node-ddn {
+    border-color: rgba(239, 68, 68, 0.5);
+    background: 
+        linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+    box-shadow: 
+        0 0 0 1px rgba(239, 68, 68, 0.1),
+        0 4px 20px -5px rgba(0, 0, 0, 0.4);
+}
+
+.visio-node-ddn .visio-node-icon {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(239, 68, 68, 0.1) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+.visio-node-ddn .visio-node-glow {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, transparent 70%);
+}
+
+.visio-node-ddn:hover {
+    border-color: #f87171;
+    box-shadow: 
+        0 0 40px -10px rgba(239, 68, 68, 0.5),
+        0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.visio-node-ddn .visio-node-badge {
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* DDN Storage SVG Icon */
+.visio-ddn-icon {
+    width: 48px;
+    height: 48px;
+}
+
+/* ========================================
+   NETWORK FABRIC - PREMIUM DESIGN
+   ======================================== */
+
+.visio-fabric {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(30, 41, 59, 0.8) 15%, 
+        rgba(30, 41, 59, 0.95) 50%, 
+        rgba(30, 41, 59, 0.8) 85%, 
+        transparent 100%);
+    border-top: 2px solid rgba(148, 163, 184, 0.2);
+    border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+
+.visio-fabric-premium {
+    border-top: 2px solid rgba(148, 163, 184, 0.3);
+    border-bottom: 2px solid rgba(148, 163, 184, 0.3);
+}
+
+.visio-fabric-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(148, 163, 184, 0.05) 50%, 
+        transparent 100%);
+    pointer-events: none;
+}
+
+.visio-glow-red-fabric {
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(239, 68, 68, 0.08) 50%, 
+        transparent 100%);
+}
+
+.visio-fabric-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.visio-fabric-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(148, 163, 184, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 0.5rem;
+}
+
+.visio-fabric-icon-red {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.visio-fabric-badge {
+    padding: 0.25rem 0.75rem;
+    background: rgba(148, 163, 184, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    font-family: ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.visio-badge-red {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+.visio-spec-chip {
+    padding: 0.2rem 0.5rem;
+    background: rgba(148, 163, 184, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 0.25rem;
+    color: #94a3b8;
+    font-size: 0.7rem;
+}
+
+.visio-chip-red {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.visio-fabric-flow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 200%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(148, 163, 184, 0.1) 10%,
+        rgba(148, 163, 184, 0.4) 25%,
+        transparent 35%,
+        transparent 50%,
+        rgba(148, 163, 184, 0.1) 60%,
+        rgba(148, 163, 184, 0.4) 75%,
+        transparent 85%,
+        transparent 100%
+    );
+    transform: translateY(-50%);
+    animation: flowData 6s linear infinite;
+    opacity: 0.6;
+}
+
+.visio-flow-delay {
+    animation-delay: -3s;
+}
+
+.visio-flow-red {
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(239, 68, 68, 0.1) 10%,
+        rgba(239, 68, 68, 0.5) 25%,
+        transparent 35%,
+        transparent 50%,
+        rgba(239, 68, 68, 0.1) 60%,
+        rgba(239, 68, 68, 0.5) 75%,
+        transparent 85%,
+        transparent 100%
+    );
+}
+
+.visio-fabric-storage {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+@keyframes flowData {
+    0% { transform: translateX(-50%) translateY(-50%); }
+    100% { transform: translateX(0%) translateY(-50%); }
+}
+
+/* ========================================
+   DATACENTER BOX - PREMIUM
+   ======================================== */
+.visio-dc-wrapper {
+    width: 100%;
+    max-width: 950px;
+}
+
+.visio-dc-box {
+    position: relative;
+    background: 
+        linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.03) 100%),
+        linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border: 2px dashed rgba(245, 158, 11, 0.4);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+.visio-dc-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    animation: dcGlow 8s ease-in-out infinite;
+}
+
+@keyframes dcGlow {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.visio-dc-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.visio-dc-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 0.75rem;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+}
+
+.visio-dc-badge {
+    margin-left: auto;
+    padding: 0.35rem 1rem;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fbbf24;
+    font-family: ui-monospace, monospace;
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+}
+
+.visio-dc-features {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.visio-dc-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--slate-300);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.visio-dc-feature:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* ========================================
+   LEGEND - PREMIUM
+   ======================================== */
+
+.visio-legend {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 0.75rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.visio-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--slate-400);
+    font-weight: 500;
+}
+
+.visio-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.visio-legend-line {
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+/* Summary Bar */
+.visio-summary {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1.5rem;
+    background: rgba(15, 23, 42, 0.98);
+    border: 1px solid var(--slate-600);
+    border-radius: 9999px;
+    backdrop-filter: blur(8px);
+    z-index: 100;
+}
+
+.visio-summary-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.visio-summary-value {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.visio-summary-label {
+    font-size: 0.6rem;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.visio-summary-divider {
+    width: 1px;
+    height: 30px;
+    background: var(--slate-700);
+}
+
+/* Component Visibility Controls */
+.visio-controls {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 23, 42, 0.98);
+    border: 1px solid var(--slate-600);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(8px);
+    min-width: 180px;
+    z-index: 100;
+    font-size: 0.75rem;
+}
+
+.visio-controls-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--slate-700);
+}
+
+.visio-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.visio-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0;
+}
+
+.visio-checkbox input {
+    display: none;
+}
+
+.visio-checkbox-mark {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    opacity: 0.3;
+    transition: all 0.2s ease;
+}
+
+.visio-checkbox input:checked + .visio-checkbox-mark {
+    opacity: 1;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.visio-checkbox-label {
+    font-size: 0.65rem;
+    color: var(--slate-300);
+    font-weight: 500;
+}
+
+.visio-checkbox:hover .visio-checkbox-label {
+    color: white;
+}
+
+.visio-controls-divider {
+    height: 1px;
+    background: var(--slate-700);
+    margin: 0.25rem 0;
+}
+
+.visio-legend-mini {
+    display: flex;
+    gap: 1rem;
+}
+
+.visio-legend-mini .visio-legend-item {
+    font-size: 0.65rem;
+}
+
+/* Connection Lines (SVG) */
+.visio-connection-line {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.visio-connection-animated {
+    stroke-dasharray: 8 4;
+    animation: dashFlow 2s linear infinite;
+}
+
+@keyframes dashFlow {
+    0% { stroke-dashoffset: 12; }
+    100% { stroke-dashoffset: 0; }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .info-panel {
+        position: relative;
+        top: 0;
+        min-height: auto;
+    }
+}
+
+/* Extra large screens (xl) */
+@media (min-width: 1280px) {
+    .use-case-grid {
+        gap: var(--gap-lg, 2rem);
+    }
+    
+    .arch-diagram {
+        padding: 3rem;
+    }
+    
+    .visio-container {
+        padding: 5rem 3rem;
+    }
+}
+
+/* 2xl screens */
+@media (min-width: 1536px) {
+    .visio-content {
+        padding-inline: 2rem;
+    }
+}
+
+/* Preset Configuration Buttons */
+.preset-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(51, 65, 85, 0.4);
+    border: 1px solid var(--slate-600);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+    background: var(--slate-700);
+    border-color: var(--slate-500);
+    transform: translateY(-1px);
+}
+
+.preset-btn:focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+}
+
+.preset-btn.preset-popular {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.preset-btn.preset-popular:hover {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+}
+
+/* Animated metrics */
+.metric-value {
+    transition: all 0.3s ease;
+}
+
+.metric-value.updating {
+    transform: scale(1.1);
+    color: #10b981;
+}
+
+/* Sizing result card animations */
+#sizing-result {
+    transition: all 0.3s ease;
+}
+
+#sizing-result.highlight {
+    border-color: #10b981;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+/* ========================================
+   ADVANCED TOOLTIP SYSTEM
+   Premium tooltips for diagram nodes
+   ======================================== */
+
+.visio-tooltip {
+    position: fixed;
+    z-index: 10000;
+    min-width: 320px;
+    max-width: 400px;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1rem;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+        0 0 40px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.visio-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Tooltip Header */
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.tooltip-header-amber {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.15) 0%, transparent 100%);
+    border-bottom-color: rgba(245, 158, 11, 0.2);
+}
+
+.tooltip-header-red {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.15) 0%, transparent 100%);
+    border-bottom-color: rgba(239, 68, 68, 0.2);
+}
+
+.tooltip-header-sky {
+    background: linear-gradient(90deg, rgba(14, 165, 233, 0.15) 0%, transparent 100%);
+    border-bottom-color: rgba(14, 165, 233, 0.2);
+}
+
+.tooltip-header-slate {
+    background: linear-gradient(90deg, rgba(100, 116, 139, 0.2) 0%, transparent 100%);
+    border-bottom-color: rgba(100, 116, 139, 0.2);
+}
+
+.tooltip-icon {
+    font-size: 1.25rem;
+}
+
+.tooltip-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.01em;
+}
+
+/* Tooltip Body */
+.tooltip-body {
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.tooltip-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.tooltip-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.tooltip-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tooltip-stat {
+    font-size: 0.75rem;
+    color: var(--slate-300);
+    padding: 0.3rem 0.6rem;
+    background: rgba(148, 163, 184, 0.08);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 0.35rem;
+}
+
+.tooltip-stat strong {
+    color: white;
+    font-weight: 700;
+}
+
+.tooltip-highlight {
+    font-size: 0.85rem;
+    color: var(--slate-200);
+    padding: 0.5rem 0.75rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 0.4rem;
+}
+
+.tooltip-highlight strong {
+    color: #34d399;
+    font-weight: 700;
+}
+
+.tooltip-dim {
+    font-size: 0.7rem;
+    color: var(--slate-400);
+}
+
+.tooltip-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.tooltip-chip {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    background: rgba(100, 116, 139, 0.15);
+    border: 1px solid rgba(100, 116, 139, 0.25);
+    border-radius: 9999px;
+    color: var(--slate-300);
+}
+
+.tooltip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.tooltip-list span {
+    font-size: 0.75rem;
+    color: var(--slate-300);
+}
+
+/* Node Active State */
+.visio-node-active {
+    z-index: 10;
+}
+
+.visio-node-active::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2px solid currentColor;
+    border-radius: inherit;
+    animation: activeRing 1.5s ease-in-out infinite;
+}
+
+.visio-node-cs3.visio-node-active::before {
+    border-color: rgba(245, 158, 11, 0.6);
+}
+
+.visio-node-ddn.visio-node-active::before {
+    border-color: rgba(239, 68, 68, 0.6);
+}
+
+@keyframes activeRing {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.02); }
+}
+
+/* Node Click Animation */
+.visio-node-clicked {
+    animation: nodeClick 0.6s ease-out;
+}
+
+@keyframes nodeClick {
+    0% { transform: scale(1); }
+    30% { transform: scale(0.97); }
+    60% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Enhanced hover states for fabric bars */
+.visio-fabric:hover {
+    transform: scaleX(1.01);
+    transition: transform 0.3s ease;
+}
+
+.visio-fabric:hover .visio-fabric-glow {
+    opacity: 0.6;
+}
+
+/* ========================================
+   AI CHAT ASSISTANT WIDGET
+   Premium glassmorphism design
+   ======================================== */
+
+/* Toggle Button */
+.ai-chat-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 4px 20px rgba(245, 158, 11, 0.4),
+        0 0 0 3px rgba(245, 158, 11, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+}
+
+.ai-chat-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        0 6px 30px rgba(245, 158, 11, 0.5),
+        0 0 0 5px rgba(245, 158, 11, 0.15);
+}
+
+.ai-chat-toggle:active {
+    transform: scale(0.95);
+}
+
+.ai-toggle-icon {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.ai-toggle-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #22c55e;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.2rem 0.4rem;
+    border-radius: 9999px;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+}
+
+.ai-toggle-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid #f59e0b;
+    animation: aiPulse 2s ease-out infinite;
+}
+
+@keyframes aiPulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Chat Panel */
+.ai-chat-panel {
+    position: fixed;
+    bottom: 6rem;
+    right: 2rem;
+    width: 400px;
+    max-width: calc(100vw - 2rem);
+    height: 550px;
+    max-height: calc(100vh - 8rem);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1.5rem;
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    backdrop-filter: blur(20px);
+    z-index: 9998;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ai-chat-panel.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.ai-chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Header */
+.ai-chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.ai-chat-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.ai-chat-title-block {
+    flex: 1;
+}
+
+.ai-chat-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.ai-chat-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    color: #22c55e;
+}
+
+.ai-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: statusBlink 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.ai-chat-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(148, 163, 184, 0.1);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--slate-400);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ai-chat-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.ai-chat-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Messages */
+.ai-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ai-message {
+    display: flex;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.ai-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ai-message-user {
+    justify-content: flex-end;
+}
+
+.ai-message-assistant {
+    justify-content: flex-start;
+}
+
+.ai-message-bubble {
+    max-width: 85%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.ai-message-user .ai-message-bubble {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.ai-message-assistant .ai-message-bubble {
+    background: rgba(51, 65, 85, 0.6);
+    color: var(--slate-200);
+    border-bottom-left-radius: 0.25rem;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ai-message-bubble p {
+    margin: 0 0 0.5rem;
+}
+
+.ai-message-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.ai-message-bubble ul,
+.ai-message-bubble ol {
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+}
+
+.ai-message-bubble li {
+    margin: 0.25rem 0;
+}
+
+.ai-message-bubble strong {
+    color: white;
+}
+
+.ai-message-bubble table {
+    margin-top: 0.5rem;
+}
+
+.ai-message-bubble th,
+.ai-message-bubble td {
+    padding: 0.35rem 0.5rem;
+}
+
+/* Typing Indicator */
+.ai-typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 0.75rem 1rem;
+}
+
+.ai-typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: var(--slate-400);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.ai-typing-indicator span:nth-child(1) { animation-delay: 0s; }
+.ai-typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+}
+
+/* Quick Actions */
+.ai-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.ai-quick-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba(51, 65, 85, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 9999px;
+    color: var(--slate-300);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ai-quick-btn:hover {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+}
+
+.ai-quick-btn span {
+    font-size: 0.85rem;
+}
+
+/* Input */
+.ai-chat-input-container {
+    padding: 1rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.ai-chat-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(51, 65, 85, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 0.75rem;
+    padding: 0.25rem;
+}
+
+.ai-chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0.75rem;
+    color: white;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.ai-chat-input::placeholder {
+    color: var(--slate-500);
+}
+
+.ai-chat-send {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ai-chat-send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.ai-chat-send svg {
+    width: 18px;
+    height: 18px;
+}
+
+.ai-chat-disclaimer {
+    margin-top: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--slate-500);
+    text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .ai-chat-panel {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+        height: calc(100vh - 6rem);
+        max-height: none;
+    }
+    
+    .ai-chat-toggle {
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
